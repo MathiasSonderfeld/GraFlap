@@ -81,7 +81,7 @@ public class GraFlap {
                                                              arguments.getUserLanguage(),arguments.getMode(),
                                                              arguments.getAgtype(), studType, svg);
             // for LON-CAPA
-            System.out.println(an.generateProformaMessage());
+            System.out.println(an.generateAnswerMessage());
 
         } catch (GraFlapException lex) {
             System.out.println(lex.getLonCapaMessage(arguments.getTaskTitle()));

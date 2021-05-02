@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.Hs-Hannover.inform</groupId>
+    <groupId>de.HsHannover.inform</groupId>
     <artifactId>GraFlap</artifactId>
     <version>0.1</version>
     <name>GraFlap</name>
@@ -16,15 +16,33 @@
     </properties>
 
     <dependencies>
+        <!-- MEGA PFUSCH für Libs, aktualisieren nötig -->
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20210307</version>
+            <groupId>HsH</groupId>
+            <artifactId>GraFlapJDOM</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>HsH</groupId>
+            <artifactId>GraFlapJFLAP</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>HsH</groupId>
+            <artifactId>GraFlapAutomaton</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>HsH</groupId>
+            <artifactId>GraFlapXeger</artifactId>
+            <version>1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.0-M1</version>
+            <version>5.7.1</version>
         </dependency>
+
+
     </dependencies>
 </project>
