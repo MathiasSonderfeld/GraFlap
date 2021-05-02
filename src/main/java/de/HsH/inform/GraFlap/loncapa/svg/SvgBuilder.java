@@ -31,15 +31,15 @@ public abstract class SvgBuilder {
 
     public SvgBuilder() {
         mode = Mode.DEFAULT;
-        filepath = "/usr/bin/fdp";
+        filepath = "C:\\Program Files\\Graphviz\\bin\\fdp.exe";
     }
 
     public SvgBuilder(Mode mode) {
         this.mode = mode;
         if (mode == Mode.SVGA) {
-            filepath = "/usr/bin/dot";
+            filepath = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
         } else {
-            filepath = "/usr/bin/fdp";
+            filepath = "C:\\Program Files\\Graphviz\\bin\\fdp.exe";
         }
     }
 

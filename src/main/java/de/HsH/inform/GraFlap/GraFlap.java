@@ -52,7 +52,7 @@ public class GraFlap {
             arguments = new LoncapaArguments(args);
         } catch (GraFlapException lex) {
                 System.out.println(lex.getLonCapaMessage(args[0].split("#")[0]));
-                System.exit(0);
+                return;
         }
 
         produceResult(arguments, determineModeNumber(arguments.getMode()));
@@ -85,7 +85,7 @@ public class GraFlap {
 
         } catch (GraFlapException lex) {
             System.out.println(lex.getLonCapaMessage(arguments.getTaskTitle()));
-            System.exit(0);
+            return;
         }
     }
 
