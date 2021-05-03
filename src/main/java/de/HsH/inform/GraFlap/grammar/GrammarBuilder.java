@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class GrammarBuilder {
     /**
      * builds grammar from given string
-     * @param grammar a grammar coded in a string from LONCAPA
+     * @param grammar a grammar coded in a string
      * @return the converted string of the grammar
      * @throws GraFlapException if an error in the grammar occurs
      */

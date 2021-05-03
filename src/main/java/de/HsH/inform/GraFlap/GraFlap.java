@@ -45,13 +45,14 @@ public class GraFlap {
      * @throws JDOMException throws a {@link JDOMException} that occurs deeper within the calling hierarchy
      */
     public static void main(String[] args) throws IOException, JDOMException {
+
         Arguments arguments = null;
 
         try {
 
             arguments = new Arguments(args);
         } catch (GraFlapException lex) {
-                System.out.println(lex.getLonCapaMessage(args[0].split("#")[0]));
+                System.out.println(lex.getErrorMessage(args[0].split("#")[0]));
                 return;
         }
 
@@ -84,10 +85,15 @@ public class GraFlap {
             System.out.println(an.generateAnswerMessage());
 
         } catch (GraFlapException lex) {
-            System.out.println(lex.getLonCapaMessage(arguments.getTaskTitle()));
+            System.out.println(lex.getErrorMessage(arguments.getTaskTitle()));
             return;
         }
     }
+
+    private static void determineInputMode(){
+
+    }
+
 
     /**
      * method to determine the operation mode based on the content of the mode string

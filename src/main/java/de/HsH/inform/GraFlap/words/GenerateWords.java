@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.words;
 
 import de.HsH.inform.GraFlap.grammar.GrammarBuilder;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.grammar.Grammar;
 import de.HsH.inform.GraFlap.simulation.WordBuilder;
 import de.HsH.inform.GraFlap.parse.BruteParser;
@@ -110,7 +110,7 @@ public class GenerateWords {
     /**
      * method to generate correct words of the grammar based on its grammar type: for context free grammars the
      * CYK parser is used, for other grammars the BruteForce parser
-     * @param grammarString a string containing the coded grammar comes LONCAPA
+     * @param grammarString a string containing the coded grammar
      *                      (for example: S=AB,A=aAb,A=ab,B=aBb,B=ab).
      * @return an array of right words for the given grammar
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy or when
@@ -180,7 +180,7 @@ public class GenerateWords {
 
     /**
      * method to retrieve the terminal alphabet of the provided grammar coded into the given string
-     * @param grammar the grammar from LONCAPA (for example: S=AB,A=aAb,A=ab,B=aBb,B=ab).
+     * @param grammar the grammar encoded (for example: S=AB,A=aAb,A=ab,B=aBb,B=ab).
      * @return an array with the alphabet of the grammar
      */
     private String[] getAlphabet(String grammar) {

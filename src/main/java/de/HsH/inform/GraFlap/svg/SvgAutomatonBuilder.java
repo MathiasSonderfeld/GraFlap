@@ -61,7 +61,7 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
 
     /**
      * abstract method to generate a graphvis object of the given content
-     * @param givenString the submission string from LonCapa
+     * @param givenString the submission string from Input
      * @return an XML coded string that contains the graphvis object of the given content
      * @throws GraFlapException throws {@link GraFlapException} if the content cannot be used or has errors
      */

@@ -3,7 +3,7 @@ package de.HsH.inform.GraFlap.convert;
 import de.HsH.inform.GraFlap.entity.CYKTable;
 import de.HsH.inform.GraFlap.entity.JFFType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.grammar.Grammar;
 import de.HsH.inform.GraFlap.grammar.Production;
 

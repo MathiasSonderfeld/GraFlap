@@ -27,7 +27,7 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
     @Override
     /**
      * method to generate a graphvis object of the jff-content
-     * @param givenString the jff submission from LonCapa
+     * @param givenString the jff submission from Input
      * @return an XML coded string that contains the graphvis object of the given jff-content
      * @throws GraFlapException throws {@link GraFlapException} if the jff-content cannot be used or has errors
      */

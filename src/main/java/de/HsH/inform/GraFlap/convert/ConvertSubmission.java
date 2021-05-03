@@ -3,7 +3,7 @@ package de.HsH.inform.GraFlap.convert;
 import de.HsH.inform.GraFlap.entity.JFFType;
 import de.HsH.inform.GraFlap.entity.ValuePair;
 import org.xml.sax.SAXException;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.automaton.Automaton;
 import de.HsH.inform.GraFlap.exception.JffTuringException;
 import de.HsH.inform.GraFlap.file.Transducer;

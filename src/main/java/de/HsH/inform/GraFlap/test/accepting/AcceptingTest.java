@@ -3,7 +3,7 @@ package de.HsH.inform.GraFlap.test.accepting;
 import de.HsH.inform.GraFlap.words.GenerateWords;
 import de.HsH.inform.GraFlap.words.WordSeparator;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 
 import java.util.HashMap;
 

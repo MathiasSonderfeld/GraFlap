@@ -4,7 +4,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.accepting.GrammarScoringTest;
 import de.HsH.inform.GraFlap.words.GenerateWords;
 import de.HsH.inform.GraFlap.words.WordSeparator;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.grammar.Grammar;
 
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class GrammarTest extends AcceptingTest<Grammar> {
      * @param studentInput the submission of the student
      * @param wordString a string with concatenated test words
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
-     * @throws GraFlapException throws a LonCapaException that occurs further within the calling hierarchy
+     * @throws GraFlapException throws a GraFlapException that occurs further within the calling hierarchy
      */
     @Override
     public int openInput(String solution, Submission<Grammar> studentInput, String wordString) throws GraFlapException {
@@ -54,7 +54,7 @@ public class GrammarTest extends AcceptingTest<Grammar> {
      * @param studentInput the submission of the student
      * @param numberOfWordsToBeGenerated number that specifies the required number of test words
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
-     * @throws GraFlapException throws a LonCapaException that occurs further within the calling hierarchy
+     * @throws GraFlapException throws a GraFlapException that occurs further within the calling hierarchy
      */
     @Override
     public int openInput(String solution, Submission<Grammar> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {

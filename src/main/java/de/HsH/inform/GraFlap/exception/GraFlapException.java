@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * Exception-class that creates an error message that can be send to the LonCapaserver
+ * Exception-class that creates an error message that can be returned
  * @author Ufuk Tosun (12-11-12)
  * @author Frauke Sprengel (08-15-2015)
  * @author Benjamin Held (03-31-2016)
@@ -27,7 +27,7 @@ public class GraFlapException extends Exception {
      * @param taskTitle the title string of the given task
      * @return the message for LON-CAPA to be shown
      */
-   public String getLonCapaMessage(String taskTitle){
+   public String getErrorMessage( String taskTitle){
     StringWriter errors = new StringWriter();
     this.printStackTrace(new PrintWriter(errors));
     return taskTitle + ": " + errors.toString();

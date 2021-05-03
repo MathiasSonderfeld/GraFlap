@@ -4,7 +4,7 @@ import de.HsH.inform.GraFlap.words.GenerateWords;
 import de.HsH.inform.GraFlap.words.WordSeparator;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.accepting.AutomatonScoringTest;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.automaton.Automaton;
 
 import java.util.HashMap;

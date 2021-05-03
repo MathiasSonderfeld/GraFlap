@@ -114,17 +114,17 @@ public class Arguments {
     public Arguments( String[] arguments) throws GraFlapException {
         Arguments.initHashSets();
         try {
-            String argsFromLoncapa = arguments[0];
+            String taskArgumentString = arguments[0];
             studentAnswer = arguments[1];
-            String[] loncapaArguments = argsFromLoncapa.split("#");
+            String[] taskArguments = taskArgumentString.split("#");
 
-            setTaskTitle(loncapaArguments[0]);
-            setUserLanguage(loncapaArguments[1]);
-            setSolution(loncapaArguments[2]);
-            setMode(loncapaArguments[3]);
-            setAgtype(loncapaArguments[4]);
-            parseAndCheckNumberOfWords(loncapaArguments[5]);
-            setWordString(loncapaArguments[6]);
+            setTaskTitle(taskArguments[0]);
+            setUserLanguage(taskArguments[1]);
+            setSolution(taskArguments[2]);
+            setMode(taskArguments[3]);
+            setAgtype(taskArguments[4]);
+            parseAndCheckNumberOfWords(taskArguments[5]);
+            setWordString(taskArguments[6]);
             checkCorrectModeAndType();
             checkInputWords();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -211,7 +211,7 @@ public class Arguments {
 
     /**
      * simple getter
-     * @return the coded language that the user of the submission uses to run LonCapa
+     * @return the coded language that the user of the submission uses
      */
     public String getUserLanguage() {
         return userLanguage;

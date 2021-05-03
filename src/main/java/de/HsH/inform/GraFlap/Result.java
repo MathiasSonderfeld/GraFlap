@@ -1,13 +1,10 @@
 package de.HsH.inform.GraFlap;
 
-import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.*;
 import de.HsH.inform.GraFlap.grammar.GrammarBuilder;
 import de.HsH.inform.GraFlap.convert.CYKInputParser;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import de.HsH.inform.GraFlap.convert.DerivationParser;
-import de.HsH.inform.GraFlap.entity.CYKTable;
-import de.HsH.inform.GraFlap.entity.JFFType;
-import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.scoring.cyk.CYKScoringTest;
 import de.HsH.inform.GraFlap.scoring.derivation.DerivationScoringTest;
 import de.HsH.inform.GraFlap.test.accepting.*;
@@ -73,8 +70,8 @@ public class Result {
 
     /**
      * simple getter
-     * @return the {@link Submission} object of the de.HsH.inform.GraFlap.loncapa submission
-     * @throws GraFlapException throws a {@link GraFlapException} if the de.HsH.inform.GraFlap.loncapa submission has not been stored in it
+     * @return the {@link Submission} object of the de.HsH.inform.GraFlap.entity submission
+     * @throws GraFlapException throws a {@link GraFlapException} if the de.HsH.inform.GraFlap.entity submission has not been stored in it
      */
     public Submission getSubmission() throws GraFlapException {
         if (submission.getInputType() != JFFType.UNDEFINED) {

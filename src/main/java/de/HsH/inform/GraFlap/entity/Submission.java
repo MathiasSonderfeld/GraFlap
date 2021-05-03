@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap;
+package de.HsH.inform.GraFlap.entity;
 
 import de.HsH.inform.GraFlap.entity.JFFType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;

@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.typetest;
 
 import de.HsH.inform.GraFlap.automaton.Automaton;
 import de.HsH.inform.GraFlap.automaton.DeterminismChecker;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**

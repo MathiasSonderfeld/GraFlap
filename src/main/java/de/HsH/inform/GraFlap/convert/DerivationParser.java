@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.convert;
 
 import de.HsH.inform.GraFlap.entity.JFFType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 
 /**
  * Helper class with static method to read and convert the given submission string for derivation input

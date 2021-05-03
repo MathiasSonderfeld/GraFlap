@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.test.transducing;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.words.MachineInputOutputParser;
-import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.automaton.Automaton;
 
 /**
