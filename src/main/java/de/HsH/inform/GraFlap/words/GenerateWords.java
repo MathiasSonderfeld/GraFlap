@@ -1,16 +1,16 @@
 package de.HsH.inform.GraFlap.words;
 
-import de.HsH.inform.GraFlap.loncapa.GrammarBuilder;
-import de.HsH.inform.GraFlap.loncapa.typetest.GrammarTypeTest;
-import de.HsH.inform.GraFlap.JFlapWrapper.Submission;
-import de.HsH.inform.GraFlap.JFlapWrapper.grammar.Grammar;
-import de.HsH.inform.GraFlap.JFlapWrapper.simulation.WordBuilder;
-import de.HsH.inform.GraFlap.JFlapWrapper.parse.BruteParser;
-import de.HsH.inform.GraFlap.loncapa.exception.GraFlapException;
-import de.HsH.inform.GraFlap.loncapa.convert.ConvertSubmission;
+import de.HsH.inform.GraFlap.grammar.GrammarBuilder;
+import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
+import de.HsH.inform.GraFlap.Submission;
+import de.HsH.inform.GraFlap.grammar.Grammar;
+import de.HsH.inform.GraFlap.simulation.WordBuilder;
+import de.HsH.inform.GraFlap.parse.BruteParser;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import nl.flotsam.xeger.Xeger;
-import de.HsH.inform.GraFlap.JFlapWrapper.parse.Parser;
-import de.HsH.inform.GraFlap.JFlapWrapper.parse.RestrictedBruteParser;
+import de.HsH.inform.GraFlap.parse.Parser;
+import de.HsH.inform.GraFlap.parse.RestrictedBruteParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;

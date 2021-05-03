@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.words;
 
-import de.HsH.inform.GraFlap.loncapa.exception.GraFlapException;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.HashMap;
 

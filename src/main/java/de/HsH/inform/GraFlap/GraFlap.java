@@ -17,14 +17,13 @@ package de.HsH.inform.GraFlap;
 
 import java.io.*;
 
-import de.HsH.inform.GraFlap.loncapa.answer.*;
-import de.HsH.inform.GraFlap.loncapa.answer.AnswerMessage;
-import de.HsH.inform.GraFlap.loncapa.entity.Mode;
-import de.HsH.inform.GraFlap.loncapa.exception.GraFlapException;
-import de.HsH.inform.GraFlap.loncapa.main.LoncapaArguments;
-import de.HsH.inform.GraFlap.loncapa.main.Result;
-import de.HsH.inform.GraFlap.loncapa.svg.SvgFactory;
-import de.HsH.inform.GraFlap.loncapa.typetest.*;
+import de.HsH.inform.GraFlap.answer.*;
+import de.HsH.inform.GraFlap.answer.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.OperationMode;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.svg.SvgFactory;
+import de.HsH.inform.GraFlap.typetest.*;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 
@@ -32,6 +31,7 @@ import org.jdom2.JDOMException;
  * Main execution file that starts the application
  * @author Ufuk Tosun (2012)
  * @author Benjamin Held (04-17-2016)
+ * @author Mathias Sonderfeld (07-2021)
  * @since 08-11-2016
  * @version 0.2.6
  */
@@ -45,11 +45,11 @@ public class GraFlap {
      * @throws JDOMException throws a {@link JDOMException} that occurs deeper within the calling hierarchy
      */
     public static void main(String[] args) throws IOException, JDOMException {
-        LoncapaArguments arguments = null;
+        Arguments arguments = null;
 
         try {
 
-            arguments = new LoncapaArguments(args);
+            arguments = new Arguments(args);
         } catch (GraFlapException lex) {
                 System.out.println(lex.getLonCapaMessage(args[0].split("#")[0]));
                 return;
@@ -60,12 +60,12 @@ public class GraFlap {
 
     /**
      * method to generate the result based on the input arguments
-     * @param arguments the {@link LoncapaArguments} object that holds the submission information
-     * @param mode the determined mode
+     * @param arguments the {@link Arguments} object that holds the submission information
+     * @param operationMode the determined mode
      */
-    private static void produceResult(LoncapaArguments arguments, Mode mode) {
+    private static void produceResult(Arguments arguments, OperationMode operationMode ) {
         try {
-            Result result = new Result(mode).generateResult(arguments);
+            Result result = new Result(operationMode).generateResult(arguments);
             String studType = result.getStudType();
 
             if (arguments.getMode().contains("t")) {
@@ -76,7 +76,7 @@ public class GraFlap {
                 }
             }
 
-            Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getInputType(), mode).getSvg();
+            Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getInputType(), operationMode).getSvg();
             AnswerMessage an = AnswerFactory.determineAnswer(result.getResult(), arguments.getTaskTitle(),
                                                              arguments.getUserLanguage(),arguments.getMode(),
                                                              arguments.getAgtype(), studType, svg);
@@ -94,34 +94,34 @@ public class GraFlap {
      * @param mode the string containing the mode information
      * @return the corresponding mode
      */
-    private static Mode determineModeNumber(String mode) {
+    private static OperationMode determineModeNumber( String mode) {
         switch (mode) {
-            case ("ar"): return Mode.AR;
-            case ("art"): return Mode.AR;
-            case ("ag"): return Mode.AG;
-            case ("agt"): return Mode.AG;
-            case ("gg"): return Mode.GG;
-            case ("ggt"): return Mode.GG;
-            case ("arw"): return Mode.ARW;
-            case ("artw"): return Mode.ARW;
-            case ("agw"): return Mode.AGW;
-            case ("agtw"): return Mode.AGW;
-            case ("ggw"): return Mode.GGW;
-            case ("ggtw"): return Mode.GGW;
-            case ("eat"): return Mode.EAT;
-            case ("egt"): return Mode.EAT;
-            case ("ww"): return Mode.WW;
-            case ("gr"): return Mode.GR;
-            case ("grt"): return Mode.GR;
-            case ("grw"): return Mode.GRW;
-            case ("grtw"): return Mode.GRW;
-            case ("mp"): return Mode.MP;
-            case ("mmw"): return Mode.MMW;
-            case ("cyk"): return Mode.CYK;
-            case ("der"): return Mode.DER;
-            case ("svgg"): return Mode.SVGG;
-            case ("svga"): return Mode.SVGA;
-            default: return Mode.ERROR;
+            case ("ar"): return OperationMode.AR;
+            case ("art"): return OperationMode.AR;
+            case ("ag"): return OperationMode.AG;
+            case ("agt"): return OperationMode.AG;
+            case ("gg"): return OperationMode.GG;
+            case ("ggt"): return OperationMode.GG;
+            case ("arw"): return OperationMode.ARW;
+            case ("artw"): return OperationMode.ARW;
+            case ("agw"): return OperationMode.AGW;
+            case ("agtw"): return OperationMode.AGW;
+            case ("ggw"): return OperationMode.GGW;
+            case ("ggtw"): return OperationMode.GGW;
+            case ("eat"): return OperationMode.EAT;
+            case ("egt"): return OperationMode.EAT;
+            case ("ww"): return OperationMode.WW;
+            case ("gr"): return OperationMode.GR;
+            case ("grt"): return OperationMode.GR;
+            case ("grw"): return OperationMode.GRW;
+            case ("grtw"): return OperationMode.GRW;
+            case ("mp"): return OperationMode.MP;
+            case ("mmw"): return OperationMode.MMW;
+            case ("cyk"): return OperationMode.CYK;
+            case ("der"): return OperationMode.DER;
+            case ("svgg"): return OperationMode.SVGG;
+            case ("svga"): return OperationMode.SVGA;
+            default: return OperationMode.ERROR;
         }
     }
 }

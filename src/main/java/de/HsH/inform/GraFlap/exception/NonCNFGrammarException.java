@@ -1,7 +1,5 @@
 package de.HsH.inform.GraFlap.exception;
 
-import de.HsH.inform.GraFlap.loncapa.exception.GraFlapException;
-
 /**
  * exception class to signal the usage of a contextfree grammar that is not in Chomsky-Form
  * @author Benjamin Held (07-15-2016)
