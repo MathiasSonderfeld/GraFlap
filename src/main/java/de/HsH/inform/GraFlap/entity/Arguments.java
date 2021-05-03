@@ -105,13 +105,12 @@ public class Arguments {
         grammarTypes.add(InputType.gint);
     }
 
-
     /**
      * Constructor
      * @param arguments the argument string array with the input
      * @throws GraFlapException throws a {@link GraFlapException} if the array does not have enough arguments
      */
-    public Arguments( String[] arguments) throws GraFlapException {
+    public Arguments(String[] arguments) throws GraFlapException {
         Arguments.initHashSets();
         try {
             String taskArgumentString = arguments[0];

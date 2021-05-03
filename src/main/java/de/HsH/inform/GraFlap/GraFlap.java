@@ -90,8 +90,20 @@ public class GraFlap {
         }
     }
 
-    private static void determineInputMode(){
+    private static Arguments determineInputMode(String[] args) throws GraFlapException {
+        if(args.length < 2){
+            throw new GraFlapException("not enough parameters.");
+        }
+        else if("-f".equals(args[0])){
 
+        }
+        else if("-s".equals(args[0])){
+
+        }
+        else{
+
+        }
+        return null;
     }
 
 
