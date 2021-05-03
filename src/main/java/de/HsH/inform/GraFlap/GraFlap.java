@@ -21,8 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
-import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.ArgumentsFactory;
+import de.HsH.inform.GraFlap.entity.ArgumentsParser;
 import de.HsH.inform.GraFlap.entity.OutputType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
@@ -58,15 +57,15 @@ public class GraFlap {
                 outputType = OutputType.Proforma;
                 StringBuilder sb = new StringBuilder();
                 Files.lines(Paths.get(args[1]), StandardCharsets.UTF_8).forEach(s -> sb.append(s));
-                arguments = ArgumentsFactory.parseProformaFormat(sb.toString());
+                arguments = ArgumentsParser.parseProformaFormat(sb.toString());
             }
             else if("-s".equals(args[0])){
                 outputType = OutputType.Proforma;
-                arguments = ArgumentsFactory.parseProformaFormat(args[1]);
+                arguments = ArgumentsParser.parseProformaFormat(args[1]);
             }
             else{
                 outputType = OutputType.Loncapa;
-                arguments = ArgumentsFactory.parseLoncapaFormat(args);
+                arguments = ArgumentsParser.parseLoncapaFormat(args);
             }
         }
         catch(IOException e){

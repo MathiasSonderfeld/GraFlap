@@ -1,13 +1,12 @@
-package de.Hsh.inform.GraFlap;
+package de.Hsh.inform.GraFlap.BlackBoxTests;
 
 import de.HsH.inform.GraFlap.GraFlap;
-import org.jdom2.JDOMException;
+import de.Hsh.inform.GraFlap.BlackBoxTests.BlackBoxTest;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 public class JunitBlackBoxTests {
     private static PrintStream systemOut;
@@ -22,7 +21,7 @@ public class JunitBlackBoxTests {
 
     }
 
-    static String runGraFlapBlackBoxTest(BlackBoxTest test){
+    static String runGraFlapBlackBoxTest( BlackBoxTest test){
         try {
             GraFlap.main(new String[]{test.getInput(), test.getStudentAnswer()});
             String ret = capture.toString().replaceAll("[\\r|\\n]\\s+", "");

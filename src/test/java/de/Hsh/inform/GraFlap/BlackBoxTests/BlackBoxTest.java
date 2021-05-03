@@ -1,4 +1,4 @@
-package de.Hsh.inform.GraFlap;
+package de.Hsh.inform.GraFlap.BlackBoxTests;
 
 import java.util.ArrayList;
 

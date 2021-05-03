@@ -4,7 +4,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.HashSet;
 
-public class ArgumentsFactory {
+public class ArgumentsParser {
     private static final HashSet<InputMode> automatonModes = new HashSet<>();
     private static final HashSet<InputMode> grammarModes = new HashSet<>();
     private static final HashSet<InputMode> machineModes = new HashSet<>();
@@ -45,6 +45,7 @@ public class ArgumentsFactory {
     }
 
     public static Arguments parseProformaFormat(String input){
+
         return null;
     }
 
