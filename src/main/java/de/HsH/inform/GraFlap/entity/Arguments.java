@@ -40,7 +40,7 @@ public class Arguments {
      */
     private String studentAnswer;
 
-
+    private OperationMode operationMode;
 
 
     public String getTaskTitle() {
@@ -105,5 +105,13 @@ public class Arguments {
 
     public void setStudentAnswer( String studentAnswer ) {
         this.studentAnswer = studentAnswer;
+    }
+
+    public OperationMode getOperationMode() {
+        return operationMode;
+    }
+
+    public void setOperationMode( OperationMode operationMode ) {
+        this.operationMode = operationMode;
     }
 }

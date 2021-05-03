@@ -75,17 +75,16 @@ public class GraFlap {
             System.out.println(lex.getErrorMessage(args[0].split("#")[0]));
             return;
         }
-        produceResult(arguments, determineModeNumber(arguments.getMode()));
+        produceResult(arguments);
     }
 
     /**
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
-     * @param operationMode the determined mode
      */
-    private static void produceResult(Arguments arguments, OperationMode operationMode ) {
+    private static void produceResult(Arguments arguments) {
         try {
-            Result result = new Result(operationMode).generateResult(arguments);
+            Result result = new Result(arguments.getOperationMode()).generateResult(arguments);
             String studType = result.getStudType();
 
             if (arguments.getMode().contains("t")) {
@@ -96,7 +95,7 @@ public class GraFlap {
                 }
             }
 
-            Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getInputType(), operationMode).getSvg();
+            Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getInputType(), arguments.getOperationMode()).getSvg();
             AnswerMessage an = AnswerFactory.determineAnswer(result.getResult(), arguments.getTaskTitle(),
                                                              arguments.getUserLanguage(),arguments.getMode(),
                                                              arguments.getArgtype(), studType, svg);
@@ -106,43 +105,6 @@ public class GraFlap {
         } catch (GraFlapException lex) {
             System.out.println(lex.getErrorMessage(arguments.getTaskTitle()));
             return;
-        }
-    }
-
-
-    /**
-     * method to determine the operation mode based on the content of the mode string
-     * @param mode the string containing the mode information
-     * @return the corresponding mode
-     */
-    private static OperationMode determineModeNumber(String mode) {
-        switch (mode) {
-            case ("ar"): return OperationMode.AR;
-            case ("art"): return OperationMode.AR;
-            case ("ag"): return OperationMode.AG;
-            case ("agt"): return OperationMode.AG;
-            case ("gg"): return OperationMode.GG;
-            case ("ggt"): return OperationMode.GG;
-            case ("arw"): return OperationMode.ARW;
-            case ("artw"): return OperationMode.ARW;
-            case ("agw"): return OperationMode.AGW;
-            case ("agtw"): return OperationMode.AGW;
-            case ("ggw"): return OperationMode.GGW;
-            case ("ggtw"): return OperationMode.GGW;
-            case ("eat"): return OperationMode.EAT;
-            case ("egt"): return OperationMode.EAT;
-            case ("ww"): return OperationMode.WW;
-            case ("gr"): return OperationMode.GR;
-            case ("grt"): return OperationMode.GR;
-            case ("grw"): return OperationMode.GRW;
-            case ("grtw"): return OperationMode.GRW;
-            case ("mp"): return OperationMode.MP;
-            case ("mmw"): return OperationMode.MMW;
-            case ("cyk"): return OperationMode.CYK;
-            case ("der"): return OperationMode.DER;
-            case ("svgg"): return OperationMode.SVGG;
-            case ("svga"): return OperationMode.SVGA;
-            default: return OperationMode.ERROR;
         }
     }
 }

@@ -37,9 +37,10 @@ public class ArgumentsFactory {
         InputMode mode = InputMode.valueOf(taskArguments[3]);
         InputType type = InputType.valueOf(taskArguments[4]);
         checkCorrectModeAndType(mode, type);
-
+        OperationMode operationMode = determineOperationMode(taskArguments[3]);
         arguments.setMode(taskArguments[3]);
         arguments.setArgtype(taskArguments[4]);
+        arguments.setOperationMode(operationMode);
         return arguments;
     }
 
@@ -125,6 +126,42 @@ public class ArgumentsFactory {
             if(!grammarTypes.contains(type)) {
                 throw new GraFlapException("Wrong Type for Gramma Task");
             }
+        }
+    }
+
+    /**
+     * method to determine the operation mode based on the content of the mode string
+     * @param mode the string containing the mode information
+     * @return the corresponding mode
+     */
+    private static OperationMode determineOperationMode( String mode) {
+        switch (mode) {
+            case ("ar"): return OperationMode.AR;
+            case ("art"): return OperationMode.AR;
+            case ("ag"): return OperationMode.AG;
+            case ("agt"): return OperationMode.AG;
+            case ("gg"): return OperationMode.GG;
+            case ("ggt"): return OperationMode.GG;
+            case ("arw"): return OperationMode.ARW;
+            case ("artw"): return OperationMode.ARW;
+            case ("agw"): return OperationMode.AGW;
+            case ("agtw"): return OperationMode.AGW;
+            case ("ggw"): return OperationMode.GGW;
+            case ("ggtw"): return OperationMode.GGW;
+            case ("eat"): return OperationMode.EAT;
+            case ("egt"): return OperationMode.EAT;
+            case ("ww"): return OperationMode.WW;
+            case ("gr"): return OperationMode.GR;
+            case ("grt"): return OperationMode.GR;
+            case ("grw"): return OperationMode.GRW;
+            case ("grtw"): return OperationMode.GRW;
+            case ("mp"): return OperationMode.MP;
+            case ("mmw"): return OperationMode.MMW;
+            case ("cyk"): return OperationMode.CYK;
+            case ("der"): return OperationMode.DER;
+            case ("svgg"): return OperationMode.SVGG;
+            case ("svga"): return OperationMode.SVGA;
+            default: return OperationMode.ERROR;
         }
     }
 
