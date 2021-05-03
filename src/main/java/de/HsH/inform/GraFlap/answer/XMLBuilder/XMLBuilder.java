@@ -1,9 +1,7 @@
 package de.HsH.inform.GraFlap.answer.XMLBuilder;
 
-public abstract class XMLBuilder {
-    String xml;
+import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 
-    public String getXML(){
-        return xml;
-    }
+public interface XMLBuilder {
+    public String getXML( AnswerMessage answerMessage);
 }

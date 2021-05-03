@@ -50,14 +50,14 @@ public class AnswerFactory {
         XMLBuilder builder = null;
         switch(outputType){
             case Proforma:
-                builder = new ProformaBuilder(msg);
+                builder = new ProformaBuilder();
                 break;
             case Loncapa:
-                builder = new LoncapaBuilder(msg);
+                builder = new LoncapaBuilder();
                 break;
             default:
                 throw  new GraFlapException("Error in OutputType Defenition.");
         }
-        return builder.getXML();
+        return builder.getXML(msg);
     }
 }

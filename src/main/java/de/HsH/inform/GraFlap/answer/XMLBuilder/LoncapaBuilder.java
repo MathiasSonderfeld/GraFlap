@@ -6,13 +6,12 @@ import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-public class LoncapaBuilder extends XMLBuilder{
+public class LoncapaBuilder implements XMLBuilder{
 
-    public LoncapaBuilder( AnswerMessage answerMessage ) {
+    public String getXML( AnswerMessage answerMessage ) {
         XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         if ("asvg".equals(answerMessage.getTaskMode())) {
-            this.xml = out.outputString(answerMessage.getSvgImage());
-            return;
+            return out.outputString(answerMessage.getSvgImage());
         }
         String award, grade;
 
@@ -39,6 +38,6 @@ public class LoncapaBuilder extends XMLBuilder{
 
         taskResult.addContent(new Element("resulttext").addContent(answerMessage.getResultText()));
         root.addContent(new Element("message").addContent(taskResult));
-        this.xml = out.outputString(root);
+        return out.outputString(root);
     }
 }
