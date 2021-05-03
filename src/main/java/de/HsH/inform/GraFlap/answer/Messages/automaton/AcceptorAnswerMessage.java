@@ -1,6 +1,5 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
-import de.HsH.inform.GraFlap.entity.OutputType;
 import org.jdom2.Element;
 
 /**
@@ -44,7 +43,7 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
     @Override
     protected boolean submissionMatchesTarget(String type, String studType) {
         boolean passed = true;
-        if (mode.contains("t")) {
+        if (taskMode.contains("t")) {
             matchesNonDeterministic(type, studType);
             passed = matchesDeterministic(type, studType);
             if ((type.endsWith("fa")) && (!(studType.endsWith("fa")))) {
