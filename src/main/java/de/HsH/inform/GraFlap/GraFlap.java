@@ -16,9 +16,13 @@ package de.HsH.inform.GraFlap;
  */
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import de.HsH.inform.GraFlap.answer.*;
 import de.HsH.inform.GraFlap.answer.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.ArgumentsFactory;
 import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
@@ -33,7 +37,7 @@ import org.jdom2.JDOMException;
  * @author Benjamin Held (04-17-2016)
  * @author Mathias Sonderfeld (07-2021)
  * @since 08-11-2016
- * @version 0.2.6
+ * @version 0.3
  */
 public class GraFlap {
 
@@ -44,18 +48,33 @@ public class GraFlap {
      * @throws IOException throws a {@link IOException} that occurs deeper within the calling hierarchy
      * @throws JDOMException throws a {@link JDOMException} that occurs deeper within the calling hierarchy
      */
-    public static void main(String[] args) throws IOException, JDOMException {
-
+    public static void main(String[] args) {
         Arguments arguments = null;
-
         try {
-
-            arguments = new Arguments(args);
-        } catch (GraFlapException lex) {
-                System.out.println(lex.getErrorMessage(args[0].split("#")[0]));
-                return;
+            if(args.length < 2){
+                throw new GraFlapException("not enough Parameters.");
+            }
+            else if("-f".equals(args[0])){
+                StringBuilder sb = new StringBuilder();
+                Files.lines(Paths.get(args[1]), StandardCharsets.UTF_8).forEach(s -> sb.append(s));
+                arguments = ArgumentsFactory.parseProformaFormat(sb.toString());
+            }
+            else if("-s".equals(args[0])){
+                arguments = ArgumentsFactory.parseProformaFormat(args[1]);
+            }
+            else{
+                arguments = ArgumentsFactory.parseLoncapaFormat(args);
+            }
         }
-
+        catch(IOException e){
+            System.out.println("Cant read file at " + args[1]);
+            e.printStackTrace(System.out);
+            return;
+        }
+        catch (GraFlapException lex) {
+            System.out.println(lex.getErrorMessage(args[0].split("#")[0]));
+            return;
+        }
         produceResult(arguments, determineModeNumber(arguments.getMode()));
     }
 
@@ -80,7 +99,7 @@ public class GraFlap {
             Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getInputType(), operationMode).getSvg();
             AnswerMessage an = AnswerFactory.determineAnswer(result.getResult(), arguments.getTaskTitle(),
                                                              arguments.getUserLanguage(),arguments.getMode(),
-                                                             arguments.getAgtype(), studType, svg);
+                                                             arguments.getArgtype(), studType, svg);
             // for LON-CAPA
             System.out.println(an.generateAnswerMessage());
 
@@ -90,29 +109,13 @@ public class GraFlap {
         }
     }
 
-    private static Arguments determineInputMode(String[] args) throws GraFlapException {
-        if(args.length < 2){
-            throw new GraFlapException("not enough parameters.");
-        }
-        else if("-f".equals(args[0])){
-
-        }
-        else if("-s".equals(args[0])){
-
-        }
-        else{
-
-        }
-        return null;
-    }
-
 
     /**
      * method to determine the operation mode based on the content of the mode string
      * @param mode the string containing the mode information
      * @return the corresponding mode
      */
-    private static OperationMode determineModeNumber( String mode) {
+    private static OperationMode determineModeNumber(String mode) {
         switch (mode) {
             case ("ar"): return OperationMode.AR;
             case ("art"): return OperationMode.AR;
