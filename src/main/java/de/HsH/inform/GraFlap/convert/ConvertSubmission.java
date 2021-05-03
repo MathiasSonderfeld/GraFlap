@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.convert;
 
-import de.HsH.inform.GraFlap.entity.JFFType;
+import de.HsH.inform.GraFlap.entity.OperationType;
 import de.HsH.inform.GraFlap.entity.ValuePair;
 import org.xml.sax.SAXException;
 import de.HsH.inform.GraFlap.entity.Submission;
@@ -36,8 +36,8 @@ public class ConvertSubmission {
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
     public static Submission<Automaton> openAutomaton(String submissionString) throws GraFlapException {
-        ValuePair<Object, JFFType> input = openString(submissionString);
-        if (input.getValue() == JFFType.JFFTURING) {
+        ValuePair<Object, OperationType> input = openString(submissionString);
+        if (input.getValue() == OperationType.JFFTURING) {
             return new Submission<>(submissionString, new Automaton(((Automaton) input.getKey()).getJFLAPAutomaton()), input.getValue());
         }
         return new Submission<>(submissionString, new Automaton(input.getKey()), input.getValue());
@@ -50,8 +50,8 @@ public class ConvertSubmission {
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
     public static Submission<Grammar> openGrammar(String submissionString) throws GraFlapException {
-        ValuePair<Object, JFFType> input = openString(submissionString);
-        return new Submission<>(submissionString, new Grammar(input.getKey()), JFFType.GRAMMAR);
+        ValuePair<Object, OperationType> input = openString(submissionString);
+        return new Submission<>(submissionString, new Grammar(input.getKey()), OperationType.GRAMMAR);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ConvertSubmission {
         if (words.length < numberOfWords) {
             throw new GraFlapException("Error - not enough words.");
         } else {
-            return new Submission<>(submissionString, words, JFFType.WORDS);
+            return new Submission<>(submissionString, words, OperationType.WORDS);
         }
     }
 
@@ -79,7 +79,7 @@ public class ConvertSubmission {
      * @return a key value pair containing the created object and an indicator which jflap format was submitted
      * @throws GraFlapException when there is a formal error within the automaton
      */
-    private static ValuePair<Object, JFFType> openString( String submissionString) throws GraFlapException {
+    private static ValuePair<Object, OperationType> openString( String submissionString) throws GraFlapException {
         try {
             InputStream stream = new ByteArrayInputStream(submissionString.getBytes(Charset.forName("UTF-8")));
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -87,13 +87,13 @@ public class ConvertSubmission {
             Document doc = builder.parse(stream);
             Transducer transducer = new Transducer();
             Object obj = transducer.parseDocument(doc);
-            if (transducer.getInputType() == JFFType.JFFSTRUCTURE) {
+            if (transducer.getInputType() == OperationType.JFFSTRUCTURE) {
                 checkJFFComponents(doc);
             }
             return new ValuePair<>(obj, transducer.getInputType());
         } catch (JffTuringException ex) {
             Automaton turing = new TuringConverter(submissionString).getAutomaton();
-            return new ValuePair<>(turing, JFFType.JFFTURING);
+            return new ValuePair<>(turing, OperationType.JFFTURING);
         } catch(GraFlapException ex) {
             throw new GraFlapException("ERROR - Cannot open JFF" + ex.getMessage());
         } catch (SAXException | ParserConfigurationException | IOException e) {

@@ -1,6 +1,5 @@
 package de.HsH.inform.GraFlap.entity;
 
-import de.HsH.inform.GraFlap.entity.JFFType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
@@ -12,18 +11,18 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 public class Submission<T> {
     private String submissionString;
     private T submissionObject;
-    private JFFType JFFType;
+    private OperationType OperationType;
 
     public Submission() {
-        this.JFFType = JFFType.UNDEFINED;
+        this.OperationType = OperationType.UNDEFINED;
         this.submissionString = "";
         this.submissionObject = null;
     }
 
-    public Submission(String submissionString, T object, JFFType type) {
+    public Submission(String submissionString, T object, OperationType type) {
         this.submissionString = submissionString;
         this.submissionObject = object;
-        this.JFFType = type;
+        this.OperationType = type;
     }
 
     public String getSubmissionString() throws GraFlapException {
@@ -40,7 +39,7 @@ public class Submission<T> {
         throw new GraFlapException("Error in Submisson: Conversion from submission to Object failed. Please check.");
     }
 
-    public JFFType getInputType() {
-        return JFFType;
+    public OperationType getOperationType() {
+        return OperationType;
     }
 }

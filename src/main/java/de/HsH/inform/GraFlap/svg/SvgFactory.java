@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.entity.JFFType;
+import de.HsH.inform.GraFlap.entity.OperationType;
 import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
@@ -13,9 +13,9 @@ import de.HsH.inform.GraFlap.entity.Arguments;
  */
 public class SvgFactory {
 
-    public static SvgBuilder determineBuilder( Arguments arguments, JFFType JFFType, OperationMode operationMode )
+    public static SvgBuilder determineBuilder( Arguments arguments, OperationType OperationType, OperationMode operationMode )
             throws GraFlapException {
-        switch (JFFType) {
+        switch (OperationType) {
             case ALPHABET:
                 return new SvgGrammarBuilder(arguments);
             case CYKINPUT:

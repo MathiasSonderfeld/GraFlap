@@ -6,7 +6,7 @@ package de.HsH.inform.GraFlap.entity;
  * @since 07-30-2016
  * @version 0.3.1
  */
-public enum JFFType {
+public enum OperationType {
     JFFSTRUCTURE, JFLAPSTRUCTURE, JFFTURING,
     ALPHABET, GRAMMAR, WORDS,
     CYKINPUT, DERIVATION,

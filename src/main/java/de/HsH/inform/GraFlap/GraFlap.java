@@ -23,7 +23,6 @@ import java.nio.file.Paths;
 import de.HsH.inform.GraFlap.answer.*;
 import de.HsH.inform.GraFlap.answer.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.ArgumentsFactory;
-import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
@@ -40,7 +39,6 @@ import org.jdom2.JDOMException;
  * @version 0.3
  */
 public class GraFlap {
-
     /**
      * main method that starts the application
      * @param args the program arguments, here: args[0] contains task title, nickname, bestlanguage, given, mode and
@@ -95,7 +93,7 @@ public class GraFlap {
                 }
             }
 
-            Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getInputType(), arguments.getOperationMode()).getSvg();
+            Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
             AnswerMessage an = AnswerFactory.determineAnswer(result.getResult(), arguments.getTaskTitle(),
                                                              arguments.getUserLanguage(),arguments.getMode(),
                                                              arguments.getArgtype(), studType, svg);

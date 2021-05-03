@@ -74,7 +74,7 @@ public class Result {
      * @throws GraFlapException throws a {@link GraFlapException} if the de.HsH.inform.GraFlap.entity submission has not been stored in it
      */
     public Submission getSubmission() throws GraFlapException {
-        if (submission.getInputType() != JFFType.UNDEFINED) {
+        if (submission.getOperationType() != OperationType.UNDEFINED) {
             return submission;
         }
         throw new GraFlapException("Error in Result: Tried to access non parsed submission.");
