@@ -1,6 +1,7 @@
-package de.HsH.inform.GraFlap.answer.algorithm;
+package de.HsH.inform.GraFlap.answer.Messages.algorithm;
 
-import de.HsH.inform.GraFlap.answer.AnswerMessage;
+import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.OutputType;
 import org.jdom2.Element;
 
 /**

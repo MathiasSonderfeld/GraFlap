@@ -1,5 +1,6 @@
-package de.HsH.inform.GraFlap.answer;
+package de.HsH.inform.GraFlap.answer.Messages;
 
+import de.HsH.inform.GraFlap.entity.OutputType;
 import org.jdom2.CDATA;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
@@ -60,11 +61,11 @@ public abstract class AnswerMessage {
      */
     public AnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
                          String studType, Element svg) {
-        taskTitle = title;
-        language = bestLanguage;
-        resultText = new StringBuilder();
-        svgImage = svg;
-        mode = taskMode;
+        this.taskTitle = title;
+        this.language = bestLanguage;
+        this.resultText = new StringBuilder();
+        this.svgImage = svg;
+        this.mode = taskMode;
 
         checkAndReplaceGermanCharacter();
 
@@ -102,7 +103,6 @@ public abstract class AnswerMessage {
             return out.outputString(root);
         }
     }
-
 
     /**
      * private method to replace german special characters

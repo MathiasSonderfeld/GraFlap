@@ -1,16 +1,16 @@
-package de.HsH.inform.GraFlap.answer.svg;
+package de.HsH.inform.GraFlap.answer.Messages.grammar;
 
-import de.HsH.inform.GraFlap.answer.AnswerMessage;
+import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.OutputType;
 import org.jdom2.Element;
 
 /**
- * child class to generate the details of the message for the svg mode
+ * child class to generate the details of the message for word exercises
  * @author Benjamin Held (07-30-2016)
- * @since 08-09-2016
+ * @since 08-08-2016
  * @version 0.1.0
  */
-public class SvgAnswerMessage extends AnswerMessage {
-
+public class WordAnswerMessage extends AnswerMessage {
     /**
      * Constructor
      * @param resultValue  value how many word failed the testing ranging form [0,100]
@@ -21,28 +21,36 @@ public class SvgAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public SvgAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                            String studType, Element svg) {
+    public WordAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
+                             String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
     protected void determineSvgTitle() {
         if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Svg-Modus";
+            svgTitle = "Worte";
         } else {
-            svgTitle = "Svg-Mode";
+            svgTitle = "Words";
         }
     }
 
     @Override
     protected boolean submissionMatchesTarget(String type, String studType) {
-        resultText.append("Note: This is the svg test mode! \n");
         return true;
     }
 
     @Override
     protected boolean finishAssessment(int resultValue) {
+        if  (resultValue > 0) {
+            resultText.append(resultValue).append(" ");
+            if (language.equalsIgnoreCase("de")) {
+                resultText.append("Prozent der getesteten Worte haben den Test nicht bestanden.");
+            } else  {
+                resultText.append("percent of the tested words did not pass the test.");
+            }
+            return false;
+        }
         return true;
     }
 }

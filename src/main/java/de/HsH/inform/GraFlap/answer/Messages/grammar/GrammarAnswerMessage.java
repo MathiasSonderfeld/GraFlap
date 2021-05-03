@@ -1,15 +1,17 @@
-package de.HsH.inform.GraFlap.answer.grammar;
+package de.HsH.inform.GraFlap.answer.Messages.grammar;
 
-import de.HsH.inform.GraFlap.answer.AnswerMessage;
+import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.OutputType;
 import org.jdom2.Element;
 
 /**
- * child class to generate the details of the message for word exercises
+ * child class to generate the details of the message for grammars
  * @author Benjamin Held (07-30-2016)
  * @since 08-08-2016
  * @version 0.1.0
  */
-public class WordAnswerMessage extends AnswerMessage {
+public class GrammarAnswerMessage extends AnswerMessage {
+
     /**
      * Constructor
      * @param resultValue  value how many word failed the testing ranging form [0,100]
@@ -20,22 +22,31 @@ public class WordAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public WordAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                             String studType, Element svg) {
+    public GrammarAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
     protected void determineSvgTitle() {
         if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Worte";
+            svgTitle = "Grammatik";
         } else {
-            svgTitle = "Words";
+            svgTitle = "Grammar";
         }
     }
 
     @Override
     protected boolean submissionMatchesTarget(String type, String studType) {
+        if ((!(type.equals(studType)))) {
+            if (!(type.equals("rlcfg") && ((studType.equals("rl") || studType.equals("cfg"))))) {
+                if (language.equalsIgnoreCase("de")) {
+                    resultText.append("Die eingereichte Grammatik hat nicht den geforderten Typ. \n");
+                } else {
+                    resultText.append("Your grammar is not of the required type. \n");
+                }
+                return false;
+            }
+        }
         return true;
     }
 
@@ -44,12 +55,13 @@ public class WordAnswerMessage extends AnswerMessage {
         if  (resultValue > 0) {
             resultText.append(resultValue).append(" ");
             if (language.equalsIgnoreCase("de")) {
-                resultText.append("Prozent der getesteten Worte haben den Test nicht bestanden.");
+                resultText.append("Prozent der getesteten Worte haben den Test gegen die Grammatik nicht bestanden.");
             } else  {
-                resultText.append("percent of the tested words did not pass the test.");
+                resultText.append("percent of the tested words did not pass the test against the grammar.");
             }
             return false;
         }
+
         return true;
     }
 }

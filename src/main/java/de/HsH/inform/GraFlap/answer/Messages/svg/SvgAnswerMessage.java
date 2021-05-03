@@ -1,15 +1,16 @@
-package de.HsH.inform.GraFlap.answer.algorithm;
+package de.HsH.inform.GraFlap.answer.Messages.svg;
 
-import de.HsH.inform.GraFlap.answer.AnswerMessage;
+import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.OutputType;
 import org.jdom2.Element;
 
 /**
- * child class of {@link AnswerMessage} to generate the answer message for a derivation exercise
+ * child class to generate the details of the message for the svg mode
  * @author Benjamin Held (07-30-2016)
- * @since 08-22-2016
- * @version 0.1.1
+ * @since 08-09-2016
+ * @version 0.1.0
  */
-public class DerivationAnswerMessage extends AnswerMessage {
+public class SvgAnswerMessage extends AnswerMessage {
 
     /**
      * Constructor
@@ -21,36 +22,28 @@ public class DerivationAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public DerivationAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                                   String studType, Element svg) {
+    public SvgAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
+                            String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
     protected void determineSvgTitle() {
         if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Wortableitung";
+            svgTitle = "Svg-Modus";
         } else {
-            svgTitle = "Word derivation";
+            svgTitle = "Svg-Mode";
         }
     }
 
     @Override
     protected boolean submissionMatchesTarget(String type, String studType) {
+        resultText.append("Note: This is the svg test mode! \n");
         return true;
     }
 
     @Override
     protected boolean finishAssessment(int resultValue) {
-        if  (resultValue > 0) {
-            resultText.append(resultValue).append(" ");
-            if(language.equalsIgnoreCase("de")) {
-                resultText.append("Prozent der Ableitungsschritte haben den Test nicht bestanden.");
-            } else  {
-                resultText.append("percent of the derivation steps did not pass the test.");
-            }
-            return false;
-        }
         return true;
     }
 }

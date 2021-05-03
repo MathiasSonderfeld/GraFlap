@@ -20,9 +20,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import de.HsH.inform.GraFlap.answer.*;
-import de.HsH.inform.GraFlap.answer.AnswerMessage;
+import de.HsH.inform.GraFlap.answer.AnswerFactory;
+import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.ArgumentsFactory;
+import de.HsH.inform.GraFlap.entity.OutputType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
@@ -48,19 +49,23 @@ public class GraFlap {
      */
     public static void main(String[] args) {
         Arguments arguments = null;
+        OutputType outputType;
         try {
             if(args.length < 2){
                 throw new GraFlapException("not enough Parameters.");
             }
             else if("-f".equals(args[0])){
+                outputType = OutputType.Proforma;
                 StringBuilder sb = new StringBuilder();
                 Files.lines(Paths.get(args[1]), StandardCharsets.UTF_8).forEach(s -> sb.append(s));
                 arguments = ArgumentsFactory.parseProformaFormat(sb.toString());
             }
             else if("-s".equals(args[0])){
+                outputType = OutputType.Proforma;
                 arguments = ArgumentsFactory.parseProformaFormat(args[1]);
             }
             else{
+                outputType = OutputType.Loncapa;
                 arguments = ArgumentsFactory.parseLoncapaFormat(args);
             }
         }
@@ -73,14 +78,14 @@ public class GraFlap {
             System.out.println(lex.getErrorMessage(args[0].split("#")[0]));
             return;
         }
-        produceResult(arguments);
+        produceResult(arguments, outputType);
     }
 
     /**
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
      */
-    private static void produceResult(Arguments arguments) {
+    private static void produceResult(Arguments arguments, OutputType outputType) {
         try {
             Result result = new Result(arguments.getOperationMode()).generateResult(arguments);
             String studType = result.getStudType();
@@ -94,11 +99,10 @@ public class GraFlap {
             }
 
             Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
-            AnswerMessage an = AnswerFactory.determineAnswer(result.getResult(), arguments.getTaskTitle(),
+            String xml = AnswerFactory.getXML(result.getResult(), arguments.getTaskTitle(),
                                                              arguments.getUserLanguage(),arguments.getMode(),
-                                                             arguments.getArgtype(), studType, svg);
-            // for LON-CAPA
-            System.out.println(an.generateAnswerMessage());
+                                                             arguments.getArgtype(), studType, svg, outputType);
+            System.out.println(xml);
 
         } catch (GraFlapException lex) {
             System.out.println(lex.getErrorMessage(arguments.getTaskTitle()));
