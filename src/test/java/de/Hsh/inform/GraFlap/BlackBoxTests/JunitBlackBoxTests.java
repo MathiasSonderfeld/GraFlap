@@ -1,7 +1,6 @@
 package de.Hsh.inform.GraFlap.BlackBoxTests;
 
 import de.HsH.inform.GraFlap.GraFlap;
-import de.Hsh.inform.GraFlap.BlackBoxTests.BlackBoxTest;
 import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayOutputStream;
