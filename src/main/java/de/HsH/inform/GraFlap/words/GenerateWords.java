@@ -5,12 +5,12 @@ import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.entity.Submission;
 import de.HsH.inform.GraFlap.grammar.Grammar;
 import de.HsH.inform.GraFlap.simulation.WordBuilder;
-import de.HsH.inform.GraFlap.parse.BruteParser;
+import de.HsH.inform.GraFlap.parse.Submission.BruteParser;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import nl.flotsam.xeger.Xeger;
-import de.HsH.inform.GraFlap.parse.Parser;
-import de.HsH.inform.GraFlap.parse.RestrictedBruteParser;
+import de.HsH.inform.GraFlap.parse.Submission.Parser;
+import de.HsH.inform.GraFlap.parse.Submission.RestrictedBruteParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.parse;
+package de.HsH.inform.GraFlap.parse.Submission;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import model.algorithms.testinput.parse.ParserException;

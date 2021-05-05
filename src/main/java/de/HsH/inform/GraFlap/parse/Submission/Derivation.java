@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.parse;
+package de.HsH.inform.GraFlap.parse.Submission;
 
 import model.symbols.SymbolString;
 

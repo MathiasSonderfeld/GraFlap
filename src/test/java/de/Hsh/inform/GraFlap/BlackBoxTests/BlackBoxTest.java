@@ -1,7 +1,10 @@
-package de.Hsh.inform.GraFlap.BlackBoxTests;
+package de.HsH.inform.GraFlap.BlackBoxTests;
 
-import java.util.ArrayList;
-
+/**
+ * @author Mathias Sonderfeld
+ * better String-Array at the Moment to contain Testdata.
+ * Aim is to store testdata here and create required input format for GraFlap dynamicly
+ */
 public class BlackBoxTest {
     private String input;
     private String studentAnswer;

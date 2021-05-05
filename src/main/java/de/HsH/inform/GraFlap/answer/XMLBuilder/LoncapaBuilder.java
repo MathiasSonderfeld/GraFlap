@@ -6,9 +6,22 @@ import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-public class LoncapaBuilder implements XMLBuilder{
+/**
+ * @author Mathias Sonderfeld
+ * @version 1.0
+ *
+ * makes an XML String, that can be passed to Loncapa, from given answerMessage.
+ * requires Jdom-2.0.6 Library.
+ */
+public class LoncapaBuilder implements OutputBuilder {
 
-    public String getXML( AnswerMessage answerMessage ) {
+    /**
+     * converts AnswerMessage to XML in Loncapa-Style
+     * @param answerMessage the answerMessage to convert into XML
+     * @throws NullPointerException if input is null
+     * @return String containing the whole xml document
+     */
+    public String getOutput( AnswerMessage answerMessage ) {
         XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         if ("asvg".equals(answerMessage.getTaskMode())) {
             return out.outputString(answerMessage.getSvgImage());

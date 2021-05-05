@@ -6,8 +6,22 @@ import org.jdom2.Namespace;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-public class ProformaBuilder implements XMLBuilder{
-    public String getXML( AnswerMessage answerMessage ) {
+/**
+ * @author Mathias Sonderfeld
+ * @version 1.0
+ *
+ * makes an Proforma-XML String from given answerMessage.
+ * requires Jdom-2.0.6 Library.
+ */
+public class ProformaBuilder implements OutputBuilder {
+
+    /**
+     * converts AnswerMessage to XML in Proforma-Style with "proforma" as Namespace
+     * @param answerMessage the answerMessage to convert into XML
+     * @throws NullPointerException if input is null
+     * @return String containing the whole xml document
+     */
+    public String getOutput( AnswerMessage answerMessage ) {
         XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         if ("asvg".equals(answerMessage.getTaskMode())) {
             return out.outputString(answerMessage.getSvgImage());

@@ -1,47 +1,23 @@
 package de.HsH.inform.GraFlap.entity;
 
 /**
- * helper class for the main method to extract the required attributes from the program arguments
+ * Data-Structure Class for program arguments.
+ * Input-Processing moved to ArgumentsParser.
  * @author Benjamin Held (04-17-2016)
+ * @author Mathias Sonderfeld
  * @since 07-03-2016
  * @version 0.1.3
  */
 public class Arguments {
-    /**
-     * the name of the task
-     */
     private String taskTitle;
-    /**
-     * shortcut the reading language the user of the submission uses in his browser, e.g. de, en, ...
-     */
     private String userLanguage;
-    /**
-     * the solution to the task
-     */
     private String solution;
-    /**
-     * mode information to determine the correct task type
-     */
     private String mode;
-    /**
-     * the argument type;
-     */
     private String argtype;
-    /**
-     * a string with coded test words
-     */
     private String wordString;
-    /**
-     * the number of requested test words
-     */
     private int numberOfWords;
-    /**
-     * the submission
-     */
     private String studentAnswer;
-
     private OperationMode operationMode;
-
 
     public String getTaskTitle() {
         return taskTitle;

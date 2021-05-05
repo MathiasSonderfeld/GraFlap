@@ -4,7 +4,7 @@ import de.HsH.inform.GraFlap.entity.CYKTable;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
 import de.HsH.inform.GraFlap.grammar.Grammar;
-import de.HsH.inform.GraFlap.parse.CYKParser;
+import de.HsH.inform.GraFlap.parse.Submission.CYKParser;
 
 /**
  * child class to generate the resulting score for a cyk algorithm exercise

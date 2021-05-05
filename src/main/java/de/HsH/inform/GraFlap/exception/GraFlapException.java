@@ -5,6 +5,7 @@ import java.io.StringWriter;
 
 /**
  * Exception-class that creates an error message that can be returned
+ * //TODO format error in expected output, refactoring recommended
  * @author Ufuk Tosun (12-11-12)
  * @author Frauke Sprengel (08-15-2015)
  * @author Benjamin Held (03-31-2016)

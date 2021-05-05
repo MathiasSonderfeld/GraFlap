@@ -10,20 +10,32 @@ import de.HsH.inform.GraFlap.answer.Messages.grammar.WordAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.svg.SvgAnswerMessage;
 import de.HsH.inform.GraFlap.answer.XMLBuilder.LoncapaBuilder;
 import de.HsH.inform.GraFlap.answer.XMLBuilder.ProformaBuilder;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.XMLBuilder;
+import de.HsH.inform.GraFlap.answer.XMLBuilder.OutputBuilder;
 import de.HsH.inform.GraFlap.entity.OutputType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Element;
 
 /**
- * static factory class to return the correct {@link AnswerMessage} for a given submission mode
+ * static factory class to return the correct Output for a given submission & Output mode
  * @author Benjamin Held (07-30-2016)
+ * @author Mathias Sonderfeld
  * @since 08-10-2016
- * @version 0.1.0
+ * @version 0.5
  */
 public class AnswerFactory {
 
-    public static AnswerMessage determineAnswer( int resultValue, String title, String bestLanguage, String taskMode,
+    /**
+     * @param resultValue the score of the submission
+     * @param title the title of the Task
+     * @param bestLanguage preferred Language by Student
+     * @param taskMode the operationMode from Input, required to determine correct answerMessage
+     * @param type the operationType from Input, required to determine correct answerMessage
+     * @param studType I dont know what this does, sorry
+     * @param svg the SVG to embed into the answer
+     * @return the AnswerMessage that contains the correct Output-Data
+     * @throws GraFlapException if the AnswerMessage can not be identified
+     */
+    private static AnswerMessage determineAnswer( int resultValue, String title, String bestLanguage, String taskMode,
                                               String type, String studType, Element svg) throws GraFlapException {
         if (taskMode.startsWith("g") || taskMode.equals("egt")) {
             return new GrammarAnswerMessage(resultValue, title, bestLanguage, taskMode, type, studType, svg);
@@ -44,10 +56,22 @@ public class AnswerFactory {
         }
     }
 
-    public static String getXML( int resultValue, String title, String bestLanguage, String taskMode, String type,
-                                 String studType, Element svg, OutputType outputType) throws GraFlapException{
+    /**
+     * @param resultValue the score of the submission
+     * @param title the title of the Task
+     * @param bestLanguage preferred Language by Student
+     * @param taskMode the operationMode from Input, required to determine correct answerMessage
+     * @param type the operationType from Input, required to determine correct answerMessage
+     * @param studType I dont know what this does, sorry
+     * @param svg the SVG to embed into the answer
+     * @param outputType determines the Output format
+     * @return String formatted as determined
+     * @throws GraFlapException if Builder cant be determined or if determineAnswer throws Exception
+     */
+    public static String getOutput( int resultValue, String title, String bestLanguage, String taskMode, String type,
+                                    String studType, Element svg, OutputType outputType) throws GraFlapException{
         AnswerMessage msg = determineAnswer(resultValue, title,bestLanguage,taskMode,type,studType,svg);
-        XMLBuilder builder = null;
+        OutputBuilder builder = null;
         switch(outputType){
             case Proforma:
                 builder = new ProformaBuilder();
@@ -58,6 +82,6 @@ public class AnswerFactory {
             default:
                 throw  new GraFlapException("Error in OutputType Defenition.");
         }
-        return builder.getXML(msg);
+        return builder.getOutput(msg);
     }
 }

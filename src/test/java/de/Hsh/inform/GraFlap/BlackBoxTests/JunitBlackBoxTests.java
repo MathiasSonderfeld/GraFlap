@@ -1,4 +1,4 @@
-package de.Hsh.inform.GraFlap.BlackBoxTests;
+package de.HsH.inform.GraFlap.BlackBoxTests;
 
 import de.HsH.inform.GraFlap.GraFlap;
 import org.junit.jupiter.api.*;
@@ -7,12 +7,32 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+/**
+ * @author Mathias Sonderfeld
+ * This is a start, but not every program part is covered.
+ * Its better than nothing but does not verify total integrity of the code.
+ * Current Method:
+ * Repipe JVM wide System.out to an OutputStream Object.
+ * Call GraFlap.main with String-Array as arguments.
+ * Catch output from GraFlap collected by Outputstream and match against expected Result.
+ * Reset Outputstream for next test.
+ * After all tests reset System.out to default.
+ *
+ *
+ * Test-Method could be changed if thats acceptable with common practices to:
+ *      - move System.out.println out of GraFlap.generateResult(). main would be easiest.
+ *      - test input parsers and Output Builders indipendently
+ *      - write a OutputBuilder for Tests that outputs an easier parsable format, csv or json maybe?
+ *      - test GraFLap.generateResult() with easier controllable Arguments Object and TestOutputBuilder
+ */
 public class JunitBlackBoxTests {
     private static PrintStream systemOut;
     private static ByteArrayOutputStream capture = new ByteArrayOutputStream();
     private static PrintStream captureStream = new PrintStream(capture);
 
-
+    /**
+     * repipe JVM wide System.out and backup correct System.out
+     */
     @BeforeAll
     static void init(){
         systemOut = System.out;
@@ -20,6 +40,11 @@ public class JunitBlackBoxTests {
 
     }
 
+    /**
+     *  call GraFlap with given arguments, capture output and return it, if no Exception is thrown by GraFlap.
+     * @param test the arguments to pass to GraFlap
+     * @return the output of GraFlap
+     */
     static String runGraFlapBlackBoxTest( BlackBoxTest test){
         try {
             GraFlap.main(new String[]{test.getInput(), test.getStudentAnswer()});
@@ -33,6 +58,9 @@ public class JunitBlackBoxTests {
         }
     }
 
+    /**
+     * Error in Input-Parameters.
+     */
     @Disabled
     @Test
     void testAutomatonForGivenLanguage() {
@@ -45,6 +73,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Error in Input-Parameters.
+     */
     @Disabled
     @Test
     void testAutomatonForRegex() {
@@ -57,6 +88,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Error in Input-Parameters.
+     */
     @Disabled
     @Test
     void testAutomatonForCombinedLanguage() {
@@ -69,6 +103,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Tests an Automaton against a given Grammar.
+     */
     @Test
     void testAutomatonForEvenNumberOfW() {
         BlackBoxTest blackBoxTest = new BlackBoxTest();
@@ -80,6 +117,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Error in Input-Parameters.
+     */
     @Disabled
     @Test
     void testAutomatonForBinaryNumbers() {
@@ -92,6 +132,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Tests a context free Grammar against a given Alphabet.
+     */
     @Test
     void testContextFreeGrammar() {
         BlackBoxTest blackBoxTest = new BlackBoxTest();
@@ -103,6 +146,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Tests a non context free Grammar against a given Alphabet.
+     */
     @Test
     void testNonContextFreeGrammar() {
         BlackBoxTest blackBoxTest = new BlackBoxTest();
@@ -113,9 +159,11 @@ public class JunitBlackBoxTests {
 
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
-
+    /**
+     * Tests a right regular Grammar against a given Alphabet.
+     */
     @Test
-    void testRightLinearGrammar() {
+    void testRightRegularGrammar() {
         BlackBoxTest blackBoxTest = new BlackBoxTest();
 
         blackBoxTest.setInput("Beispiel fuer eine rechtslineare Grammatik#de#h,i,j#egt#rl#0#-");
@@ -125,6 +173,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Error in Input-Parameters.
+     */
     @Disabled
     @Test
     void testContextFreeGrammarForGivenLanguage() {
@@ -137,6 +188,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Error in Input-Parameters.
+     */
     @Disabled
     @Test
     void testGrammarForIntegers() {
@@ -149,6 +203,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Error in Input-Parameters.
+     */
     @Disabled
     @Test
     void testGrammarForGivenLanguage() {
@@ -161,6 +218,9 @@ public class JunitBlackBoxTests {
         Assertions.assertEquals(expected, runGraFlapBlackBoxTest(blackBoxTest));
     }
 
+    /**
+     * Resets System.out and closes Outputstream.
+     */
     @AfterAll
     static void cleanup(){
         System.setOut(systemOut);

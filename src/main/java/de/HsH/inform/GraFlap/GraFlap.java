@@ -21,14 +21,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
-import de.HsH.inform.GraFlap.entity.ArgumentsParser;
+import de.HsH.inform.GraFlap.parse.Arguments.ArgumentsParser;
 import de.HsH.inform.GraFlap.entity.OutputType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.parse.Arguments.LoncapaParser;
+import de.HsH.inform.GraFlap.parse.Arguments.ProformaParser;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
 import de.HsH.inform.GraFlap.typetest.*;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 
 /**
  * Main execution file that starts the application
@@ -40,15 +41,25 @@ import org.jdom2.JDOMException;
  */
 public class GraFlap {
     /**
-     * main method that starts the application
-     * @param args the program arguments, here: args[0] contains task title, nickname, bestlanguage, given, mode and
-     *             wordString or numberOfWords, each separated by '#'
-     * @throws IOException throws a {@link IOException} that occurs deeper within the calling hierarchy
-     * @throws JDOMException throws a {@link JDOMException} that occurs deeper within the calling hierarchy
+     * Grades a submission for a theoretical computer science task
+     * @param args Parameters:
+     *             -f: input is given by file. Path to file containinga Submission as Proforma-XML in version 2.1 is expected to follow as second
+     *             parameter.
+     *             Example: -f ./test.xml
+     *
+     *             -s input is given as String. Submission as Proforma-XML in Version 2.1 is expected as next argument.
+     *             Example: -s <?xml version="1.0" encoding="UTF-8"?><proforma:submisison>...</proforma:submisison>
+     *
+     *             Response is formatted in a Proforma-Response in version 2.1 if Input is given as Proforma-XML.
+     *
+     *             no commands: expected old Loncapa format, first parameter is csv of task data with # as delimiter, second parameter is student
+     *             answer to grade. Response is formatted for Loncapa. This format should not be used for future projects.
+     *             Example: "Beispiel fuer eine kontextfreie Grammatik#de#n,o,p#egt#cfg#0#-" "S -> E | p | n S o"
      */
     public static void main(String[] args) {
         Arguments arguments = null;
         OutputType outputType;
+        ArgumentsParser parser = null;
         try {
             if(args.length < 2){
                 throw new GraFlapException("not enough Parameters.");
@@ -57,16 +68,18 @@ public class GraFlap {
                 outputType = OutputType.Proforma;
                 StringBuilder sb = new StringBuilder();
                 Files.lines(Paths.get(args[1]), StandardCharsets.UTF_8).forEach(s -> sb.append(s));
-                arguments = ArgumentsParser.parseProformaFormat(sb.toString());
+                args[1] = sb.toString();
+                parser = new ProformaParser();
             }
             else if("-s".equals(args[0])){
                 outputType = OutputType.Proforma;
-                arguments = ArgumentsParser.parseProformaFormat(args[1]);
+                parser = new ProformaParser();
             }
             else{
                 outputType = OutputType.Loncapa;
-                arguments = ArgumentsParser.parseLoncapaFormat(args);
+                parser = new LoncapaParser();
             }
+            arguments = parser.parse(args);
         }
         catch(IOException e){
             System.out.println("Cant read file at " + args[1]);
@@ -83,6 +96,7 @@ public class GraFlap {
     /**
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
+     * @param outputType the Format to which to output to.
      */
     private static void produceResult(Arguments arguments, OutputType outputType) {
         try {
@@ -98,7 +112,7 @@ public class GraFlap {
             }
 
             Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
-            String xml = AnswerFactory.getXML(result.getResult(), arguments.getTaskTitle(),
+            String xml = AnswerFactory.getOutput(result.getResult(), arguments.getTaskTitle(),
                                                              arguments.getUserLanguage(),arguments.getMode(),
                                                              arguments.getArgtype(), studType, svg, outputType);
             System.out.println(xml);

@@ -6,9 +6,9 @@ import org.jdom2.Element;
  * abstract class that serves a parent to generate the answer message, which is sent back to LON-CAPA
  * @author Benjamin Held (07-29-2016)
  * @author Lukas Seltmann (06-12-2019)
- * @author Mathias Sonderfeld (14-04-2021)
+ * @author Mathias Sonderfeld
  * @since 08-04-2016
- * @version 0.1.5
+ * @version 0.5
  */
 public abstract class AnswerMessage {
     private String taskTitle;

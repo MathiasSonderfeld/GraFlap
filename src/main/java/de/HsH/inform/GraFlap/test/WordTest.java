@@ -3,11 +3,11 @@ package de.HsH.inform.GraFlap.test;
 import de.HsH.inform.GraFlap.grammar.GrammarBuilder;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.grammar.Grammar;
-import de.HsH.inform.GraFlap.parse.BruteParser;
+import de.HsH.inform.GraFlap.parse.Submission.BruteParser;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
-import de.HsH.inform.GraFlap.parse.Parser;
-import de.HsH.inform.GraFlap.parse.RestrictedBruteParser;
+import de.HsH.inform.GraFlap.parse.Submission.Parser;
+import de.HsH.inform.GraFlap.parse.Submission.RestrictedBruteParser;
 
 import java.util.regex.Pattern;
 
