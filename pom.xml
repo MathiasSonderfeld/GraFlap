@@ -27,7 +27,6 @@
 
 
     <dependencies>
-        <!-- to change to local Libs, replace groupId with local.repo for jdom, xeger and automaton -->
         <dependency>
             <groupId>local.repo</groupId>
             <artifactId>JFLAP</artifactId>
@@ -39,10 +38,17 @@
             <artifactId>jdom2</artifactId>
             <version>2.0.6</version>
         </dependency>
+
         <dependency>
             <groupId>local.repo</groupId>
             <artifactId>xeger</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>local.repo</groupId>
+            <artifactId>automaton</artifactId>
+            <version>0.1</version>
         </dependency>
 
 
