@@ -27,22 +27,24 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom2</artifactId>
-            <version>2.0.6</version>
-        </dependency>
-
+        <!-- to change to local Libs, replace groupId with local.repo for jdom, xeger and automaton -->
         <dependency>
             <groupId>local.repo</groupId>
             <artifactId>JFLAP</artifactId>
             <version>8.0-beta</version>
         </dependency>
+
         <dependency>
-            <groupId>com.github.krraghavan</groupId>
-            <artifactId>xeger</artifactId>
-            <version>1.0.0-RELEASE</version>
+            <groupId>local.repo</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
         </dependency>
+        <dependency>
+            <groupId>local.repo</groupId>
+            <artifactId>xeger</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.mockito</groupId>
