@@ -1,9 +1,9 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
-import de.HsH.inform.GraFlap.words.GenerateWords;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Submission;
-import de.HsH.inform.GraFlap.automaton.Automaton;
 
 import java.util.HashMap;
 
@@ -25,7 +25,7 @@ public class AutomatonRegexTest extends AutomatonTest {
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     @Override
-    public int openInput(String solution, Submission<Automaton> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
+    public int openInput( String solution, Submission<Automaton> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         HashMap<String, String[]> words = new HashMap<>();
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
         words.put("rightWords", generateWords.generateRightWordForRegex(solution));

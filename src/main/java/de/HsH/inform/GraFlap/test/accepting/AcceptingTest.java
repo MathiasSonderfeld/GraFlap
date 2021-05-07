@@ -1,9 +1,9 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
-import de.HsH.inform.GraFlap.words.GenerateWords;
-import de.HsH.inform.GraFlap.words.WordSeparator;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
+import de.HsH.inform.GraFlap.JflapWrapper.words.WordSeparator;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Submission;
 
 import java.util.HashMap;
 
@@ -53,7 +53,7 @@ public abstract class AcceptingTest<T extends Object> {
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    public abstract int openInput(String solution, Submission<T> studentInput,  String wordString) throws GraFlapException;
+    public abstract int openInput( String solution, Submission<T> studentInput, String wordString) throws GraFlapException;
 
     /**
      * abstract method to open the input and generate the required number of test words specified

@@ -24,11 +24,11 @@ public class ConvertToJFF {
     /**
      * a set which contains the unused letters that still can be used
      */
-    private TreeSet<String> freeLetter = new TreeSet<>();
+    private final TreeSet<String> freeLetter = new TreeSet<>();
     /**
      * a hashmap that contains the already used letter mapped by {StringToken, Letter}
      */
-    private HashMap<String, String> usedLetter = new HashMap<>();
+    private final HashMap<String, String> usedLetter = new HashMap<>();
 
     /**
      * Constructor

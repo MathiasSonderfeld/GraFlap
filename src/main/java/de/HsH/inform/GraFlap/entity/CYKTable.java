@@ -10,7 +10,7 @@ import java.util.HashSet;
  */
 public class CYKTable {
 
-    private HashSet[][] cykTable;
+    private final HashSet[][] cykTable;
 
     public CYKTable(HashSet[][] table) {
         this.cykTable = table;

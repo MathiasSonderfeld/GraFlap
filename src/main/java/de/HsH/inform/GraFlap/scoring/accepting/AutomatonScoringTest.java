@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.scoring.accepting;
 
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.simulation.AutomatonSimulator;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.automaton.Automaton;
-import de.HsH.inform.GraFlap.simulation.AutomatonSimulator;
 
 /**
  *  child class to generate the resulting score for test words and a given automaton

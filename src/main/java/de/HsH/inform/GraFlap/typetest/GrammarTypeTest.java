@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.typetest;
 
-import de.HsH.inform.GraFlap.entity.Submission;
-import de.HsH.inform.GraFlap.grammar.Grammar;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 
 /**
  * Action for testing grammar to see what type of grammar it is.

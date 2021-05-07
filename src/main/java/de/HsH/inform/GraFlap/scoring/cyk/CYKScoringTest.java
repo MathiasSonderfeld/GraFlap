@@ -1,10 +1,10 @@
 package de.HsH.inform.GraFlap.scoring.cyk;
 
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.CYKParser;
 import de.HsH.inform.GraFlap.entity.CYKTable;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
-import de.HsH.inform.GraFlap.grammar.Grammar;
-import de.HsH.inform.GraFlap.parse.Submission.CYKParser;
 
 /**
  * child class to generate the resulting score for a cyk algorithm exercise
@@ -14,8 +14,8 @@ import de.HsH.inform.GraFlap.parse.Submission.CYKParser;
  */
 public class CYKScoringTest extends ScoringTest<CYKTable> {
 
-    private String word;
-    private Grammar solutionGrammar;
+    private final String word;
+    private final Grammar solutionGrammar;
 
     /**
      * constructor which takes a generic object

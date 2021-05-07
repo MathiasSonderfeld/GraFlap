@@ -10,5 +10,5 @@ import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
  * AnswerFactory.
  */
 public interface OutputBuilder {
-    public String getOutput( AnswerMessage answerMessage);
+    String getOutput( AnswerMessage answerMessage );
 }

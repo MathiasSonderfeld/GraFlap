@@ -5,7 +5,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import de.HsH.inform.GraFlap.file.DOMFactory;
+import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;

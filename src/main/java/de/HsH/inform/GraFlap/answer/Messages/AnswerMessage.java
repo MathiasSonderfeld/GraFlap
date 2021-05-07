@@ -12,8 +12,8 @@ import org.jdom2.Element;
  */
 public abstract class AnswerMessage {
     private String taskTitle;
-    private Element svgImage;
-    private int resultScore;
+    private final Element svgImage;
+    private final int resultScore;
     private boolean hasPassed;
 
     /**

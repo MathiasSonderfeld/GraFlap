@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.derivation;
 
 import de.HsH.inform.GraFlap.entity.ValuePair;
-import de.HsH.inform.GraFlap.grammar.Grammar;
-import de.HsH.inform.GraFlap.grammar.Production;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
  * @version 0.1.2
  */
 public class DerivationChecker {
-    private Grammar grammar;
+    private final Grammar grammar;
     private int falseCounter;
-    private String word;
+    private final String word;
 
     public DerivationChecker(Grammar grammar, String word) {
         this.grammar = grammar;

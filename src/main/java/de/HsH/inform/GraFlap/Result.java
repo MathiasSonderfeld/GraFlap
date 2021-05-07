@@ -1,20 +1,27 @@
 package de.HsH.inform.GraFlap;
 
-import de.HsH.inform.GraFlap.entity.*;
-import de.HsH.inform.GraFlap.grammar.GrammarBuilder;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.convert.CYKInputParser;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import de.HsH.inform.GraFlap.convert.DerivationParser;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.CYKTable;
+import de.HsH.inform.GraFlap.entity.OperationMode;
+import de.HsH.inform.GraFlap.entity.OperationType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.cyk.CYKScoringTest;
 import de.HsH.inform.GraFlap.scoring.derivation.DerivationScoringTest;
-import de.HsH.inform.GraFlap.test.accepting.*;
+import de.HsH.inform.GraFlap.test.AlphabetTest;
+import de.HsH.inform.GraFlap.test.WordTest;
+import de.HsH.inform.GraFlap.test.accepting.AutomatonRegexTest;
+import de.HsH.inform.GraFlap.test.accepting.AutomatonTest;
+import de.HsH.inform.GraFlap.test.accepting.GrammarRegexTest;
+import de.HsH.inform.GraFlap.test.accepting.GrammarTest;
 import de.HsH.inform.GraFlap.test.transducing.TransducerPairTest;
 import de.HsH.inform.GraFlap.test.transducing.TransducerWordTest;
 import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.test.*;
-import de.HsH.inform.GraFlap.grammar.Grammar;
 
 /**
  * helper class for the main method to determine the result of the submission
@@ -34,7 +41,7 @@ public class Result {
     /**
      * the determined mode
      */
-    private OperationMode operationMode;
+    private final OperationMode operationMode;
 
     /**
      * the {@link Submission} object that encapsulated the required submission data

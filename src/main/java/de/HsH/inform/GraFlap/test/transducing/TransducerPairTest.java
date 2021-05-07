@@ -1,9 +1,9 @@
 package de.HsH.inform.GraFlap.test.transducing;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.words.MachineInputOutputParser;
-import de.HsH.inform.GraFlap.entity.Submission;
-import de.HsH.inform.GraFlap.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.words.MachineInputOutputParser;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 
 /**
  * child class to to start the testing mechanism when receiving input/output pairs

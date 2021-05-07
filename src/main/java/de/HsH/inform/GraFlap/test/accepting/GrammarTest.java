@@ -1,11 +1,11 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
+import de.HsH.inform.GraFlap.JflapWrapper.words.WordSeparator;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.accepting.GrammarScoringTest;
-import de.HsH.inform.GraFlap.words.GenerateWords;
-import de.HsH.inform.GraFlap.words.WordSeparator;
-import de.HsH.inform.GraFlap.entity.Submission;
-import de.HsH.inform.GraFlap.grammar.Grammar;
 
 import java.util.HashMap;
 
@@ -42,7 +42,7 @@ public class GrammarTest extends AcceptingTest<Grammar> {
      * @throws GraFlapException throws a GraFlapException that occurs further within the calling hierarchy
      */
     @Override
-    public int openInput(String solution, Submission<Grammar> studentInput, String wordString) throws GraFlapException {
+    public int openInput( String solution, Submission<Grammar> studentInput, String wordString) throws GraFlapException {
         HashMap<String, String[]> words = generateTestWordsFromString(solution, wordString);
         return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
     }

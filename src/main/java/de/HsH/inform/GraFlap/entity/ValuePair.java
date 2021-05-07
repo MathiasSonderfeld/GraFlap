@@ -7,8 +7,8 @@ package de.HsH.inform.GraFlap.entity;
  * @version 0.1.0
  */
 public class ValuePair<K,V> {
-    private K key;
-    private V value;
+    private final K key;
+    private final V value;
 
     public ValuePair(K key, V value) {
         this.key = key;

@@ -1,18 +1,18 @@
 package de.HsH.inform.GraFlap.answer;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.answer.Messages.svg.SvgAnswerMessage;
+import de.HsH.inform.GraFlap.answer.XMLBuilder.LoncapaBuilder;
+import de.HsH.inform.GraFlap.answer.XMLBuilder.OutputBuilder;
+import de.HsH.inform.GraFlap.answer.XMLBuilder.ProformaBuilder;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.answer.Messages.algorithm.CYKAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.algorithm.DerivationAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.automaton.AcceptorAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.automaton.TransducerAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.grammar.GrammarAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.grammar.WordAnswerMessage;
-import de.HsH.inform.GraFlap.answer.Messages.svg.SvgAnswerMessage;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.LoncapaBuilder;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.ProformaBuilder;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.OutputBuilder;
 import de.HsH.inform.GraFlap.entity.OutputType;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Element;
 
 /**
@@ -36,7 +36,7 @@ public class AnswerFactory {
      * @throws GraFlapException if the AnswerMessage can not be identified
      */
     private static AnswerMessage determineAnswer( int resultValue, String title, String bestLanguage, String taskMode,
-                                              String type, String studType, Element svg) throws GraFlapException {
+                                                  String type, String studType, Element svg) throws GraFlapException {
         if (taskMode.startsWith("g") || taskMode.equals("egt")) {
             return new GrammarAnswerMessage(resultValue, title, bestLanguage, taskMode, type, studType, svg);
         } else if (taskMode.startsWith("a") || taskMode.equals("eat")) {

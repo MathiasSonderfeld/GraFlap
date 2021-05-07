@@ -26,6 +26,6 @@ public class GraFlapException extends Exception {
    public String getErrorMessage( String taskTitle){
     StringWriter errors = new StringWriter();
     this.printStackTrace(new PrintWriter(errors));
-    return taskTitle + ": " + errors.toString();
+    return taskTitle + ": " + errors;
    }
 }

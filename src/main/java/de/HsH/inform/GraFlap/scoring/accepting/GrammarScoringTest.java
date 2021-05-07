@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.scoring.accepting;
 
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.test.WordTest;
-import de.HsH.inform.GraFlap.grammar.Grammar;
 
 /**
  *  child class to generate the resulting score for test words and a given grammar

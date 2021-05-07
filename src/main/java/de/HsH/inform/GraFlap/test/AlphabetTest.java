@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.test;
 
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Submission;
-import de.HsH.inform.GraFlap.grammar.Grammar;
 
 /**
  * class to test alphabet of a given input string
@@ -15,14 +15,14 @@ public class AlphabetTest {
     /**
      * an array holding the letters of an alphabet
      */
-    private String[] letters;
+    private final String[] letters;
 
     /**
      * extract the alphabet of the given automaton / grammar
      * @param grammarSubmission the given input string
      * @throws GraFlapException if another exception occurs it is replaced by a GraFlapException
      */
-    public AlphabetTest(Submission<Grammar> grammarSubmission) throws GraFlapException {
+    public AlphabetTest( Submission<Grammar> grammarSubmission) throws GraFlapException {
         this.letters = grammarSubmission.getSubmissionObject().getAlphabet();
     }
 

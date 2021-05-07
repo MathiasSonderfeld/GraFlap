@@ -21,14 +21,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
-import de.HsH.inform.GraFlap.parse.Arguments.ArgumentsParser;
 import de.HsH.inform.GraFlap.entity.OutputType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.parse.Arguments.LoncapaParser;
-import de.HsH.inform.GraFlap.parse.Arguments.ProformaParser;
+import de.HsH.inform.GraFlap.ioparsing.ArgumentsParser;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
-import de.HsH.inform.GraFlap.typetest.*;
+import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
+import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.ioparsing.LoncapaParser;
+import de.HsH.inform.GraFlap.ioparsing.ProformaParser;
 import org.jdom2.Element;
 
 /**

@@ -3,7 +3,7 @@ package de.HsH.inform.GraFlap.svg;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import org.jdom2.Document;
-import de.HsH.inform.GraFlap.file.DOMFactory;
+import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 
 /**
  * Child class of the {@link SvgBuilder} that creates result output for cyk exercises
@@ -35,7 +35,7 @@ public class SvgCYKBuilder extends SvgBuilder {
                 sb.append(element).append(" | ");
             }
             sb.append("</tspan>");
-            svgBuilder.append(sb.toString());
+            svgBuilder.append(sb);
         }
         svgBuilder.append("</text>");
         svgBuilder.append("</svg>");

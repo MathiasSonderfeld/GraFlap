@@ -2,8 +2,8 @@ package de.HsH.inform.GraFlap.scoring.derivation;
 
 import de.HsH.inform.GraFlap.derivation.DerivationChecker;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
-import de.HsH.inform.GraFlap.grammar.Grammar;
 
 /**
  * child class to generate the resulting score for a derivation exercise
@@ -13,8 +13,8 @@ import de.HsH.inform.GraFlap.grammar.Grammar;
  */
 public class DerivationScoringTest extends ScoringTest<String[]> {
 
-    private String word;
-    private Grammar solutionGrammar;
+    private final String word;
+    private final Grammar solutionGrammar;
 
     /**
      * constructor which takes a generic object

@@ -1,12 +1,12 @@
 package de.HsH.inform.GraFlap.test.transducing;
 
+import de.HsH.inform.GraFlap.JflapWrapper.simulation.AutomatonSimulator;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Submission;
-import de.HsH.inform.GraFlap.automaton.Automaton;
-import de.HsH.inform.GraFlap.automaton.TuringMachine;
-import de.HsH.inform.GraFlap.exception.AutomatonMismatchException;
-import de.HsH.inform.GraFlap.simulation.AutomatonSimulator;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.TuringMachine;
+import de.HsH.inform.GraFlap.JflapWrapper.exception.AutomatonMismatchException;
 
 import java.util.HashMap;
 
@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 public class TransducerWordTest extends TransducerTest {
 
-    private Automaton solution;
+    private final Automaton solution;
 
     public TransducerWordTest(String solution) throws GraFlapException {
         this.solution = ConvertSubmission.openAutomaton(solution).getSubmissionObject();

@@ -1,13 +1,13 @@
 package de.HsH.inform.GraFlap.test;
 
-import de.HsH.inform.GraFlap.grammar.GrammarBuilder;
-import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
-import de.HsH.inform.GraFlap.grammar.Grammar;
-import de.HsH.inform.GraFlap.parse.Submission.BruteParser;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.GrammarBuilder;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.Parser;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
-import de.HsH.inform.GraFlap.parse.Submission.Parser;
-import de.HsH.inform.GraFlap.parse.Submission.RestrictedBruteParser;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.BruteParser;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.RestrictedBruteParser;
 
 import java.util.regex.Pattern;
 
@@ -51,7 +51,7 @@ public class WordTest {
      * @return the number of failed tested words
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    public static int checkWordsWithGrammar(Grammar grammar, String[] words) throws GraFlapException {
+    public static int checkWordsWithGrammar( Grammar grammar, String[] words) throws GraFlapException {
         int result = 0;
         Parser parser;
         if (GrammarTypeTest.isContextFreeGrammar(grammar)) {

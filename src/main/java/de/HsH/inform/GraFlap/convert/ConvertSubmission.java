@@ -1,21 +1,22 @@
 package de.HsH.inform.GraFlap.convert;
 
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.OperationType;
 import de.HsH.inform.GraFlap.entity.ValuePair;
 import org.xml.sax.SAXException;
-import de.HsH.inform.GraFlap.entity.Submission;
-import de.HsH.inform.GraFlap.automaton.Automaton;
-import de.HsH.inform.GraFlap.exception.JffTuringException;
-import de.HsH.inform.GraFlap.file.Transducer;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
+import de.HsH.inform.GraFlap.JflapWrapper.file.Transducer;
 import org.w3c.dom.Document;
 import org.w3c.dom.*;
 import org.w3c.dom.Element;
-import de.HsH.inform.GraFlap.file.TuringConverter;
-import de.HsH.inform.GraFlap.grammar.Grammar;
+import de.HsH.inform.GraFlap.JflapWrapper.file.TuringConverter;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -81,7 +82,7 @@ public class ConvertSubmission {
      */
     private static ValuePair<Object, OperationType> openString( String submissionString) throws GraFlapException {
         try {
-            InputStream stream = new ByteArrayInputStream(submissionString.getBytes(Charset.forName("UTF-8")));
+            InputStream stream = new ByteArrayInputStream(submissionString.getBytes(StandardCharsets.UTF_8));
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(stream);

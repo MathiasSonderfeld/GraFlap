@@ -1,9 +1,9 @@
 package de.HsH.inform.GraFlap.scoring.transducing;
 
-import de.HsH.inform.GraFlap.entity.ValuePair;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.automaton.Automaton;
-import de.HsH.inform.GraFlap.automaton.TuringMachine;
+import de.HsH.inform.GraFlap.entity.ValuePair;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.TuringMachine;
 
 import java.util.HashMap;
 
@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 public class TuringMachineScoringTest extends TransducerScoringTest<TuringMachine> {
 
-    public TuringMachineScoringTest(Automaton automaton, HashMap<String, String> input) throws GraFlapException {
+    public TuringMachineScoringTest( Automaton automaton, HashMap<String, String> input) throws GraFlapException {
         super(new TuringMachine(automaton.getJFLAPAutomaton()), input);
     }
 
