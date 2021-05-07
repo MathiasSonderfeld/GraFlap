@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proforma:submission xmlns:xs="http://www.w3.org/2001/X M L Schema" xmlns:proforma="urn:proforma:v2.1" xmlns:files="http://www.idss13.de/2020/Files" id="SubmissionUUID">
+    <proforma:task uuid="0123" parent-uuid="0" lang="de">
+        <proforma:title>§This Can Be The Title</proforma:title>
+        <proforma:description>§BlockedForLMS</proforma:description>
+        <proforma:proglang version="1.0">§This Could Be Mode</proforma:proglang>
+        <proforma:files />
+        <proforma:tests />
+        <proforma:meta-data />
+    </proforma:task>
+    <proforma:files />
+    <proforma:result-spec format="xml" lang="proforma" structure="separate-test-feedback" />
+</proforma:submission>

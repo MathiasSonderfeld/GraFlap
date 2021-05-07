@@ -2,5 +2,3 @@ target/
 .idea/
 
 *.iml
-
-*.xml
