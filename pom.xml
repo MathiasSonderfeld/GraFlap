@@ -68,6 +68,7 @@
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
+        <defaultGoal>verify</defaultGoal>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
