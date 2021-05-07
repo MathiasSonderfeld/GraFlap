@@ -1,0 +1,41 @@
+<proforma:response xmlns:proforma="urn:proforma:v2.1">
+    <proforma:separate-test-feedback>
+        <proforma:submission-feedback-list />
+        <proforma:tests-response>
+            <proforma:test-response id="Beispiel fuer eine rechtslineare Grammatik">
+                <proforma:test-result>
+                    <proforma:result>
+                        <proforma:score>1.0</proforma:score>
+                        <proforma:validity>1.0</proforma:validity>
+                    </proforma:result>
+                    <proforma:feedback-list>
+                        <proforma:teacher-feedback>
+                            <proforma:title>Musterloesung</proforma:title>
+                            <proforma:content format="plaintext"><![CDATA[]]></proforma:content>
+                        </proforma:teacher-feedback>
+                        <proforma:student-feedback>
+                            <proforma:title>TaskTitle</proforma:title>
+                            <proforma:content format="plaintext">Beispiel fuer eine rechtslineare Grammatik</proforma:content>
+                        </proforma:student-feedback>
+                        <proforma:student-feedback>
+                            <proforma:title>SvgTitle</proforma:title>
+                            <proforma:content format="plaintext">Grammatik</proforma:content>
+                        </proforma:student-feedback>
+                        <proforma:student-feedback>
+                            <proforma:title>SvgImage</proforma:title>
+                            <proforma:content format="html">S -&gt; E | j | hiS</proforma:content>
+                        </proforma:student-feedback>
+                        <proforma:student-feedback>
+                            <proforma:title>ResultText</proforma:title>
+                            <proforma:content format="plaintext" />
+                        </proforma:student-feedback>
+                    </proforma:feedback-list>
+                </proforma:test-result>
+            </proforma:test-response>
+        </proforma:tests-response>
+    </proforma:separate-test-feedback>
+    <proforma:files />
+    <proforma:response-meta-data>
+        <proforma:grader-engine name="de.HsH.inform.GraFlap.GraFlap" version="0.1" />
+    </proforma:response-meta-data>
+</proforma:response>
