@@ -93,7 +93,7 @@ public class Result {
      * @return a reference of the object
      * @throws GraFlapException throws a {@link GraFlapException} if an error occurs
      */
-    public Result generateResult( Arguments arguments) throws GraFlapException {
+    public Result generateResult(Arguments arguments) throws GraFlapException {
         switch(operationMode) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");

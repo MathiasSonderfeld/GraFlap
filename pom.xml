@@ -25,7 +25,6 @@
         </repository>
     </repositories>
 
-
     <dependencies>
         <dependency>
             <groupId>local.repo</groupId>
@@ -50,7 +49,6 @@
             <artifactId>automaton</artifactId>
             <version>0.1</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.mockito</groupId>
