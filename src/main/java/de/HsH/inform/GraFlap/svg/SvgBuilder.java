@@ -28,18 +28,21 @@ public abstract class SvgBuilder {
      * string pointing to the required directory
      */
     static String filepath;
+    private static String appendix = "";
 
     public SvgBuilder() {
+        if(System.getProperty("os.name").contains("Windows")){
+            appendix = ".exe";
+        }
         operationMode = OperationMode.DEFAULT;
-        filepath = "C:\\Program Files\\Graphviz\\bin\\fdp.exe";
+        filepath = "fdp" + appendix;
     }
 
     public SvgBuilder( OperationMode operationMode ) {
+        this();
         this.operationMode = operationMode;
         if (operationMode == OperationMode.SVGA) {
-            filepath = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
-        } else {
-            filepath = "C:\\Program Files\\Graphviz\\bin\\fdp.exe";
+            filepath = "dot" + appendix;
         }
     }
 

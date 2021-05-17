@@ -82,7 +82,7 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
         Process graphViz = null;
         try {
             graphViz = pb.start();
-            graphVizResult = new BufferedReader(new InputStreamReader(graphViz.getInputStream()), 4096);
+            graphVizResult = new BufferedReader(new InputStreamReader(graphViz.getInputStream()));
             graphVizInput = new PrintWriter(graphViz.getOutputStream());
 
             /*
@@ -93,16 +93,9 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
              * Then I reset the buffer to the mark at the beginning and then send SIGTERM. That way the buffer is at the beginning of the answer,
              * Graphwiz has completed the task and SIGTERM is sent correctly.
              */
-            graphVizResult.mark(4096);
             graphVizInput.println(gvString);
             graphVizInput.flush();
             graphVizInput.close();
-            while(graphVizResult.readLine() == ""){
-                Thread.sleep(500);
-            }
-            graphVizResult.reset();
-            graphViz.destroy();
-            graphViz.waitFor();
 
             String line;
             if ((line = graphVizResult.readLine()) != null) {
@@ -113,7 +106,10 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
             while ((line = graphVizResult.readLine()) != null) {
                 svgString += line;
             }
+            graphViz.destroy();
+            graphViz.waitFor();
         } catch ( IOException | InterruptedException e) {
+            e.printStackTrace();
             throw new GraFlapException("ERROR - Problems with showing the automaton in Graphviz. " + e.getMessage());
         } finally {
             if (graphViz != null) {
