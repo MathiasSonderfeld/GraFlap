@@ -49,7 +49,7 @@ public class GraFlapTest {
     static String runGraFlapBlackBoxTest( BlackBoxTestData test){
         try {
             GraFlap.main(new String[]{test.getInput(), test.getStudentAnswer()});
-            String ret = capture.toString().replaceAll("[\\r|\\n]\\s+", "");
+            String ret = capture.toString().replaceAll("[\\r|\\n]\\s+", "").trim();
             capture.reset();
             return ret;
         }
