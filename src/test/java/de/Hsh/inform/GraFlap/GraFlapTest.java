@@ -77,6 +77,7 @@ public class GraFlapTest {
     /**
      * Error in Input-Parameters.
      */
+    @Disabled
     @Test
     void testAutomatonForRegex() {
         BlackBoxTestData blackBoxTest = new BlackBoxTestData();
@@ -106,6 +107,7 @@ public class GraFlapTest {
     /**
      * Tests an Automaton against a given Grammar.
      */
+    @Disabled
     @Test
     void testAutomatonForEvenNumberOfW() {
         BlackBoxTestData blackBoxTest = new BlackBoxTestData();
