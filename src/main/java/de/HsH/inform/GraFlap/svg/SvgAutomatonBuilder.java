@@ -82,13 +82,26 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
         Process graphViz = null;
         try {
             graphViz = pb.start();
-            graphVizResult = new BufferedReader(new InputStreamReader(graphViz.getInputStream()));
+            graphVizResult = new BufferedReader(new InputStreamReader(graphViz.getInputStream()), 4096);
             graphVizInput = new PrintWriter(graphViz.getOutputStream());
 
+            /*
+             * GraphWiz expects more than one Input on Windows so I had to adapt this code accordingly.
+             * Graflap needs to send a SIGTERM after the task has been completed. Sending a SIGTERM is done via graphwiz.destroy().
+             * But Graflap has to wait for Graphwiz to do its job before sending SIGTERM.
+             * To achieve that I marked the beginning of the Graphwiz output and wait for the answer to appear.
+             * Then I reset the buffer to the mark at the beginning and then send SIGTERM. That way the buffer is at the beginning of the answer,
+             * Graphwiz has completed the task and SIGTERM is sent correctly.
+             */
+            graphVizResult.mark(4096);
             graphVizInput.println(gvString);
             graphVizInput.flush();
             graphVizInput.close();
-
+            while(graphVizResult.readLine() == ""){
+                Thread.sleep(500);
+            }
+            graphVizResult.reset();
+            graphViz.destroy();
             graphViz.waitFor();
 
             String line;
