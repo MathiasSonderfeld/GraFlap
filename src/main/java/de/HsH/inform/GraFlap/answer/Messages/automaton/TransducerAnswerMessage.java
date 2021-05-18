@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
+import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 /**
@@ -24,24 +25,29 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
     }
 
     @Override
-    protected String getGermanSvgTitle() {
-        return "Maschine";
+    protected String getLangDependentSvgTitle( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Maschine";
+
+            case English:
+            default:
+                return "Machine";
+        }
     }
 
     @Override
-    protected String getEnglishSvgTitle() {
-        return "Machine";
+    protected String getLangDependentFeedback( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Prozent der getesteten Worte haben den Test gegen die Maschine nicht bestanden.";
+
+            case English:
+            default:
+                return "percent of the tested words did not pass the test against the machine.";
+        }
     }
 
-    @Override
-    protected String getGermanFeedbackText() {
-        return "Prozent der getesteten Worte haben den Test gegen die Maschine nicht bestanden.";
-    }
-
-    @Override
-    protected String getEnglishFeedbackText() {
-        return "percent of the tested words did not pass the test against the machine.";
-    }
 
     @Override
     protected boolean submissionMatchesTarget(String solutionType, String submissionType) {
@@ -50,14 +56,15 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
         passed &= matchesTuringMachine(solutionType, submissionType);
         if ((solutionType.contains("mealy")) && (!(submissionType.contains("mealy")))) {
             passed = false;
-            if (language.equalsIgnoreCase("de")) {
+            if (lang == UserLanguage.German) {
                 feedbackText.append("Dies ist keine Mealy-Maschine. \n");
             } else {
                 feedbackText.append("This is not a mealy machine. \n");
             }
-        } else if ((solutionType.contains("moore")) && (!(submissionType.contains("moore")))) {
+        }
+        else if ((solutionType.contains("moore")) && (!(submissionType.contains("moore")))) {
             passed = false;
-            if (language.equalsIgnoreCase("de")) {
+            if (lang == UserLanguage.German) {
                 feedbackText.append("Dies ist keine Moore-Maschine. \n");
             } else {
                 feedbackText.append("This is not a moore machine. \n");

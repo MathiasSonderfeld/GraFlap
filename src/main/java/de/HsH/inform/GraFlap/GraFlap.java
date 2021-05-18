@@ -21,6 +21,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
+import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.answer.Messages.Error.ErrorAnswerMessage;
+import de.HsH.inform.GraFlap.answer.XMLBuilder.LoncapaBuilder;
+import de.HsH.inform.GraFlap.answer.XMLBuilder.OutputBuilder;
+import de.HsH.inform.GraFlap.answer.XMLBuilder.ProformaBuilder;
 import de.HsH.inform.GraFlap.entity.OutputType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.ioparsing.ArgumentsParser;
@@ -59,68 +64,64 @@ public class GraFlap {
      */
     public static void main(String[] args) {
         Arguments arguments = null;
-        OutputType outputType;
+        OutputBuilder outputBuilder = null;
         ArgumentsParser parser = null;
+        AnswerMessage answerMessage = null;
         try {
             if(args.length < 2){
-                throw new GraFlapException("not enough Parameters.");
+                throw new IllegalArgumentException("not enough Parameters.");
             }
             else if("-f".equals(args[0])){
-                outputType = OutputType.Proforma;
+                outputBuilder = new ProformaBuilder();
                 StringBuilder sb = new StringBuilder();
                 Files.lines(Paths.get(args[1]), StandardCharsets.UTF_8).forEach(s -> sb.append(s));
                 args[1] = sb.toString();
                 parser = new ProformaParser();
             }
             else if("-s".equals(args[0])){
-                outputType = OutputType.Proforma;
+                outputBuilder = new ProformaBuilder();
                 parser = new ProformaParser();
             }
             else{
-                outputType = OutputType.Loncapa;
+                outputBuilder = new LoncapaBuilder();
                 parser = new LoncapaParser();
             }
             arguments = parser.parse(args);
+            answerMessage = processSubmission(arguments);
         }
-        catch(IOException e){
-            System.out.println("Cant read file at " + args[1]);
+        catch(IOException | IllegalArgumentException e){
             e.printStackTrace(System.out);
-            return;
         }
-        catch (GraFlapException lex) {
-            System.out.println(lex.getErrorMessage(args[0].split("#")[0]));
-            return;
+        catch(GraFlapException e){
+            if(outputBuilder != null){
+                answerMessage = new ErrorAnswerMessage(e);
+            }
+            else{
+                e.printStackTrace(System.out);
+            }
         }
-        produceResult(arguments, outputType);
+        finally {
+            System.out.println(outputBuilder.getOutput(answerMessage));
+        }
     }
 
     /**
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
-     * @param outputType the Format to which to output to.
      */
-    private static void produceResult(Arguments arguments, OutputType outputType) {
-        try {
-            Result result = new Result(arguments.getOperationMode()).generateResult(arguments);
-            String studType = result.getStudType();
+    private static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
+        Result result = new Result(arguments.getOperationMode()).generateResult(arguments);
+        String studType = result.getStudType();
 
-            if (arguments.getMode().contains("t")) {
-                if (arguments.getMode().contains("a")) {
-                    studType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
-                } else if (arguments.getMode().contains("g")) {
-                    studType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
-                }
+        if (arguments.getMode().contains("t")) {
+            if (arguments.getMode().contains("a")) {
+                studType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
+            } else if (arguments.getMode().contains("g")) {
+                studType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
             }
-
-            Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
-            String xml = AnswerFactory.getOutput(result.getResult(), arguments.getTaskTitle(),
-                                                             arguments.getUserLanguage(),arguments.getMode(),
-                                                             arguments.getArgtype(), studType, svg, outputType);
-            System.out.println(xml);
-
-        } catch (GraFlapException lex) {
-            System.out.println(lex.getErrorMessage(arguments.getTaskTitle()));
-            return;
         }
+
+        Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
+        return AnswerFactory.determineAnswer(result.getResult(), arguments.getTaskTitle(), arguments.getUserLanguage(),arguments.getMode(), arguments.getArgtype(), studType, svg);
     }
 }

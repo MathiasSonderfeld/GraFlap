@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.answer.Messages.svg;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 /**
@@ -26,22 +27,26 @@ public class SvgAnswerMessage extends AnswerMessage {
     }
 
     @Override
-    protected String getGermanSvgTitle() {
-        return "Svg-Modus";
+    protected String getLangDependentSvgTitle( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Svg-Modus";
+
+            case English:
+            default:
+                return "Svg-Mode";
+        }
     }
 
     @Override
-    protected String getEnglishSvgTitle() {
-        return "Svg-Mode";
-    }
+    protected String getLangDependentFeedback( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Notiz: Dies ist ein SVG-Test Modus!";
 
-    @Override
-    protected String getGermanFeedbackText() {
-        return "Notiz: Dies ist ein SVG Test Modus!";
-    }
-
-    @Override
-    protected String getEnglishFeedbackText() {
-        return "Note: This is the svg test mode!";
+            case English:
+            default:
+                return "Note: This is the svg test mode!";
+        }
     }
 }

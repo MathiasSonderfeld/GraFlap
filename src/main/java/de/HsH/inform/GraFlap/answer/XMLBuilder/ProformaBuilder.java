@@ -125,7 +125,7 @@ public class ProformaBuilder implements OutputBuilder {
         Element studentFeedbackResultText_content = new Element("content");
         studentFeedbackResultText_content.setAttribute("format", "plaintext");
         studentFeedbackResultText_content.setNamespace(proforma);
-        studentFeedbackResultText_content.addContent(answerMessage.getFeedbackText());
+        studentFeedbackResultText_content.addContent(answerMessage.getFeedback());
         studentFeedbackResultText.addContent(studentFeedbackResultText_content);
         testFeedbackList.addContent(studentFeedbackResultText);
 

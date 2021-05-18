@@ -49,7 +49,7 @@ public class LoncapaBuilder implements OutputBuilder {
             taskResult.addContent(new Element("imagesvg").addContent(new CDATA(svgstring)));
         }
 
-        taskResult.addContent(new Element("resulttext").addContent(answerMessage.getFeedbackText()));
+        taskResult.addContent(new Element("resulttext").addContent(answerMessage.getFeedback()));
         root.addContent(new Element("message").addContent(taskResult));
         return out.outputString(root);
     }

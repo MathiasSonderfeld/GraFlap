@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.answer.Messages.grammar;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 /**
@@ -26,30 +27,34 @@ public class GrammarAnswerMessage extends AnswerMessage {
     }
 
     @Override
-    protected String getGermanSvgTitle() {
-        return "Grammatik";
+    protected String getLangDependentSvgTitle( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Grammatik";
+
+            case English:
+            default:
+                return "Grammar";
+        }
     }
 
     @Override
-    protected String getEnglishSvgTitle() {
-        return "Grammar";
-    }
+    protected String getLangDependentFeedback( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Prozent der getesteten Worte haben den Test gegen die Grammatik nicht bestanden.";
 
-    @Override
-    protected String getGermanFeedbackText() {
-        return "Prozent der getesteten Worte haben den Test gegen die Grammatik nicht bestanden.";
-    }
-
-    @Override
-    protected String getEnglishFeedbackText() {
-        return "percent of the tested words did not pass the test against the grammar.";
+            case English:
+            default:
+                return "percent of the tested words did not pass the test against the grammar.";
+        }
     }
 
     @Override
     protected boolean submissionMatchesTarget(String solutionType, String submissionType) {
         if ((!(solutionType.equals(submissionType)))) {
             if (!(solutionType.equals("rlcfg") && ((submissionType.equals("rl") || submissionType.equals("cfg"))))) {
-                if (language.equalsIgnoreCase("de")) {
+                if (lang == UserLanguage.German) {
                     feedbackText.append("Die eingereichte Grammatik hat nicht den geforderten Typ. \n");
                 } else {
                     feedbackText.append("Your grammar is not of the required solutionType. \n");

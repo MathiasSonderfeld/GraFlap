@@ -27,7 +27,7 @@ public class LoncapaBuilderTest {
         when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
         when(message.getSvgTitle()).thenReturn("SVGTitle");
         when(message.getTaskMode()).thenReturn("cfg");
-        when(message.getFeedbackText()).thenReturn("mocked test successfull");
+        when(message.getFeedback()).thenReturn("mocked test successfull");
         when(message.hasPassed()).thenReturn(true);
         String xml = "<loncapagrade><awarddetail>EXACT_ANS</awarddetail><message><taskresult grade=\"passed\"><tasktitle>Test for LoncapaBuilder.getXML Result Success</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
 
@@ -44,7 +44,7 @@ public class LoncapaBuilderTest {
         when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
         when(message.getSvgTitle()).thenReturn("SVGTitle");
         when(message.getTaskMode()).thenReturn("cfg");
-        when(message.getFeedbackText()).thenReturn("mocked test successfull");
+        when(message.getFeedback()).thenReturn("mocked test successfull");
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle>Test for LoncapaBuilder.getXML Result Fail</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
 
@@ -74,7 +74,7 @@ public class LoncapaBuilderTest {
         when(message.getSvgImage()).thenReturn(null);
         when(message.getSvgTitle()).thenReturn(null);
         when(message.getTaskMode()).thenReturn(null);
-        when(message.getFeedbackText()).thenReturn(null);
+        when(message.getFeedback()).thenReturn(null);
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle /><titlesvg /><resulttext /></taskresult></message></loncapagrade>";
 

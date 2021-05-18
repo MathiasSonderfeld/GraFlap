@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.answer.Messages;
 
+import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 /**
@@ -11,14 +12,13 @@ import org.jdom2.Element;
  * @version 0.5
  */
 public abstract class AnswerMessage {
-    private boolean isGerman;
     protected String taskTitle;
+    protected UserLanguage lang;
     protected final Element svgImage;
     protected final int percentOfTestWordsFailed;
     protected boolean hasPassed;
     protected String taskMode;
     protected StringBuilder feedbackText;
-    protected String language;
     protected String svgTitle;
 
     /**
@@ -34,30 +34,20 @@ public abstract class AnswerMessage {
     public AnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String solutionType, String submissionType, Element svg) {
         this.taskTitle = taskTitle;
         this.percentOfTestWordsFailed = percentOfTestWordsFailed;
-        this.language = bestLanguage;
+        this.lang = UserLanguage.get(bestLanguage);
         this.feedbackText = new StringBuilder();
         this.svgImage = svg;
         this.taskMode = taskMode;
 
-        this.isGerman = this.language.equalsIgnoreCase("de");
-        if(isGerman){
+        if(lang == UserLanguage.German){
             checkAndReplaceGermanCharactersInTaskTitle();
         }
 
         this.hasPassed = percentOfTestWordsFailed == 0;
         this.hasPassed &= submissionMatchesTarget(solutionType, submissionType);
-
-        if (this.isGerman) {
-            this.svgTitle = getGermanSvgTitle();
-            if(!this.hasPassed){
-                this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getGermanFeedbackText());
-            }
-        }
-        else {
-            this.svgTitle = getEnglishSvgTitle();
-            if(!this.hasPassed){
-                this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getEnglishFeedbackText());
-            }
+        this.svgTitle = getLangDependentSvgTitle(lang);
+        if(!this.hasPassed){
+            this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getLangDependentFeedback(lang));
         }
     }
 
@@ -74,14 +64,12 @@ public abstract class AnswerMessage {
         taskTitle = taskTitle.replaceAll("ß","ss");
     }
 
+    protected abstract String getLangDependentSvgTitle(UserLanguage lang);
+    protected abstract String getLangDependentFeedback(UserLanguage lang);
+
     protected boolean submissionMatchesTarget(String type, String studType){
         return true;
     }
-
-    protected abstract String getGermanSvgTitle();
-    protected abstract String getEnglishSvgTitle();
-    protected abstract String getGermanFeedbackText();
-    protected abstract String getEnglishFeedbackText();
 
     public String getTaskTitle() {
         return taskTitle;
@@ -99,12 +87,8 @@ public abstract class AnswerMessage {
         return taskMode;
     }
 
-    public String getFeedbackText() {
+    public String getFeedback() {
         return feedbackText.toString();
-    }
-
-    public String getLanguage() {
-        return language;
     }
 
     public String getSvgTitle() {

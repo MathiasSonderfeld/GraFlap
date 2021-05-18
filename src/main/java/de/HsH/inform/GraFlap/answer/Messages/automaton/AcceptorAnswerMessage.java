@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
+import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 /**
@@ -25,23 +26,27 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
     }
 
     @Override
-    protected String getGermanSvgTitle() {
-        return "Automat";
+    protected String getLangDependentSvgTitle( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Automat";
+
+            case English:
+            default:
+                return "Automaton";
+        }
     }
 
     @Override
-    protected String getEnglishSvgTitle() {
-        return "Automaton";
-    }
+    protected String getLangDependentFeedback( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Prozent der getesteten Worte haben den Test gegen den Automaten nicht bestanden.";
 
-    @Override
-    protected String getGermanFeedbackText() {
-        return "Prozent der getesteten Worte haben den Test gegen den Automaten nicht bestanden.";
-    }
-
-    @Override
-    protected String getEnglishFeedbackText() {
-        return "percent of the tested words did not pass the test against the automaton.";
+            case English:
+            default:
+                return "percent of the tested words did not pass the test against the automaton.";
+        }
     }
 
     @Override
@@ -52,14 +57,15 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
             passed = matchesDeterministic(solutionType, submissionType);
             if ((solutionType.endsWith("fa")) && (!(submissionType.endsWith("fa")))) {
                 passed = false;
-                if (language.equalsIgnoreCase("de")) {
+                if (lang == UserLanguage.German) {
                     feedbackText.append("Dies ist kein endlicher Automat. \n");
                 } else {
                     feedbackText.append("This is not a finite automaton. \n");
                 }
-            } else if ((solutionType.endsWith("pda")) && (!(submissionType.endsWith("pda")))) {
+            }
+            else if ((solutionType.endsWith("pda")) && (!(submissionType.endsWith("pda")))) {
                 passed = false;
-                if (language.equalsIgnoreCase("de")) {
+                if (lang == UserLanguage.German) {
                     feedbackText.append("Dies ist kein Kellerautomat. \n");
                 } else {
                     feedbackText.append("This is not a push-down automaton. \n");

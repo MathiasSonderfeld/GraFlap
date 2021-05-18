@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 /**
@@ -33,7 +34,7 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      */
     boolean matchesDeterministic(String solutionType, String submissionType) {
         if ((solutionType.startsWith("d")) && (submissionType.startsWith("n"))) {
-            if (language.equalsIgnoreCase("de")) {
+            if (lang == UserLanguage.German) {
                 feedbackText.append("Ihr Automat ist nicht deterministisch. \n");
             } else {
                 feedbackText.append("Your automaton is not determinisitic. \n");
@@ -51,7 +52,7 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      */
     boolean matchesTuringMachine(String solutionType, String submissionType) {
         if ((solutionType.endsWith("tm")) && (!(submissionType.endsWith("tm")))){
-            if (language.equalsIgnoreCase("de")) {
+            if (lang == UserLanguage.German) {
                 feedbackText.append("Dies ist kein Turing-").append(svgTitle.toLowerCase()).append(". \n");
             } else {
                 feedbackText.append("This is not a Turing ").append(svgTitle.toLowerCase()).append(". \n");
@@ -68,7 +69,7 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      */
     void matchesNonDeterministic(String solutionType, String submissionType) {
         if ((solutionType.startsWith("n")) && (submissionType.startsWith("d"))) {
-            if (language.equalsIgnoreCase("de")) {
+            if (lang == UserLanguage.German) {
                 feedbackText.append("Ihr Automat ist eigentlich deterministisch. \n");
             } else {
                 feedbackText.append("Actually, your automaton is deterministic. \n");

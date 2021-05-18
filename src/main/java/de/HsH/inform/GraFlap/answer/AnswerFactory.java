@@ -35,7 +35,7 @@ public class AnswerFactory {
      * @return the AnswerMessage that contains the correct Output-Data
      * @throws GraFlapException if the AnswerMessage can not be identified
      */
-    private static AnswerMessage determineAnswer( int resultValue, String title, String bestLanguage, String taskMode,
+    public static AnswerMessage determineAnswer( int resultValue, String title, String bestLanguage, String taskMode,
                                                   String type, String studType, Element svg) throws GraFlapException {
         if (taskMode.startsWith("g") || taskMode.equals("egt")) {
             return new GrammarAnswerMessage(resultValue, title, bestLanguage, taskMode, type, studType, svg);

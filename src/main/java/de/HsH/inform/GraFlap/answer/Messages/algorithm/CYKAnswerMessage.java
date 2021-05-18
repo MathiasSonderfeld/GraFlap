@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.answer.Messages.algorithm;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 /**
@@ -26,22 +27,26 @@ public class CYKAnswerMessage extends AnswerMessage {
     }
 
     @Override
-    protected String getGermanSvgTitle() {
-        return "CYK-Algortihmus";
+    protected String getLangDependentSvgTitle( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "CYK-Algortihmus";
+
+            case English:
+            default:
+                return "CYK-Algorithm";
+        }
     }
 
     @Override
-    protected String getEnglishSvgTitle() {
-        return "CYK-Algorithm";
-    }
+    protected String getLangDependentFeedback( UserLanguage lang ) {
+        switch(lang){
+            case German:
+                return "Tabelleneinträge haben den Test nicht bestanden.";
 
-    @Override
-    protected String getGermanFeedbackText() {
-        return "Tabelleneinträge haben den Test nicht bestanden.";
-    }
-
-    @Override
-    protected String getEnglishFeedbackText() {
-        return "entries of the table did not pass the test.";
+            case English:
+            default:
+                return "entries of the table did not pass the test.";
+        }
     }
 }
