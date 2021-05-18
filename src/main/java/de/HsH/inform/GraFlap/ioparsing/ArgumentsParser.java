@@ -15,17 +15,6 @@ import java.util.HashSet;
  *  Abstract class to parse input data to Arguments Object for further processing.
  */
 public abstract class ArgumentsParser {
-    private static final HashSet<InputMode> automatonModes = new HashSet<>();
-    private static final HashSet<InputMode> grammarModes = new HashSet<>();
-    private static final HashSet<InputMode> machineModes = new HashSet<>();
-    private static final HashSet<InputType> automatonTypes = new HashSet<>();
-    private static final HashSet<InputType> grammarTypes = new HashSet<>();
-    private static final HashSet<InputType> machineTypes = new HashSet<>();
-    private static boolean setsMade = false;
-
-    public ArgumentsParser(){
-        initHashSets();
-    }
 
     public abstract Arguments parse(String[] args) throws GraFlapException;
 
@@ -86,21 +75,71 @@ public abstract class ArgumentsParser {
 
         if(type == null) { throw new GraFlapException("AgType-Setting is wrong"); }
 
-        if(automatonModes.contains(mode)) {
-            if(!automatonTypes.contains(type)) {
-                throw new GraFlapException("Wrong Type for Automaton Task");
-            }
-        }
-        if(machineModes.contains(mode)) {
-            if(!machineTypes.contains(type)) {
-                throw new GraFlapException("Wrong Type for Automata Task");
-            }
-        }
-
-        if(grammarModes.contains(mode)) {
-            if(!grammarTypes.contains(type)) {
-                throw new GraFlapException("Wrong Type for Gramma Task");
-            }
+        switch(mode){
+            //Automaton Modes
+            case ar:
+            case ag:
+            case art:
+            case agt:
+            case eat:
+            case arw:
+            case agw:
+            case artw:
+            case agtw:
+                switch(type){
+                    //Automaton Types
+                    case fa:
+                    case dfa:
+                    case nfa:
+                    case non:
+                    case pda:
+                    case dpda:
+                    case npda:
+                    case tm:
+                    case dtm:
+                    case ntm:
+                    case tmww:
+                        return;
+                    default:
+                        throw new GraFlapException("Wrong Type for Automaton Task");
+                }
+            //Grammar Modes
+            case egt:
+            case gg:
+            case ggt:
+            case ggw:
+            case ggtw:
+            case gr:
+            case grt:
+            case grw:
+            case grtw:
+                switch(type){
+                    //Grammar Types
+                    case rl:
+                    case rlcfg:
+                    case cfg:
+                    case ncfg:
+                    case non:
+                    case gint:
+                        return;
+                    default:
+                        throw new GraFlapException("Wrong Type for Grammar Task");
+                }
+            //Machine Modes
+            case mp:
+            case mmw:
+                switch(type){
+                    case tm:
+                    case dtm:
+                    case ntm:
+                    case mealy:
+                    case moore:
+                        return;
+                    default:
+                        throw new GraFlapException("Wrong Type for Machine Task");
+                }
+            default:
+                return;
         }
     }
 
@@ -113,41 +152,32 @@ public abstract class ArgumentsParser {
         if(mode == null) return OperationMode.ERROR;
         switch(mode) {
             case ( "ar" ):
-                return OperationMode.AR;
             case ( "art" ):
                 return OperationMode.AR;
             case ( "ag" ):
-                return OperationMode.AG;
             case ( "agt" ):
                 return OperationMode.AG;
             case ( "gg" ):
-                return OperationMode.GG;
             case ( "ggt" ):
                 return OperationMode.GG;
             case ( "arw" ):
-                return OperationMode.ARW;
             case ( "artw" ):
                 return OperationMode.ARW;
             case ( "agw" ):
-                return OperationMode.AGW;
             case ( "agtw" ):
                 return OperationMode.AGW;
             case ( "ggw" ):
-                return OperationMode.GGW;
             case ( "ggtw" ):
                 return OperationMode.GGW;
             case ( "eat" ):
-                return OperationMode.EAT;
             case ( "egt" ):
                 return OperationMode.EAT;
             case ( "ww" ):
                 return OperationMode.WW;
             case ( "gr" ):
-                return OperationMode.GR;
             case ( "grt" ):
                 return OperationMode.GR;
             case ( "grw" ):
-                return OperationMode.GRW;
             case ( "grtw" ):
                 return OperationMode.GRW;
             case ( "mp" ):
@@ -164,63 +194,6 @@ public abstract class ArgumentsParser {
                 return OperationMode.SVGA;
             default:
                 return OperationMode.ERROR;
-        }
-    }
-
-    /**
-     * saves the accepted modes and types for automatons, grammars and turing machines in corresponsing attributes for input verification.
-     * Kinda overkill for this as the program just processes one input per runtime, could be refactored to switch
-     */
-    private void initHashSets() {
-        if(!setsMade) {
-            automatonModes.add(InputMode.ar);
-            automatonModes.add(InputMode.ag);
-            automatonModes.add(InputMode.art);
-            automatonModes.add(InputMode.agt);
-            automatonModes.add(InputMode.eat);
-            automatonModes.add(InputMode.arw);
-            automatonModes.add(InputMode.agw);
-            automatonModes.add(InputMode.artw);
-            automatonModes.add(InputMode.agtw);
-
-            grammarModes.add(InputMode.egt);
-            grammarModes.add(InputMode.gg);
-            grammarModes.add(InputMode.ggt);
-            grammarModes.add(InputMode.ggw);
-            grammarModes.add(InputMode.ggtw);
-            grammarModes.add(InputMode.gr);
-            grammarModes.add(InputMode.grt);
-            grammarModes.add(InputMode.grw);
-            grammarModes.add(InputMode.grtw);
-
-            machineModes.add(InputMode.mp);
-            machineModes.add(InputMode.mmw);
-
-            automatonTypes.add(InputType.fa);
-            automatonTypes.add(InputType.dfa);
-            automatonTypes.add(InputType.nfa);
-            automatonTypes.add(InputType.non);
-            automatonTypes.add(InputType.pda);
-            automatonTypes.add(InputType.dpda);
-            automatonTypes.add(InputType.npda);
-            automatonTypes.add(InputType.tm);
-            automatonTypes.add(InputType.dtm);
-            automatonTypes.add(InputType.ntm);
-            automatonTypes.add(InputType.tmww);
-
-            machineTypes.add(InputType.tm);
-            machineTypes.add(InputType.dtm);
-            machineTypes.add(InputType.ntm);
-            machineTypes.add(InputType.mealy);
-            machineTypes.add(InputType.moore);
-
-            grammarTypes.add(InputType.rl);
-            grammarTypes.add(InputType.rlcfg);
-            grammarTypes.add(InputType.cfg);
-            grammarTypes.add(InputType.ncfg);
-            grammarTypes.add(InputType.non);
-            grammarTypes.add(InputType.gint);
-            setsMade = true;
         }
     }
 }
