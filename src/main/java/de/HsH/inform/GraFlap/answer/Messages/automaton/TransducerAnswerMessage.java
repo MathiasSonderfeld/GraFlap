@@ -11,16 +11,16 @@ import org.jdom2.Element;
 public class TransducerAnswerMessage extends AutomatonAnswerMessage {
     /**
      * Constructor
-     * @param resultValue  value how many word failed the testing ranging form [0,100]
-     * @param title        the title of the assignment
+     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
+     * @param taskTitle        the taskTitle of the assignment
      * @param bestLanguage a string coding the used language of the assignment
      * @param taskMode     a string holding the coded mode information
-     * @param type         a string coding the type of the solution
-     * @param studType     a string coding the type of the submission
+     * @param solutionType         a string coding the type of the solution
+     * @param submissionType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public TransducerAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
-        super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
+    public TransducerAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String solutionType, String submissionType, Element svg) {
+        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, solutionType, submissionType, svg);
     }
 
     @Override
@@ -44,18 +44,18 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String type, String studType) {
-        matchesNonDeterministic(type, studType);
-        boolean passed = matchesDeterministic(type, studType);
-        passed &= matchesTuringMachine(type, studType);
-        if ((type.contains("mealy")) && (!(studType.contains("mealy")))) {
+    protected boolean submissionMatchesTarget(String solutionType, String submissionType) {
+        matchesNonDeterministic(solutionType, submissionType);
+        boolean passed = matchesDeterministic(solutionType, submissionType);
+        passed &= matchesTuringMachine(solutionType, submissionType);
+        if ((solutionType.contains("mealy")) && (!(submissionType.contains("mealy")))) {
             passed = false;
             if (language.equalsIgnoreCase("de")) {
                 feedbackText.append("Dies ist keine Mealy-Maschine. \n");
             } else {
                 feedbackText.append("This is not a mealy machine. \n");
             }
-        } else if ((type.contains("moore")) && (!(studType.contains("moore")))) {
+        } else if ((solutionType.contains("moore")) && (!(submissionType.contains("moore")))) {
             passed = false;
             if (language.equalsIgnoreCase("de")) {
                 feedbackText.append("Dies ist keine Moore-Maschine. \n");

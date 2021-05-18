@@ -13,16 +13,16 @@ public class DerivationAnswerMessage extends AnswerMessage {
 
     /**
      * Constructor
-     * @param resultValue  value how many word failed the testing ranging form [0,100]
-     * @param title        the title of the assignment
+     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
+     * @param taskTitle        the taskTitle of the assignment
      * @param bestLanguage a string coding the used language of the assignment
      * @param taskMode     a string holding the coded mode information
-     * @param type         a string coding the type of the solution
-     * @param studType     a string coding the type of the submission
+     * @param solutionType         a string coding the solutionType of the solution
+     * @param submissionType     a string coding the solutionType of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public DerivationAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
-        super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
+    public DerivationAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String solutionType, String submissionType, Element svg) {
+        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, solutionType, submissionType, svg);
     }
 
     @Override
