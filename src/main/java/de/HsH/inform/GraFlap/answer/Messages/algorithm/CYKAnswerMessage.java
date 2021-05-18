@@ -21,36 +21,27 @@ public class CYKAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public CYKAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                            String studType, Element svg) {
+    public CYKAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
-    protected void determineSvgTitle() {
-        if (language.equalsIgnoreCase("de")) {
-            svgTitle = "CYK-Algortihmus";
-        } else {
-            svgTitle = "CYK-Algorithm";
-        }
+    protected String getGermanSvgTitle() {
+        return "CYK-Algortihmus";
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String type, String studType) {
-        return true;
+    protected String getEnglishSvgTitle() {
+        return "CYK-Algorithm";
     }
 
     @Override
-    protected boolean finishAssessment(int resultValue) {
-        if  (resultValue > 0) {
-            resultText.append(resultValue).append(" ");
-            if (language.equalsIgnoreCase("de")) {
-                resultText.append("Tabelleneinträge haben den Test nicht bestanden.");
-            } else  {
-                resultText.append("entries of the table did not pass the test.");
-            }
-            return false;
-        }
-        return true;
+    protected String getGermanFeedbackText() {
+        return "Tabelleneinträge haben den Test nicht bestanden.";
+    }
+
+    @Override
+    protected String getEnglishFeedbackText() {
+        return "entries of the table did not pass the test.";
     }
 }

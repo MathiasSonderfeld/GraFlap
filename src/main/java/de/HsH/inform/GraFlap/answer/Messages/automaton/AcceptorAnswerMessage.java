@@ -20,24 +20,28 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public AcceptorAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                                 String studType, Element svg) {
+    public AcceptorAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
-    protected boolean finishAssessment(int resultValue) {
-        if  (resultValue > 0) {
-            resultText.append(resultValue).append(" ");
-            if (language.equalsIgnoreCase("de")) {
-                resultText.append("Prozent der getesteten Worte haben den Test gegen den Automaten nicht bestanden.");
-            } else  {
-                resultText.append("percent of the tested words did not pass the test against the automaton.");
-            }
-            return false;
-        }
+    protected String getGermanSvgTitle() {
+        return "Automat";
+    }
 
-        return true;
+    @Override
+    protected String getEnglishSvgTitle() {
+        return "Automaton";
+    }
+
+    @Override
+    protected String getGermanFeedbackText() {
+        return "Prozent der getesteten Worte haben den Test gegen den Automaten nicht bestanden.";
+    }
+
+    @Override
+    protected String getEnglishFeedbackText() {
+        return "percent of the tested words did not pass the test against the automaton.";
     }
 
     @Override
@@ -49,31 +53,21 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
             if ((type.endsWith("fa")) && (!(studType.endsWith("fa")))) {
                 passed = false;
                 if (language.equalsIgnoreCase("de")) {
-                    resultText.append("Dies ist kein endlicher Automat. \n");
+                    feedbackText.append("Dies ist kein endlicher Automat. \n");
                 } else {
-                    resultText.append("This is not a finite automaton. \n");
+                    feedbackText.append("This is not a finite automaton. \n");
                 }
             } else if ((type.endsWith("pda")) && (!(studType.endsWith("pda")))) {
                 passed = false;
                 if (language.equalsIgnoreCase("de")) {
-                    resultText.append("Dies ist kein Kellerautomat. \n");
+                    feedbackText.append("Dies ist kein Kellerautomat. \n");
                 } else {
-                    resultText.append("This is not a push-down automaton. \n");
+                    feedbackText.append("This is not a push-down automaton. \n");
                 }
             } else if (!matchesTuringMachine(type, studType)) {
                 passed = false;
             }
         }
-
         return passed;
-    }
-
-    @Override
-    protected void determineSvgTitle() {
-        if (language.equalsIgnoreCase("de")) {
-            svgTitle ="Automat";
-        } else  {
-            svgTitle ="Automaton";
-        }
     }
 }

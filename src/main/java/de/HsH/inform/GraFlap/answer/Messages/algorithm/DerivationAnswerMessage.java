@@ -21,36 +21,27 @@ public class DerivationAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public DerivationAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                                   String studType, Element svg) {
+    public DerivationAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
-    protected void determineSvgTitle() {
-        if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Wortableitung";
-        } else {
-            svgTitle = "Word derivation";
-        }
+    protected String getGermanSvgTitle() {
+        return "Wortableitung";
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String type, String studType) {
-        return true;
+    protected String getEnglishSvgTitle() {
+        return "Word derivation";
     }
 
     @Override
-    protected boolean finishAssessment(int resultValue) {
-        if  (resultValue > 0) {
-            resultText.append(resultValue).append(" ");
-            if(language.equalsIgnoreCase("de")) {
-                resultText.append("Prozent der Ableitungsschritte haben den Test nicht bestanden.");
-            } else  {
-                resultText.append("percent of the derivation steps did not pass the test.");
-            }
-            return false;
-        }
-        return true;
+    protected String getGermanFeedbackText() {
+        return "Prozent der Ableitungsschritte haben den Test nicht bestanden.";
+    }
+
+    @Override
+    protected String getEnglishFeedbackText() {
+        return "percent of the derivation steps did not pass the test.";
     }
 }

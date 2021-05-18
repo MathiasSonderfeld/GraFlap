@@ -11,76 +11,77 @@ import org.jdom2.Element;
  * @version 0.5
  */
 public abstract class AnswerMessage {
-    private String taskTitle;
-    private final Element svgImage;
-    private final int resultScore;
-    private boolean hasPassed;
-
-    /**
-     * a string holding the coded mode information
-     */
+    private boolean isGerman;
+    protected String taskTitle;
+    protected final Element svgImage;
+    protected final int percentOfTestWordsFailed;
+    protected boolean hasPassed;
     protected String taskMode;
-
-    /**
-     * a string builder that creates the feedback to the submission
-     */
-    protected StringBuilder resultText;
-
-    /**
-     * a string coding the used language of the assignment
-     */
+    protected StringBuilder feedbackText;
     protected String language;
-
-    /**
-     * a string for the title of the result svg
-     */
     protected String svgTitle;
 
     /**
      * Constructor
-     * @param resultValue value how many word failed the testing ranging form [0,100]
-     * @param title the title of the assignment
+     * @param percentOfTestWordsFailed value how many words failed the testing ranging form [0,100]
+     * @param taskTitle the taskTitle of the assignment
      * @param bestLanguage a string coding the used language of the assignment
      * @param taskMode a string holding the coded mode information
-     * @param type a string coding the type of the solution
-     * @param studType a string coding the type of the submission
+     * @param solutionType a string coding the solutionType of the solution
+     * @param submissionType a string coding the solutionType of the submission
      * @param svg a XML-element that gains the information for the output svg
      */
-    public AnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                         String studType, Element svg) {
-        this.taskTitle = title;
-        this.resultScore = resultValue;
+    public AnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String solutionType, String submissionType, Element svg) {
+        this.taskTitle = taskTitle;
+        this.percentOfTestWordsFailed = percentOfTestWordsFailed;
         this.language = bestLanguage;
-        this.resultText = new StringBuilder();
+        this.feedbackText = new StringBuilder();
         this.svgImage = svg;
         this.taskMode = taskMode;
 
-        checkAndReplaceGermanCharacter();
+        this.isGerman = this.language.equalsIgnoreCase("de");
+        if(isGerman){
+            checkAndReplaceGermanCharactersInTaskTitle();
+        }
 
-        determineSvgTitle();
-        this.hasPassed = submissionMatchesTarget(type, studType);
-        this.hasPassed &= finishAssessment(resultValue);
+        this.hasPassed = percentOfTestWordsFailed == 0;
+        this.hasPassed &= submissionMatchesTarget(solutionType, submissionType);
+
+        if (this.isGerman) {
+            this.svgTitle = getGermanSvgTitle();
+            if(!this.hasPassed){
+                this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getGermanFeedbackText());
+            }
+        }
+        else {
+            this.svgTitle = getEnglishSvgTitle();
+            if(!this.hasPassed){
+                this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getEnglishFeedbackText());
+            }
+        }
     }
 
     /**
      * private method to replace german special characters
      */
-    private void checkAndReplaceGermanCharacter() {
-        if(language.equalsIgnoreCase("de")){
-            taskTitle = taskTitle.replaceAll("ä","ae");
-            taskTitle = taskTitle.replaceAll("ö","oe");
-            taskTitle = taskTitle.replaceAll("ü","ue");
-            taskTitle = taskTitle.replaceAll("Ä","Ae");
-            taskTitle = taskTitle.replaceAll("Ö","Oe");
-            taskTitle = taskTitle.replaceAll("Ü","Ue");
-            taskTitle = taskTitle.replaceAll("ß","ss");
-        }
+    private void checkAndReplaceGermanCharactersInTaskTitle() {
+        taskTitle = taskTitle.replaceAll("ä","ae");
+        taskTitle = taskTitle.replaceAll("ö","oe");
+        taskTitle = taskTitle.replaceAll("ü","ue");
+        taskTitle = taskTitle.replaceAll("Ä","Ae");
+        taskTitle = taskTitle.replaceAll("Ö","Oe");
+        taskTitle = taskTitle.replaceAll("Ü","Ue");
+        taskTitle = taskTitle.replaceAll("ß","ss");
     }
 
-    protected abstract void determineSvgTitle();
-    protected abstract boolean submissionMatchesTarget(String type, String studType);
-    protected abstract boolean finishAssessment(int resultValue);
+    protected boolean submissionMatchesTarget(String type, String studType){
+        return true;
+    }
 
+    protected abstract String getGermanSvgTitle();
+    protected abstract String getEnglishSvgTitle();
+    protected abstract String getGermanFeedbackText();
+    protected abstract String getEnglishFeedbackText();
 
     public String getTaskTitle() {
         return taskTitle;
@@ -90,16 +91,16 @@ public abstract class AnswerMessage {
         return svgImage;
     }
 
-    public int getResultScore() {
-        return resultScore;
+    public int getPercentOfTestWordsFailed() {
+        return percentOfTestWordsFailed;
     }
 
     public String getTaskMode() {
         return taskMode;
     }
 
-    public String getResultText() {
-        return resultText.toString();
+    public String getFeedbackText() {
+        return feedbackText.toString();
     }
 
     public String getLanguage() {

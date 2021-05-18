@@ -44,7 +44,8 @@ public class GrammarTest extends AcceptingTest<Grammar> {
     @Override
     public int openInput( String solution, Submission<Grammar> studentInput, String wordString) throws GraFlapException {
         HashMap<String, String[]> words = generateTestWordsFromString(solution, wordString);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        int ret = testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        return ret;
     }
 
     /**

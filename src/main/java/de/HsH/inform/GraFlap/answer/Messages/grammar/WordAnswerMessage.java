@@ -20,36 +20,27 @@ public class WordAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public WordAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                             String studType, Element svg) {
+    public WordAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
-    protected void determineSvgTitle() {
-        if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Worte";
-        } else {
-            svgTitle = "Words";
-        }
+    protected String getGermanSvgTitle() {
+        return "Worte";
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String type, String studType) {
-        return true;
+    protected String getEnglishSvgTitle() {
+        return "Words";
     }
 
     @Override
-    protected boolean finishAssessment(int resultValue) {
-        if  (resultValue > 0) {
-            resultText.append(resultValue).append(" ");
-            if (language.equalsIgnoreCase("de")) {
-                resultText.append("Prozent der getesteten Worte haben den Test nicht bestanden.");
-            } else  {
-                resultText.append("percent of the tested words did not pass the test.");
-            }
-            return false;
-        }
-        return true;
+    protected String getGermanFeedbackText() {
+        return "Prozent der getesteten Worte haben den Test nicht bestanden.";
+    }
+
+    @Override
+    protected String getEnglishFeedbackText() {
+        return "percent of the tested words did not pass the test.";
     }
 }

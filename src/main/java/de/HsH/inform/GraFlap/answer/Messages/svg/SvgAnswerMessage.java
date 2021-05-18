@@ -21,28 +21,27 @@ public class SvgAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public SvgAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                            String studType, Element svg) {
+    public SvgAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
-    protected void determineSvgTitle() {
-        if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Svg-Modus";
-        } else {
-            svgTitle = "Svg-Mode";
-        }
+    protected String getGermanSvgTitle() {
+        return "Svg-Modus";
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String type, String studType) {
-        resultText.append("Note: This is the svg test mode! \n");
-        return true;
+    protected String getEnglishSvgTitle() {
+        return "Svg-Mode";
     }
 
     @Override
-    protected boolean finishAssessment(int resultValue) {
-        return true;
+    protected String getGermanFeedbackText() {
+        return "Notiz: Dies ist ein SVG Test Modus!";
+    }
+
+    @Override
+    protected String getEnglishFeedbackText() {
+        return "Note: This is the svg test mode!";
     }
 }

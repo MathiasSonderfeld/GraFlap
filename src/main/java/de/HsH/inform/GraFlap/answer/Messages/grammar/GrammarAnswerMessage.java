@@ -26,41 +26,37 @@ public class GrammarAnswerMessage extends AnswerMessage {
     }
 
     @Override
-    protected void determineSvgTitle() {
-        if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Grammatik";
-        } else {
-            svgTitle = "Grammar";
-        }
+    protected String getGermanSvgTitle() {
+        return "Grammatik";
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String type, String studType) {
-        if ((!(type.equals(studType)))) {
-            if (!(type.equals("rlcfg") && ((studType.equals("rl") || studType.equals("cfg"))))) {
+    protected String getEnglishSvgTitle() {
+        return "Grammar";
+    }
+
+    @Override
+    protected String getGermanFeedbackText() {
+        return "Prozent der getesteten Worte haben den Test gegen die Grammatik nicht bestanden.";
+    }
+
+    @Override
+    protected String getEnglishFeedbackText() {
+        return "percent of the tested words did not pass the test against the grammar.";
+    }
+
+    @Override
+    protected boolean submissionMatchesTarget(String solutionType, String submissionType) {
+        if ((!(solutionType.equals(submissionType)))) {
+            if (!(solutionType.equals("rlcfg") && ((submissionType.equals("rl") || submissionType.equals("cfg"))))) {
                 if (language.equalsIgnoreCase("de")) {
-                    resultText.append("Die eingereichte Grammatik hat nicht den geforderten Typ. \n");
+                    feedbackText.append("Die eingereichte Grammatik hat nicht den geforderten Typ. \n");
                 } else {
-                    resultText.append("Your grammar is not of the required type. \n");
+                    feedbackText.append("Your grammar is not of the required solutionType. \n");
                 }
                 return false;
             }
         }
-        return true;
-    }
-
-    @Override
-    protected boolean finishAssessment(int resultValue) {
-        if  (resultValue > 0) {
-            resultText.append(resultValue).append(" ");
-            if (language.equalsIgnoreCase("de")) {
-                resultText.append("Prozent der getesteten Worte haben den Test gegen die Grammatik nicht bestanden.");
-            } else  {
-                resultText.append("percent of the tested words did not pass the test against the grammar.");
-            }
-            return false;
-        }
-
         return true;
     }
 }

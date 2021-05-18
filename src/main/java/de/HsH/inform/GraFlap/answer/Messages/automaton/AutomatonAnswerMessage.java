@@ -21,8 +21,7 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public AutomatonAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                                  String studType, Element svg) {
+    public AutomatonAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
@@ -35,9 +34,9 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
     boolean matchesDeterministic(String type, String studType) {
         if ((type.startsWith("d")) && (studType.startsWith("n"))) {
             if (language.equalsIgnoreCase("de")) {
-                resultText.append("Ihr Automat ist nicht deterministisch. \n");
+                feedbackText.append("Ihr Automat ist nicht deterministisch. \n");
             } else {
-                resultText.append("Your automaton is not determinisitic. \n");
+                feedbackText.append("Your automaton is not determinisitic. \n");
             }
             return false;
         }
@@ -53,9 +52,9 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
     boolean matchesTuringMachine(String type, String studType) {
         if ((type.endsWith("tm")) && (!(studType.endsWith("tm")))){
             if (language.equalsIgnoreCase("de")) {
-                resultText.append("Dies ist kein Turing-").append(svgTitle.toLowerCase()).append(". \n");
+                feedbackText.append("Dies ist kein Turing-").append(svgTitle.toLowerCase()).append(". \n");
             } else {
-                resultText.append("This is not a Turing ").append(svgTitle.toLowerCase()).append(". \n");
+                feedbackText.append("This is not a Turing ").append(svgTitle.toLowerCase()).append(". \n");
             }
             return false;
         }
@@ -70,9 +69,9 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
     void matchesNonDeterministic(String type, String studType) {
         if ((type.startsWith("n")) && (studType.startsWith("d"))) {
             if (language.equalsIgnoreCase("de")) {
-                resultText.append("Ihr Automat ist eigentlich deterministisch. \n");
+                feedbackText.append("Ihr Automat ist eigentlich deterministisch. \n");
             } else {
-                resultText.append("Actually, your automaton is deterministic. \n");
+                feedbackText.append("Actually, your automaton is deterministic. \n");
             }
         }
     }

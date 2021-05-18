@@ -19,33 +19,28 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
      * @param studType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public TransducerAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type,
-                                   String studType, Element svg) {
+    public TransducerAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String type, String studType, Element svg) {
         super(resultValue, title, bestLanguage, taskMode, type, studType, svg);
     }
 
     @Override
-    protected boolean finishAssessment(int resultValue) {
-        if  (resultValue > 0) {
-            resultText.append(resultValue).append(" ");
-            if (language.equalsIgnoreCase("de")) {
-                resultText.append("Prozent der getesteten Worte haben den Test gegen die Maschine nicht bestanden.");
-            } else  {
-                resultText.append("percent of the tested words did not pass the test against the machine.");
-            }
-            return false;
-        }
-
-        return true;
+    protected String getGermanSvgTitle() {
+        return "Maschine";
     }
 
     @Override
-    protected void determineSvgTitle() {
-        if (language.equalsIgnoreCase("de")) {
-            svgTitle = "Maschine";
-        } else {
-            svgTitle = "Machine";
-        }
+    protected String getEnglishSvgTitle() {
+        return "Machine";
+    }
+
+    @Override
+    protected String getGermanFeedbackText() {
+        return "Prozent der getesteten Worte haben den Test gegen die Maschine nicht bestanden.";
+    }
+
+    @Override
+    protected String getEnglishFeedbackText() {
+        return "percent of the tested words did not pass the test against the machine.";
     }
 
     @Override
@@ -56,19 +51,18 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
         if ((type.contains("mealy")) && (!(studType.contains("mealy")))) {
             passed = false;
             if (language.equalsIgnoreCase("de")) {
-                resultText.append("Dies ist keine Mealy-Maschine. \n");
+                feedbackText.append("Dies ist keine Mealy-Maschine. \n");
             } else {
-                resultText.append("This is not a mealy machine. \n");
+                feedbackText.append("This is not a mealy machine. \n");
             }
         } else if ((type.contains("moore")) && (!(studType.contains("moore")))) {
             passed = false;
             if (language.equalsIgnoreCase("de")) {
-                resultText.append("Dies ist keine Moore-Maschine. \n");
+                feedbackText.append("Dies ist keine Moore-Maschine. \n");
             } else {
-                resultText.append("This is not a moore machine. \n");
+                feedbackText.append("This is not a moore machine. \n");
             }
         }
-
         return passed;
     }
 }

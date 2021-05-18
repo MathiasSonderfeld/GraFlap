@@ -61,7 +61,7 @@ public class ProformaBuilder implements OutputBuilder {
 
         Element testScore = new Element("score");
         testScore.setNamespace(proforma);
-        testScore.addContent("" + (100 - answerMessage.getResultScore())/100.0);
+        testScore.addContent("" + (100 - answerMessage.getPercentOfTestWordsFailed())/100.0);
         result.addContent(testScore);
 
         Element testValidity = new Element("validity");
@@ -125,7 +125,7 @@ public class ProformaBuilder implements OutputBuilder {
         Element studentFeedbackResultText_content = new Element("content");
         studentFeedbackResultText_content.setAttribute("format", "plaintext");
         studentFeedbackResultText_content.setNamespace(proforma);
-        studentFeedbackResultText_content.addContent(answerMessage.getResultText());
+        studentFeedbackResultText_content.addContent(answerMessage.getFeedbackText());
         studentFeedbackResultText.addContent(studentFeedbackResultText_content);
         testFeedbackList.addContent(studentFeedbackResultText);
 
