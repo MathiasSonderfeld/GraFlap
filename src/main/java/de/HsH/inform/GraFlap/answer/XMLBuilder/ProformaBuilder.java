@@ -59,9 +59,10 @@ public class ProformaBuilder implements OutputBuilder {
         result.setNamespace(proforma);
         testResult.addContent(result);
 
+        double score = answerMessage.getPercentOfTestWordsFailed() == 0 ? 1 : 0;
         Element testScore = new Element("score");
         testScore.setNamespace(proforma);
-        testScore.addContent("" + (100 - answerMessage.getPercentOfTestWordsFailed())/100.0);
+        testScore.addContent("" + score);
         result.addContent(testScore);
 
         Element testValidity = new Element("validity");
@@ -110,7 +111,11 @@ public class ProformaBuilder implements OutputBuilder {
         studentFeedbackImageSVG_content.setAttribute("format", "html");
         studentFeedbackImageSVG_content.setNamespace(proforma);
 
-        String escapedSvgImage = answerMessage.getSvgImage().getText();
+        Element svg = answerMessage.getSvgImage();
+        String escapedSvgImage = "";
+        if(svg != null){
+            escapedSvgImage = svg.getText();
+        }
 
         studentFeedbackImageSVG_content.addContent(escapedSvgImage);
         studentFeedbackImageSVG.addContent(studentFeedbackImageSVG_content);

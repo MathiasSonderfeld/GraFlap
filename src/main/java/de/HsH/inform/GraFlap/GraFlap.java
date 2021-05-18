@@ -94,14 +94,20 @@ public class GraFlap {
         }
         catch(GraFlapException e){
             if(outputBuilder != null){
-                answerMessage = new ErrorAnswerMessage(e);
+                String taskTitle = "";
+                if(arguments != null){
+                    taskTitle = arguments.getTaskTitle();
+                }
+                answerMessage = new ErrorAnswerMessage(e.getMessage(), taskTitle);
             }
             else{
                 e.printStackTrace(System.out);
             }
         }
         finally {
-            System.out.println(outputBuilder.getOutput(answerMessage));
+            if(outputBuilder != null && answerMessage != null){
+                System.out.println(outputBuilder.getOutput(answerMessage));
+            }
         }
     }
 

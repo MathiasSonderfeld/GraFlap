@@ -5,32 +5,21 @@ import de.HsH.inform.GraFlap.entity.UserLanguage;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 public class ErrorAnswerMessage extends AnswerMessage {
-
-    public ErrorAnswerMessage(GraFlapException e){
-        super(-1, "Error", "","","", "",null);
+    public ErrorAnswerMessage(String exceptionMessage, String taskTitle){
+        super(-1, taskTitle, "","","", exceptionMessage,null);
+    }
+    @Override
+    protected boolean submissionMatchesTarget(String type, String studType){
+        return false;
     }
 
     @Override
     protected String getLangDependentSvgTitle( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "";
-
-            case English:
-            default:
-                return "";
-        }
+        return "-";
     }
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "";
-
-            case English:
-            default:
-                return "";
-        }
+        return "-";
     }
 }

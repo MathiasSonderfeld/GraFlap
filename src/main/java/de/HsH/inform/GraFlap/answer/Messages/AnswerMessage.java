@@ -46,7 +46,10 @@ public abstract class AnswerMessage {
         this.hasPassed = percentOfTestWordsFailed == 0;
         this.hasPassed &= submissionMatchesTarget(solutionType, submissionType);
         this.svgTitle = getLangDependentSvgTitle(lang);
-        if(!this.hasPassed){
+        if(percentOfTestWordsFailed < 0){ //Error
+            this.feedbackText.append(submissionType);
+        }
+        else if(!this.hasPassed){
             this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getLangDependentFeedback(lang));
         }
     }

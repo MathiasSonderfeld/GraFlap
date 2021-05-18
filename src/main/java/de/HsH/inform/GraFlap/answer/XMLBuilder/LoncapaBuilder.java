@@ -28,7 +28,11 @@ public class LoncapaBuilder implements OutputBuilder {
         }
         String award, grade;
 
-        if (answerMessage.hasPassed()) {
+        if(answerMessage.getPercentOfTestWordsFailed() < 0){
+            award = "ERROR";
+            grade = "error";
+        }
+        else if (answerMessage.hasPassed()) {
             award = "EXACT_ANS";
             grade = "passed";
         } else {
