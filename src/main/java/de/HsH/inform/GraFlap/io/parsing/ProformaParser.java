@@ -39,19 +39,21 @@ public class ProformaParser extends ArgumentsParser{
         Arguments arguments = null;
         try {
             Document doc = dbf.newDocumentBuilder().parse(new ByteArrayInputStream(args[1].getBytes(StandardCharsets.UTF_8)));
+            ArrayList<Node> submissionList = new ArrayList<>(1);
+            submissionList.add(doc.getDocumentElement());
 
-            String graflapArguments = Stream.<Node>builder().add(doc.getDocumentElement()).build()
-                                            .flatMap(toChildElements)
-                                            .filter(byName("task")).flatMap(toChildElements)
-                                            .filter(byName("files")).flatMap(toChildElements)
-                                            .filter(byAttribute("id","graflap-arguments")).flatMap(toChildElements)
-                                            .filter(byName("embedded")).flatMap(toChildNodes)
-                                            .filter(byIsCDATA).findFirst().get().getTextContent();
+            String graflapArguments = submissionList.stream()
+                                                    .flatMap(toChildElements)
+                                                    .filter(byName("task")).flatMap(toChildElements)
+                                                    .filter(byName("files")).flatMap(toChildElements)
+                                                    .filter(byAttribute("id","graflap-arguments")).flatMap(toChildElements)
+                                                    .filter(byName("embedded")).flatMap(toChildNodes)
+                                                    .filter(byIsCDATA).findFirst().get().getTextContent();
 
-            List<Element> submissionFiles = Stream.<Node>builder().add(doc.getDocumentElement()).build()
-                                                  .flatMap(toChildElements)
-                                                  .filter(byName("files")).flatMap(toChildElements)
-                                                  .collect(Collectors.toList());
+            List<Element> submissionFiles = submissionList.stream()
+                                                          .flatMap(toChildElements)
+                                                          .filter(byName("files")).flatMap(toChildElements)
+                                                          .collect(Collectors.toList());
 
             String studentAnswer = submissionFiles.stream().filter(byAttribute("id","studentAnswer")).flatMap(toChildElements)
                                                   .filter(byName("embedded")).flatMap(toChildNodes)
