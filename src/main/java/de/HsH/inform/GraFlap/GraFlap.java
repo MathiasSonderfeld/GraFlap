@@ -23,18 +23,17 @@ import java.nio.file.Paths;
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.Error.ErrorAnswerMessage;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.LoncapaBuilder;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.OutputBuilder;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.ProformaBuilder;
-import de.HsH.inform.GraFlap.entity.OutputType;
+import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
+import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
+import de.HsH.inform.GraFlap.io.formatter.ProformaOutputFormatter;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.ioparsing.ArgumentsParser;
+import de.HsH.inform.GraFlap.io.parsing.ArgumentsParser;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
 import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.ioparsing.LoncapaParser;
-import de.HsH.inform.GraFlap.ioparsing.ProformaParser;
+import de.HsH.inform.GraFlap.io.parsing.LoncapaParser;
+import de.HsH.inform.GraFlap.io.parsing.ProformaParser;
 import org.jdom2.Element;
 
 /**
@@ -64,7 +63,7 @@ public class GraFlap {
      */
     public static void main(String[] args) {
         Arguments arguments = null;
-        OutputBuilder outputBuilder = null;
+        OutputFormatter outputFormatter = null;
         ArgumentsParser parser = null;
         AnswerMessage answerMessage = null;
         try {
@@ -72,18 +71,18 @@ public class GraFlap {
                 throw new IllegalArgumentException("not enough Parameters.");
             }
             else if("-f".equals(args[0])){
-                outputBuilder = new ProformaBuilder();
+                outputFormatter = new ProformaOutputFormatter();
                 StringBuilder sb = new StringBuilder();
                 Files.lines(Paths.get(args[1]), StandardCharsets.UTF_8).forEach(s -> sb.append(s));
                 args[1] = sb.toString();
                 parser = new ProformaParser();
             }
             else if("-s".equals(args[0])){
-                outputBuilder = new ProformaBuilder();
+                outputFormatter = new ProformaOutputFormatter();
                 parser = new ProformaParser();
             }
             else{
-                outputBuilder = new LoncapaBuilder();
+                outputFormatter = new LoncapaOutputFormatter();
                 parser = new LoncapaParser();
             }
             arguments = parser.parse(args);
@@ -93,7 +92,7 @@ public class GraFlap {
             e.printStackTrace(System.out);
         }
         catch(GraFlapException e){
-            if(outputBuilder != null){
+            if(outputFormatter != null){
                 String taskTitle = "";
                 if(arguments != null){
                     taskTitle = arguments.getTaskTitle();
@@ -105,8 +104,8 @@ public class GraFlap {
             }
         }
         finally {
-            if(outputBuilder != null && answerMessage != null){
-                System.out.println(outputBuilder.getOutput(answerMessage));
+            if(outputFormatter != null && answerMessage != null){
+                System.out.println(outputFormatter.format(answerMessage));
             }
         }
     }

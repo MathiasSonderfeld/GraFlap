@@ -19,6 +19,13 @@ public class Arguments {
     private String studentAnswer;
     private OperationMode operationMode;
 
+    private String states;
+    private String initials;
+    private String finals;
+    private String alphabet;
+    private String stackalphabet;
+
+
     public String getTaskTitle() {
         return taskTitle;
     }
@@ -89,5 +96,45 @@ public class Arguments {
 
     public void setOperationMode( OperationMode operationMode ) {
         this.operationMode = operationMode;
+    }
+
+    public String getStates() {
+        return states;
+    }
+
+    public void setStates( String states ) {
+        this.states = states;
+    }
+
+    public String getInitials() {
+        return initials;
+    }
+
+    public void setInitials( String initials ) {
+        this.initials = initials;
+    }
+
+    public String getFinals() {
+        return finals;
+    }
+
+    public void setFinals( String finals ) {
+        this.finals = finals;
+    }
+
+    public String getAlphabet() {
+        return alphabet;
+    }
+
+    public void setAlphabet( String alphabet ) {
+        this.alphabet = alphabet;
+    }
+
+    public String getStackalphabet() {
+        return stackalphabet;
+    }
+
+    public void setStackalphabet( String stackalphabet ) {
+        this.stackalphabet = stackalphabet;
     }
 }

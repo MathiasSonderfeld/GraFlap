@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.ioparsing;
+package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
 

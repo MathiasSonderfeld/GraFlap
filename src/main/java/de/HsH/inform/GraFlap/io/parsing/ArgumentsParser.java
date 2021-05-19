@@ -1,12 +1,10 @@
-package de.HsH.inform.GraFlap.ioparsing;
+package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.InputMode;
 import de.HsH.inform.GraFlap.entity.InputType;
 import de.HsH.inform.GraFlap.entity.OperationMode;
-
-import java.util.HashSet;
 
 /**
  * @author Mathias Sonderfeld

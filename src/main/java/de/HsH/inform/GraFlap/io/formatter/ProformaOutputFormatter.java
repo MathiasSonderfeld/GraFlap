@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.answer.XMLBuilder;
+package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import org.jdom2.Element;
@@ -13,7 +13,7 @@ import org.jdom2.output.XMLOutputter;
  * makes an Proforma-XML String from given answerMessage.
  * requires Jdom-2.0.6 Library.
  */
-public class ProformaBuilder implements OutputBuilder {
+public class ProformaOutputFormatter implements OutputFormatter {
 
     /**
      * converts AnswerMessage to XML in Proforma-Style with "proforma" as Namespace
@@ -21,7 +21,7 @@ public class ProformaBuilder implements OutputBuilder {
      * @throws NullPointerException if input is null
      * @return String containing the whole xml document
      */
-    public String getOutput( AnswerMessage answerMessage ) {
+    public String format( AnswerMessage answerMessage ) {
         XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         if ("asvg".equals(answerMessage.getTaskMode())) {
             return out.outputString(answerMessage.getSvgImage());

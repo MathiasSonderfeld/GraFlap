@@ -2,9 +2,8 @@ package de.HsH.inform.GraFlap.answer;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.svg.SvgAnswerMessage;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.LoncapaBuilder;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.OutputBuilder;
-import de.HsH.inform.GraFlap.answer.XMLBuilder.ProformaBuilder;
+import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
+import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.answer.Messages.algorithm.CYKAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.algorithm.DerivationAnswerMessage;
@@ -13,6 +12,7 @@ import de.HsH.inform.GraFlap.answer.Messages.automaton.TransducerAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.grammar.GrammarAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.grammar.WordAnswerMessage;
 import de.HsH.inform.GraFlap.entity.OutputType;
+import de.HsH.inform.GraFlap.io.formatter.ProformaOutputFormatter;
 import org.jdom2.Element;
 
 /**
@@ -71,17 +71,17 @@ public class AnswerFactory {
     public static String getOutput( int resultValue, String title, String bestLanguage, String taskMode, String type,
                                     String studType, Element svg, OutputType outputType) throws GraFlapException{
         AnswerMessage msg = determineAnswer(resultValue, title,bestLanguage,taskMode,type,studType,svg);
-        OutputBuilder builder = null;
+        OutputFormatter builder = null;
         switch(outputType){
             case Proforma:
-                builder = new ProformaBuilder();
+                builder = new ProformaOutputFormatter();
                 break;
             case Loncapa:
-                builder = new LoncapaBuilder();
+                builder = new LoncapaOutputFormatter();
                 break;
             default:
                 throw  new GraFlapException("Error in OutputType Defenition.");
         }
-        return builder.getOutput(msg);
+        return builder.format(msg);
     }
 }

@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.answer.XMLBuilder;
+package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import org.jdom2.Element;
@@ -11,11 +11,11 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author Mathias Sonderfeld
- * Tests the ProformaBuilder with 100% Code Coverage
+ * Tests the ProformaOutputFormatter with 100% Code Coverage
  * Mocks answerMessage class to isolate Builder from Data conversions in AnswerMessage Implementations.
  */
-public class LoncapaBuilderTest {
-    LoncapaBuilder loncapaBuilder = new LoncapaBuilder();
+public class LoncapaOutputFormatterTest {
+    LoncapaOutputFormatter loncapaFormatter = new LoncapaOutputFormatter();
 
     /**
      * Tests if correct Submission gets printed as such.
@@ -31,7 +31,7 @@ public class LoncapaBuilderTest {
         when(message.hasPassed()).thenReturn(true);
         String xml = "<loncapagrade><awarddetail>EXACT_ANS</awarddetail><message><taskresult grade=\"passed\"><tasktitle>Test for LoncapaBuilder.getXML Result Success</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
 
-        Assertions.assertEquals(xml, loncapaBuilder.getOutput(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml, loncapaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
     }
 
     /**
@@ -48,7 +48,7 @@ public class LoncapaBuilderTest {
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle>Test for LoncapaBuilder.getXML Result Fail</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
 
-        Assertions.assertEquals(xml, loncapaBuilder.getOutput(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml, loncapaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
     }
 
     /**
@@ -61,7 +61,7 @@ public class LoncapaBuilderTest {
         when(message.getTaskMode()).thenReturn("asvg");
         String xml = "<thisIsATest />";
 
-        Assertions.assertEquals(xml, loncapaBuilder.getOutput(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml, loncapaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
     }
 
     /**
@@ -78,7 +78,7 @@ public class LoncapaBuilderTest {
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle /><titlesvg /><resulttext /></taskresult></message></loncapagrade>";
 
-        Assertions.assertEquals(xml, loncapaBuilder.getOutput(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml, loncapaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
     }
 
     /**
@@ -86,6 +86,6 @@ public class LoncapaBuilderTest {
      */
     @Test
     void testGetXMLNull(){
-        Assertions.assertThrows(NullPointerException.class, () ->  loncapaBuilder.getOutput(null));
+        Assertions.assertThrows(NullPointerException.class, () ->  loncapaFormatter.format(null));
     }
 }

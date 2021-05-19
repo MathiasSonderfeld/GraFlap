@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.answer.XMLBuilder;
+package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 
@@ -9,6 +9,6 @@ import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
  * Interface for OutputBuilders. To add new Builder implement this Interface in new Class, add new Value to OutputType-Enum and create Instance in
  * AnswerFactory.
  */
-public interface OutputBuilder {
-    String getOutput( AnswerMessage answerMessage );
+public interface OutputFormatter {
+    String format( AnswerMessage answerMessage );
 }

@@ -5,3 +5,5 @@ target/
 
 *.xml
 !pom.xml
+
+schema

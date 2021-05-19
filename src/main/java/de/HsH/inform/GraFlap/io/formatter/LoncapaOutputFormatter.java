@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.answer.XMLBuilder;
+package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import org.jdom2.CDATA;
@@ -13,7 +13,7 @@ import org.jdom2.output.XMLOutputter;
  * makes an XML String, that can be passed to Loncapa, from given answerMessage.
  * requires Jdom-2.0.6 Library.
  */
-public class LoncapaBuilder implements OutputBuilder {
+public class LoncapaOutputFormatter implements OutputFormatter {
 
     /**
      * converts AnswerMessage to XML in Loncapa-Style
@@ -21,7 +21,7 @@ public class LoncapaBuilder implements OutputBuilder {
      * @throws NullPointerException if input is null
      * @return String containing the whole xml document
      */
-    public String getOutput( AnswerMessage answerMessage ) {
+    public String format( AnswerMessage answerMessage ) {
         XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         if ("asvg".equals(answerMessage.getTaskMode())) {
             return out.outputString(answerMessage.getSvgImage());

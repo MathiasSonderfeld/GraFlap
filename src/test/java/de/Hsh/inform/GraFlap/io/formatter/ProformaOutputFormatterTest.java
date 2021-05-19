@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.answer.XMLBuilder;
+package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import org.jdom2.Element;
@@ -10,11 +10,11 @@ import static org.mockito.Mockito.when;
 
 /**
  * @author Mathias Sonderfeld
- * Tests the ProformaBuilder with 100% Code Coverage
+ * Tests the ProformaOutputFormatter with 100% Code Coverage
  * Mocks answerMessage class to isolate Builder from Data conversions in AnswerMessage Implementations.
  */
-public class ProformaBuilderTest {
-    ProformaBuilder proformaBuilder = new ProformaBuilder();
+public class ProformaOutputFormatterTest {
+    ProformaOutputFormatter proformaFormatter = new ProformaOutputFormatter();
 
     /**
      * Tests if correct Submission gets printed as such.
@@ -30,7 +30,7 @@ public class ProformaBuilderTest {
         when(message.hasPassed()).thenReturn(true);
         String xml = "<proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list /><proforma:tests-response><proforma:test-response id=\"Test for LoncapaBuilder.getXML Result Success\"><proforma:test-result><proforma:result><proforma:score>1.0</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">Test for LoncapaBuilder.getXML Result Success</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">SVGTitle</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"html\" /></proforma:student-feedback><proforma:student-feedback><proforma:title>ResultText</proforma:title><proforma:content format=\"plaintext\">mocked test successfull</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files /><proforma:response-meta-data><proforma:grader-engine name=\"de.HsH.inform.GraFlap.GraFlap\" version=\"0.1\" /></proforma:response-meta-data></proforma:response>";
 
-        Assertions.assertEquals(xml, proformaBuilder.getOutput(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml, proformaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
     }
 
     /**
@@ -48,7 +48,7 @@ public class ProformaBuilderTest {
         when(message.hasPassed()).thenReturn(false);
         String xml = "<proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list /><proforma:tests-response><proforma:test-response id=\"Test for LoncapaBuilder.getXML Result Fail\"><proforma:test-result><proforma:result><proforma:score>1.0</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">Test for LoncapaBuilder.getXML Result Fail</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">SVGTitle</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"html\" /></proforma:student-feedback><proforma:student-feedback><proforma:title>ResultText</proforma:title><proforma:content format=\"plaintext\">mocked test successfull</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files /><proforma:response-meta-data><proforma:grader-engine name=\"de.HsH.inform.GraFlap.GraFlap\" version=\"0.1\" /></proforma:response-meta-data></proforma:response>";
 
-        Assertions.assertEquals(xml, proformaBuilder.getOutput(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml, proformaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
     }
 
     /**
@@ -61,7 +61,7 @@ public class ProformaBuilderTest {
         when(message.getTaskMode()).thenReturn("asvg");
         String xml = "<thisIsATest />";
 
-        Assertions.assertEquals(xml, proformaBuilder.getOutput(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml, proformaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
     }
 
     /**
@@ -76,7 +76,7 @@ public class ProformaBuilderTest {
         when(message.getTaskMode()).thenReturn(null);
         when(message.getFeedback()).thenReturn(null);
         when(message.hasPassed()).thenReturn(false);
-        Assertions.assertThrows(NullPointerException.class, () ->  proformaBuilder.getOutput(message));
+        Assertions.assertThrows(NullPointerException.class, () ->  proformaFormatter.format(message));
     }
 
     /**
@@ -84,6 +84,6 @@ public class ProformaBuilderTest {
      */
     @Test
     void testGetXMLNull(){
-        Assertions.assertThrows(NullPointerException.class, () ->  proformaBuilder.getOutput(null));
+        Assertions.assertThrows(NullPointerException.class, () ->  proformaFormatter.format(null));
     }
 }

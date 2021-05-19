@@ -1,10 +1,11 @@
-package de.HsH.inform.GraFlap.ioparsing;
+package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.InputMode;
 import de.HsH.inform.GraFlap.entity.InputType;
 import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.io.parsing.ArgumentsParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 public class ArgumentsParserTest {
