@@ -115,18 +115,18 @@ public class GraFlap {
      * @param arguments the {@link Arguments} object that holds the submission information
      */
     private static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
-        Result result = new Result(arguments.getOperationMode()).generateResult(arguments);
-        String studType = result.getStudType();
+        Grader grader = new Grader(arguments.getOperationMode()).generateResult(arguments);
+        String studType = grader.getStudType();
 
         if (arguments.getMode().contains("t")) {
             if (arguments.getMode().contains("a")) {
-                studType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
+                studType = AutomatonTypeTest.checkForAutomatonType(grader.getSubmission());
             } else if (arguments.getMode().contains("g")) {
-                studType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
+                studType = GrammarTypeTest.checkForGrammarType(grader.getSubmission());
             }
         }
 
-        Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
-        return AnswerFactory.determineAnswer(result.getResult(), arguments.getTaskTitle(), arguments.getUserLanguage(),arguments.getMode(), arguments.getArgtype(), studType, svg);
+        Element svg = SvgFactory.determineBuilder(arguments, grader.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
+        return AnswerFactory.determineAnswer(grader, arguments, studType, svg);
     }
 }

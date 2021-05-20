@@ -1,7 +1,9 @@
 package de.HsH.inform.GraFlap.answer.Messages;
 
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
+
 
 /**
  * abstract class that serves a parent to generate the answer message, which is sent back to LON-CAPA
@@ -20,6 +22,11 @@ public abstract class AnswerMessage {
     protected String taskMode;
     protected StringBuilder feedbackText;
     protected String svgTitle;
+
+    protected SetResult states;
+    protected SetResult initials;
+    protected SetResult finals;
+    protected SetResult transitions;
 
     /**
      * Constructor
@@ -100,5 +107,37 @@ public abstract class AnswerMessage {
 
     public boolean hasPassed() {
         return hasPassed;
+    }
+
+    public SetResult getStates() {
+        return states;
+    }
+
+    public void setStates( SetResult states ) {
+        this.states = states;
+    }
+
+    public SetResult getInitials() {
+        return initials;
+    }
+
+    public void setInitials( SetResult initials ) {
+        this.initials = initials;
+    }
+
+    public SetResult getFinals() {
+        return finals;
+    }
+
+    public void setFinals( SetResult finals ) {
+        this.finals = finals;
+    }
+
+    public SetResult getTransitions() {
+        return transitions;
+    }
+
+    public void setTransitions( SetResult transitions ) {
+        this.transitions = transitions;
     }
 }

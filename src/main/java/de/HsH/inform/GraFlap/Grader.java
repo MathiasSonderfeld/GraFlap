@@ -29,7 +29,7 @@ import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
  * @since 08-03-2016
  * @version 0.2.3
  */
-public class Result {
+public class Grader {
     /**
      * a string representing the submission type
      */
@@ -52,7 +52,7 @@ public class Result {
      * Constructor
      * @param operationMode the determined mode used to generate the correct result
      */
-    public Result( OperationMode operationMode ) {
+    public Grader( OperationMode operationMode ) {
         this.submission = new Submission();
         this.studType = "non";
         this.result = 100;
@@ -76,7 +76,6 @@ public class Result {
     }
 
     /**
-     * simple getter
      * @return the {@link Submission} object of the de.HsH.inform.GraFlap.entity submission
      * @throws GraFlapException throws a {@link GraFlapException} if the de.HsH.inform.GraFlap.entity submission has not been stored in it
      */
@@ -84,7 +83,7 @@ public class Result {
         if (submission.getOperationType() != OperationType.UNDEFINED) {
             return submission;
         }
-        throw new GraFlapException("Error in Result: Tried to access non parsed submission.");
+        throw new GraFlapException("Error in Grader: Tried to access non parsed submission.");
     }
 
     /**
@@ -93,7 +92,7 @@ public class Result {
      * @return a reference of the object
      * @throws GraFlapException throws a {@link GraFlapException} if an error occurs
      */
-    public Result generateResult(Arguments arguments) throws GraFlapException {
+    public Grader generateResult( Arguments arguments) throws GraFlapException {
         switch(operationMode) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
