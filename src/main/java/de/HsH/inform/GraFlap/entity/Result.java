@@ -5,21 +5,27 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 public class Result {
     private String studType;
-    private int percentFailed;
+    private int percentageFailed;
     private Submission submission;
 
     public Result(){
         this.submission = new Submission();
         this.studType = "non";
-        this.percentFailed = 100;
+        this.percentageFailed = 100;
+    }
+
+    public Result(Submission submission, int percentageFailed, String studType){
+        this.submission = submission;
+        this.percentageFailed = percentageFailed;
+        this.studType = studType;
     }
 
     public String getStudType() {
         return studType;
     }
 
-    public int getPercentFailed() {
-        return percentFailed;
+    public int getPercentageFailed() {
+        return percentageFailed;
     }
 
     public Submission getSubmission() throws GraFlapException {
@@ -27,5 +33,17 @@ public class Result {
             return submission;
         }
         throw new GraFlapException("Error in Grader: Tried to access non parsed submission.");
+    }
+
+    public void setStudType( String studType ) {
+        this.studType = studType;
+    }
+
+    public void setPercentageFailed( int percentageFailed ) {
+        this.percentageFailed = percentageFailed;
+    }
+
+    public void setSubmission( Submission submission ) {
+        this.submission = submission;
     }
 }

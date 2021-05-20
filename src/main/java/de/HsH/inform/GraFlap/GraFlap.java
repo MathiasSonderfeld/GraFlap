@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.Error.ErrorAnswerMessage;
+import de.HsH.inform.GraFlap.entity.Result;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.ProformaOutputFormatter;
@@ -115,18 +116,18 @@ public class GraFlap {
      * @param arguments the {@link Arguments} object that holds the submission information
      */
     private static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
-        Grader grader = new Grader(arguments.getOperationMode()).generateResult(arguments);
-        String studType = grader.getStudType();
+        Result result = Grader.generateResult(arguments.getOperationMode(), arguments);
+        String studType = result.getStudType();
 
         if (arguments.getMode().contains("t")) {
             if (arguments.getMode().contains("a")) {
-                studType = AutomatonTypeTest.checkForAutomatonType(grader.getSubmission());
+                studType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
             } else if (arguments.getMode().contains("g")) {
-                studType = GrammarTypeTest.checkForGrammarType(grader.getSubmission());
+                studType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
             }
         }
 
-        Element svg = SvgFactory.determineBuilder(arguments, grader.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
-        return AnswerFactory.determineAnswer(grader, arguments, studType, svg);
+        Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
+        return AnswerFactory.determineAnswer(result, arguments, studType, svg);
     }
 }

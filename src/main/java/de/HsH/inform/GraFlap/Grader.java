@@ -5,10 +5,7 @@ import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.convert.CYKInputParser;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import de.HsH.inform.GraFlap.convert.DerivationParser;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.CYKTable;
-import de.HsH.inform.GraFlap.entity.OperationMode;
-import de.HsH.inform.GraFlap.entity.OperationType;
+import de.HsH.inform.GraFlap.entity.*;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.cyk.CYKScoringTest;
 import de.HsH.inform.GraFlap.scoring.derivation.DerivationScoringTest;
@@ -30,76 +27,23 @@ import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
  * @version 0.2.3
  */
 public class Grader {
-    /**
-     * a string representing the submission type
-     */
-    private String studType;
-    /**
-     * a numeric value that holds the grading information; can have values in [0, 100]
-     */
-    private int result;
-    /**
-     * the determined mode
-     */
-    private final OperationMode operationMode;
-
-    /**
-     * the {@link Submission} object that encapsulated the required submission data
-     */
-    private Submission submission;
-
-    /**
-     * Constructor
-     * @param operationMode the determined mode used to generate the correct result
-     */
-    public Grader( OperationMode operationMode ) {
-        this.submission = new Submission();
-        this.studType = "non";
-        this.result = 100;
-        this.operationMode = operationMode;
-    }
-
-    /**
-     * simple getter
-     * @return the type of the submission
-     */
-    public String getStudType() {
-        return studType;
-    }
-
-    /**
-     * simple getter
-     * @return the numeric result of the submission
-     */
-    public int getResult() {
-        return result;
-    }
-
-    /**
-     * @return the {@link Submission} object of the de.HsH.inform.GraFlap.entity submission
-     * @throws GraFlapException throws a {@link GraFlapException} if the de.HsH.inform.GraFlap.entity submission has not been stored in it
-     */
-    public Submission getSubmission() throws GraFlapException {
-        if (submission.getOperationType() != OperationType.UNDEFINED) {
-            return submission;
-        }
-        throw new GraFlapException("Error in Grader: Tried to access non parsed submission.");
-    }
-
-    /**
+     /**
      * starts the process to generate the result and the grading
      * @param arguments the {@link Arguments} object that holds the submission information
      * @return a reference of the object
      * @throws GraFlapException throws a {@link GraFlapException} if an error occurs
      */
-    public Grader generateResult( Arguments arguments) throws GraFlapException {
+    public static Result generateResult( OperationMode operationMode, Arguments arguments) throws GraFlapException {
+        Submission submission = new Submission();
+        int percentageFailed = -1;
+        String studType = "";
         switch(operationMode) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
             case AR:
                 if (!arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    result = new AutomatonRegexTest().openInput(arguments.getSolution(), submission,
+                    percentageFailed = new AutomatonRegexTest().openInput(arguments.getSolution(), submission,
                                                                 arguments.getNumberOfWords());
                 } else {
                     throw new GraFlapException("Error in LON-CAPA problem. Please check regular expression.");
@@ -108,7 +52,7 @@ public class Grader {
             case AG:
                 if (arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    result = new AutomatonTest().openInput(arguments.getSolution(), submission,
+                    percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
                                                            arguments.getNumberOfWords());
 
                 } else {
@@ -120,7 +64,7 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") && arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    result = new GrammarTest().openInput(arguments.getSolution(), submission,
+                    percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
                                                          arguments.getNumberOfWords());
                 } else {
                     throw new GraFlapException("Error. Please check grammar.");
@@ -129,7 +73,7 @@ public class Grader {
             case ARW:
                 if (!arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    result = new AutomatonTest().openInput(arguments.getSolution(), submission,
+                    percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
                                                            arguments.getWordString());
                 }else {
                     throw new GraFlapException("Error in LON-CAPA problem. Please check regular expression.");
@@ -138,7 +82,7 @@ public class Grader {
             case AGW:
                 if (arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    result = new AutomatonTest().openInput(arguments.getSolution(), submission,
+                    percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
                                                            arguments.getWordString());
                 } else {
                     throw new GraFlapException("Error in LON-CAPA problem. Please check given grammar.");
@@ -148,7 +92,7 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") && arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                                buildGrammar(arguments.getStudentAnswer()));
-                    result = new GrammarTest().openInput(arguments.getSolution(), submission,
+                    percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
                                                          arguments.getWordString());
                 }else {
                     throw new GraFlapException("Error. Please check grammar.");
@@ -156,11 +100,11 @@ public class Grader {
                 break;
             case EAT:
                 submission = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getStudentAnswer()));
-                result = new AlphabetTest(submission).checkAlphabet(arguments.getSolution());
+                percentageFailed = new AlphabetTest(submission).checkAlphabet(arguments.getSolution());
                 break;
             case WW:
                 submission = ConvertSubmission.openWords(arguments.getStudentAnswer(), arguments.getNumberOfWords());
-                result = WordTest.checkWords(arguments.getSolution(), (String[]) submission.getSubmissionObject());
+                percentageFailed = WordTest.checkWords(arguments.getSolution(), (String[]) submission.getSubmissionObject());
                 break;
             case GR:
                 if (arguments.getStudentAnswer().contains("->") ) {
@@ -168,7 +112,7 @@ public class Grader {
                                                    buildGrammar(arguments.getStudentAnswer()));
                     studType = GrammarTypeTest.checkForGrammarType(submission);
                     if ((studType.equals("rl") || studType.equals("cfg"))) {
-                        result = new GrammarRegexTest().openInput(arguments.getSolution(), submission,
+                        percentageFailed = new GrammarRegexTest().openInput(arguments.getSolution(), submission,
                                                                   arguments.getNumberOfWords());
                     } else {
                         throw new GraFlapException("Error. Please check grammar type.");
@@ -183,7 +127,7 @@ public class Grader {
                                                    buildGrammar(arguments.getStudentAnswer()));
                     studType = GrammarTypeTest.checkForGrammarType(submission);
                     if ((studType.equals("rl") || studType.equals("cfg"))) {
-                        result = new GrammarTest().openInput(arguments.getSolution(), submission,
+                        percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
                                                              arguments.getWordString());
                     } else {
                         throw new GraFlapException("Error. Please check grammar type.");
@@ -195,12 +139,12 @@ public class Grader {
             case MP:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                 studType = AutomatonTypeTest.checkForAutomatonType(submission);
-                result = new TransducerPairTest().determineResult(submission, arguments.getWordString());
+                percentageFailed = new TransducerPairTest().determineResult(submission, arguments.getWordString());
                 break;
             case MMW:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                 studType = AutomatonTypeTest.checkForAutomatonType(submission);
-                result = new TransducerWordTest(arguments.getSolution()).determineResult(submission,
+                percentageFailed = new TransducerWordTest(arguments.getSolution()).determineResult(submission,
                                                                                          arguments.getWordString());
                 break;
             case CYK:
@@ -208,27 +152,27 @@ public class Grader {
                                                GrammarBuilder.buildGrammar(arguments.getSolution()));
                 submission = CYKInputParser.openCYKInput(arguments.getStudentAnswer(), arguments.getWordString(),
                                                          solution.getSubmissionObject());
-                result = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getWordString(),
+                percentageFailed = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getWordString(),
                                              solution.getSubmissionObject()).returnScore();
                 break;
             case DER:
                 submission = DerivationParser.openDerivation(arguments.getStudentAnswer());
                 solution = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getSolution()));
-                result = new DerivationScoringTest((String[]) submission.getSubmissionObject(),
+                percentageFailed = new DerivationScoringTest((String[]) submission.getSubmissionObject(),
                                                     solution.getSubmissionObject(), arguments.getWordString())
                                                     .returnScore();
                 break;
             case SVGA:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                 studType = AutomatonTypeTest.checkForAutomatonType(submission);
-                result = 0;
+                percentageFailed = 0;
                 break;
             case SVGG:
                 submission = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getStudentAnswer()));
                 studType = GrammarTypeTest.checkForGrammarType(submission);
-                result = 0;
+                percentageFailed = 0;
                 break;
         }
-        return this;
+        return new Result(submission, percentageFailed, studType);
     }
 }

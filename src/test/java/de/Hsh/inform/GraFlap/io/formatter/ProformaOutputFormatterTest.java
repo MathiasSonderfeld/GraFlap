@@ -3,6 +3,7 @@ package de.HsH.inform.GraFlap.io.formatter;
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import org.jdom2.Element;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;
@@ -13,6 +14,7 @@ import static org.mockito.Mockito.when;
  * Tests the ProformaOutputFormatter with 100% Code Coverage
  * Mocks answerMessage class to isolate Builder from Data conversions in AnswerMessage Implementations.
  */
+@Disabled
 public class ProformaOutputFormatterTest {
     ProformaOutputFormatter proformaFormatter = new ProformaOutputFormatter();
 
