@@ -5,10 +5,8 @@ import de.HsH.inform.GraFlap.entity.Arguments;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
@@ -16,8 +14,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.*;
 import java.util.stream.*;
+
+import static de.HsH.inform.GraFlap.io.XmlStreamConstants.*;
 
 /**
  * @author Mathias Sonderfeld
@@ -91,35 +90,16 @@ public class ProformaParser extends ArgumentsParser{
                                                          .filter(byAttribute("filename", "stackalphabet")).flatMap(toChildNodes)
                                                          .filter(byIsCDATA).findFirst().get().getTextContent();
                 arguments.setStackalphabet(stackalphabet);
+
+                String transitions = otherEmbeddedFiles.stream()
+                                                         .filter(byAttribute("filename", "transitions")).flatMap(toChildNodes)
+                                                         .filter(byIsCDATA).findFirst().get().getTextContent();
+                arguments.setTransitions(transitions);
             }
         }
         catch(ClassCastException | NullPointerException | SAXException | IOException | ParserConfigurationException e) {
             throw new GraFlapException("Cant parse Proforma XML");
         }
-
         return arguments;
-    }
-
-
-    private Predicate<Node> byIsElement = node -> node.getNodeType() == Node.ELEMENT_NODE;
-    private Predicate<Node> byIsCDATA = node -> node.getNodeType() == Node.CDATA_SECTION_NODE;
-    private Function<Node, Element> toElement = node -> (Element) node;
-    private Function<Node, Stream<Node>> toChildNodes = element -> getNodeListAsList(element.getChildNodes()).stream();
-    private Function<Node, Stream<Element>> toChildElements = element -> toChildNodes.apply(element).filter(byIsElement).map(toElement);
-
-    private Predicate<Element> byName(String name){
-        return element -> element.getTagName().contains(name);
-    }
-
-    private Predicate<Element> byAttribute(String attributeName, String attributeValue){
-        return element -> element.getAttribute(attributeName).equals(attributeValue);
-    }
-
-    private List<Node> getNodeListAsList(NodeList nodeList){
-        ArrayList<Node> list = new ArrayList<>(nodeList.getLength());
-        for(int i = 0; i < nodeList.getLength(); i++) {
-            list.add(nodeList.item(i));
-        }
-        return  list;
     }
 }

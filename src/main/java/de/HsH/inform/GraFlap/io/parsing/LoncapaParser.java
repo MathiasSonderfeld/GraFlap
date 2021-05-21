@@ -36,10 +36,10 @@ public class LoncapaParser extends ArgumentsParser{
         arguments.setNumberOfWords(numberOfWords);
         arguments.setWordString(inputWords);
 
-        InputMode mode = InputMode.valueOf(taskArguments[3]);
+        InputMode mode = InputMode.valueOf(taskArguments[3].replaceFirst("p", ""));
         InputType type = InputType.valueOf(taskArguments[4]);
         checkCorrectModeAndType(mode, type);
-        OperationMode operationMode = determineOperationMode(taskArguments[3]);
+        OperationMode operationMode = determineOperationMode(taskArguments[3].replaceFirst("p", ""));
         arguments.setMode(taskArguments[3]);
         arguments.setArgtype(taskArguments[4]);
         arguments.setOperationMode(operationMode);

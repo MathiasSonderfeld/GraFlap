@@ -24,6 +24,7 @@ public class Arguments {
     private String finals;
     private String alphabet;
     private String stackalphabet;
+    private String transitions;
 
 
     public String getTaskTitle() {
@@ -136,5 +137,13 @@ public class Arguments {
 
     public void setStackalphabet( String stackalphabet ) {
         this.stackalphabet = stackalphabet;
+    }
+
+    public String getTransitions() {
+        return transitions;
+    }
+
+    public void setTransitions( String transitions ) {
+        this.transitions = transitions;
     }
 }

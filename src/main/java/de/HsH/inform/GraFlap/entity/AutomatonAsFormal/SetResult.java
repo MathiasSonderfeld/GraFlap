@@ -2,10 +2,11 @@ package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
 import java.util.ArrayList;
 
-public class SetResult {
+public class SetResult<Generic> {
     private double score;
-    private ArrayList<String> missing;
-    private ArrayList<String> surplus;
+    private ArrayList<Generic> doubles;
+    private ArrayList<Generic> missing;
+    private ArrayList<Generic> surplus;
 
     public SetResult(){
         score = -1.0;
@@ -13,7 +14,7 @@ public class SetResult {
         surplus = new ArrayList<>();
     }
 
-    public SetResult(double score, ArrayList<String> missing, ArrayList<String> surplus){
+    public SetResult( double score, ArrayList<Generic> missing, ArrayList<Generic> surplus){
         this.score=score;
         this.missing=missing;
         this.surplus=surplus;
@@ -27,28 +28,40 @@ public class SetResult {
         this.score = score;
     }
 
-    public ArrayList<String> getMissing() {
+    public ArrayList<Generic> getDoubles() {
+        return doubles;
+    }
+
+    public void setDoubles( ArrayList<Generic> doubles ) {
+        this.doubles = doubles;
+    }
+
+    public ArrayList<Generic> getMissing() {
         return missing;
     }
 
-    public void setMissing( ArrayList<String> missing ) {
+    public void setMissing( ArrayList<Generic> missing ) {
         this.missing = missing;
     }
 
-    public ArrayList<String> getSurplus() {
+    public ArrayList<Generic> getSurplus() {
         return surplus;
     }
 
-    public void setSurplus( ArrayList<String> surplus ) {
+    public void setSurplus( ArrayList<Generic> surplus ) {
         this.surplus = surplus;
     }
 
-    public void addToMissing(String missing){
+    public void addToMissing( Generic missing){
         this.missing.add(missing);
     }
 
-    public void addToSurplus(String surplus){
+    public void addToSurplus( Generic surplus){
         this.surplus.add(surplus);
+    }
+
+    public void addToDoubles( Generic doubleElement){
+        this.doubles.add(doubleElement);
     }
 
     public int getTotalErrors(){

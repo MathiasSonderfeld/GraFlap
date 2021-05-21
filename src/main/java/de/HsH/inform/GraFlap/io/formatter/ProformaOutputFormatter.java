@@ -34,9 +34,11 @@ public class ProformaOutputFormatter implements OutputFormatter {
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             StringWriter stringWriter = new StringWriter();
-
-            org.jdom2.output.XMLOutputter jdom2outputter = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat());
-            String svgAsString = jdom2outputter.outputString(answerMessage.getSvgImage());
+            String svgAsString = "";
+            if(answerMessage.getSvgImage() != null){
+                org.jdom2.output.XMLOutputter jdom2outputter = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat());
+                svgAsString = jdom2outputter.outputString(answerMessage.getSvgImage());
+            }
             buildProforma(answerMessage, svgAsString);
             document.normalizeDocument();
             transformer.transform(new DOMSource(document), new StreamResult(stringWriter));

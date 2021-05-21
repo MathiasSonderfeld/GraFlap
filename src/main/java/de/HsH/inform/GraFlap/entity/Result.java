@@ -1,18 +1,21 @@
 package de.HsH.inform.GraFlap.entity;
 
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 public class Result {
     private String studType;
     private int percentageFailed;
     private Submission submission;
-
-    public Result(){
-        this.submission = new Submission();
-        this.studType = "non";
-        this.percentageFailed = 100;
-    }
+    private SetResult<State> states;
+    private SetResult<State> initials;
+    private SetResult<State> finals;
+    private SetResult<String> alphabet;
+    private SetResult<String> stackalphabet;
+    private SetResult<Transition> transitions;
 
     public Result(Submission submission, int percentageFailed, String studType){
         this.submission = submission;
@@ -35,15 +38,51 @@ public class Result {
         throw new GraFlapException("Error in Grader: Tried to access non parsed submission.");
     }
 
-    public void setStudType( String studType ) {
-        this.studType = studType;
+    public SetResult<State> getStates() {
+        return states;
     }
 
-    public void setPercentageFailed( int percentageFailed ) {
-        this.percentageFailed = percentageFailed;
+    public void setStates( SetResult<State> states ) {
+        this.states = states;
     }
 
-    public void setSubmission( Submission submission ) {
-        this.submission = submission;
+    public SetResult<State> getInitials() {
+        return initials;
+    }
+
+    public void setInitials( SetResult<State> initials ) {
+        this.initials = initials;
+    }
+
+    public SetResult<State> getFinals() {
+        return finals;
+    }
+
+    public void setFinals( SetResult<State> finals ) {
+        this.finals = finals;
+    }
+
+    public SetResult<String> getAlphabet() {
+        return alphabet;
+    }
+
+    public void setAlphabet( SetResult<String> alphabet ) {
+        this.alphabet = alphabet;
+    }
+
+    public SetResult<String> getStackalphabet() {
+        return stackalphabet;
+    }
+
+    public void setStackalphabet( SetResult<String> stackalphabet ) {
+        this.stackalphabet = stackalphabet;
+    }
+
+    public SetResult<Transition> getTransitions() {
+        return transitions;
+    }
+
+    public void setTransitions( SetResult<Transition> transitions ) {
+        this.transitions = transitions;
     }
 }

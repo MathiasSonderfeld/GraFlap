@@ -10,6 +10,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.cyk.CYKScoringTest;
 import de.HsH.inform.GraFlap.scoring.derivation.DerivationScoringTest;
 import de.HsH.inform.GraFlap.test.AlphabetTest;
+import de.HsH.inform.GraFlap.test.SetsTest;
 import de.HsH.inform.GraFlap.test.WordTest;
 import de.HsH.inform.GraFlap.test.accepting.AutomatonRegexTest;
 import de.HsH.inform.GraFlap.test.accepting.AutomatonTest;
@@ -173,6 +174,25 @@ public class Grader {
                 percentageFailed = 0;
                 break;
         }
-        return new Result(submission, percentageFailed, studType);
+        Result result = new Result(submission, percentageFailed, studType);
+        if(arguments.getMode().contains("p")){
+            SetsTest setsTest = new SetsTest();
+            setsTest.setJflapXml(arguments.getStudentAnswer());
+            setsTest.setStudentStatesSet(arguments.getStates());
+            setsTest.setStudentInitialsSet(arguments.getInitials());
+            setsTest.setStudentFinalsSet(arguments.getFinals());
+            setsTest.setStudentAlphabetSet(arguments.getAlphabet());
+            setsTest.setStudentStackAlphabetSet(arguments.getStackalphabet());
+            setsTest.setStudentTransitionsSet(arguments.getTransitions());
+
+            setsTest.gradeSets();
+            result.setStates(setsTest.getStatesResult());
+            result.setInitials(setsTest.getInitialsResult());
+            result.setFinals(setsTest.getFinalsResult());
+            result.setAlphabet(setsTest.getAlphabetResult());
+            result.setStackalphabet(setsTest.getStackAlphabetResult());
+            result.setTransitions(setsTest.getTransitionsResult());
+        }
+        return result;
     }
 }

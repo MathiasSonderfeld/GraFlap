@@ -1,6 +1,8 @@
 package de.HsH.inform.GraFlap.answer.Messages;
 
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
@@ -23,10 +25,12 @@ public abstract class AnswerMessage {
     protected StringBuilder feedbackText;
     protected String svgTitle;
 
-    protected SetResult states;
-    protected SetResult initials;
-    protected SetResult finals;
-    protected SetResult transitions;
+    private SetResult<State> states = null;
+    private SetResult<State> initials = null;
+    private SetResult<State> finals = null;
+    private SetResult<String> alphabet = null;
+    private SetResult<String> stackalphabet = null;
+    private SetResult<Transition> transitions = null;
 
     /**
      * Constructor
@@ -109,35 +113,27 @@ public abstract class AnswerMessage {
         return hasPassed;
     }
 
-    public SetResult getStates() {
-        return states;
-    }
-
-    public void setStates( SetResult states ) {
+    public void setStates( SetResult<State> states ) {
         this.states = states;
     }
 
-    public SetResult getInitials() {
-        return initials;
-    }
-
-    public void setInitials( SetResult initials ) {
+    public void setInitials( SetResult<State> initials ) {
         this.initials = initials;
     }
 
-    public SetResult getFinals() {
-        return finals;
-    }
-
-    public void setFinals( SetResult finals ) {
+    public void setFinals( SetResult<State> finals ) {
         this.finals = finals;
     }
 
-    public SetResult getTransitions() {
-        return transitions;
+    public void setAlphabet( SetResult<String> alphabet ) {
+        this.alphabet = alphabet;
     }
 
-    public void setTransitions( SetResult transitions ) {
+    public void setStackalphabet( SetResult<String> stackalphabet ) {
+        this.stackalphabet = stackalphabet;
+    }
+
+    public void setTransitions( SetResult<Transition> transitions ) {
         this.transitions = transitions;
     }
 }

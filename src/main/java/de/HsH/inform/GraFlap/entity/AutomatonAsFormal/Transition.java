@@ -3,12 +3,16 @@ package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 public class Transition implements Comparable{
     private State from;
     private State to;
-    private String alphabet;
+    private String read;
+    private String pop;
+    private String push;
 
-    public Transition( State from, State to, String alphabet ) {
+    public Transition( State from, State to, String read, String pop, String push ) {
         this.from = from;
         this.to = to;
-        this.alphabet = alphabet;
+        this.read = read;
+        this.pop = pop;
+        this.push = push;
     }
 
     public State getFrom() {
@@ -19,8 +23,16 @@ public class Transition implements Comparable{
         return to;
     }
 
-    public String getAlphabet() {
-        return alphabet;
+    public String getRead() {
+        return read;
+    }
+
+    public String getPop() {
+        return pop;
+    }
+
+    public String getPush() {
+        return push;
     }
 
     /**
@@ -31,18 +43,18 @@ public class Transition implements Comparable{
     public boolean equals(Object o){
         if(o instanceof Transition){
             Transition other = (Transition) o;
-            return this.getFrom().equals(other.getFrom()) && this.getTo().equals(other.getTo()) && this.getAlphabet().equals(other.getAlphabet());
+            return this.getFrom().equals(other.getFrom()) && this.getTo().equals(other.getTo()) && this.getRead().equals(other.getRead()) && this.push.equals(other.getPush()) && this.pop.equals(other.getPop());
         }
         return false;
     }
 
     @Override
     public int hashCode(){
-        return this.getFrom().hashCode() * this.getTo().hashCode() * this.getAlphabet().hashCode();
+        return this.getFrom().hashCode() * this.getTo().hashCode() * this.getRead().hashCode();
     }
 
     /**
-     * Sorts by From, then To, then alphabet
+     * Sorts by From, then To, then read, then pop, then push
      * @param o the Object to compare to
      * @return 0 if not sortable, -1, 0 or 1 else
      */
@@ -56,7 +68,13 @@ public class Transition implements Comparable{
                 ret = this.getTo().compareTo(other.getTo());
             }
             if(ret==0){
-                ret = this.getAlphabet().compareTo(other.getAlphabet());
+                ret = this.getRead().compareTo(other.getRead());
+            }
+            if(ret==0){
+                ret = this.getPop().compareTo(other.getPop());
+            }
+            if(ret==0){
+                ret = this.getPush().compareTo(other.getPush());
             }
         }
         return ret;
@@ -69,6 +87,9 @@ public class Transition implements Comparable{
      */
     @Override
     public String toString(){
-        return "Transition from " + from + " to " + to + " with " + alphabet;
+        return ("Transition from " + from + " to " + to + " with " + read)
+                + ((pop.length() + push.length())==0?"":" while "
+                + (pop.length()>0?pop:"nothing") + " is taken from stack and "
+                + (push.length()>0?push:"nothing") + "is added");
     }
 }

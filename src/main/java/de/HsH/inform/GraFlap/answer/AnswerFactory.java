@@ -59,7 +59,12 @@ public class AnswerFactory {
         }
 
         if(arguments.getMode().contains("p")){
-
+            answerMessage.setStates(result.getStates());
+            answerMessage.setInitials(result.getInitials());
+            answerMessage.setFinals(result.getFinals());
+            answerMessage.setAlphabet(result.getAlphabet());
+            answerMessage.setStackalphabet(result.getStackalphabet());
+            answerMessage.setTransitions(result.getTransitions());
         }
         return answerMessage;
     }
