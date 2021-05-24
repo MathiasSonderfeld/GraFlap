@@ -2,13 +2,18 @@ package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Mathias Sonderfeld
@@ -29,22 +34,30 @@ public class ProformaOutputFormatter implements OutputFormatter {
     public String format(AnswerMessage answerMessage){
         try{
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            document = db.newDocument();
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             StringWriter stringWriter = new StringWriter();
+            Document svgImage = null;
             String svgAsString = "";
             if(answerMessage.getSvgImage() != null){
                 org.jdom2.output.XMLOutputter jdom2outputter = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat());
                 svgAsString = jdom2outputter.outputString(answerMessage.getSvgImage());
+                svgImage = db.parse(new ByteArrayInputStream(svgAsString.getBytes(StandardCharsets.UTF_8)));
             }
-            buildProforma(answerMessage, svgAsString);
+
+            if ("asvg".equals(answerMessage.getTaskMode())) {
+                document = svgImage;
+            }
+            else {
+                document = db.newDocument();
+                buildProforma(answerMessage, svgAsString);
+            }
             document.normalizeDocument();
             transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
             return stringWriter.toString();
         }
-        catch(ParserConfigurationException | TransformerException e) {
+        catch(ParserConfigurationException | TransformerException | IOException |SAXException e) {
             e.printStackTrace();
             return "";
         }
@@ -71,7 +84,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
 
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
         buildMainTestResponse(testsResponse, answerMessage, svgAsString);
-        if(answerMessage.getTaskMode().contains("a")){
+        if(answerMessage.getTaskMode().contains("p")){
             buildSetsTestResponse(testsResponse, "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
             buildSetsTestResponse(testsResponse, "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
             buildSetsTestResponse(testsResponse, "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());
@@ -96,7 +109,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
         addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, "TaskTitle", "plaintext", answerMessage.getTaskTitle(), false);
         addFeedback(feedbackList, true, "SvgTitle", "plaintext", answerMessage.getSvgTitle(), false);
-        addFeedback(feedbackList, true, "SvGImage", "plaintext", svgAsString, true);
+        addFeedback(feedbackList, true, "SvgImage", "plaintext", svgAsString, true);
         addFeedback(feedbackList, true, "FeedbackText", "plaintext", answerMessage.getFeedback(), false);
 
     }
