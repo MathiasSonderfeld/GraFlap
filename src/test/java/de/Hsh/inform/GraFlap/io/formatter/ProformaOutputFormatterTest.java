@@ -104,7 +104,6 @@ public class ProformaOutputFormatterTest {
 
     /**
      * Tests if wrong Submission gets printed as such.
-     * TODO Redundant Test?
      */
     @Test
     void testGetXMLResultFail() {

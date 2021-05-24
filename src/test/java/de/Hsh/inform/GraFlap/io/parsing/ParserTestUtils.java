@@ -6,7 +6,6 @@ import java.util.Comparator;
 
 /**
  * Helper class to compare Arguments Objects as it doenst have equals Method implemented yet
- * TODO Should it be added to Arguments Class?
  */
 public class ParserTestUtils {
     public static boolean compareTo( Arguments argumentsComp, Arguments argumentsToComp ){
