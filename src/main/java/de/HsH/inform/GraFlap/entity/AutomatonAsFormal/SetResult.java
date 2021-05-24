@@ -10,6 +10,7 @@ public class SetResult<Generic> {
 
     public SetResult(){
         score = -1.0;
+        doubles = new ArrayList<>();
         missing = new ArrayList<>();
         surplus = new ArrayList<>();
     }

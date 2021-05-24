@@ -87,9 +87,21 @@ public class Transition implements Comparable{
      */
     @Override
     public String toString(){
-        return ("Transition from " + from + " to " + to + " with " + read)
-                + ((pop.length() + push.length())==0?"":" while "
-                + (pop.length()>0?pop:"nothing") + " is taken from stack and "
-                + (push.length()>0?push:"nothing") + "is added");
+        StringBuilder transitionString = new StringBuilder();
+        transitionString.append("{").append(from).append(", ").append(to).append(", ").append(read);
+        if(pop != null && !"".equals(pop)){
+            transitionString.append(", ").append(pop);
+        }
+        else{
+            transitionString.append(",");
+        }
+        if(push != null && !"".equals(push)){
+            transitionString.append(", ").append(push);
+        }
+        else{
+            transitionString.append(",");
+        }
+        transitionString.append("}");
+        return transitionString.toString();
     }
 }

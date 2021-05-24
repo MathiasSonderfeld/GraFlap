@@ -14,7 +14,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -36,9 +35,9 @@ public class SetsTest {
     private TreeSet<String> studentStackAlphabet = new TreeSet<>();
     private TreeSet<Transition> studentTransitions = new TreeSet<>();
 
-    private Pattern cleanUpMultiSet = Pattern.compile("\\{(\\{([a-z|0-9|,])*\\},?)*\\}");
-    private Pattern getAtomarSetsFromMultiSet = Pattern.compile("\\{([a-z|0-9|,])*\\}");
-    private Pattern getAtomarElementsFromSet = Pattern.compile("[a-z|0-9]+");
+    private Pattern cleanUpMultiSet = Pattern.compile("\\{(\\{([a-z|A-Z|0-9| |,])*\\},?)*\\}");
+    private Pattern getAtomarSetsFromMultiSet = Pattern.compile("\\{([a-z|A-Z|0-9| |,])*\\}");
+    private Pattern getAtomarElementsFromSet = Pattern.compile("[a-z|A-Z|0-9| ]+");
 
     private String jflapXml = "";
     private String studentStatesSet = "";
@@ -88,8 +87,8 @@ public class SetsTest {
         try {
             Document jflapXmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(jflapXml.getBytes(StandardCharsets.UTF_8)));
             Element structure = jflapXmlDocument.getDocumentElement();
-            List<Element> parsedStates = getNodeListAsList(structure.getElementsByTagName("states")).stream().map(toElement).collect(Collectors.toList());
-            List<Element> parsedTransitions = getNodeListAsList(structure.getElementsByTagName("transitions")).stream().map(toElement).collect(Collectors.toList());
+            List<Element> parsedStates = getNodeListAsList(structure.getElementsByTagName("state")).stream().map(toElement).collect(Collectors.toList());
+            List<Element> parsedTransitions = getNodeListAsList(structure.getElementsByTagName("transition")).stream().map(toElement).collect(Collectors.toList());
             TreeMap<Integer, State> statesMap = new TreeMap<>();
 
             //read States, Initials & Finals
@@ -121,13 +120,23 @@ public class SetsTest {
                 if(isPushDownAutomaton){
                     pop = parsedTransition.getElementsByTagName("pop").item(0).getTextContent();
                     push = parsedTransition.getElementsByTagName("push").item(0).getTextContent();
-                    xmlStackAlphabet.addAll(Arrays.asList(pop.split("\\s+")));
-                    xmlStackAlphabet.addAll(Arrays.asList(push.split("\\s+")));
+                    for(String stackAlphabetLetter : pop.split("\\s+")){
+                        if(!"".equals(stackAlphabetLetter)){
+                            xmlStackAlphabet.add(stackAlphabetLetter);
+                        }
+                    }
+                    for(String stackAlphabetLetter : push.split("\\s+")){
+                        if(!"".equals(stackAlphabetLetter)){
+                            xmlStackAlphabet.add(stackAlphabetLetter);
+                        }
+                    }
                 }
                 from = statesMap.get(fromId);
                 to = statesMap.get(toId);
                 xmlTransitions.add(new Transition(from, to, read, pop, push));
-                xmlAlphabet.add(read);
+                if(!"".equals(read)){
+                    xmlAlphabet.add(read);
+                }
             }
         }
         catch(ClassCastException | ParserConfigurationException | IOException | SAXException e){
@@ -187,19 +196,19 @@ public class SetsTest {
             match = splitMatcher.group();
             matcherTransition = getAtomarElementsFromSet.matcher(match);
             if(matcherTransition.find()){
-                from = matcherTransition.group();
+                from = matcherTransition.group().trim();
             }
             if(matcherTransition.find()){
-                to = matcherTransition.group();
+                to = matcherTransition.group().trim();
             }
             if(matcherTransition.find()){
-                read = matcherTransition.group();
+                read = matcherTransition.group().trim();
             }
             if(matcherTransition.find()){
-                pop = matcherTransition.group();
+                pop = matcherTransition.group().trim();
             }
             if(matcherTransition.find()){
-                push = matcherTransition.group();
+                push = matcherTransition.group().trim();
             }
             newTransition = new Transition(states.get(from), states.get(to), read, pop, push);
             if(studentTransitions.contains(newTransition)){

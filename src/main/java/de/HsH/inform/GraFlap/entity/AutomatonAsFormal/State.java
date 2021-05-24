@@ -88,6 +88,6 @@ public class State implements Comparable{
      */
     @Override
     public String toString(){
-        return this.stateName + (initial|finale?" (":"") + (initial?"I":"") + (initial&finale?"|":"") + (finale?"F":"") + (initial|finale?")":"");
+        return this.stateName;
     }
 }

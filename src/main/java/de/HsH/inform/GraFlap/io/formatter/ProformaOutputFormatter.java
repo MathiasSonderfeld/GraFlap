@@ -72,10 +72,12 @@ public class ProformaOutputFormatter implements OutputFormatter {
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
         buildMainTestResponse(testsResponse, answerMessage, svgAsString);
         if(answerMessage.getTaskMode().contains("a")){
-            buildSetsTestResponse(testsResponse, "states", true, "", "");
-            buildSetsTestResponse(testsResponse, "initials", true, "", "");
-            buildSetsTestResponse(testsResponse, "finals", true, "", "");
-            buildSetsTestResponse(testsResponse, "transitions", true, "", "");
+            buildSetsTestResponse(testsResponse, "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
+            buildSetsTestResponse(testsResponse, "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
+            buildSetsTestResponse(testsResponse, "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());
+            buildSetsTestResponse(testsResponse, "transitions", answerMessage.getTransitionsScore(), answerMessage.getTransitionsTeacherFeedback(), answerMessage.getTransitionsStudentFeedback());
+            buildSetsTestResponse(testsResponse, "alphabet", answerMessage.getAlphabetScore(), answerMessage.getAlphabetTeacherFeedback(), answerMessage.getAlphabetStudentFeedback());
+            buildSetsTestResponse(testsResponse, "stackalphabet", answerMessage.getStackAlphabetScore(), answerMessage.getStackAlphabetTeacherFeedback(), answerMessage.getStackAlphabetStudentFeedback());
         }
 
         createElement(response, "files");
@@ -90,7 +92,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
      * builds Test Response Segment for general feedback
      */
     private void buildMainTestResponse(Element testsResponse, AnswerMessage answerMessage, String svgAsString){
-        Element feedbackList = buildPartTestResponse(testsResponse, answerMessage.getTaskTitle(), answerMessage.hasPassed()?"1.0":"0.0", answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
+        Element feedbackList = buildPartTestResponse(testsResponse, answerMessage.getTaskTitle(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
         addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, "TaskTitle", "plaintext", answerMessage.getTaskTitle(), false);
         addFeedback(feedbackList, true, "SvgTitle", "plaintext", answerMessage.getSvgTitle(), false);
@@ -102,10 +104,11 @@ public class ProformaOutputFormatter implements OutputFormatter {
     /**
      * builds Test Response Segment for a Set Task Feedback
      */
-    private void buildSetsTestResponse(Element testsResponse, String testTitle, boolean hasPassed ,String teacherFeedbackText, String studentFeedbackText){
-        Element feedbackList = buildPartTestResponse(testsResponse, testTitle, hasPassed?"1.0":"0.0", "1.0");
-        addFeedback(feedbackList, false, "ListOfMissing", "plaintext", teacherFeedbackText, false);
+    private void buildSetsTestResponse(Element testsResponse, String testTitle, double score ,String teacherFeedbackText, String studentFeedbackText){
+        Element feedbackList = buildPartTestResponse(testsResponse, testTitle, "" + score, "1.0");
+        addFeedback(feedbackList, false, "Feedback", "plaintext", teacherFeedbackText, false);
         addFeedback(feedbackList,true, "Feedback", "plaintext", studentFeedbackText, false);
+        System.out.println("");
     }
 
     /**
