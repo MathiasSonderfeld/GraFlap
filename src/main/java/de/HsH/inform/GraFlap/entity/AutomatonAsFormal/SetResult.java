@@ -33,24 +33,12 @@ public class SetResult<Generic> {
         return doubles;
     }
 
-    public void setDoubles( ArrayList<Generic> doubles ) {
-        this.doubles = doubles;
-    }
-
     public ArrayList<Generic> getMissing() {
         return missing;
     }
 
-    public void setMissing( ArrayList<Generic> missing ) {
-        this.missing = missing;
-    }
-
     public ArrayList<Generic> getSurplus() {
         return surplus;
-    }
-
-    public void setSurplus( ArrayList<Generic> surplus ) {
-        this.surplus = surplus;
     }
 
     public void addToMissing( Generic missing){
@@ -67,5 +55,23 @@ public class SetResult<Generic> {
 
     public int getTotalErrors(){
         return this.missing.size() + this.surplus.size();
+    }
+
+    public String toString(){
+        return "" + this.score + " - Doubles: " + this.doubles + " - Missing: " + this.missing + " - Surplus: " + this.surplus;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof SetResult){
+            SetResult other = (SetResult) o;
+            return this.score == other.getScore() && this.doubles.equals(other.getDoubles()) && this.missing.equals(other.getMissing()) && this.surplus.equals(other.getSurplus());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return (int)(this.missing.hashCode() + this.surplus.hashCode() + this.doubles.hashCode() * this.score);
     }
 }

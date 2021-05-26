@@ -115,7 +115,7 @@ public class GraFlap {
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
      */
-    private static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
+    protected static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
         Result result = Grader.generateResult(arguments.getOperationMode(), arguments);
         String studType = result.getStudType();
 

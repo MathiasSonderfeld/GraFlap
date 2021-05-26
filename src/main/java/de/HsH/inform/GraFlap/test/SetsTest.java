@@ -117,24 +117,24 @@ public class SetsTest {
                 fromId = Integer.parseInt(parsedTransition.getElementsByTagName("from").item(0).getTextContent());
                 toId = Integer.parseInt(parsedTransition.getElementsByTagName("to").item(0).getTextContent());
                 read = parsedTransition.getElementsByTagName("read").item(0).getTextContent();
+
+                read.replaceAll("\\s+", "");
+                if(read.isEmpty()) read = "E";
+
                 if(isPushDownAutomaton){
                     pop = parsedTransition.getElementsByTagName("pop").item(0).getTextContent();
                     push = parsedTransition.getElementsByTagName("push").item(0).getTextContent();
-                    for(String stackAlphabetLetter : pop.split("\\s+")){
-                        if(!"".equals(stackAlphabetLetter)){
-                            xmlStackAlphabet.add(stackAlphabetLetter);
-                        }
-                    }
-                    for(String stackAlphabetLetter : push.split("\\s+")){
-                        if(!"".equals(stackAlphabetLetter)){
-                            xmlStackAlphabet.add(stackAlphabetLetter);
-                        }
-                    }
+
+                    if(pop.isEmpty()) pop = "E";
+                    if(push.isEmpty()) push = "E";
+
+                    for(char letter : pop.replaceAll("\\s+", "").toCharArray()) if('E' != letter) xmlStackAlphabet.add("" + letter);
+                    for(char letter : push.replaceAll("\\s+", "").toCharArray()) if('E' != letter) xmlStackAlphabet.add("" + letter);
                 }
                 from = statesMap.get(fromId);
                 to = statesMap.get(toId);
                 xmlTransitions.add(new Transition(from, to, read, pop, push));
-                if(!"".equals(read)){
+                if(!"E".equals(read)){
                     xmlAlphabet.add(read);
                 }
             }
@@ -192,14 +192,12 @@ public class SetsTest {
         Matcher matcherTransition;
         String from = "", to = "", read = "", pop = "", push = "";
         Transition newTransition;
+        State fromState, toState;
         while(splitMatcher.find()){
             match = splitMatcher.group();
             matcherTransition = getAtomarElementsFromSet.matcher(match);
             if(matcherTransition.find()){
                 from = matcherTransition.group().trim();
-            }
-            if(matcherTransition.find()){
-                to = matcherTransition.group().trim();
             }
             if(matcherTransition.find()){
                 read = matcherTransition.group().trim();
@@ -208,9 +206,15 @@ public class SetsTest {
                 pop = matcherTransition.group().trim();
             }
             if(matcherTransition.find()){
+                to = matcherTransition.group().trim();
+            }
+            if(matcherTransition.find()){
                 push = matcherTransition.group().trim();
             }
-            newTransition = new Transition(states.get(from), states.get(to), read, pop, push);
+            fromState = states.get(from);
+            toState = states.get(to);
+            if(fromState == null || toState == null) continue;
+            newTransition = new Transition(fromState, toState, read, pop, push);
             if(studentTransitions.contains(newTransition)){
                 transitionsResult.addToDoubles(newTransition);
             }
