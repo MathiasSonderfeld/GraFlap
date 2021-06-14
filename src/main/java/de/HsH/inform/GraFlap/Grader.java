@@ -39,7 +39,7 @@ public class Grader {
     public static Result generateResult(Arguments arguments) throws GraFlapException {
         Submission submission = new Submission();
         int percentageFailed = -1;
-        String submissionType = "";
+        TaskType submissionType = TaskType.NON;
         switch(arguments.getTaskMode()) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
@@ -130,7 +130,7 @@ public class Grader {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
                     submissionType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((submissionType.equals("rl") || submissionType.equals("cfg"))) {
+                    if ((submissionType == TaskType.RL || submissionType == TaskType.CFG)) {
                         percentageFailed = new GrammarRegexTest().openInput(arguments.getSolution(), submission,
                                                                   arguments.getNumberOfWords());
                     } else {
@@ -146,7 +146,7 @@ public class Grader {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
                     submissionType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((submissionType.equals("rl") || submissionType.equals("cfg"))) {
+                    if ((submissionType == TaskType.RL || submissionType == TaskType.CFG)) {
                         percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
                                                              arguments.getWordString());
                     } else {

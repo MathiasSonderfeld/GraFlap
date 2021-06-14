@@ -48,7 +48,7 @@ public class LoncapaParser extends ArgumentsParser{
             taskType = TaskType.valueOf(taskArguments[4].toUpperCase());
         }
         catch(Exception e){
-            taskType = TaskType.NON;
+            taskType = TaskType.ERROR;
         }
 
         checkCorrectModeAndType(taskMode, taskType);

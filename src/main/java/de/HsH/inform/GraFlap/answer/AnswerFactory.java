@@ -34,27 +34,27 @@ public class AnswerFactory {
         AnswerMessage answerMessage = null;
         if(arguments.getTaskMode().isGrammar()) {
             answerMessage = new GrammarAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(),
-                    arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType(), svg);
+                    arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
         }
         else if(arguments.getTaskMode().isAutomaton()) {
-            answerMessage = new AcceptorAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType(), svg);
+            answerMessage = new AcceptorAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
         }
         else if(arguments.getTaskMode() == TaskMode.MP || arguments.getTaskMode() == TaskMode.MMW) {
-            answerMessage = new TransducerAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType(), svg);
+            answerMessage = new TransducerAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
         }
         else if(arguments.getTaskMode() == TaskMode.WW) {
             answerMessage = new WordAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(),
-                    arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType(), svg);
+                    arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
         }
         else if(arguments.getTaskMode() == TaskMode.CYK) {
-            answerMessage = new CYKAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType(), svg);
+            answerMessage = new CYKAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
         }
         else if(arguments.getTaskMode() == TaskMode.DER) {
-            answerMessage = new DerivationAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType(), svg);
+            answerMessage = new DerivationAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
         }
         else if(arguments.getTaskMode() == TaskMode.SVGA || arguments.getTaskMode() == TaskMode.SVGG) {
             answerMessage = new SvgAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(),
-                    result.getSubmissionType(), svg);
+                    result.getSubmissionType().toString().toLowerCase(), svg);
         }
         
         if(answerMessage == null){

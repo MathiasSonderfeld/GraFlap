@@ -1,9 +1,13 @@
 package de.HsH.inform.GraFlap.typetest;
 
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.DeterminismChecker;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import javafx.concurrent.Task;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * static helper class to determine the type of an automaton
@@ -20,29 +24,20 @@ public class AutomatonTypeTest {
      * @return the type of automaton as a string: (n|d)(fa|pda|tm)
      * @throws GraFlapException throws a {@link GraFlapException} if there is a problem with the submission
      */
-    public static String checkForAutomatonType(Submission<Automaton> automatonSubmission) throws GraFlapException {
-        return testDeterminism(automatonSubmission.getSubmissionObject()) +
-               testType(automatonSubmission.getSubmissionObject());
-    }
-
-    /**
-     * static method to get the working type of the automaton
-     * @param a the automaton that should be tested
-     * @return the type of automaton as a string (fa|pda|tm) or error if it is none of them
-     */
-    private static String testType(Automaton a){
-        return a.testType();
-    }
-
-    /**
-     * static method to determine if the automaton is deterministic or not
-     * @param a the automaton that should be tested
-     * @return indicator for (non-)determinism as string: (n|d)
-     */
-    private static String testDeterminism(Automaton a){
-        if (DeterminismChecker.isDeterministic(a)) {
-            return "d";
+    public static TaskType checkForAutomatonType( Submission<Automaton> automatonSubmission) throws GraFlapException {
+        boolean isDeterministic = DeterminismChecker.isDeterministic(automatonSubmission.getSubmissionObject());
+        switch(automatonSubmission.getSubmissionObject().testType()){
+            case "fa":
+                if(isDeterministic) return TaskType.DFA;
+                else return TaskType.NFA;
+            case "pda":
+                if(isDeterministic) return TaskType.DPDA;
+                else return TaskType.NPDA;
+            case "tm":
+                if(isDeterministic) return TaskType.DTM;
+                else return TaskType.NTM;
+            default:
+                return TaskType.ERROR;
         }
-        return "n";
     }
 }

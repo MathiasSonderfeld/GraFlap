@@ -7,7 +7,7 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 public class Result {
-    private String submissionType;
+    private TaskType submissionType;
     private int percentageFailed;
     private Submission submission;
     private SetResult<State> states;
@@ -17,13 +17,13 @@ public class Result {
     private SetResult<String> stackalphabet;
     private SetResult<Transition> transitions;
 
-    public Result(Submission submission, int percentageFailed, String submissionType ){
+    public Result( Submission submission, int percentageFailed, TaskType submissionType ){
         this.submission = submission;
         this.percentageFailed = percentageFailed;
         this.submissionType = submissionType;
     }
 
-    public String getSubmissionType() {
+    public TaskType getSubmissionType() {
         return submissionType;
     }
 

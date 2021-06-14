@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.typetest;
 
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
@@ -20,14 +21,14 @@ public class GrammarTypeTest {
      * @return the grammar type (rl = rightlinear|cfg = contextfree but not rightlinear|ncfg = not contextfree)
      * @throws GraFlapException throws a {@link GraFlapException} if there is a problem with the submission
      */
-    public static String checkForGrammarType(Submission<Grammar> grammarSubmission) throws GraFlapException {
+    public static TaskType checkForGrammarType(Submission<Grammar> grammarSubmission) throws GraFlapException {
 
         if (isRightlinearGrammar(grammarSubmission.getSubmissionObject())) {
-            return "rl";
+            return TaskType.RL;
         } else if (isContextFreeGrammar(grammarSubmission.getSubmissionObject())){
-            return  "cfg";
+            return  TaskType.CFG;
         }
-        return "ncfg";
+        return TaskType.NCFG;
     }
 
     /**
