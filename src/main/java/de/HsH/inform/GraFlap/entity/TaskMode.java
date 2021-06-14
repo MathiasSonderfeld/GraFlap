@@ -1,0 +1,72 @@
+package de.HsH.inform.GraFlap.entity;
+
+/**
+ * Enumeration to represent the input mode that is specified
+ * @author Benjamin Held (07-04-2016)
+ * @since 07-30-2016
+ * @version 0.2.1
+ */
+public enum TaskMode {
+    ERROR,
+    AR, ART, AG, AGT, ARW, AGW, ARTW, AGTW, EAT,
+    ARP, ARTP, AGP, AGTP, ARWP, AGWP, ARTWP, AGTWP,
+    GG, GGW, GGT, GGTW, EGT, GR, GRT, GRW, GRTW,
+    WW,
+    MP, MMW,
+    CYK, DER,
+    SVGG, SVGA,
+    DEFAULT;
+    public boolean isTyped = false;
+
+    public boolean isAutomaton(){
+        switch(this){
+            case AR:
+            case ART:
+            case AG:
+            case AGT:
+            case ARW:
+            case AGW:
+            case ARTW:
+            case AGTW:
+            case EAT:
+            case ARP:
+            case ARTP:
+            case AGP:
+            case AGTP:
+            case ARWP:
+            case AGWP:
+            case ARTWP:
+            case AGTWP: return true;
+            default:    return false;
+        }
+    }
+
+    public boolean isGrammar(){
+        switch(this){
+            case GG:
+            case GGW:
+            case GGT:
+            case GGTW:
+            case EGT:
+            case GR:
+            case GRT:
+            case GRW:
+            case GRTW: return true;
+            default:  return false;
+        }
+    }
+
+    public boolean isParameterized(){
+        switch(this){
+            case ARP:
+            case ARTP:
+            case AGP:
+            case AGTP:
+            case ARWP:
+            case AGWP:
+            case ARTWP:
+            case AGTWP: return true;
+            default:   return false;
+        }
+    }
+}

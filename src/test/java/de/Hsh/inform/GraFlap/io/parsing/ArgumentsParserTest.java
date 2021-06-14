@@ -3,9 +3,8 @@ package de.HsH.inform.GraFlap.io.parsing;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.InputMode;
 import de.HsH.inform.GraFlap.entity.InputType;
-import de.HsH.inform.GraFlap.entity.OperationMode;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.io.parsing.ArgumentsParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 public class ArgumentsParserTest {
@@ -111,16 +110,16 @@ public class ArgumentsParserTest {
 
     @Test
     void checkDetermineOperationModeFine(){
-        Assertions.assertEquals(OperationMode.AG, argumentsParser.determineOperationMode("ag"));
+        Assertions.assertEquals(TaskMode.AG, argumentsParser.determineOperationMode("ag"));
     }
 
     @Test
     void checkDetermineOperationModeError(){
-        Assertions.assertEquals(OperationMode.ERROR, argumentsParser.determineOperationMode("ThisIsNotLegitMode"));
+        Assertions.assertEquals(TaskMode.ERROR, argumentsParser.determineOperationMode("ThisIsNotLegitMode"));
     }
 
     @Test
     void checkDetermineOperationModeNull(){
-        Assertions.assertEquals(OperationMode.ERROR, argumentsParser.determineOperationMode(null));
+        Assertions.assertEquals(TaskMode.ERROR, argumentsParser.determineOperationMode(null));
     }
 }

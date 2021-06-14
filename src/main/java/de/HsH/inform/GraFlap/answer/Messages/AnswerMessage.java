@@ -56,9 +56,9 @@ public abstract class AnswerMessage {
             checkAndReplaceGermanCharactersInTaskTitle();
         }
 
+        this.svgTitle = getLangDependentSvgTitle(lang);
         this.hasPassed = percentOfTestWordsFailed == 0;
         this.hasPassed &= submissionMatchesTarget(solutionType, submissionType);
-        this.svgTitle = getLangDependentSvgTitle(lang);
         if(percentOfTestWordsFailed < 0){ //Error
             this.feedbackText.append(submissionType);
         }

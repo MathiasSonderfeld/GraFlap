@@ -12,12 +12,11 @@ public class Arguments {
     private String taskTitle;
     private String userLanguage;
     private String solution;
-    private String mode;
     private String argtype;
     private String wordString;
     private int numberOfWords;
     private String studentAnswer;
-    private OperationMode operationMode;
+    private TaskMode taskMode;
 
     private String states;
     private String initials;
@@ -49,14 +48,6 @@ public class Arguments {
 
     public void setSolution( String solution ) {
         this.solution = solution;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public void setMode( String mode ) {
-        this.mode = mode;
     }
 
     public String getArgtype() {
@@ -91,12 +82,12 @@ public class Arguments {
         this.studentAnswer = studentAnswer;
     }
 
-    public OperationMode getOperationMode() {
-        return operationMode;
+    public TaskMode getTaskMode() {
+        return taskMode;
     }
 
-    public void setOperationMode( OperationMode operationMode ) {
-        this.operationMode = operationMode;
+    public void setTaskMode( TaskMode taskMode ) {
+        this.taskMode = taskMode;
     }
 
     public String getStates() {

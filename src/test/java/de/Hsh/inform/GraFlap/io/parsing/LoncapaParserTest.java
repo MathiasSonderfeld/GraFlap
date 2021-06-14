@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.OperationMode;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +13,7 @@ public class LoncapaParserTest {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("LoncapaParserTest OK");
         arguments.setUserLanguage("de");
-        arguments.setMode("gg");
-        arguments.setOperationMode(OperationMode.GG);
+        arguments.setTaskMode(TaskMode.GG);
         arguments.setArgtype("cfg");
         arguments.setSolution("ThisIsGiven");
         arguments.setNumberOfWords(0);
@@ -31,8 +30,7 @@ public class LoncapaParserTest {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(null);
         arguments.setUserLanguage(null);
-        arguments.setMode(null);
-        arguments.setOperationMode(null);
+        arguments.setTaskMode(TaskMode.ERROR);
         arguments.setArgtype(null);
         arguments.setSolution(null);
         arguments.setNumberOfWords(0);

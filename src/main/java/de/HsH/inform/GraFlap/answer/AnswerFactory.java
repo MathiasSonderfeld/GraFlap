@@ -5,6 +5,7 @@ import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.svg.SvgAnswerMessage;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.answer.Messages.algorithm.CYKAnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.algorithm.DerivationAnswerMessage;
@@ -32,33 +33,34 @@ public class AnswerFactory {
      */
     public static AnswerMessage determineAnswer( Result result, Arguments arguments, String studType, Element svg) throws GraFlapException {
         AnswerMessage answerMessage = null;
-        if(arguments.getMode().startsWith("g") || arguments.getMode().equals("egt")) {
-            answerMessage = new GrammarAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getMode(), arguments.getArgtype(), studType, svg);
+        if(arguments.getTaskMode().isGrammar()) {
+            answerMessage = new GrammarAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
         }
-        else if(arguments.getMode().startsWith("a") || arguments.getMode().equals("eat")) {
-            answerMessage = new AcceptorAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getMode(), arguments.getArgtype(), studType, svg);
+        else if(arguments.getTaskMode().isAutomaton()) {
+            answerMessage = new AcceptorAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
         }
-        else if(arguments.getMode().startsWith("m")) {
-            answerMessage = new TransducerAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getMode(), arguments.getArgtype(), studType, svg);
+        else if(arguments.getTaskMode() == TaskMode.MP || arguments.getTaskMode() == TaskMode.MMW) {
+            answerMessage = new TransducerAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
         }
-        else if(arguments.getMode().startsWith("w")) {
-            answerMessage = new WordAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getMode(), arguments.getArgtype(), studType, svg);
+        else if(arguments.getTaskMode() == TaskMode.WW) {
+            answerMessage = new WordAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
         }
-        else if(arguments.getMode().equals("cyk")) {
-            answerMessage = new CYKAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getMode(), arguments.getArgtype(), studType, svg);
+        else if(arguments.getTaskMode() == TaskMode.CYK) {
+            answerMessage = new CYKAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
         }
-        else if(arguments.getMode().equals("der")) {
-            answerMessage = new DerivationAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getMode(), arguments.getArgtype(), studType, svg);
+        else if(arguments.getTaskMode() == TaskMode.DER) {
+            answerMessage = new DerivationAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
         }
-        else if(arguments.getMode().startsWith("svg")) {
-            answerMessage = new SvgAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getMode(), arguments.getArgtype(), studType, svg);
+        else if(arguments.getTaskMode() == TaskMode.SVGA || arguments.getTaskMode() == TaskMode.SVGG) {
+            answerMessage = new SvgAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(),
+                    studType, svg);
         }
         
         if(answerMessage == null){
             throw new GraFlapException("ERROR [AnswerFactory]: the answer to the mode could not be determined.");
         }
 
-        if(arguments.getMode().contains("p")){
+        if(arguments.getTaskMode().isParameterized()){
             answerMessage.setStates(result.getStates());
             answerMessage.setInitials(result.getInitials());
             answerMessage.setFinals(result.getFinals());

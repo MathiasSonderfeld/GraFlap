@@ -1,7 +1,6 @@
 package de.HsH.inform.GraFlap.svg;
 
 import de.HsH.inform.GraFlap.entity.OperationType;
-import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 

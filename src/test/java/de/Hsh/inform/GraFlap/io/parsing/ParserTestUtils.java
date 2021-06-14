@@ -2,8 +2,6 @@ package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
 
-import java.util.Comparator;
-
 /**
  * Helper class to compare Arguments Objects as it doenst have equals Method implemented yet
  */
@@ -11,8 +9,7 @@ public class ParserTestUtils {
     public static boolean compareTo( Arguments argumentsComp, Arguments argumentsToComp ){
         return argumentsComp.getTaskTitle().equals(argumentsToComp.getTaskTitle()) &&
         argumentsComp.getUserLanguage().equals(argumentsToComp.getUserLanguage()) &&
-        argumentsComp.getMode().equals(argumentsToComp.getMode()) &&
-        argumentsComp.getOperationMode().equals(argumentsToComp.getOperationMode()) &&
+        argumentsComp.getTaskMode().equals(argumentsToComp.getTaskMode()) &&
         argumentsComp.getArgtype().equals(argumentsToComp.getArgtype()) &&
         argumentsComp.getSolution().equals(argumentsToComp.getSolution()) &&
         argumentsComp.getNumberOfWords() == argumentsToComp.getNumberOfWords() &&
@@ -32,7 +29,7 @@ public class ParserTestUtils {
         String input =  args.getTaskTitle() + "#" +
                         args.getUserLanguage() + "#" +
                         args.getSolution() + "#" +
-                        args.getMode() + "#" +
+                        args.getTaskMode().toString() + "#" +
                         args.getArgtype() + "#" +
                         args.getNumberOfWords() + "#" +
                         args.getWordString();

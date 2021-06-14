@@ -4,7 +4,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.InputMode;
 import de.HsH.inform.GraFlap.entity.InputType;
-import de.HsH.inform.GraFlap.entity.OperationMode;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 
 /**
  * @author Mathias Sonderfeld
@@ -146,52 +146,53 @@ public abstract class ArgumentsParser {
      * @param mode the string containing the mode
      * @return the corresponding operation mode
      */
-    public OperationMode determineOperationMode( String mode ) {
-        if(mode == null) return OperationMode.ERROR;
+    public TaskMode determineOperationMode( String mode ) {
+        if(mode == null) return TaskMode.ERROR;
         switch(mode) {
             case ( "ar" ):
+                return TaskMode.AR;
             case ( "art" ):
-                return OperationMode.AR;
+                return TaskMode.ART;
             case ( "ag" ):
             case ( "agt" ):
-                return OperationMode.AG;
+                return TaskMode.AG;
             case ( "gg" ):
             case ( "ggt" ):
-                return OperationMode.GG;
+                return TaskMode.GG;
             case ( "arw" ):
             case ( "artw" ):
-                return OperationMode.ARW;
+                return TaskMode.ARW;
             case ( "agw" ):
             case ( "agtw" ):
-                return OperationMode.AGW;
+                return TaskMode.AGW;
             case ( "ggw" ):
             case ( "ggtw" ):
-                return OperationMode.GGW;
+                return TaskMode.GGW;
             case ( "eat" ):
             case ( "egt" ):
-                return OperationMode.EAT;
+                return TaskMode.EAT;
             case ( "ww" ):
-                return OperationMode.WW;
+                return TaskMode.WW;
             case ( "gr" ):
             case ( "grt" ):
-                return OperationMode.GR;
+                return TaskMode.GR;
             case ( "grw" ):
             case ( "grtw" ):
-                return OperationMode.GRW;
+                return TaskMode.GRW;
             case ( "mp" ):
-                return OperationMode.MP;
+                return TaskMode.MP;
             case ( "mmw" ):
-                return OperationMode.MMW;
+                return TaskMode.MMW;
             case ( "cyk" ):
-                return OperationMode.CYK;
+                return TaskMode.CYK;
             case ( "der" ):
-                return OperationMode.DER;
+                return TaskMode.DER;
             case ( "svgg" ):
-                return OperationMode.SVGG;
+                return TaskMode.SVGG;
             case ( "svga" ):
-                return OperationMode.SVGA;
+                return TaskMode.SVGA;
             default:
-                return OperationMode.ERROR;
+                return TaskMode.ERROR;
         }
     }
 }

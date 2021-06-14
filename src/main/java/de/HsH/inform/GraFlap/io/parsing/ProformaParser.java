@@ -61,7 +61,7 @@ public class ProformaParser extends ArgumentsParser{
             arguments = new LoncapaParser().parse(new String[]{graflapArguments, studentAnswer});
 
             //check if sets need to be extracted
-            if(arguments.getMode().contains("p")){
+            if(arguments.getTaskMode().isParameterized()){
                 List<Element> otherEmbeddedFiles = submissionFiles.stream()
                                                                   .filter(byAttribute("id", "studentAnswer").negate())
                                                                   .flatMap(toChildElements).collect(Collectors.toList());

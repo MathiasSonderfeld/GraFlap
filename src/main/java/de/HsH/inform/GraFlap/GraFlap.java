@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.Error.ErrorAnswerMessage;
-import de.HsH.inform.GraFlap.entity.OperationMode;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.entity.Result;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
@@ -117,17 +117,17 @@ public class GraFlap {
      * @param arguments the {@link Arguments} object that holds the submission information
      */
     protected static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
-        Result result = Grader.generateResult(arguments.getOperationMode(), arguments);
+        Result result = Grader.generateResult(arguments.getTaskMode(), arguments);
         String studType = result.getStudType();
 
-        if (arguments.getMode().contains("t")) {
-            if (arguments.getMode().contains("a")) {
+        if (arguments.getTaskMode().isTyped) {
+            if (arguments.getTaskMode().isAutomaton()) {
                 studType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
-            } else if (arguments.getMode().contains("g")) {
+            } else if (arguments.getTaskMode().isGrammar()) {
                 studType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
             }
         }
-        boolean isSVGA = arguments.getOperationMode() == OperationMode.SVGA;
+        boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA).getSvg();
         return AnswerFactory.determineAnswer(result, arguments, studType, svg);
     }

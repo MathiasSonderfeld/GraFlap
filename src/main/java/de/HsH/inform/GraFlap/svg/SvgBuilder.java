@@ -1,6 +1,5 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Element;
 
