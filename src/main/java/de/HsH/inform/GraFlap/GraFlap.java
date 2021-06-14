@@ -120,7 +120,7 @@ public class GraFlap {
         Result result = Grader.generateResult(arguments.getTaskMode(), arguments);
         String studType = result.getStudType();
 
-        if (arguments.getTaskMode().isTyped) {
+        if (arguments.getTaskMode().isTyped()) {
             if (arguments.getTaskMode().isAutomaton()) {
                 studType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
             } else if (arguments.getTaskMode().isGrammar()) {

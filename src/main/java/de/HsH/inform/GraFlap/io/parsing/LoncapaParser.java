@@ -39,7 +39,7 @@ public class LoncapaParser extends ArgumentsParser{
         InputMode mode = InputMode.valueOf(taskArguments[3].replaceFirst("P", "").toLowerCase());
         InputType type = InputType.valueOf(taskArguments[4]);
         checkCorrectModeAndType(mode, type);
-        TaskMode taskMode = TaskMode.valueOf(taskArguments[3]);
+        TaskMode taskMode = TaskMode.valueOf(taskArguments[3].toUpperCase());
         arguments.setArgtype(taskArguments[4]);
         arguments.setTaskMode(taskMode);
         return arguments;

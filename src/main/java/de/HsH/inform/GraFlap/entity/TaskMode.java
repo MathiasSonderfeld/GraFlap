@@ -14,9 +14,7 @@ public enum TaskMode {
     WW,
     MP, MMW,
     CYK, DER,
-    SVGG, SVGA,
-    DEFAULT;
-    public boolean isTyped = false;
+    SVGG, SVGA;
 
     public boolean isAutomaton(){
         switch(this){
@@ -53,6 +51,26 @@ public enum TaskMode {
             case GRW:
             case GRTW: return true;
             default:  return false;
+        }
+    }
+
+    public boolean isTyped(){
+        switch(this){
+            case ART:
+            case AGT:
+            case ARTW:
+            case AGTW:
+            case EAT:
+            case ARTP:
+            case AGTP:
+            case ARTWP:
+            case AGTWP:
+            case GGT:
+            case GGTW:
+            case EGT:
+            case GRT:
+            case GRTW: return true;
+            default:   return false;
         }
     }
 
