@@ -106,7 +106,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
      */
     private void buildMainTestResponse(Element testsResponse, AnswerMessage answerMessage, String svgAsString){
         Element feedbackList = buildPartTestResponse(testsResponse, answerMessage.getTaskTitle(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
-        addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
+        //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, "TaskTitle", "plaintext", answerMessage.getTaskTitle(), false);
         addFeedback(feedbackList, true, "SvgTitle", "plaintext", answerMessage.getSvgTitle(), false);
         addFeedback(feedbackList, true, "SvgImage", "plaintext", svgAsString, true);

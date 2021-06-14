@@ -23,7 +23,7 @@ public abstract class SvgBuilder {
     /**
      * the function mode, determined by the submission
      */
-    OperationMode operationMode;
+    boolean isSVGA;
     /**
      * string pointing to the required directory
      */
@@ -34,14 +34,14 @@ public abstract class SvgBuilder {
         if(System.getProperty("os.name").contains("Windows")){
             appendix = ".exe";
         }
-        operationMode = OperationMode.DEFAULT;
+        isSVGA = false;
         filepath = "fdp" + appendix;
     }
 
-    public SvgBuilder( OperationMode operationMode ) {
+    public SvgBuilder( boolean isSVGA ) {
         this();
-        this.operationMode = operationMode;
-        if (operationMode == OperationMode.SVGA) {
+        this.isSVGA = isSVGA;
+        if (isSVGA) {
             filepath = "dot" + appendix;
         }
     }

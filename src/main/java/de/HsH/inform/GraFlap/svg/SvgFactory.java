@@ -13,7 +13,7 @@ import de.HsH.inform.GraFlap.entity.Arguments;
  */
 public class SvgFactory {
 
-    public static SvgBuilder determineBuilder( Arguments arguments, OperationType OperationType, OperationMode operationMode )
+    public static SvgBuilder determineBuilder( Arguments arguments, OperationType OperationType, boolean isSVGA )
             throws GraFlapException {
         switch (OperationType) {
             case ALPHABET:
@@ -25,11 +25,11 @@ public class SvgFactory {
             case GRAMMAR:
                 return new SvgGrammarBuilder(arguments);
             case JFFSTRUCTURE:
-                return new SvgJffBuilder(arguments, operationMode);
+                return new SvgJffBuilder(arguments, isSVGA);
             case JFFTURING:
-                return new SvgJffBuilder(arguments, operationMode);
+                return new SvgJffBuilder(arguments, isSVGA);
             case JFLAPSTRUCTURE:
-                return new SvgJflapBuilder(arguments, operationMode);
+                return new SvgJflapBuilder(arguments, isSVGA);
             case WORDS:
                 return new SvgGrammarBuilder(arguments);
             case UNDEFINED:

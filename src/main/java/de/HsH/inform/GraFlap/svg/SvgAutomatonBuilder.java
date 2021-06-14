@@ -25,8 +25,8 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
      */
     final double SCALING = 50.0;
 
-    SvgAutomatonBuilder( OperationMode operationMode ) {
-        super(operationMode);
+    SvgAutomatonBuilder( boolean isSVGA ) {
+        super(isSVGA);
     }
 
     @Override

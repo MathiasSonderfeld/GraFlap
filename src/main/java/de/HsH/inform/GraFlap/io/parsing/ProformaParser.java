@@ -38,10 +38,10 @@ public class ProformaParser extends ArgumentsParser{
         Arguments arguments = null;
         try {
             Document doc = dbf.newDocumentBuilder().parse(new ByteArrayInputStream(args[1].getBytes(StandardCharsets.UTF_8)));
-            ArrayList<Node> submissionList = new ArrayList<>(1);
-            submissionList.add(doc.getDocumentElement());
+            ArrayList<Node> submissionAsList = new ArrayList<>(1);
+            submissionAsList.add(doc.getDocumentElement());
 
-            String graflapArguments = submissionList.stream()
+            String graflapArguments = submissionAsList.stream()
                                                     .flatMap(toChildElements)
                                                     .filter(byName("task")).flatMap(toChildElements)
                                                     .filter(byName("files")).flatMap(toChildElements)
@@ -49,7 +49,7 @@ public class ProformaParser extends ArgumentsParser{
                                                     .filter(byName("embedded")).flatMap(toChildNodes)
                                                     .filter(byIsCDATA).findFirst().get().getTextContent();
 
-            List<Element> submissionFiles = submissionList.stream()
+            List<Element> submissionFiles = submissionAsList.stream()
                                                           .flatMap(toChildElements)
                                                           .filter(byName("files")).flatMap(toChildElements)
                                                           .collect(Collectors.toList());

@@ -19,8 +19,8 @@ import java.util.List;
  */
 class SvgJflapBuilder extends SvgAutomatonBuilder {
 
-    SvgJflapBuilder( Arguments arguments, OperationMode operationMode ) throws GraFlapException {
-        super(operationMode);
+    SvgJflapBuilder( Arguments arguments, boolean isSVGA ) throws GraFlapException {
+        super(isSVGA);
         buildSvgElement(arguments.getStudentAnswer());
     }
 
@@ -83,7 +83,7 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
                 }
 
                 sb.append(from).append(" -> ").append(to).append(" [ label = \"").append(label).append("\"");
-                if (from.equals(to) && operationMode != OperationMode.SVGA) {
+                if (from.equals(to) && !isSVGA) {
                     sb.append(" tailport=ne headport=nw");
                 }
                 sb.append(" ];");

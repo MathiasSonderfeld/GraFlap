@@ -62,6 +62,7 @@ public class SetsTest {
         gradeSet(xmlFinalStates, studentFinalStates, finalsResult);
         gradeSet(xmlAlphabet, studentAlphabet, alphabetResult);
         gradeSet(xmlStackAlphabet, studentStackAlphabet, stackAlphabetResult);
+        stackAlphabetResult.getSurplus().removeAll(xmlAlphabet);
         gradeSet(xmlTransitions, studentTransitions, transitionsResult);
     }
 

@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
 import de.HsH.inform.GraFlap.answer.Messages.Error.ErrorAnswerMessage;
+import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.entity.Result;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
@@ -126,8 +127,8 @@ public class GraFlap {
                 studType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
             }
         }
-
-        Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), arguments.getOperationMode()).getSvg();
+        boolean isSVGA = arguments.getOperationMode() == OperationMode.SVGA;
+        Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA).getSvg();
         return AnswerFactory.determineAnswer(result, arguments, studType, svg);
     }
 }

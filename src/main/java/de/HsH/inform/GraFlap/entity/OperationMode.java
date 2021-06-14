@@ -8,7 +8,9 @@ package de.HsH.inform.GraFlap.entity;
  */
 public enum OperationMode {
     ERROR,
-    AR, AG, GG, ARW, AGW, GGW, EAT, WW, GR, GRW,
+    AR, AG, GG, ARW, AGW,
+    ARP, AGP, GGP, ARWP, AGWP,
+    GGW, EAT, WW, GR, GRW,
     MP, MMW,
     CYK, DER,
     SVGG, SVGA,

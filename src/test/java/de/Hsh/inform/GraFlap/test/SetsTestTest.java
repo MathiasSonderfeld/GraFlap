@@ -135,7 +135,7 @@ public class SetsTestTest {
         setsTest.setStudentInitialsSet("{q0,q1}");
         setsTest.setStudentFinalsSet("{q2,q3}");
         setsTest.setStudentAlphabetSet("{e,f,g}");
-        setsTest.setStudentStackAlphabetSet("{Z,e,f}");
+        setsTest.setStudentStackAlphabetSet("{Z,e,f,h}");
         setsTest.setStudentTransitionsSet("{{q4,f,e,q4,E},{q2,f,e,q2,E},{q1,f,e,q2,E},{q0,e,Z,q1,e Z},{q1,e,e,q1,ee},{q2,E,Z,q3,E}}");
         Assertions.assertDoesNotThrow(() -> setsTest.gradeSets());
         SetResult<State> statesSetResult= new SetResult<>();
@@ -152,7 +152,7 @@ public class SetsTestTest {
         alphabetSetResult.addToSurplus("g");
         SetResult<String> stackAlphabetSetResult= new SetResult<>();
         stackAlphabetSetResult.setScore(0.0);
-        stackAlphabetSetResult.addToSurplus("f");
+        stackAlphabetSetResult.addToSurplus("h");
         SetResult<Transition> transitionSetResult= new SetResult<>();
         transitionSetResult.setScore(0.0);
         State q4 = new State("q4", false, false);
