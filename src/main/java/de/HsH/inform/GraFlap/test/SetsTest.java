@@ -261,8 +261,14 @@ public class SetsTest {
         if(m.find()) this.studentTransitionsSet = m.group();
     }
 
-    public void setStudentInitialsSet( String studentInitialsSet ) {
-        Matcher m = getAtomarSetsFromMultiSet.matcher(studentInitialsSet);
+    public void setStudentInitialsSet( String studentInitialsSet, boolean isDFA ) {
+        Matcher m;
+        if(isDFA){
+            m = Pattern.compile("[a-z|A-Z]+[0-9]*").matcher(studentInitialsSet);
+        }
+        else {
+            m = getAtomarSetsFromMultiSet.matcher(studentInitialsSet);
+        }
         if(m.find()) this.studentInitialsSet = m.group();
     }
 

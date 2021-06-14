@@ -207,7 +207,7 @@ public class Grader {
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());
             setsTest.setStudentStatesSet(arguments.getStates());
-            setsTest.setStudentInitialsSet(arguments.getInitials());
+            setsTest.setStudentInitialsSet(arguments.getInitials(), arguments.getTaskType() == TaskType.DFA);
             setsTest.setStudentFinalsSet(arguments.getFinals());
             setsTest.setStudentAlphabetSet(arguments.getAlphabet());
             setsTest.setStudentStackAlphabetSet(arguments.getStackalphabet());

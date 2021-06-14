@@ -45,6 +45,8 @@ import org.jdom2.Element;
  * @version 0.3
  */
 public class GraFlap {
+    public static final boolean printAsACII = false;
+
     /**
      * Grades a submission for a theoretical computer science task
      * @param args Parameters:
