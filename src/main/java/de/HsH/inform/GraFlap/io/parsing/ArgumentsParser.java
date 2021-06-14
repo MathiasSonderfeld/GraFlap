@@ -2,7 +2,6 @@ package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.InputMode;
 import de.HsH.inform.GraFlap.entity.InputType;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 
@@ -68,22 +67,22 @@ public abstract class ArgumentsParser {
      * @param type the type to verify
      * @throws GraFlapException if mismatch is found
      */
-    public void checkCorrectModeAndType( InputMode mode, InputType type ) throws GraFlapException {
+    public void checkCorrectModeAndType( TaskMode mode, InputType type ) throws GraFlapException {
         if(mode == null) { throw new GraFlapException("Mode-Setting is wrong"); }
 
         if(type == null) { throw new GraFlapException("AgType-Setting is wrong"); }
 
         switch(mode){
             //Automaton Modes
-            case ar:
-            case ag:
-            case art:
-            case agt:
-            case eat:
-            case arw:
-            case agw:
-            case artw:
-            case agtw:
+            case AR:
+            case AG:
+            case ART:
+            case AGT:
+            case EAT:
+            case ARW:
+            case AGW:
+            case ARTW:
+            case AGTW:
                 switch(type){
                     //Automaton Types
                     case fa:
@@ -102,15 +101,15 @@ public abstract class ArgumentsParser {
                         throw new GraFlapException("Wrong Type for Automaton Task");
                 }
             //Grammar Modes
-            case egt:
-            case gg:
-            case ggt:
-            case ggw:
-            case ggtw:
-            case gr:
-            case grt:
-            case grw:
-            case grtw:
+            case EGT:
+            case GG:
+            case GGT:
+            case GGW:
+            case GGTW:
+            case GR:
+            case GRT:
+            case GRW:
+            case GRTW:
                 switch(type){
                     //Grammar Types
                     case rl:
@@ -124,8 +123,8 @@ public abstract class ArgumentsParser {
                         throw new GraFlapException("Wrong Type for Grammar Task");
                 }
             //Machine Modes
-            case mp:
-            case mmw:
+            case MP:
+            case MMW:
                 switch(type){
                     case tm:
                     case dtm:
@@ -138,61 +137,6 @@ public abstract class ArgumentsParser {
                 }
             default:
                 return;
-        }
-    }
-
-    /**
-     * method to determine the operation mode based on the content of the mode string
-     * @param mode the string containing the mode
-     * @return the corresponding operation mode
-     */
-    public TaskMode determineOperationMode( String mode ) {
-        if(mode == null) return TaskMode.ERROR;
-        switch(mode) {
-            case ( "ar" ):
-                return TaskMode.AR;
-            case ( "art" ):
-                return TaskMode.ART;
-            case ( "ag" ):
-            case ( "agt" ):
-                return TaskMode.AG;
-            case ( "gg" ):
-            case ( "ggt" ):
-                return TaskMode.GG;
-            case ( "arw" ):
-            case ( "artw" ):
-                return TaskMode.ARW;
-            case ( "agw" ):
-            case ( "agtw" ):
-                return TaskMode.AGW;
-            case ( "ggw" ):
-            case ( "ggtw" ):
-                return TaskMode.GGW;
-            case ( "eat" ):
-            case ( "egt" ):
-                return TaskMode.EAT;
-            case ( "ww" ):
-                return TaskMode.WW;
-            case ( "gr" ):
-            case ( "grt" ):
-                return TaskMode.GR;
-            case ( "grw" ):
-            case ( "grtw" ):
-                return TaskMode.GRW;
-            case ( "mp" ):
-                return TaskMode.MP;
-            case ( "mmw" ):
-                return TaskMode.MMW;
-            case ( "cyk" ):
-                return TaskMode.CYK;
-            case ( "der" ):
-                return TaskMode.DER;
-            case ( "svgg" ):
-                return TaskMode.SVGG;
-            case ( "svga" ):
-                return TaskMode.SVGA;
-            default:
-                return TaskMode.ERROR;
         }
     }
 }

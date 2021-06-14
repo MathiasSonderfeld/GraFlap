@@ -39,7 +39,7 @@ public class Grader {
     public static Result generateResult( TaskMode taskMode, Arguments arguments) throws GraFlapException {
         Submission submission = new Submission();
         int percentageFailed = -1;
-        String studType = "";
+        String submissionType = "";
         switch(taskMode) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
@@ -129,8 +129,8 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    studType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((studType.equals("rl") || studType.equals("cfg"))) {
+                    submissionType = GrammarTypeTest.checkForGrammarType(submission);
+                    if ((submissionType.equals("rl") || submissionType.equals("cfg"))) {
                         percentageFailed = new GrammarRegexTest().openInput(arguments.getSolution(), submission,
                                                                   arguments.getNumberOfWords());
                     } else {
@@ -145,8 +145,8 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    studType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((studType.equals("rl") || studType.equals("cfg"))) {
+                    submissionType = GrammarTypeTest.checkForGrammarType(submission);
+                    if ((submissionType.equals("rl") || submissionType.equals("cfg"))) {
                         percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
                                                              arguments.getWordString());
                     } else {
@@ -158,12 +158,12 @@ public class Grader {
                 break;
             case MP:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                studType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = new TransducerPairTest().determineResult(submission, arguments.getWordString());
                 break;
             case MMW:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                studType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = new TransducerWordTest(arguments.getSolution()).determineResult(submission,
                                                                                          arguments.getWordString());
                 break;
@@ -184,16 +184,16 @@ public class Grader {
                 break;
             case SVGA:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                studType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = 0;
                 break;
             case SVGG:
                 submission = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getStudentAnswer()));
-                studType = GrammarTypeTest.checkForGrammarType(submission);
+                submissionType = GrammarTypeTest.checkForGrammarType(submission);
                 percentageFailed = 0;
                 break;
         }
-        Result result = new Result(submission, percentageFailed, studType);
+        Result result = new Result(submission, percentageFailed, submissionType);
         if(taskMode.isParameterized()){
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());

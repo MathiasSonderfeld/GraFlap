@@ -118,17 +118,17 @@ public class GraFlap {
      */
     protected static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
         Result result = Grader.generateResult(arguments.getTaskMode(), arguments);
-        String studType = result.getStudType();
+        String submissionType = result.getStudType();
 
         if (arguments.getTaskMode().isTyped()) {
             if (arguments.getTaskMode().isAutomaton()) {
-                studType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
+                submissionType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
             } else if (arguments.getTaskMode().isGrammar()) {
-                studType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
+                submissionType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
             }
         }
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA).getSvg();
-        return AnswerFactory.determineAnswer(result, arguments, studType, svg);
+        return AnswerFactory.determineAnswer(result, arguments, submissionType, svg);
     }
 }

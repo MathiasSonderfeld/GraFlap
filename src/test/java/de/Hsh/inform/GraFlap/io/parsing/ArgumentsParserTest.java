@@ -1,7 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.InputMode;
 import de.HsH.inform.GraFlap.entity.InputType;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
@@ -69,57 +68,41 @@ public class ArgumentsParserTest {
 
     @Test
     void checkCorrectModeAndTypeAutomaton(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(InputMode.art, InputType.dfa));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.ART, InputType.dfa));
     }
 
     @Test
     void checkCorrectModeAndTypeGrammar(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(InputMode.gg, InputType.cfg));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.GG, InputType.cfg));
     }
 
     @Test
     void checkCorrectModeAndTypeMachine(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(InputMode.mp, InputType.moore));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.MP, InputType.moore));
     }
 
     @Test
     void checkCorrectModeAndTypeAutomatonWrongType(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(InputMode.art, InputType.moore));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.ART, InputType.moore));
     }
 
     @Test
     void checkCorrectModeAndTypeGrammarWrongType(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(InputMode.gg, InputType.moore));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.GG, InputType.moore));
     }
 
     @Test
     void checkCorrectModeAndTypeMachineWrongType(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(InputMode.mp, InputType.cfg));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.MP, InputType.cfg));
     }
 
     @Test
     void checkCorrectModeAndTypeMachineTypeNull(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(InputMode.mp, null));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.MP, null));
     }
 
     @Test
     void checkCorrectModeAndTypeModeNull(){
         Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(null, null));
-    }
-
-
-    @Test
-    void checkDetermineOperationModeFine(){
-        Assertions.assertEquals(TaskMode.AG, argumentsParser.determineOperationMode("ag"));
-    }
-
-    @Test
-    void checkDetermineOperationModeError(){
-        Assertions.assertEquals(TaskMode.ERROR, argumentsParser.determineOperationMode("ThisIsNotLegitMode"));
-    }
-
-    @Test
-    void checkDetermineOperationModeNull(){
-        Assertions.assertEquals(TaskMode.ERROR, argumentsParser.determineOperationMode(null));
     }
 }

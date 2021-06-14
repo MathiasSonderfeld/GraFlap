@@ -40,11 +40,11 @@ public abstract class AnswerMessage {
      * @param taskTitle the taskTitle of the assignment
      * @param bestLanguage a string coding the used language of the assignment
      * @param taskMode a string holding the coded mode information
-     * @param solutionType a string coding the solutionType of the solution
-     * @param submissionType a string coding the solutionType of the submission
+     * @param taskType a string coding the taskType of the solution
+     * @param submissionType a string coding the taskType of the submission
      * @param svg a XML-element that gains the information for the output svg
      */
-    public AnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String solutionType, String submissionType, Element svg) {
+    public AnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
         this.taskTitle = taskTitle;
         this.percentOfTestWordsFailed = percentOfTestWordsFailed;
         this.lang = UserLanguage.get(bestLanguage);
@@ -58,7 +58,7 @@ public abstract class AnswerMessage {
 
         this.svgTitle = getLangDependentSvgTitle(lang);
         this.hasPassed = percentOfTestWordsFailed == 0;
-        this.hasPassed &= submissionMatchesTarget(solutionType, submissionType);
+        this.hasPassed &= submissionMatchesTarget(taskType, submissionType);
         if(percentOfTestWordsFailed < 0){ //Error
             this.feedbackText.append(submissionType);
         }

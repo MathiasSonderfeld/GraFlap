@@ -18,12 +18,12 @@ public class SvgAnswerMessage extends AnswerMessage {
      * @param title        the title of the assignment
      * @param bestLanguage a string coding the used language of the assignment
      * @param taskMode     a string holding the coded mode information
-     * @param solutionType         a string coding the type of the solution
+     * @param taskType         a string coding the type of the solution
      * @param submissionType     a string coding the type of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public SvgAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String solutionType, String submissionType, Element svg) {
-        super(resultValue, title, bestLanguage, taskMode, solutionType, submissionType, svg);
+    public SvgAnswerMessage(int resultValue, String title, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
+        super(resultValue, title, bestLanguage, taskMode, taskType, submissionType, svg);
     }
 
     @Override

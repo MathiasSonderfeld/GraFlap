@@ -31,29 +31,29 @@ public class AnswerFactory {
      * @return the AnswerMessage that contains the correct Output-Data
      * @throws GraFlapException if the AnswerMessage can not be identified
      */
-    public static AnswerMessage determineAnswer( Result result, Arguments arguments, String studType, Element svg) throws GraFlapException {
+    public static AnswerMessage determineAnswer( Result result, Arguments arguments, String submissionType, Element svg) throws GraFlapException {
         AnswerMessage answerMessage = null;
         if(arguments.getTaskMode().isGrammar()) {
-            answerMessage = new GrammarAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
+            answerMessage = new GrammarAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), submissionType, svg);
         }
         else if(arguments.getTaskMode().isAutomaton()) {
-            answerMessage = new AcceptorAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
+            answerMessage = new AcceptorAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), submissionType, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.MP || arguments.getTaskMode() == TaskMode.MMW) {
-            answerMessage = new TransducerAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
+            answerMessage = new TransducerAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), submissionType, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.WW) {
-            answerMessage = new WordAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
+            answerMessage = new WordAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), submissionType, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.CYK) {
-            answerMessage = new CYKAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
+            answerMessage = new CYKAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), submissionType, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.DER) {
-            answerMessage = new DerivationAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), studType, svg);
+            answerMessage = new DerivationAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(), submissionType, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.SVGA || arguments.getTaskMode() == TaskMode.SVGG) {
             answerMessage = new SvgAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getArgtype(),
-                    studType, svg);
+                    submissionType, svg);
         }
         
         if(answerMessage == null){

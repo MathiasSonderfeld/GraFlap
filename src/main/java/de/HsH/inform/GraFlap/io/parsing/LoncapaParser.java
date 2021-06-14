@@ -3,7 +3,6 @@ package de.HsH.inform.GraFlap.io.parsing;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.InputMode;
 import de.HsH.inform.GraFlap.entity.InputType;
 
 /**
@@ -35,11 +34,15 @@ public class LoncapaParser extends ArgumentsParser{
         checkInputWords(numberOfWords, inputWords);
         arguments.setNumberOfWords(numberOfWords);
         arguments.setWordString(inputWords);
-
-        InputMode mode = InputMode.valueOf(taskArguments[3].replaceFirst("P", "").toLowerCase());
         InputType type = InputType.valueOf(taskArguments[4]);
-        checkCorrectModeAndType(mode, type);
-        TaskMode taskMode = TaskMode.valueOf(taskArguments[3].toUpperCase());
+        TaskMode taskMode;
+        try{
+            taskMode = TaskMode.valueOf(taskArguments[3].toUpperCase());
+        }
+        catch(Exception e){
+            taskMode = TaskMode.ERROR;
+        }
+        checkCorrectModeAndType(taskMode, type);
         arguments.setArgtype(taskArguments[4]);
         arguments.setTaskMode(taskMode);
         return arguments;

@@ -18,12 +18,12 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      * @param taskTitle        the taskTitle of the assignment
      * @param bestLanguage a string coding the used language of the assignment
      * @param taskMode     a string holding the coded mode information
-     * @param type         a string coding the type of the solution
-     * @param submissionType     a string coding the type of the submission
+     * @param taskType         a string coding the taskType of the solution
+     * @param submissionType     a string coding the taskType of the submission
      * @param svg          a XML-element that gains the information for the output svg
      */
-    public AutomatonAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String type, String submissionType, Element svg) {
-        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, type, submissionType, svg);
+    public AutomatonAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
+        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, taskType, submissionType, svg);
     }
 
     /**
