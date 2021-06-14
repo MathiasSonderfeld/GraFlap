@@ -31,8 +31,6 @@ import de.HsH.inform.GraFlap.io.formatter.ProformaOutputFormatter;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.parsing.ArgumentsParser;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
-import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
-import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.io.parsing.LoncapaParser;
 import de.HsH.inform.GraFlap.io.parsing.ProformaParser;
@@ -116,19 +114,10 @@ public class GraFlap {
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
      */
-    protected static AnswerMessage processSubmission( Arguments arguments) throws GraFlapException {
-        Result result = Grader.generateResult(arguments.getTaskMode(), arguments);
-        String submissionType = result.getStudType();
-
-        if (arguments.getTaskMode().isTyped()) {
-            if (arguments.getTaskMode().isAutomaton()) {
-                submissionType = AutomatonTypeTest.checkForAutomatonType(result.getSubmission());
-            } else if (arguments.getTaskMode().isGrammar()) {
-                submissionType = GrammarTypeTest.checkForGrammarType(result.getSubmission());
-            }
-        }
+    protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException {
+        Result result = Grader.generateResult(arguments);
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA).getSvg();
-        return AnswerFactory.determineAnswer(result, arguments, submissionType, svg);
+        return AnswerFactory.determineAnswer(result, arguments, svg);
     }
 }

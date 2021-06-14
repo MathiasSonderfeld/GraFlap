@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.InputType;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.junit.jupiter.api.Assertions;
@@ -68,32 +68,32 @@ public class ArgumentsParserTest {
 
     @Test
     void checkCorrectModeAndTypeAutomaton(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.ART, InputType.dfa));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.ART, TaskType.DFA));
     }
 
     @Test
     void checkCorrectModeAndTypeGrammar(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.GG, InputType.cfg));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.GG, TaskType.CFG));
     }
 
     @Test
     void checkCorrectModeAndTypeMachine(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.MP, InputType.moore));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.checkCorrectModeAndType(TaskMode.MP, TaskType.MOORE));
     }
 
     @Test
     void checkCorrectModeAndTypeAutomatonWrongType(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.ART, InputType.moore));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.ART, TaskType.MOORE));
     }
 
     @Test
     void checkCorrectModeAndTypeGrammarWrongType(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.GG, InputType.moore));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.GG, TaskType.MOORE));
     }
 
     @Test
     void checkCorrectModeAndTypeMachineWrongType(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.MP, InputType.cfg));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(TaskMode.MP, TaskType.CFG));
     }
 
     @Test

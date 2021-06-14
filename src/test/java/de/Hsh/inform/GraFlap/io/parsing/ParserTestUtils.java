@@ -10,7 +10,7 @@ public class ParserTestUtils {
         return argumentsComp.getTaskTitle().equals(argumentsToComp.getTaskTitle()) &&
         argumentsComp.getUserLanguage().equals(argumentsToComp.getUserLanguage()) &&
         argumentsComp.getTaskMode().equals(argumentsToComp.getTaskMode()) &&
-        argumentsComp.getArgtype().equals(argumentsToComp.getArgtype()) &&
+        argumentsComp.getTaskType().equals(argumentsToComp.getTaskType()) &&
         argumentsComp.getSolution().equals(argumentsToComp.getSolution()) &&
         argumentsComp.getNumberOfWords() == argumentsToComp.getNumberOfWords() &&
         argumentsComp.getWordString().equals(argumentsToComp.getWordString()) &&
@@ -30,7 +30,7 @@ public class ParserTestUtils {
                         args.getUserLanguage() + "#" +
                         args.getSolution() + "#" +
                         args.getTaskMode().toString() + "#" +
-                        args.getArgtype() + "#" +
+                        args.getTaskType().toString() + "#" +
                         args.getNumberOfWords() + "#" +
                         args.getWordString();
         return new String[]{input, args.getStudentAnswer()};

@@ -36,11 +36,11 @@ public class Grader {
      * @return a reference of the object
      * @throws GraFlapException throws a {@link GraFlapException} if an error occurs
      */
-    public static Result generateResult( TaskMode taskMode, Arguments arguments) throws GraFlapException {
+    public static Result generateResult(Arguments arguments) throws GraFlapException {
         Submission submission = new Submission();
         int percentageFailed = -1;
         String submissionType = "";
-        switch(taskMode) {
+        switch(arguments.getTaskMode()) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
             case AR:
@@ -193,8 +193,17 @@ public class Grader {
                 percentageFailed = 0;
                 break;
         }
+
+        if (arguments.getTaskMode().isTyped()) {
+            if (arguments.getTaskMode().isAutomaton()) {
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
+            } else if (arguments.getTaskMode().isGrammar()) {
+                submissionType = GrammarTypeTest.checkForGrammarType(submission);
+            }
+        }
         Result result = new Result(submission, percentageFailed, submissionType);
-        if(taskMode.isParameterized()){
+
+        if(arguments.getTaskMode().isParameterized()){
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());
             setsTest.setStudentStatesSet(arguments.getStates());

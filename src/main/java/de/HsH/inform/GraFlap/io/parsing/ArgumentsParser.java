@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.InputType;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 
 /**
@@ -67,7 +67,7 @@ public abstract class ArgumentsParser {
      * @param type the type to verify
      * @throws GraFlapException if mismatch is found
      */
-    public void checkCorrectModeAndType( TaskMode mode, InputType type ) throws GraFlapException {
+    public void checkCorrectModeAndType( TaskMode mode, TaskType type ) throws GraFlapException {
         if(mode == null) { throw new GraFlapException("Mode-Setting is wrong"); }
 
         if(type == null) { throw new GraFlapException("AgType-Setting is wrong"); }
@@ -85,17 +85,17 @@ public abstract class ArgumentsParser {
             case AGTW:
                 switch(type){
                     //Automaton Types
-                    case fa:
-                    case dfa:
-                    case nfa:
-                    case non:
-                    case pda:
-                    case dpda:
-                    case npda:
-                    case tm:
-                    case dtm:
-                    case ntm:
-                    case tmww:
+                    case FA:
+                    case DFA:
+                    case NFA:
+                    case NON:
+                    case PDA:
+                    case DPDA:
+                    case NPDA:
+                    case TM:
+                    case DTM:
+                    case NTM:
+                    case TMWW:
                         return;
                     default:
                         throw new GraFlapException("Wrong Type for Automaton Task");
@@ -112,12 +112,12 @@ public abstract class ArgumentsParser {
             case GRTW:
                 switch(type){
                     //Grammar Types
-                    case rl:
-                    case rlcfg:
-                    case cfg:
-                    case ncfg:
-                    case non:
-                    case gint:
+                    case RL:
+                    case RLCFG:
+                    case CFG:
+                    case NCFG:
+                    case NON:
+                    case GINT:
                         return;
                     default:
                         throw new GraFlapException("Wrong Type for Grammar Task");
@@ -126,11 +126,11 @@ public abstract class ArgumentsParser {
             case MP:
             case MMW:
                 switch(type){
-                    case tm:
-                    case dtm:
-                    case ntm:
-                    case mealy:
-                    case moore:
+                    case TM:
+                    case DTM:
+                    case NTM:
+                    case MEALY:
+                    case MOORE:
                         return;
                     default:
                         throw new GraFlapException("Wrong Type for Machine Task");

@@ -12,11 +12,11 @@ public class Arguments {
     private String taskTitle;
     private String userLanguage;
     private String solution;
-    private String argtype;
     private String wordString;
     private int numberOfWords;
     private String studentAnswer;
     private TaskMode taskMode;
+    private TaskType taskType;
 
     private String states;
     private String initials;
@@ -25,6 +25,13 @@ public class Arguments {
     private String stackalphabet;
     private String transitions;
 
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType( TaskType taskType ) {
+        this.taskType = taskType;
+    }
 
     public String getTaskTitle() {
         return taskTitle;
@@ -48,14 +55,6 @@ public class Arguments {
 
     public void setSolution( String solution ) {
         this.solution = solution;
-    }
-
-    public String getArgtype() {
-        return argtype;
-    }
-
-    public void setArgtype( String argtype ) {
-        this.argtype = argtype;
     }
 
     public String getWordString() {
