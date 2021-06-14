@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.convert;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.CYKTable;
-import de.HsH.inform.GraFlap.entity.OperationType;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
@@ -20,7 +20,7 @@ public class CYKInputParser {
     public static Submission<CYKTable> openCYKInput(String submissionString, String word, Grammar grammar)
             throws GraFlapException {
         CYKTable table = parseSubmission(submissionString, grammar, word);
-        return new Submission<>(submissionString, table, OperationType.CYKINPUT);
+        return new Submission<>(submissionString, table, SubmissionType.CYKINPUT);
     }
 
     private static CYKTable parseSubmission(String submissionString, Grammar grammar, String word)

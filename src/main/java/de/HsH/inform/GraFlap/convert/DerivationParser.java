@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.convert;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.OperationType;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 
 /**
@@ -18,6 +18,6 @@ public class DerivationParser {
             throw new GraFlapException("Error [DerivationParser]: derivation is empty.");
         }
 
-        return new Submission<>(submissionString, input, OperationType.DERIVATION);
+        return new Submission<>(submissionString, input, SubmissionType.DERIVATION);
     }
 }

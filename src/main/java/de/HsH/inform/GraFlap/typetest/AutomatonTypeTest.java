@@ -27,17 +27,17 @@ public class AutomatonTypeTest {
     public static TaskType checkForAutomatonType( Submission<Automaton> automatonSubmission) throws GraFlapException {
         boolean isDeterministic = DeterminismChecker.isDeterministic(automatonSubmission.getSubmissionObject());
         switch(automatonSubmission.getSubmissionObject().testType()){
-            case "fa":
+            case FA:
                 if(isDeterministic) return TaskType.DFA;
                 else return TaskType.NFA;
-            case "pda":
+            case PDA:
                 if(isDeterministic) return TaskType.DPDA;
                 else return TaskType.NPDA;
-            case "tm":
+            case TM:
                 if(isDeterministic) return TaskType.DTM;
                 else return TaskType.NTM;
             default:
-                return TaskType.ERROR;
+                return automatonSubmission.getSubmissionObject().testType();
         }
     }
 }

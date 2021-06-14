@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import org.jdom2.Element;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class ProformaOutputFormatterTest {
         String taskTitle = "Test Success";
         String svgImageContent = "thisIsATest";
         String svgTitle = "SVGTitle";
-        String taskMode = "cfg";
+        TaskMode taskMode = TaskMode.GG;
         String feedback = "mocked test successfull";
         double score = 1.0;
 
@@ -56,7 +57,7 @@ public class ProformaOutputFormatterTest {
         String taskTitle = "Test Success with Sets";
         String svgImageContent = "thisIsATest";
         String svgTitle = "SVGTitle";
-        String taskMode = "cfg";
+        TaskMode taskMode = TaskMode.GG;
         String feedback = "mocked test successfull";
         boolean passed = true;
         double score = 1.0;
@@ -111,7 +112,7 @@ public class ProformaOutputFormatterTest {
         when(message.getTaskTitle()).thenReturn("Test for LoncapaBuilder.getXML Result Fail");
         when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
         when(message.getSvgTitle()).thenReturn("SVGTitle");
-        when(message.getTaskMode()).thenReturn("cfg");
+        when(message.getTaskMode()).thenReturn(TaskMode.GG);
         when(message.getFeedback()).thenReturn("mocked test successfull");
         when(message.hasPassed()).thenReturn(false);
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/><proforma:tests-response><proforma:test-response id=\"Test for LoncapaBuilder.getXML Result Fail\"><proforma:test-result><proforma:result><proforma:score>0.0</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">Test for LoncapaBuilder.getXML Result Fail</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">SVGTitle</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"plaintext\"><![CDATA[<thisIsATest />]]></proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>FeedbackText</proforma:title><proforma:content format=\"plaintext\">mocked test successfull</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/><proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"0.3\"/></proforma:response-meta-data></proforma:response>";
@@ -126,7 +127,7 @@ public class ProformaOutputFormatterTest {
     void testGetXMLResultSVG() {
         AnswerMessage message = mock(AnswerMessage.class);
         when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
-        when(message.getTaskMode()).thenReturn("asvg");
+        when(message.getTaskMode()).thenReturn(TaskMode.SVGA);
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><thisIsATest/>";
 
         Assertions.assertEquals(xml, proformaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());

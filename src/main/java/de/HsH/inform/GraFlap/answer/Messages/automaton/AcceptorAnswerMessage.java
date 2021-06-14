@@ -1,5 +1,8 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
@@ -10,19 +13,9 @@ import org.jdom2.Element;
  * @version 0.1.0
  */
 public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
-    /**
-     * Constructor
-     *
-     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
-     * @param taskTitle        the taskTitle of the assignment
-     * @param bestLanguage a string coding the used language of the assignment
-     * @param taskMode     a string holding the coded mode information
-     * @param taskType a string coding the type of the solution
-     * @param submissionType     a string coding the type of the submission
-     * @param svg          a XML-element that gains the information for the output svg
-     */
-    public AcceptorAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
-        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, taskType, submissionType, svg);
+
+    public AcceptorAnswerMessage( Result result, Arguments arguments, Element svg){
+        super(result, arguments, svg);
     }
 
     @Override
@@ -50,12 +43,12 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String solutionType, String submissionType) {
+    protected boolean submissionMatchesTarget( TaskType taskType, TaskType submissionTaskType) {
         boolean passed = true;
-        if (taskMode.contains("t")) {
-            matchesNonDeterministic(solutionType, submissionType);
-            passed = matchesDeterministic(solutionType, submissionType);
-            if ((solutionType.endsWith("fa")) && (!(submissionType.endsWith("fa")))) {
+        if (taskMode.isTyped()) {
+            matchesNonDeterministic(taskType, submissionTaskType);
+            passed = matchesDeterministic(taskType, submissionTaskType);
+            if (isFiniteAutomaton(taskType) && !isFiniteAutomaton(submissionTaskType)) {
                 passed = false;
                 if (lang == UserLanguage.German) {
                     feedbackText.append("Dies ist kein endlicher Automat. \n");
@@ -63,14 +56,14 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
                     feedbackText.append("This is not a finite automaton. \n");
                 }
             }
-            else if ((solutionType.endsWith("pda")) && (!(submissionType.endsWith("pda")))) {
+            else if (isPushDownAutomaton(taskType) && !isPushDownAutomaton(submissionTaskType)) {
                 passed = false;
                 if (lang == UserLanguage.German) {
                     feedbackText.append("Dies ist kein Kellerautomat. \n");
                 } else {
                     feedbackText.append("This is not a push-down automaton. \n");
                 }
-            } else if (!matchesTuringMachine(solutionType, submissionType)) {
+            } else if (!matchesTuringMachine(taskType, submissionTaskType)) {
                 passed = false;
             }
         }

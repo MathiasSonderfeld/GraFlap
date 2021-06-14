@@ -39,7 +39,7 @@ public class Grader {
     public static Result generateResult(Arguments arguments) throws GraFlapException {
         Submission submission = new Submission();
         int percentageFailed = -1;
-        TaskType submissionType = TaskType.NON;
+        TaskType submissionTaskType = TaskType.NON;
         switch(arguments.getTaskMode()) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
@@ -129,8 +129,8 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    submissionType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((submissionType == TaskType.RL || submissionType == TaskType.CFG)) {
+                    submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
+                    if ((submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG)) {
                         percentageFailed = new GrammarRegexTest().openInput(arguments.getSolution(), submission,
                                                                   arguments.getNumberOfWords());
                     } else {
@@ -145,8 +145,8 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    submissionType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((submissionType == TaskType.RL || submissionType == TaskType.CFG)) {
+                    submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
+                    if ((submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG)) {
                         percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
                                                              arguments.getWordString());
                     } else {
@@ -158,12 +158,12 @@ public class Grader {
                 break;
             case MP:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = new TransducerPairTest().determineResult(submission, arguments.getWordString());
                 break;
             case MMW:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = new TransducerWordTest(arguments.getSolution()).determineResult(submission,
                                                                                          arguments.getWordString());
                 break;
@@ -184,24 +184,24 @@ public class Grader {
                 break;
             case SVGA:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = 0;
                 break;
             case SVGG:
                 submission = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getStudentAnswer()));
-                submissionType = GrammarTypeTest.checkForGrammarType(submission);
+                submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
                 percentageFailed = 0;
                 break;
         }
 
         if (arguments.getTaskMode().isTyped()) {
             if (arguments.getTaskMode().isAutomaton()) {
-                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
             } else if (arguments.getTaskMode().isGrammar()) {
-                submissionType = GrammarTypeTest.checkForGrammarType(submission);
+                submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
             }
         }
-        Result result = new Result(submission, percentageFailed, submissionType);
+        Result result = new Result(submission, percentageFailed, submissionTaskType);
 
         if(arguments.getTaskMode().isParameterized()){
             SetsTest setsTest = new SetsTest();

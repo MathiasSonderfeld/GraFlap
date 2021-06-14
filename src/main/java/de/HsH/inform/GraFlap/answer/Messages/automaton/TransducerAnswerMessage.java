@@ -1,5 +1,8 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
@@ -10,18 +13,9 @@ import org.jdom2.Element;
  * @version 0.1.0
  */
 public class TransducerAnswerMessage extends AutomatonAnswerMessage {
-    /**
-     * Constructor
-     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
-     * @param taskTitle        the taskTitle of the assignment
-     * @param bestLanguage a string coding the used language of the assignment
-     * @param taskMode     a string holding the coded mode information
-     * @param taskType         a string coding the type of the solution
-     * @param submissionType     a string coding the type of the submission
-     * @param svg          a XML-element that gains the information for the output svg
-     */
-    public TransducerAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
-        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, taskType, submissionType, svg);
+
+    public TransducerAnswerMessage( Result result, Arguments arguments, Element svg){
+        super(result, arguments, svg);
     }
 
     @Override
@@ -50,11 +44,11 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
 
 
     @Override
-    protected boolean submissionMatchesTarget(String solutionType, String submissionType) {
-        matchesNonDeterministic(solutionType, submissionType);
-        boolean passed = matchesDeterministic(solutionType, submissionType);
-        passed &= matchesTuringMachine(solutionType, submissionType);
-        if ((solutionType.contains("mealy")) && (!(submissionType.contains("mealy")))) {
+    protected boolean submissionMatchesTarget( TaskType solutionType, TaskType submissionTaskType) {
+        matchesNonDeterministic(solutionType, submissionTaskType);
+        boolean passed = matchesDeterministic(solutionType, submissionTaskType);
+        passed &= matchesTuringMachine(solutionType, submissionTaskType);
+        if (solutionType == TaskType.MEALY && submissionTaskType != TaskType.MEALY) {
             passed = false;
             if (lang == UserLanguage.German) {
                 feedbackText.append("Dies ist keine Mealy-Maschine. \n");
@@ -62,7 +56,7 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
                 feedbackText.append("This is not a mealy machine. \n");
             }
         }
-        else if ((solutionType.contains("moore")) && (!(submissionType.contains("moore")))) {
+        else if (solutionType == TaskType.MOORE && submissionTaskType != TaskType.MOORE) {
             passed = false;
             if (lang == UserLanguage.German) {
                 feedbackText.append("Dies ist keine Moore-Maschine. \n");

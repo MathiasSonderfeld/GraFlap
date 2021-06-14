@@ -7,7 +7,7 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 public class Result {
-    private TaskType submissionType;
+    private TaskType submissionTaskType;
     private int percentageFailed;
     private Submission submission;
     private SetResult<State> states;
@@ -17,14 +17,14 @@ public class Result {
     private SetResult<String> stackalphabet;
     private SetResult<Transition> transitions;
 
-    public Result( Submission submission, int percentageFailed, TaskType submissionType ){
+    public Result( Submission submission, int percentageFailed, TaskType submissionTaskType ){
         this.submission = submission;
         this.percentageFailed = percentageFailed;
-        this.submissionType = submissionType;
+        this.submissionTaskType = submissionTaskType;
     }
 
-    public TaskType getSubmissionType() {
-        return submissionType;
+    public TaskType getsubmissionTaskType() {
+        return submissionTaskType;
     }
 
     public int getPercentageFailed() {
@@ -32,7 +32,7 @@ public class Result {
     }
 
     public Submission getSubmission() throws GraFlapException {
-        if (submission.getOperationType() != OperationType.UNDEFINED) {
+        if (submission.getOperationType() != SubmissionType.UNDEFINED) {
             return submission;
         }
         throw new GraFlapException("Error in Grader: Tried to access non parsed submission.");

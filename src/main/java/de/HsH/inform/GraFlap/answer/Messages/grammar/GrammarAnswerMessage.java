@@ -1,6 +1,9 @@
 package de.HsH.inform.GraFlap.answer.Messages.grammar;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
@@ -12,18 +15,8 @@ import org.jdom2.Element;
  */
 public class GrammarAnswerMessage extends AnswerMessage {
 
-    /**
-     * Constructor
-     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
-     * @param taskTitle        the taskTitle of the assignment
-     * @param bestLanguage a string coding the used language of the assignment
-     * @param taskMode     a string holding the coded mode information
-     * @param taskType         a string coding the type of the solution
-     * @param submissionType     a string coding the type of the submission
-     * @param svg          a XML-element that gains the information for the output svg
-     */
-    public GrammarAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
-        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, taskType, submissionType, svg);
+    public GrammarAnswerMessage( Result result, Arguments arguments, Element svg){
+        super(result, arguments, svg);
     }
 
     @Override
@@ -51,9 +44,9 @@ public class GrammarAnswerMessage extends AnswerMessage {
     }
 
     @Override
-    protected boolean submissionMatchesTarget(String solutionType, String submissionType) {
-        if ((!(solutionType.equals(submissionType)))) {
-            if (!(solutionType.equals("rlcfg") && ((submissionType.equals("rl") || submissionType.equals("cfg"))))) {
+    protected boolean submissionMatchesTarget( TaskType solutionType, TaskType submissionTaskType) {
+        if (solutionType != submissionTaskType) {
+            if (!(solutionType == TaskType.RLCFG && (submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG))) {
                 if (lang == UserLanguage.German) {
                     feedbackText.append("Die eingereichte Grammatik hat nicht den geforderten Typ. \n");
                 } else {

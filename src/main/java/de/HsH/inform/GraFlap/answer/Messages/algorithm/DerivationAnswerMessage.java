@@ -1,6 +1,8 @@
 package de.HsH.inform.GraFlap.answer.Messages.algorithm;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Result;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
@@ -12,18 +14,8 @@ import org.jdom2.Element;
  */
 public class DerivationAnswerMessage extends AnswerMessage {
 
-    /**
-     * Constructor
-     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
-     * @param taskTitle        the taskTitle of the assignment
-     * @param bestLanguage a string coding the used language of the assignment
-     * @param taskMode     a string holding the coded mode information
-     * @param taskType         a string coding the taskType of the solution
-     * @param submissionType     a string coding the taskType of the submission
-     * @param svg          a XML-element that gains the information for the output svg
-     */
-    public DerivationAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
-        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, taskType, submissionType, svg);
+    public DerivationAnswerMessage( Result result, Arguments arguments, Element svg){
+        super(result, arguments, svg);
     }
 
     @Override

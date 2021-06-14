@@ -1,6 +1,8 @@
 package de.HsH.inform.GraFlap.answer.Messages.grammar;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Result;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
@@ -11,18 +13,9 @@ import org.jdom2.Element;
  * @version 0.1.0
  */
 public class WordAnswerMessage extends AnswerMessage {
-    /**
-     * Constructor
-     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
-     * @param taskTitle        the taskTitle of the assignment
-     * @param bestLanguage a string coding the used language of the assignment
-     * @param taskMode     a string holding the coded mode information
-     * @param taskType         a string coding the type of the solution
-     * @param submissionType     a string coding the type of the submission
-     * @param svg          a XML-element that gains the information for the output svg
-     */
-    public WordAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
-        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, taskType, submissionType, svg);
+
+    public WordAnswerMessage( Result result, Arguments arguments, Element svg){
+        super(result, arguments, svg);
     }
 
     @Override

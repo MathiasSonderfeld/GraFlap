@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -46,7 +47,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
                 svgImage = db.parse(new ByteArrayInputStream(svgAsString.getBytes(StandardCharsets.UTF_8)));
             }
 
-            if ("asvg".equals(answerMessage.getTaskMode())) {
+            if (answerMessage.getTaskMode() == TaskMode.SVGA) {
                 document = svgImage;
             }
             else {
@@ -84,7 +85,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
 
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
         buildMainTestResponse(testsResponse, answerMessage, svgAsString);
-        if(answerMessage.getTaskMode().contains("p")){
+        if(answerMessage.getTaskMode().isParameterized()){
             buildSetsTestResponse(testsResponse, "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
             buildSetsTestResponse(testsResponse, "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
             buildSetsTestResponse(testsResponse, "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());

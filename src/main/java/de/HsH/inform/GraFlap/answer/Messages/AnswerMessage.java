@@ -1,9 +1,9 @@
 package de.HsH.inform.GraFlap.answer.Messages;
 
+import de.HsH.inform.GraFlap.entity.*;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
-import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public abstract class AnswerMessage {
     protected final Element svgImage;
     protected final int percentOfTestWordsFailed;
     protected boolean hasPassed;
-    protected String taskMode;
+    protected TaskMode taskMode;
     protected StringBuilder feedbackText;
     protected String svgTitle;
 
@@ -34,23 +34,13 @@ public abstract class AnswerMessage {
     private SetResult<String> stackalphabet = null;
     private SetResult<Transition> transitions = null;
 
-    /**
-     * Constructor
-     * @param percentOfTestWordsFailed value how many words failed the testing ranging form [0,100]
-     * @param taskTitle the taskTitle of the assignment
-     * @param bestLanguage a string coding the used language of the assignment
-     * @param taskMode a string holding the coded mode information
-     * @param taskType a string coding the taskType of the solution
-     * @param submissionType a string coding the taskType of the submission
-     * @param svg a XML-element that gains the information for the output svg
-     */
-    public AnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
-        this.taskTitle = taskTitle;
-        this.percentOfTestWordsFailed = percentOfTestWordsFailed;
-        this.lang = UserLanguage.get(bestLanguage);
+    public AnswerMessage(Result result, Arguments arguments, Element svg) {
+        this.taskTitle = arguments.getTaskTitle();
+        this.percentOfTestWordsFailed = result.getPercentageFailed();
+        this.lang = UserLanguage.get(arguments.getUserLanguage());
         this.feedbackText = new StringBuilder();
         this.svgImage = svg;
-        this.taskMode = taskMode;
+        this.taskMode = arguments.getTaskMode();
 
         if(lang == UserLanguage.German){
             checkAndReplaceGermanCharactersInTaskTitle();
@@ -58,13 +48,20 @@ public abstract class AnswerMessage {
 
         this.svgTitle = getLangDependentSvgTitle(lang);
         this.hasPassed = percentOfTestWordsFailed == 0;
-        this.hasPassed &= submissionMatchesTarget(taskType, submissionType);
+        this.hasPassed &= submissionMatchesTarget(arguments.getTaskType(), result.getsubmissionTaskType());
         if(percentOfTestWordsFailed < 0){ //Error
-            this.feedbackText.append(submissionType);
+            this.feedbackText.append(result.getsubmissionTaskType());
         }
         else if(!this.hasPassed){
             this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getLangDependentFeedback(lang));
         }
+    }
+
+    protected abstract String getLangDependentSvgTitle(UserLanguage lang);
+    protected abstract String getLangDependentFeedback(UserLanguage lang);
+
+    protected boolean submissionMatchesTarget( TaskType type, TaskType studType){
+        return true;
     }
 
     /**
@@ -224,13 +221,6 @@ public abstract class AnswerMessage {
         return hasPassed?1.0:0.0;
     }
 
-    protected abstract String getLangDependentSvgTitle(UserLanguage lang);
-    protected abstract String getLangDependentFeedback(UserLanguage lang);
-
-    protected boolean submissionMatchesTarget(String type, String studType){
-        return true;
-    }
-
     public String getTaskTitle() {
         return taskTitle;
     }
@@ -243,7 +233,7 @@ public abstract class AnswerMessage {
         return percentOfTestWordsFailed;
     }
 
-    public String getTaskMode() {
+    public TaskMode getTaskMode() {
         return taskMode;
     }
 

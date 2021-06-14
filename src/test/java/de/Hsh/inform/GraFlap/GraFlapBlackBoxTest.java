@@ -26,7 +26,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Turing-Automat fuer s^m t^{2 m}", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("S -> s tt | s S t t"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("agtw", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -48,7 +48,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer gerade Anzahl von w", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("x*(x*wx*wx*)*"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("artw", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.ARTW, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -70,7 +70,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer den Vergleich von Dualzahlen", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("(00|11)*10(00|01|10|11)*"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("artw", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.ARTW, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -92,7 +92,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Beispiel fuer eine kontextfreie Grammatik", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("n,o,p"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("egt", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -114,7 +114,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Beispiel fuer eine nicht kontextfreie Grammatik", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("u,v,w"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("egt", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -136,7 +136,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Beispiel fuer eine rechtslineare Grammatik", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("h,i,j"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("egt", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -158,7 +158,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Kontextfreie Grammatik fuer gegebene Sprache", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("S -> T|V, T -> ef | e T f, V -> eef | ee V f"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("ggtw", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.GGTW, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -180,7 +180,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Grammatik fuer ganze Zahlen", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("S -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D | -P, P ->  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D , D ->  0| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0D | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("ggtw", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.GGTW, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -202,7 +202,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer gegebene Sprache", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("S -> A, A -> x B|y C, B -> x A|y D,C -> x D|y F, D -> x C|y G, F -> x G|y H, G -> x F|y J, H -> x J| y H | E, J -> x H|y J"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("agtw", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -224,7 +224,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer e^n f^n", answerMessage.getTaskTitle());
         //Assertions.assertEquals(new org.jdom2.Element("S->eSf|ef"), answerMessage.getSvgImage());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals("agtw", answerMessage.getTaskMode());
+        Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
         Assertions.assertEquals("", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());

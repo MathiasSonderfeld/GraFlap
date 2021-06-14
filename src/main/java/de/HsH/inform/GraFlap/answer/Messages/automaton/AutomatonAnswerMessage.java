@@ -1,8 +1,15 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
 import org.jdom2.Element;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * abstract class that serves as a parent to generate the answer message for automatons
@@ -12,28 +19,18 @@ import org.jdom2.Element;
  */
 public abstract class AutomatonAnswerMessage extends AnswerMessage {
 
-    /**
-     * Constructor
-     * @param percentOfTestWordsFailed  value how many word failed the testing ranging form [0,100]
-     * @param taskTitle        the taskTitle of the assignment
-     * @param bestLanguage a string coding the used language of the assignment
-     * @param taskMode     a string holding the coded mode information
-     * @param taskType         a string coding the taskType of the solution
-     * @param submissionType     a string coding the taskType of the submission
-     * @param svg          a XML-element that gains the information for the output svg
-     */
-    public AutomatonAnswerMessage(int percentOfTestWordsFailed, String taskTitle, String bestLanguage, String taskMode, String taskType, String submissionType, Element svg) {
-        super(percentOfTestWordsFailed, taskTitle, bestLanguage, taskMode, taskType, submissionType, svg);
+    public AutomatonAnswerMessage( Result result, Arguments arguments, Element svg){
+        super(result, arguments, svg);
     }
 
     /**
      * method to check if a given automaton is not deterministic
-     * @param solutionType the predefined type
-     * @param submissionType the type of the submission
+     * @param taskType the predefined type
+     * @param submissionTaskType the type of the submission
      * @return true, if the submission is deterministic; false, if not
      */
-    boolean matchesDeterministic(String solutionType, String submissionType) {
-        if ((solutionType.startsWith("d")) && (submissionType.startsWith("n"))) {
+    boolean matchesDeterministic(TaskType taskType, TaskType submissionTaskType) {
+        if (taskType.isDeterministic() && submissionTaskType.isNonDeterministic()) {
             if (lang == UserLanguage.German) {
                 feedbackText.append("Ihr Automat ist nicht deterministisch. \n");
             } else {
@@ -46,12 +43,12 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
 
     /**
      * method to check if a given automaton is a turing machine
-     * @param solutionType the predefined type
-     * @param submissionType the type of the submission
+     * @param taskType the predefined type
+     * @param submissionTaskType the type of the submission
      * @return true, if the submission is a turing machine; false, if not
      */
-    boolean matchesTuringMachine(String solutionType, String submissionType) {
-        if ((solutionType.endsWith("tm")) && (!(submissionType.endsWith("tm")))){
+    boolean matchesTuringMachine(TaskType taskType, TaskType submissionTaskType) {
+        if (isTuring(taskType) && !isTuring(submissionTaskType)){
             if (lang == UserLanguage.German) {
                 feedbackText.append("Dies ist kein Turing-").append(svgTitle.toLowerCase()).append(". \n");
             } else {
@@ -62,13 +59,50 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
         return true;
     }
 
+
+
+    protected boolean isFiniteAutomaton(TaskType taskType){
+        switch(taskType){
+            case FA:
+            case DFA:
+            case NFA:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    protected boolean isPushDownAutomaton(TaskType taskType){
+        switch(taskType){
+            case PDA:
+            case DPDA:
+            case NPDA:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    protected boolean isTuring(TaskType taskType){
+        switch(taskType){
+            case TM:
+            case DTM:
+            case NTM:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+
+
     /**
      * method to check if a given automaton is deterministic
-     * @param solutionType the predefined type
-     * @param submissionType the type of the submission
+     * @param taskType the predefined type
+     * @param submissionTaskType the type of the submission
      */
-    void matchesNonDeterministic(String solutionType, String submissionType) {
-        if ((solutionType.startsWith("n")) && (submissionType.startsWith("d"))) {
+    void matchesNonDeterministic( TaskType taskType, TaskType submissionTaskType) {
+        if (taskType.isNonDeterministic() && submissionTaskType.isDeterministic()) {
             if (lang == UserLanguage.German) {
                 feedbackText.append("Ihr Automat ist eigentlich deterministisch. \n");
             } else {

@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.entity.OperationType;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 
@@ -12,9 +12,9 @@ import de.HsH.inform.GraFlap.entity.Arguments;
  */
 public class SvgFactory {
 
-    public static SvgBuilder determineBuilder( Arguments arguments, OperationType OperationType, boolean isSVGA )
+    public static SvgBuilder determineBuilder( Arguments arguments, SubmissionType SubmissionType, boolean isSVGA )
             throws GraFlapException {
-        switch (OperationType) {
+        switch (SubmissionType) {
             case ALPHABET:
                 return new SvgGrammarBuilder(arguments);
             case CYKINPUT:

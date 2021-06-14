@@ -33,28 +33,25 @@ public class AnswerFactory {
     public static AnswerMessage determineAnswer( Result result, Arguments arguments, Element svg) throws GraFlapException {
         AnswerMessage answerMessage = null;
         if(arguments.getTaskMode().isGrammar()) {
-            answerMessage = new GrammarAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(),
-                    arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
+            answerMessage = new GrammarAnswerMessage(result, arguments, svg);
         }
         else if(arguments.getTaskMode().isAutomaton()) {
-            answerMessage = new AcceptorAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
+            answerMessage = new AcceptorAnswerMessage(result, arguments, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.MP || arguments.getTaskMode() == TaskMode.MMW) {
-            answerMessage = new TransducerAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
+            answerMessage = new TransducerAnswerMessage(result, arguments, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.WW) {
-            answerMessage = new WordAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(),
-                    arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
+            answerMessage = new WordAnswerMessage(result, arguments, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.CYK) {
-            answerMessage = new CYKAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
+            answerMessage = new CYKAnswerMessage(result, arguments, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.DER) {
-            answerMessage = new DerivationAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(), result.getSubmissionType().toString().toLowerCase(), svg);
+            answerMessage = new DerivationAnswerMessage(result, arguments, svg);
         }
         else if(arguments.getTaskMode() == TaskMode.SVGA || arguments.getTaskMode() == TaskMode.SVGG) {
-            answerMessage = new SvgAnswerMessage(result.getPercentageFailed(), arguments.getTaskTitle(), arguments.getUserLanguage(), arguments.getTaskMode().toString().toLowerCase(), arguments.getTaskType().toString().toLowerCase(),
-                    result.getSubmissionType().toString().toLowerCase(), svg);
+            answerMessage = new SvgAnswerMessage(result, arguments, svg);
         }
         
         if(answerMessage == null){

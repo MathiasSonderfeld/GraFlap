@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.JflapWrapper.file;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import file.xml.*;
-import de.HsH.inform.GraFlap.entity.OperationType;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
@@ -14,7 +14,7 @@ import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
  * @version 0.2.6
  */
 public class Transducer {
-    private OperationType operationType = OperationType.UNDEFINED;
+    private SubmissionType submissionType = SubmissionType.UNDEFINED;
 
     /**
      * wrapper method retrieve the given object from the jflap transducer
@@ -28,10 +28,10 @@ public class Transducer {
             StructureTransducer transducer;
             Element root = document.getDocumentElement();
             if(!root.hasAttribute("type")) {
-                operationType = OperationType.JFFSTRUCTURE;
+                submissionType = SubmissionType.JFFSTRUCTURE;
                 transducer = getJFFStructureTransducer(root);
             } else {
-                operationType = OperationType.JFLAPSTRUCTURE;
+                submissionType = SubmissionType.JFLAPSTRUCTURE;
                 transducer = getStructureTransducer(root);
             }
 
@@ -43,8 +43,8 @@ public class Transducer {
         }
     }
 
-    public OperationType getInputType() {
-        return operationType;
+    public SubmissionType getInputType() {
+        return submissionType;
     }
 
     /**
