@@ -1,6 +1,8 @@
 package de.HsH.inform.GraFlap.answer.Messages;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.entity.*;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.CommentMarker;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
@@ -42,10 +44,6 @@ public abstract class AnswerMessage {
         this.svgImage = svg;
         this.taskMode = arguments.getTaskMode();
 
-        if(lang == UserLanguage.German){
-            checkAndReplaceGermanCharactersInTaskTitle();
-        }
-
         this.svgTitle = getLangDependentSvgTitle(lang);
         this.hasPassed = percentOfTestWordsFailed == 0;
         this.hasPassed &= submissionMatchesTarget(arguments.getTaskType(), result.getsubmissionTaskType());
@@ -67,23 +65,23 @@ public abstract class AnswerMessage {
     /**
      * private method to replace german special characters
      */
-    private void checkAndReplaceGermanCharactersInTaskTitle() {
-        taskTitle = taskTitle.replaceAll("ä","ae");
-        taskTitle = taskTitle.replaceAll("ö","oe");
-        taskTitle = taskTitle.replaceAll("ü","ue");
-        taskTitle = taskTitle.replaceAll("Ä","Ae");
-        taskTitle = taskTitle.replaceAll("Ö","Oe");
-        taskTitle = taskTitle.replaceAll("Ü","Ue");
-        taskTitle = taskTitle.replaceAll("ß","ss");
+    private String replaceGermanCharacters(String in) {
+        return in.replaceAll("ä","ae")
+                 .replaceAll("ö","oe")
+                 .replaceAll("ü","ue")
+                 .replaceAll("Ä","Ae")
+                 .replaceAll("Ö","Oe")
+                 .replaceAll("Ü","Ue")
+                 .replaceAll("ß","ss");
     }
 
-    private String getTeacherFeedback(String name, SetResult result){
+    private <T> String getTeacherFeedback(String name, SetResult<T> result){
         StringBuilder feedback = new StringBuilder();
         boolean noneMissing = true;
-        ArrayList tmp = result.getMissing();
+        ArrayList<T> tmp = result.getMissing();
         if(tmp.size() > 0){
             noneMissing = false;
-            feedback.append("Es fehlen").append(" ");
+            feedback.append(name).append(": ").append("Es fehlen").append(" ");
             for(int i = 0; i <tmp.size()-1; i++) {
                 feedback.append(tmp.get(i).toString()).append(", ");
             }
@@ -91,29 +89,51 @@ public abstract class AnswerMessage {
         }
         tmp = result.getSurplus();
         if(tmp.size() > 0){
-            if(!noneMissing) feedback.append("; ");
+            if(!noneMissing) feedback.append(". ");
+            else feedback.append(name).append(": ");
             feedback.append("Zu viel sind").append(" ");
             for(int i = 0; i <tmp.size()-1; i++) {
                 feedback.append(tmp.get(i).toString()).append(", ");
             }
             feedback.append(tmp.get(tmp.size()-1));
         }
+        if(GraFlap.printAsACII) return replaceGermanCharacters(feedback.toString());
         return feedback.toString();
     }
 
-    private String getStudentFeedback(String name, SetResult result){
+    private <T> String getStudentFeedback(String name, SetResult<T> result){
         StringBuilder feedback = new StringBuilder();
-        int errors = result.getTotalErrors();
-        if(errors > 0){
-            switch(this.lang){
-                case German:
-                    feedback.append(errors).append(" Fehler. Keine Punkte hierfür.");
+        boolean addedComments = false;
+        for(CommentMarker marker : result.getComments()){
+            addedComments = true;
+            feedback.append(name).append(": ");
+            switch(marker){
+                case SquareBrackets:
+                    switch(this.lang){
+                        case German:
+                          feedback.append("Du hast eckige Klammern verwendet, korrekt wären runde Klammern. Kein Punktabzug.");
+                          break;
+                        default:
+                            feedback.append("You used square brackets, round brackets would be correct. No point deduction.");
+                            break;
+                    }
                     break;
-                default:
-                    feedback.append(errors).append(" Mistakes. No points for this.");
             }
         }
-        ArrayList tmp = result.getDoubles();
+
+        int errors = result.getTotalErrors();
+        if(errors > 0){
+            if(addedComments) feedback.append(" ");
+            else feedback.append(name).append(": ");
+            switch(this.lang){
+                case German:
+                    feedback.append(errors).append(" Fehler. Keine Punkte für diesen Aufgabenteil.");
+                    break;
+                default:
+                    feedback.append(errors).append(" mistakes. No points for this part.");
+            }
+        }
+        ArrayList<T> tmp = result.getDoubles();
         if(tmp.size() > 0){
             StringBuilder doubles = new StringBuilder();
             for(int i = 0; i <tmp.size()-1; i++) {
@@ -121,7 +141,8 @@ public abstract class AnswerMessage {
             }
             doubles.append(tmp.get(tmp.size()-1));
 
-            if(errors > 0) feedback.append(" ");
+            if(errors > 0 || addedComments) feedback.append(" ");
+            else feedback.append(name).append(": ");
             switch(this.lang){
                 case German:
                     feedback.append("Duplikate: ").append(doubles);
@@ -130,6 +151,7 @@ public abstract class AnswerMessage {
                     feedback.append("Duplicates: ").append(doubles);
             }
         }
+        if(GraFlap.printAsACII) return replaceGermanCharacters(feedback.toString());
         return feedback.toString();
     }
 
@@ -222,6 +244,7 @@ public abstract class AnswerMessage {
     }
 
     public String getTaskTitle() {
+        if(GraFlap.printAsACII) return replaceGermanCharacters(taskTitle);
         return taskTitle;
     }
 
@@ -238,6 +261,7 @@ public abstract class AnswerMessage {
     }
 
     public String getFeedback() {
+        if(GraFlap.printAsACII) return replaceGermanCharacters(feedbackText.toString());
         return feedbackText.toString();
     }
 

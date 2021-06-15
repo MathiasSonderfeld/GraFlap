@@ -1,18 +1,21 @@
 package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SetResult<Generic> {
     private double score;
     private ArrayList<Generic> doubles;
     private ArrayList<Generic> missing;
     private ArrayList<Generic> surplus;
+    private ArrayList<CommentMarker> comments;
 
     public SetResult(){
         score = -1.0;
         doubles = new ArrayList<>();
         missing = new ArrayList<>();
         surplus = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 
     public SetResult( double score, ArrayList<Generic> missing, ArrayList<Generic> surplus){
@@ -41,6 +44,10 @@ public class SetResult<Generic> {
         return surplus;
     }
 
+    public ArrayList<CommentMarker> getComments() {
+        return comments;
+    }
+
     public void addToMissing( Generic missing){
         this.missing.add(missing);
     }
@@ -53,6 +60,8 @@ public class SetResult<Generic> {
         this.doubles.add(doubleElement);
     }
 
+    public void addToComments( CommentMarker comment) { this.comments.add(comment); }
+
     public int getTotalErrors(){
         return this.missing.size() + this.surplus.size();
     }
@@ -62,16 +71,16 @@ public class SetResult<Generic> {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o instanceof SetResult){
-            SetResult other = (SetResult) o;
-            return this.score == other.getScore() && this.doubles.equals(other.getDoubles()) && this.missing.equals(other.getMissing()) && this.surplus.equals(other.getSurplus());
-        }
-        return false;
+    public boolean equals( Object o ) {
+        if(this == o) { return true; }
+        if(!( o instanceof SetResult )) { return false; }
+        SetResult<?> setResult = (SetResult<?>) o;
+        return Double.compare(setResult.getScore(), getScore()) == 0 && Objects.equals(getDoubles(), setResult.getDoubles()) && Objects
+                .equals(getMissing(), setResult.getMissing()) && Objects.equals(getSurplus(), setResult.getSurplus()) && Objects.equals(getComments(), setResult.getComments());
     }
 
     @Override
-    public int hashCode(){
-        return (int)(this.missing.hashCode() + this.surplus.hashCode() + this.doubles.hashCode() * this.score);
+    public int hashCode() {
+        return Objects.hash(getScore(), getDoubles(), getMissing(), getSurplus(), getComments());
     }
 }

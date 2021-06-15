@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test;
 
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.CommentMarker;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
@@ -35,9 +36,11 @@ public class SetsTest {
     private TreeSet<String> studentStackAlphabet = new TreeSet<>();
     private TreeSet<Transition> studentTransitions = new TreeSet<>();
 
-    private Pattern cleanUpMultiSet = Pattern.compile("\\{(\\{([a-z|A-Z|0-9| |,])*\\},?)*\\}");
-    private Pattern getAtomarSetsFromMultiSet = Pattern.compile("\\{([a-z|A-Z|0-9| |,])*\\}");
-    private Pattern getAtomarElementsFromSet = Pattern.compile("[a-z|A-Z|0-9| ]+");
+    private Pattern cleanUpMultiSet = Pattern.compile("\\{(((\\(|\\[)([a-zA-Z0-9 ,]+)(\\)|\\])|(\\(\\([a-zA-Z0-9 ,]+\\),\\([a-zA-Z0-9 ,]+\\)\\))),?)*\\}");
+    private Pattern cleanUpAtomarSet = Pattern.compile("\\{[a-zA-Z0-9 ,]*\\}");
+
+    private Pattern getAtomarSetsFromMultiSet = Pattern.compile("((\\(|\\[)([a-zA-Z0-9 ,]+)(\\)|\\])|(\\(\\([a-zA-Z0-9 ,]+\\),\\([a-zA-Z0-9 ,]+\\)\\)))");
+    private Pattern getAtomarElementsFromSet = Pattern.compile("[a-zA-Z0-9 ]+");
 
     private String jflapXml = "";
     private String studentStatesSet = "";
@@ -123,14 +126,14 @@ public class SetsTest {
                 if(read.isEmpty()) read = "E";
 
                 if(isPushDownAutomaton){
-                    pop = parsedTransition.getElementsByTagName("pop").item(0).getTextContent();
-                    push = parsedTransition.getElementsByTagName("push").item(0).getTextContent();
+                    pop = parsedTransition.getElementsByTagName("pop").item(0).getTextContent().replaceAll("\\s+", "");
+                    push = parsedTransition.getElementsByTagName("push").item(0).getTextContent().replaceAll("\\s+", "");
 
                     if(pop.isEmpty()) pop = "E";
                     if(push.isEmpty()) push = "E";
 
-                    for(char letter : pop.replaceAll("\\s+", "").toCharArray()) if('E' != letter) xmlStackAlphabet.add("" + letter);
-                    for(char letter : push.replaceAll("\\s+", "").toCharArray()) if('E' != letter) xmlStackAlphabet.add("" + letter);
+                    for(char letter : pop.toCharArray()) if('E' != letter) xmlStackAlphabet.add("" + letter);
+                    for(char letter : push.toCharArray()) if('E' != letter) xmlStackAlphabet.add("" + letter);
                 }
                 from = statesMap.get(fromId);
                 to = statesMap.get(toId);
@@ -194,23 +197,25 @@ public class SetsTest {
         String from = "", to = "", read = "", pop = "", push = "";
         Transition newTransition;
         State fromState, toState;
+        boolean hasUsedSquareBrackets = false;
         while(splitMatcher.find()){
             match = splitMatcher.group();
+            hasUsedSquareBrackets = match.startsWith("[");
             matcherTransition = getAtomarElementsFromSet.matcher(match);
             if(matcherTransition.find()){
-                from = matcherTransition.group().trim();
+                from = matcherTransition.group().replaceAll("\\s+", "");
             }
             if(matcherTransition.find()){
-                read = matcherTransition.group().trim();
+                read = matcherTransition.group().replaceAll("\\s+", "");
             }
             if(matcherTransition.find()){
-                pop = matcherTransition.group().trim();
+                pop = matcherTransition.group().replaceAll("\\s+", "");
             }
             if(matcherTransition.find()){
-                to = matcherTransition.group().trim();
+                to = matcherTransition.group().replaceAll("\\s+", "");
             }
             if(matcherTransition.find()){
-                push = matcherTransition.group().trim();
+                push = matcherTransition.group().replaceAll("\\s+", "");
             }
             fromState = states.get(from);
             toState = states.get(to);
@@ -222,6 +227,9 @@ public class SetsTest {
             else {
                 studentTransitions.add(newTransition);
             }
+        }
+        if(hasUsedSquareBrackets){
+            transitionsResult.addToComments(CommentMarker.SquareBrackets);
         }
 
         //Alphabet
@@ -252,7 +260,7 @@ public class SetsTest {
     }
 
     public void setStudentStatesSet( String studentStatesSet ) {
-        Matcher m = getAtomarSetsFromMultiSet.matcher(studentStatesSet);
+        Matcher m = cleanUpAtomarSet.matcher(studentStatesSet);
         if(m.find()) this.studentStatesSet = m.group();
     }
 
@@ -267,23 +275,23 @@ public class SetsTest {
             m = Pattern.compile("[a-z|A-Z]+[0-9]*").matcher(studentInitialsSet);
         }
         else {
-            m = getAtomarSetsFromMultiSet.matcher(studentInitialsSet);
+            m = cleanUpAtomarSet.matcher(studentInitialsSet);
         }
         if(m.find()) this.studentInitialsSet = m.group();
     }
 
     public void setStudentFinalsSet( String studentFinalsSet ) {
-        Matcher m = getAtomarSetsFromMultiSet.matcher(studentFinalsSet);
+        Matcher m = cleanUpAtomarSet.matcher(studentFinalsSet);
         if(m.find()) this.studentFinalsSet = m.group();
     }
 
     public void setStudentAlphabetSet( String studentAlphabetSet ) {
-        Matcher m = getAtomarSetsFromMultiSet.matcher(studentAlphabetSet);
+        Matcher m = cleanUpAtomarSet.matcher(studentAlphabetSet);
         if(m.find()) this.studentAlphabetSet = m.group();
     }
 
     public void setStudentStackAlphabetSet( String studentStackAlphabetSet ) {
-        Matcher m = getAtomarSetsFromMultiSet.matcher(studentStackAlphabetSet);
+        Matcher m = cleanUpAtomarSet.matcher(studentStackAlphabetSet);
         if(m.find()) this.studentStackAlphabetSet = m.group();
     }
 
