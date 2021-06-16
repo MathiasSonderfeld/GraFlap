@@ -26,7 +26,7 @@ import java.io.PrintStream;
  * - write a OutputBuilder for Tests that outputs an easier parsable format, csv or json maybe?
  * - test GraFLap.generateResult() with easier controllable Arguments Object and TestOutputBuilder
  */
-
+@Disabled
 public class OldGraFlapTest {
     private static PrintStream systemOut;
     private static final ByteArrayOutputStream capture = new ByteArrayOutputStream();

@@ -2,6 +2,7 @@ package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.TreeSet;
 
 public class SetResult<Generic> {
     private double score;
@@ -83,4 +84,7 @@ public class SetResult<Generic> {
     public int hashCode() {
         return Objects.hash(getScore(), getDoubles(), getMissing(), getSurplus(), getComments());
     }
+
+
+
 }

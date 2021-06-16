@@ -88,18 +88,13 @@ public class Transition implements Comparable{
     @Override
     public String toString(){
         StringBuilder transitionString = new StringBuilder();
-        transitionString.append("(").append(from).append(", ").append(read).append(", ").append(to);
+        transitionString.append("(").append(from).append(", ").append(read);
         if(pop != null && !"".equals(pop)){
             transitionString.append(", ").append(pop);
         }
-        else{
-            transitionString.append(",");
-        }
+        transitionString.append(", ").append(to);
         if(push != null && !"".equals(push)){
             transitionString.append(", ").append(push);
-        }
-        else{
-            transitionString.append(",");
         }
         transitionString.append(")");
         return transitionString.toString();

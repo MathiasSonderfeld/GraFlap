@@ -58,7 +58,7 @@ public class AnswerFactory {
             throw new GraFlapException("ERROR [AnswerFactory]: the answer to the mode could not be determined.");
         }
 
-        if(arguments.getTaskMode().isParameterized()){
+        if(arguments.getTaskMode().isParameterized() || arguments.getTaskMode() == TaskMode.AA){
             answerMessage.setStates(result.getStates());
             answerMessage.setInitials(result.getInitials());
             answerMessage.setFinals(result.getFinals());

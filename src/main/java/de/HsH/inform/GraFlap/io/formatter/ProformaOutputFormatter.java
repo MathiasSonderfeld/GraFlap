@@ -85,13 +85,16 @@ public class ProformaOutputFormatter implements OutputFormatter {
 
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
         buildMainTestResponse(testsResponse, answerMessage, svgAsString);
-        if(answerMessage.getTaskMode().isParameterized()){
+        if(answerMessage.getTaskMode().isParameterized() || answerMessage.getTaskMode() == TaskMode.AA){
             buildSetsTestResponse(testsResponse, "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
             buildSetsTestResponse(testsResponse, "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
             buildSetsTestResponse(testsResponse, "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());
             buildSetsTestResponse(testsResponse, "transitions", answerMessage.getTransitionsScore(), answerMessage.getTransitionsTeacherFeedback(), answerMessage.getTransitionsStudentFeedback());
             buildSetsTestResponse(testsResponse, "alphabet", answerMessage.getAlphabetScore(), answerMessage.getAlphabetTeacherFeedback(), answerMessage.getAlphabetStudentFeedback());
-            buildSetsTestResponse(testsResponse, "stackalphabet", answerMessage.getStackAlphabetScore(), answerMessage.getStackAlphabetTeacherFeedback(), answerMessage.getStackAlphabetStudentFeedback());
+            if(answerMessage.getTaskType().isPushDownAutomaton()){
+                buildSetsTestResponse(testsResponse, "stackalphabet", answerMessage.getStackAlphabetScore(), answerMessage.getStackAlphabetTeacherFeedback(), answerMessage.getStackAlphabetStudentFeedback());
+            }
+
         }
 
         createElement(response, "files");

@@ -20,4 +20,13 @@ public enum TaskType {
             default: return false;
         }
     }
+
+    public boolean isPushDownAutomaton(){
+        switch(this){
+            case PDA:
+            case DPDA:
+            case NPDA: return true;
+            default:   return false;
+        }
+    }
 }

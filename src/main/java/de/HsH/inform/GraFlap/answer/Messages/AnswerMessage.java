@@ -26,6 +26,7 @@ public abstract class AnswerMessage {
     protected final int percentOfTestWordsFailed;
     protected boolean hasPassed;
     protected TaskMode taskMode;
+    protected TaskType taskType;
     protected StringBuilder feedbackText;
     protected String svgTitle;
 
@@ -43,6 +44,7 @@ public abstract class AnswerMessage {
         this.feedbackText = new StringBuilder();
         this.svgImage = svg;
         this.taskMode = arguments.getTaskMode();
+        this.taskType = arguments.getTaskType();
 
         this.svgTitle = getLangDependentSvgTitle(lang);
         this.hasPassed = percentOfTestWordsFailed == 0;
@@ -258,6 +260,10 @@ public abstract class AnswerMessage {
 
     public TaskMode getTaskMode() {
         return taskMode;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     public String getFeedback() {

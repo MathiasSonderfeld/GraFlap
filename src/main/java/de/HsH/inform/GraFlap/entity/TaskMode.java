@@ -8,7 +8,7 @@ package de.HsH.inform.GraFlap.entity;
  */
 public enum TaskMode {
     ERROR,
-    AR, ART, AG, AGT, ARW, AGW, ARTW, AGTW, EAT,
+    AR, ART, AG, AGT, ARW, AGW, ARTW, AGTW, EAT, AA,
     ARP, ARTP, AGP, AGTP, ARWP, AGWP, ARTWP, AGTWP,
     GG, GGW, GGT, GGTW, EGT, GR, GRT, GRW, GRTW,
     WW,
@@ -18,6 +18,7 @@ public enum TaskMode {
 
     public boolean isAutomaton(){
         switch(this){
+            case AA:
             case AR:
             case ART:
             case AG:

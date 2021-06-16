@@ -10,6 +10,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.cyk.CYKScoringTest;
 import de.HsH.inform.GraFlap.scoring.derivation.DerivationScoringTest;
 import de.HsH.inform.GraFlap.test.AlphabetTest;
+import de.HsH.inform.GraFlap.test.AutomatonComparisonTest;
 import de.HsH.inform.GraFlap.test.SetsTest;
 import de.HsH.inform.GraFlap.test.WordTest;
 import de.HsH.inform.GraFlap.test.accepting.AutomatonRegexTest;
@@ -37,9 +38,25 @@ public class Grader {
      * @throws GraFlapException throws a {@link GraFlapException} if an error occurs
      */
     public static Result generateResult(Arguments arguments) throws GraFlapException {
+        Result result;
         Submission submission = new Submission();
         int percentageFailed = -1;
         TaskType submissionTaskType = TaskType.NON;
+
+
+        if(arguments.getTaskMode() == TaskMode.AA){
+            AutomatonComparisonTest automatonComparisonTest = new AutomatonComparisonTest(arguments.getSolution(), arguments.getStudentAnswer());
+            submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
+            result = new Result(submission, automatonComparisonTest.getTotalErrors(),arguments.getTaskType());
+            result.setStates(automatonComparisonTest.getStatesResult());
+            result.setInitials(automatonComparisonTest.getInitialsResult());
+            result.setFinals(automatonComparisonTest.getFinalsResult());
+            result.setAlphabet(automatonComparisonTest.getAlphabetResult());
+            result.setStackalphabet(automatonComparisonTest.getStackAlphabetResult());
+            result.setTransitions(automatonComparisonTest.getTransitionsResult());
+            return result;
+        }
+
         switch(arguments.getTaskMode()) {
             case ERROR:
                 throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
@@ -201,7 +218,8 @@ public class Grader {
                 submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
             }
         }
-        Result result = new Result(submission, percentageFailed, submissionTaskType);
+
+        result = new Result(submission, percentageFailed, submissionTaskType);
 
         if(arguments.getTaskMode().isParameterized()){
             SetsTest setsTest = new SetsTest();

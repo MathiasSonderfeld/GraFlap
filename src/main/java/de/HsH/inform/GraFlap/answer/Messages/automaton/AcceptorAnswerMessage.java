@@ -1,9 +1,6 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.Result;
-import de.HsH.inform.GraFlap.entity.TaskType;
-import de.HsH.inform.GraFlap.entity.UserLanguage;
+import de.HsH.inform.GraFlap.entity.*;
 import org.jdom2.Element;
 
 /**
@@ -32,13 +29,25 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Prozent der getesteten Worte haben den Test gegen den Automaten nicht bestanden.";
+        if(taskMode == TaskMode.AA){
+            switch(lang){
+                case German:
+                    return "Werte sind fehlerhaft.";
 
-            case English:
-            default:
-                return "percent of the tested words did not pass the test against the automaton.";
+                case English:
+                default:
+                    return "values are wrong.";
+            }
+        }
+        else{
+            switch(lang){
+                case German:
+                    return "Prozent der getesteten Worte haben den Test gegen den Automaten nicht bestanden.";
+
+                case English:
+                default:
+                    return "percent of the tested words did not pass the test against the automaton.";
+            }
         }
     }
 
