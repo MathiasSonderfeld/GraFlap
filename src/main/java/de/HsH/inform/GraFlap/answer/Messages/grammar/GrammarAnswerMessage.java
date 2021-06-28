@@ -1,11 +1,10 @@
 package de.HsH.inform.GraFlap.answer.Messages.grammar;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.Result;
-import de.HsH.inform.GraFlap.entity.TaskType;
-import de.HsH.inform.GraFlap.entity.UserLanguage;
+import de.HsH.inform.GraFlap.entity.*;
 import org.jdom2.Element;
+
+import java.util.Locale;
 
 /**
  * child class to generate the details of the message for grammars
@@ -21,37 +20,19 @@ public class GrammarAnswerMessage extends AnswerMessage {
 
     @Override
     protected String getLangDependentSvgTitle( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Grammatik";
-
-            case English:
-            default:
-                return "Grammar";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.GRAMMAR_Svgtitle));
     }
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Prozent der getesteten Worte haben den Test gegen die Grammatik nicht bestanden.";
-
-            case English:
-            default:
-                return "percent of the tested words did not pass the test against the grammar.";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.GRAMMAR_Feedback));
     }
 
     @Override
     protected boolean submissionMatchesTarget( TaskType solutionType, TaskType submissionTaskType) {
         if (solutionType != submissionTaskType) {
             if (!(solutionType == TaskType.RLCFG && (submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG))) {
-                if (lang == UserLanguage.German) {
-                    feedbackText.append("Die eingereichte Grammatik hat nicht den geforderten Typ. \n");
-                } else {
-                    feedbackText.append("Your grammar is not of the required solutionType. \n");
-                }
+                feedbackText.append(messages.getString(String.valueOf(AnswerMessages.GRAMMAR_Type)) + "\n");
                 return false;
             }
         }

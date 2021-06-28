@@ -2,10 +2,7 @@ package de.HsH.inform.GraFlap.answer.Messages.Error;
 
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.Result;
-import de.HsH.inform.GraFlap.entity.TaskType;
-import de.HsH.inform.GraFlap.entity.UserLanguage;
+import de.HsH.inform.GraFlap.entity.*;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 public class ErrorAnswerMessage extends AnswerMessage {
@@ -23,11 +20,11 @@ public class ErrorAnswerMessage extends AnswerMessage {
 
     @Override
     protected String getLangDependentSvgTitle( UserLanguage lang ) {
-        return "";
+        return messages.getString(String.valueOf(AnswerMessages.ERROR_Svgtitle));
     }
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
-        return "";
+        return messages.getString(String.valueOf(AnswerMessages.ERROR_Feedback));
     }
 }

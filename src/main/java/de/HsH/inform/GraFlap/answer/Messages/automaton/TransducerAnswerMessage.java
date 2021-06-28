@@ -1,10 +1,9 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.Result;
-import de.HsH.inform.GraFlap.entity.TaskType;
-import de.HsH.inform.GraFlap.entity.UserLanguage;
+import de.HsH.inform.GraFlap.entity.*;
 import org.jdom2.Element;
+
+import java.util.Locale;
 
 /**
  * child class to generate the details of the message for machines
@@ -20,26 +19,12 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
 
     @Override
     protected String getLangDependentSvgTitle( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Maschine";
-
-            case English:
-            default:
-                return "Machine";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.TRANSDUCER_Svgtitle));
     }
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Prozent der getesteten Worte haben den Test gegen die Maschine nicht bestanden.";
-
-            case English:
-            default:
-                return "percent of the tested words did not pass the test against the machine.";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.TRANSDUCER_Feedback));
     }
 
 
@@ -50,19 +35,11 @@ public class TransducerAnswerMessage extends AutomatonAnswerMessage {
         passed &= matchesTuringMachine(solutionType, submissionTaskType);
         if (solutionType == TaskType.MEALY && submissionTaskType != TaskType.MEALY) {
             passed = false;
-            if (lang == UserLanguage.German) {
-                feedbackText.append("Dies ist keine Mealy-Maschine. \n");
-            } else {
-                feedbackText.append("This is not a mealy machine. \n");
-            }
+            feedbackText.append(messages.getString(String.valueOf(AnswerMessages.TRANSDUCER_Mealy)) + "\n");
         }
         else if (solutionType == TaskType.MOORE && submissionTaskType != TaskType.MOORE) {
             passed = false;
-            if (lang == UserLanguage.German) {
-                feedbackText.append("Dies ist keine Moore-Maschine. \n");
-            } else {
-                feedbackText.append("This is not a moore machine. \n");
-            }
+            feedbackText.append(messages.getString(String.valueOf(AnswerMessages.TRANSDUCER_Moore)) + "\n");
         }
         return passed;
     }

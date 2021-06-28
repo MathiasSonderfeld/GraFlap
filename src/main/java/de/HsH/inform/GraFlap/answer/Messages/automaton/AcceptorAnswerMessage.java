@@ -3,6 +3,8 @@ package de.HsH.inform.GraFlap.answer.Messages.automaton;
 import de.HsH.inform.GraFlap.entity.*;
 import org.jdom2.Element;
 
+import java.util.Locale;
+
 /**
  * child class to generate the details of the message for accepting automatons
  * @author Benjamin Held (07-29-2016)
@@ -17,37 +19,16 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
 
     @Override
     protected String getLangDependentSvgTitle( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Automat";
-
-            case English:
-            default:
-                return "Automaton";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_Svgtitle));
     }
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
         if(taskMode == TaskMode.AA){
-            switch(lang){
-                case German:
-                    return "Werte sind fehlerhaft.";
-
-                case English:
-                default:
-                    return "values are wrong.";
-            }
+            return messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_AAFeedback));
         }
         else{
-            switch(lang){
-                case German:
-                    return "Prozent der getesteten Worte haben den Test gegen den Automaten nicht bestanden.";
-
-                case English:
-                default:
-                    return "percent of the tested words did not pass the test against the automaton.";
-            }
+            return messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_Feedback));
         }
     }
 
@@ -59,19 +40,11 @@ public class AcceptorAnswerMessage extends AutomatonAnswerMessage {
             passed = matchesDeterministic(taskType, submissionTaskType);
             if (isFiniteAutomaton(taskType) && !isFiniteAutomaton(submissionTaskType)) {
                 passed = false;
-                if (lang == UserLanguage.German) {
-                    feedbackText.append("Dies ist kein endlicher Automat. \n");
-                } else {
-                    feedbackText.append("This is not a finite automaton. \n");
-                }
+                feedbackText.append(messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_FAFeedback))+ "\n");
             }
             else if (isPushDownAutomaton(taskType) && !isPushDownAutomaton(submissionTaskType)) {
                 passed = false;
-                if (lang == UserLanguage.German) {
-                    feedbackText.append("Dies ist kein Kellerautomat. \n");
-                } else {
-                    feedbackText.append("This is not a push-down automaton. \n");
-                }
+                feedbackText.append(messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_PDAFeedback))+ "\n");
             } else if (!matchesTuringMachine(taskType, submissionTaskType)) {
                 passed = false;
             }

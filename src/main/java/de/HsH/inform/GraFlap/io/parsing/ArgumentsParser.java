@@ -5,6 +5,8 @@ import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 
+import java.util.Locale;
+
 /**
  * @author Mathias Sonderfeld
  * @version 0.5
@@ -15,12 +17,16 @@ public abstract class ArgumentsParser {
 
     public abstract Arguments parse(String[] args) throws GraFlapException;
 
+    protected Locale getLocale( String in){
+        return Locale.forLanguageTag(in);
+    }
+
     /**
      * method to parse the provided number of test words and check for a valid number
      * @param numberOfWordsAsString the string holding the number of test words
      * @throws GraFlapException if the parsing fails or the number is below 0 and so invalid
      */
-    public int parseAndCheckNumberOfWords( String numberOfWordsAsString ) throws GraFlapException {
+    protected int parseAndCheckNumberOfWords( String numberOfWordsAsString ) throws GraFlapException {
         int numberOfWords = -1;
         try {
             numberOfWords = Integer.parseInt(numberOfWordsAsString);
@@ -37,7 +43,7 @@ public abstract class ArgumentsParser {
      * method to check if test words are provided and if the number of provided words in the word string match the specified number of input words
      * @throws GraFlapException if the number of words does not match the number of words in the word string
      */
-    public void checkInputWords( int numberOfWords, String wordString ) throws GraFlapException {
+    protected void checkInputWords( int numberOfWords, String wordString ) throws GraFlapException {
         boolean ok = false;
         if(wordString != null) {
             if(wordString.equals("-")) {
@@ -67,7 +73,7 @@ public abstract class ArgumentsParser {
      * @param type the type to verify
      * @throws GraFlapException if mismatch is found
      */
-    public void checkCorrectModeAndType( TaskMode mode, TaskType type ) throws GraFlapException {
+    protected void checkCorrectModeAndType( TaskMode mode, TaskType type ) throws GraFlapException {
         if(mode == null) { throw new GraFlapException("Mode-Setting is wrong"); }
 
         if(type == null) { throw new GraFlapException("AgType-Setting is wrong"); }

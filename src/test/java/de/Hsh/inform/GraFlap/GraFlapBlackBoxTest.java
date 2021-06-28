@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
 
 public class GraFlapBlackBoxTest {
 
@@ -15,7 +17,7 @@ public class GraFlapBlackBoxTest {
     void testTuringForSpMTp2M() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Turing-Automat fuer s^m t^{2 m}");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> s tt | s S t t");
         arguments.setTaskMode(TaskMode.AGTW);
         arguments.setTaskType(TaskType.DTM);
@@ -37,7 +39,7 @@ public class GraFlapBlackBoxTest {
     void testAutomatonForEvenNumberOfW() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Automat fuer gerade Anzahl von w");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("x*(x*wx*wx*)*");
         arguments.setTaskMode(TaskMode.ARTW);
         arguments.setTaskType(TaskType.DFA);
@@ -59,7 +61,7 @@ public class GraFlapBlackBoxTest {
     void testAutomatonForBinaryNumbers() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Automat fuer den Vergleich von Dualzahlen");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("(00|11)*10(00|01|10|11)*");
         arguments.setTaskMode(TaskMode.ARTW);
         arguments.setTaskType(TaskType.FA);
@@ -81,7 +83,7 @@ public class GraFlapBlackBoxTest {
     void testContextFreeGrammar() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Beispiel fuer eine kontextfreie Grammatik");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("n,o,p");
         arguments.setTaskMode(TaskMode.EGT);
         arguments.setTaskType(TaskType.CFG);
@@ -103,7 +105,7 @@ public class GraFlapBlackBoxTest {
     void testNonContextFreeGrammar() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Beispiel fuer eine nicht kontextfreie Grammatik");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("u,v,w");
         arguments.setTaskMode(TaskMode.EGT);
         arguments.setTaskType(TaskType.NCFG);
@@ -125,7 +127,7 @@ public class GraFlapBlackBoxTest {
     void testRightRegularGrammar() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Beispiel fuer eine rechtslineare Grammatik");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("h,i,j");
         arguments.setTaskMode(TaskMode.EGT);
         arguments.setTaskType(TaskType.RL);
@@ -147,7 +149,7 @@ public class GraFlapBlackBoxTest {
     void testContextFreeGrammarForGivenLanguage() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Kontextfreie Grammatik fuer gegebene Sprache");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> T|V, T -> ef | e T f, V -> eef | ee V f");
         arguments.setTaskMode(TaskMode.GGTW);
         arguments.setTaskType(TaskType.CFG);
@@ -169,7 +171,7 @@ public class GraFlapBlackBoxTest {
     void testGrammarForIntegers() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Grammatik fuer ganze Zahlen");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D | -P, P ->  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D , D ->  0| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0D | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D");
         arguments.setTaskMode(TaskMode.GGTW);
         arguments.setTaskType(TaskType.RL);
@@ -191,7 +193,7 @@ public class GraFlapBlackBoxTest {
     void testAutomatonForGivenLanguage() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Automat fuer gegebene Sprache");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> A, A -> x B|y C, B -> x A|y D,C -> x D|y F, D -> x C|y G, F -> x G|y H, G -> x F|y J, H -> x J| y H | E, J -> x H|y J");
         arguments.setTaskMode(TaskMode.AGTW);
         arguments.setTaskType(TaskType.FA);
@@ -213,7 +215,7 @@ public class GraFlapBlackBoxTest {
     void testAutomatonForRegex() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Automat fuer e^n f^n");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S->eSf|ef");
         arguments.setTaskMode(TaskMode.AGTW);
         arguments.setTaskType(TaskType.PDA);
@@ -236,7 +238,7 @@ public class GraFlapBlackBoxTest {
     void testAutomatonForCombinedLanguage() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Automat fuer Worte einer zusammengesetzten Sprache");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("(g|h)*|(hi)*");
         arguments.setTaskMode(TaskMode.ART);
         arguments.setTaskType(TaskType.FA);
@@ -262,7 +264,7 @@ public class GraFlapBlackBoxTest {
     void testGrammarForGivenLanguage() {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("Grammatik fuer Sprache (enthaelt nicht ef)");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("e*|(f|g)*e*((g+f*)*e*)*");
         arguments.setTaskMode(TaskMode.GRTW);
         arguments.setTaskType(TaskType.RL);

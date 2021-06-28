@@ -6,6 +6,8 @@ import de.HsH.inform.GraFlap.entity.TaskType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
 public class LoncapaParserTest {
     LoncapaParser loncapaParser = new LoncapaParser();
 
@@ -13,7 +15,7 @@ public class LoncapaParserTest {
     void testFine(){
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("LoncapaParserTest OK");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setTaskMode(TaskMode.GG);
         arguments.setTaskType(TaskType.CFG);
         arguments.setSolution("ThisIsGiven");

@@ -7,6 +7,8 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
 
 public class ProformaParserTest {
     ProformaParser proformaParser = new ProformaParser();
@@ -15,7 +17,7 @@ public class ProformaParserTest {
     void testSuccess(){
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("LoncapaParserTest OK");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setTaskMode(TaskMode.GG);
         arguments.setTaskType(TaskType.CFG);
         arguments.setSolution("ThisIsGiven");
@@ -31,7 +33,7 @@ public class ProformaParserTest {
     void testSetsSuccess() throws GraFlapException {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle("LoncapaParserTest OK");
-        arguments.setUserLanguage("de");
+        arguments.setUserLanguage(Locale.GERMAN);
         arguments.setTaskMode(TaskMode.AGP);
         arguments.setTaskType(TaskType.DFA);
         arguments.setSolution("ThisIsGiven");

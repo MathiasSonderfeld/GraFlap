@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.answer.Messages.grammar;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.AnswerMessages;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Result;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
@@ -20,25 +21,11 @@ public class WordAnswerMessage extends AnswerMessage {
 
     @Override
     protected String getLangDependentSvgTitle( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Worte";
-
-            case English:
-            default:
-                return "Words";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.WORD_Svgtitle));
     }
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Prozent der getesteten Worte haben den Test nicht bestanden.";
-
-            case English:
-            default:
-                return "percent of the tested words did not pass the test.";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.WORD_Feedback));
     }
 }

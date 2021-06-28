@@ -1,5 +1,7 @@
 package de.HsH.inform.GraFlap.entity;
 
+import java.util.Locale;
+
 /**
  * Data-Structure Class for program arguments.
  * Input-Processing moved to ArgumentsParser.
@@ -10,7 +12,7 @@ package de.HsH.inform.GraFlap.entity;
  */
 public class Arguments {
     private String taskTitle = "";
-    private String userLanguage = "";
+    private Locale userLanguage = Locale.ROOT;
     private String solution = "";
     private String wordString = "";
     private int numberOfWords = -1;
@@ -41,11 +43,11 @@ public class Arguments {
         this.taskTitle = taskTitle;
     }
 
-    public String getUserLanguage() {
+    public Locale getUserLanguage() {
         return userLanguage;
     }
 
-    public void setUserLanguage( String userLanguage ) {
+    public void setUserLanguage( Locale userLanguage ) {
         this.userLanguage = userLanguage;
     }
 

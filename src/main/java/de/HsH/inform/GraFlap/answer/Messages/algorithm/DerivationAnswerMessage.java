@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.answer.Messages.algorithm;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.AnswerMessages;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Result;
 import de.HsH.inform.GraFlap.entity.UserLanguage;
@@ -20,25 +21,11 @@ public class DerivationAnswerMessage extends AnswerMessage {
 
     @Override
     protected String getLangDependentSvgTitle( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Wortableitung";
-
-            case English:
-            default:
-                return "Word derivation";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.DERIVATION_Svgtitle));
     }
 
     @Override
     protected String getLangDependentFeedback( UserLanguage lang ) {
-        switch(lang){
-            case German:
-                return "Prozent der Ableitungsschritte haben den Test nicht bestanden.";
-
-            case English:
-            default:
-                return "percent of the derivation steps did not pass the test.";
-        }
+        return messages.getString(String.valueOf(AnswerMessages.DERIVATION_Feedback));
     }
 }

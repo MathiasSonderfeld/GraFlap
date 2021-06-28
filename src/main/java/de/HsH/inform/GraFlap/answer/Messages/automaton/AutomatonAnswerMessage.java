@@ -1,15 +1,10 @@
 package de.HsH.inform.GraFlap.answer.Messages.automaton;
 
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.Result;
-import de.HsH.inform.GraFlap.entity.TaskType;
-import de.HsH.inform.GraFlap.entity.UserLanguage;
+import de.HsH.inform.GraFlap.entity.*;
 import org.jdom2.Element;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.Locale;
 
 /**
  * abstract class that serves as a parent to generate the answer message for automatons
@@ -31,11 +26,7 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      */
     boolean matchesDeterministic(TaskType taskType, TaskType submissionTaskType) {
         if (taskType.isDeterministic() && submissionTaskType.isNonDeterministic()) {
-            if (lang == UserLanguage.German) {
-                feedbackText.append("Ihr Automat ist nicht deterministisch. \n");
-            } else {
-                feedbackText.append("Your automaton is not determinisitic. \n");
-            }
+            feedbackText.append(messages.getString(String.valueOf(AnswerMessages.AUTOMATON_MatchesDeterministic)) + "\n");
             return false;
         }
         return true;
@@ -49,11 +40,7 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      */
     boolean matchesTuringMachine(TaskType taskType, TaskType submissionTaskType) {
         if (isTuring(taskType) && !isTuring(submissionTaskType)){
-            if (lang == UserLanguage.German) {
-                feedbackText.append("Dies ist kein Turing-").append(svgTitle.toLowerCase()).append(". \n");
-            } else {
-                feedbackText.append("This is not a Turing ").append(svgTitle.toLowerCase()).append(". \n");
-            }
+            feedbackText.append(messages.getString(String.valueOf(AnswerMessages.AUTOMATON_IsTuring)) + "\n");
             return false;
         }
         return true;
@@ -103,11 +90,7 @@ public abstract class AutomatonAnswerMessage extends AnswerMessage {
      */
     void matchesNonDeterministic( TaskType taskType, TaskType submissionTaskType) {
         if (taskType.isNonDeterministic() && submissionTaskType.isDeterministic()) {
-            if (lang == UserLanguage.German) {
-                feedbackText.append("Ihr Automat ist eigentlich deterministisch. \n");
-            } else {
-                feedbackText.append("Actually, your automaton is deterministic. \n");
-            }
+            feedbackText.append(messages.getString(String.valueOf(AnswerMessages.AUTOMATON_MatchesNotDeterministic)) + "\n");
         }
     }
 }

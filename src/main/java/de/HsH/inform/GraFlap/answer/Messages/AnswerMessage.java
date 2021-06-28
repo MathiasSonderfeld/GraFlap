@@ -9,6 +9,8 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 /**
@@ -20,8 +22,10 @@ import java.util.ArrayList;
  * @version 0.5
  */
 public abstract class AnswerMessage {
+    protected ResourceBundle messages;
+
     protected String taskTitle;
-    protected UserLanguage lang;
+    protected Locale userLocale;
     protected final Element svgImage;
     protected final int percentOfTestWordsFailed;
     protected boolean hasPassed;
@@ -38,22 +42,29 @@ public abstract class AnswerMessage {
     private SetResult<Transition> transitions = null;
 
     public AnswerMessage(Result result, Arguments arguments, Element svg) {
+        ResourceBundle.Control control = new ResourceBundle.Control(){
+            @Override
+            public Locale getFallbackLocale(String baseName, Locale locale){
+                return Locale.ROOT;
+            }
+        };
+
         this.taskTitle = arguments.getTaskTitle();
         this.percentOfTestWordsFailed = result.getPercentageFailed();
-        this.lang = UserLanguage.get(arguments.getUserLanguage());
+        this.userLocale = arguments.getUserLanguage();
         this.feedbackText = new StringBuilder();
         this.svgImage = svg;
         this.taskMode = arguments.getTaskMode();
         this.taskType = arguments.getTaskType();
-
-        this.svgTitle = getLangDependentSvgTitle(lang);
+        messages = ResourceBundle.getBundle("GraFlapAnswerMessage", userLocale, control);
+        this.svgTitle = getLangDependentSvgTitle(UserLanguage.get(userLocale.toLanguageTag()));
         this.hasPassed = percentOfTestWordsFailed == 0;
         this.hasPassed &= submissionMatchesTarget(arguments.getTaskType(), result.getsubmissionTaskType());
         if(percentOfTestWordsFailed < 0){ //Error
             this.feedbackText.append(result.getsubmissionTaskType());
         }
         else if(!this.hasPassed){
-            this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getLangDependentFeedback(lang));
+            this.feedbackText.append(percentOfTestWordsFailed).append(" ").append(getLangDependentFeedback(UserLanguage.get(userLocale.toLanguageTag())));
         }
     }
 
@@ -111,8 +122,8 @@ public abstract class AnswerMessage {
             feedback.append(name).append(": ");
             switch(marker){
                 case SquareBrackets:
-                    switch(this.lang){
-                        case German:
+                    switch(this.userLocale.getLanguage()){
+                        case "de":
                           feedback.append("Du hast eckige Klammern verwendet, korrekt wären runde Klammern. Kein Punktabzug.");
                           break;
                         default:
@@ -127,8 +138,8 @@ public abstract class AnswerMessage {
         if(errors > 0){
             if(addedComments) feedback.append(" ");
             else feedback.append(name).append(": ");
-            switch(this.lang){
-                case German:
+            switch(this.userLocale.getLanguage()){
+                case "de":
                     feedback.append(errors).append(" Fehler. Keine Punkte für diesen Aufgabenteil.");
                     break;
                 default:
@@ -145,8 +156,8 @@ public abstract class AnswerMessage {
 
             if(errors > 0 || addedComments) feedback.append(" ");
             else feedback.append(name).append(": ");
-            switch(this.lang){
-                case German:
+            switch(this.userLocale.getLanguage()){
+                case "de":
                     feedback.append("Duplikate: ").append(doubles);
                     break;
                 default:

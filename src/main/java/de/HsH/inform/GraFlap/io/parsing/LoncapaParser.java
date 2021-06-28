@@ -27,7 +27,7 @@ public class LoncapaParser extends ArgumentsParser{
         arguments.setStudentAnswer(args[1]);
 
         arguments.setTaskTitle(taskArguments[0]);
-        arguments.setUserLanguage(taskArguments[1]);
+        arguments.setUserLanguage(getLocale(taskArguments[1]));
         arguments.setSolution(taskArguments[2]);
         int numberOfWords = parseAndCheckNumberOfWords(taskArguments[5]);
         String inputWords = taskArguments[6];
