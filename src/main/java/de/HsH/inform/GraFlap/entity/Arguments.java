@@ -9,21 +9,21 @@ package de.HsH.inform.GraFlap.entity;
  * @version 0.1.3
  */
 public class Arguments {
-    private String taskTitle;
-    private String userLanguage;
-    private String solution;
-    private String wordString;
-    private int numberOfWords;
-    private String studentAnswer;
-    private TaskMode taskMode;
-    private TaskType taskType;
+    private String taskTitle = "";
+    private String userLanguage = "";
+    private String solution = "";
+    private String wordString = "";
+    private int numberOfWords = -1;
+    private String studentAnswer = "";
+    private TaskMode taskMode = TaskMode.ERROR;
+    private TaskType taskType = TaskType.ERROR;
 
-    private String states;
-    private String initials;
-    private String finals;
-    private String alphabet;
-    private String stackalphabet;
-    private String transitions;
+    private String states = "";
+    private String initials = "";
+    private String finals = "";
+    private String alphabet = "";
+    private String stackalphabet = "";
+    private String transitions = "";
 
     public TaskType getTaskType() {
         return taskType;

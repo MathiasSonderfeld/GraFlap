@@ -19,6 +19,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Date;
 
 import de.HsH.inform.GraFlap.answer.AnswerFactory;
 import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
@@ -46,6 +47,7 @@ import org.jdom2.Element;
  */
 public class GraFlap {
     public static final boolean printAsACII = true;
+    private static long programStart;
 
     /**
      * Grades a submission for a theoretical computer science task
@@ -64,6 +66,21 @@ public class GraFlap {
      *             Example: "Beispiel fuer eine kontextfreie Grammatik#de#n,o,p#egt#cfg#0#-" "S -> E | p | n S o"
      */
     public static void main(String[] args) {
+        Thread timer = new Thread(){
+         public void run(){
+             while(true){
+                 try{
+                     System.err.println(new Date());
+                     Thread.sleep(5000);
+                 }
+                 catch(InterruptedException e){
+                     break;
+                 }
+             }
+         }
+        };
+        timer.start();
+        programStart = System.currentTimeMillis();
         Arguments arguments = null;
         OutputFormatter outputFormatter = null;
         ArgumentsParser parser = null;
@@ -106,8 +123,15 @@ public class GraFlap {
             }
         }
         finally {
+            timer.interrupt();
+            try {
+                timer.join();
+            }catch(InterruptedException e) {
+                e.printStackTrace();
+            }
             if(outputFormatter != null && answerMessage != null){
                 System.out.println(outputFormatter.format(answerMessage));
+                System.err.println(System.currentTimeMillis()-programStart);
             }
         }
     }

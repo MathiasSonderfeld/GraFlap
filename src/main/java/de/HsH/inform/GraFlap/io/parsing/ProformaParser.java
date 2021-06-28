@@ -47,7 +47,8 @@ public class ProformaParser extends ArgumentsParser{
                                                     .filter(byName("files")).flatMap(toChildElements)
                                                     .filter(byAttribute("id","graflap-arguments")).flatMap(toChildElements)
                                                     .filter(byName("embedded")).flatMap(toChildNodes)
-                                                    .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                    .filter(byIsCDATAOrText).findFirst().get().getTextContent();
+
 
             List<Element> submissionFiles = submissionAsList.stream()
                                                           .flatMap(toChildElements)
@@ -56,7 +57,7 @@ public class ProformaParser extends ArgumentsParser{
 
             String studentAnswer = submissionFiles.stream().filter(byAttribute("id","studentAnswer")).flatMap(toChildElements)
                                                   .filter(byName("embedded")).flatMap(toChildNodes)
-                                                  .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                  .filter(byIsCDATAOrText).findFirst().get().getTextContent();
 
             arguments = new LoncapaParser().parse(new String[]{graflapArguments, studentAnswer});
 
@@ -68,32 +69,32 @@ public class ProformaParser extends ArgumentsParser{
 
                 String states = otherEmbeddedFiles.stream()
                                                   .filter(byAttribute("filename", "states")).flatMap(toChildNodes)
-                                                  .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                  .filter(byIsCDATAOrText).findFirst().get().getTextContent();
                 arguments.setStates(states);
 
                 String initials = otherEmbeddedFiles.stream()
                                                     .filter(byAttribute("filename", "initials")).flatMap(toChildNodes)
-                                                    .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                    .filter(byIsCDATAOrText).findFirst().get().getTextContent();
                 arguments.setInitials(initials);
 
                 String finals = otherEmbeddedFiles.stream()
                                                   .filter(byAttribute("filename", "finals")).flatMap(toChildNodes)
-                                                  .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                  .filter(byIsCDATAOrText).findFirst().get().getTextContent();
                 arguments.setFinals(finals);
 
                 String alphabet = otherEmbeddedFiles.stream()
                                                     .filter(byAttribute("filename", "alphabet")).flatMap(toChildNodes)
-                                                    .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                    .filter(byIsCDATAOrText).findFirst().get().getTextContent();
                 arguments.setAlphabet(alphabet);
 
                 String stackalphabet = otherEmbeddedFiles.stream()
                                                          .filter(byAttribute("filename", "stackalphabet")).flatMap(toChildNodes)
-                                                         .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                         .filter(byIsCDATAOrText).findFirst().get().getTextContent();
                 arguments.setStackalphabet(stackalphabet);
 
                 String transitions = otherEmbeddedFiles.stream()
                                                          .filter(byAttribute("filename", "transitions")).flatMap(toChildNodes)
-                                                         .filter(byIsCDATA).findFirst().get().getTextContent();
+                                                         .filter(byIsCDATAOrText).findFirst().get().getTextContent();
                 arguments.setTransitions(transitions);
             }
         }

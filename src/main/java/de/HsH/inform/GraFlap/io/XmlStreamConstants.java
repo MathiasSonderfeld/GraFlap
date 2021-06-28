@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 
 public class XmlStreamConstants {
     public static final Predicate<Node> byIsElement = node -> node.getNodeType() == Node.ELEMENT_NODE;
-    public static final Predicate<Node> byIsCDATA = node -> node.getNodeType() == Node.CDATA_SECTION_NODE;
+    public static final Predicate<Node> byIsCDATAOrText = node -> node.getNodeType() == Node.CDATA_SECTION_NODE ||
+                                                                  (node.getNodeType() == Node.TEXT_NODE && node.getTextContent().trim().length() > 0);
     public static final Function<Node, Element> toElement = node -> (Element) node;
     public static final Function<Node, Stream<Node>> toChildNodes = element -> getNodeListAsList(element.getChildNodes()).stream();
     public static final Function<Node, Stream<Element>> toChildElements = element -> toChildNodes.apply(element).filter(byIsElement).map(toElement);
@@ -22,7 +23,7 @@ public class XmlStreamConstants {
     }
 
     public static Predicate<Element> byAttribute(String attributeName, String attributeValue){
-        return element -> element.getAttribute(attributeName).equals(attributeValue);
+        return element -> element.getAttribute(attributeName).contains(attributeValue);
     }
 
     public static ArrayList<Node> getNodeListAsList( NodeList nodeList){
