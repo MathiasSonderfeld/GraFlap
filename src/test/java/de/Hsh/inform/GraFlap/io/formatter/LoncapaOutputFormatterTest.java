@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.io.formatter;
 
-import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import org.jdom2.Element;
 import org.junit.jupiter.api.Assertions;

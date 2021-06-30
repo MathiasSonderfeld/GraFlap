@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap;
 
-import de.HsH.inform.GraFlap.answer.Messages.AnswerMessage;
+import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.entity.TaskType;

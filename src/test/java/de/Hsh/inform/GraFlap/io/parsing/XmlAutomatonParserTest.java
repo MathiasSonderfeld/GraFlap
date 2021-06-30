@@ -6,6 +6,8 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.TreeSet;
 
 public class XmlAutomatonParserTest {
@@ -72,6 +74,11 @@ public class XmlAutomatonParserTest {
 
     @Test
     void testFail() {
-        Assertions.assertThrows(GraFlapException.class, () -> new XmlAutomatonParser(""));
+        Assertions.assertThrows(GraFlapException.class, () -> {
+            PrintStream errbak = System.err;
+            System.setErr(new PrintStream(new ByteArrayOutputStream()));
+            new XmlAutomatonParser("");
+            System.setErr(errbak);
+        });
     }
 }

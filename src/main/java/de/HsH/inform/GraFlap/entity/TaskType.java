@@ -21,12 +21,30 @@ public enum TaskType {
         }
     }
 
+    public boolean isFiniteAutomaton(){
+        switch(this){
+            case FA:
+            case DFA:
+            case NFA: return true;
+            default:  return false;
+        }
+    }
+
     public boolean isPushDownAutomaton(){
         switch(this){
             case PDA:
             case DPDA:
             case NPDA: return true;
             default:   return false;
+        }
+    }
+
+    public boolean isTuring(){
+        switch(this){
+            case TM:
+            case DTM:
+            case NTM: return true;
+            default:  return false;
         }
     }
 }
