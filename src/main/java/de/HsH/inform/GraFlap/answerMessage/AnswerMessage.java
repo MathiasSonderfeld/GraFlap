@@ -76,13 +76,13 @@ public class AnswerMessage {
         switch(this.taskMode){
             //Grammar
             case GG: case GGW: case GGT: case GGTW: case EGT: case GR: case GRT: case GRW: case GRTW:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.GRAMMAR_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.GRAMMAR_Svgtitle.name());
                 if (this.taskType != result.getsubmissionTaskType() && !(this.taskType == TaskType.RLCFG && (result.getsubmissionTaskType() == TaskType.RL || result.getsubmissionTaskType() == TaskType.CFG))) {
-                    this.aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.GRAMMAR_Type)));
+                    this.aditionalFeedback.append(messages.getString(FeedbackMessage.GRAMMAR_Type.name()));
                     this.hasPassed = false;
                 }
                 if(!this.hasPassed){
-                    message = String.format(format, percentOfTestWordsFailed, messages.getString(AnswerMessages.GRAMMAR_Feedback.toString()));
+                    message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.GRAMMAR_Feedback.toString()));
                     feedback.append(message);
                     if(aditionalFeedback.length() > 0){
                         feedback.append(aditionalFeedbackDelimiter).append(aditionalFeedback);
@@ -95,72 +95,72 @@ public class AnswerMessage {
             case ARP: case ARTP: case AGP: case AGTP: case ARWP: case AGWP: case ARTWP: case AGTWP:
                 setSetResults(result);
             case AR: case ART: case AG: case AGT: case ARW: case AGW: case ARTW: case AGTW: case EAT:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
                 this.hasPassed &= automatonSubmissionMatchesType(this.taskType, result.getsubmissionTaskType());
 
                 if(!this.hasPassed){
-                    message = String.format(format, percentOfTestWordsFailed, messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_Feedback)));
+                    message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.ACCEPTOR_Feedback.name()));
                     feedback.append(message).append(aditionalFeedbackDelimiter).append(aditionalFeedback);
                 }
                 break;
 
             //Automaton Automaton comparison
             case AA:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
                 setSetResults(result);
                 if(!this.hasPassed){
-                    message = String.format(format, percentOfTestWordsFailed, messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_AAFeedback)));
+                    message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.ACCEPTOR_AAFeedback.name()));
                     feedback.append(message);
                 }
                 break;
 
             case MP: case MMW:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.TRANSDUCER_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.TRANSDUCER_Svgtitle.name());
                 if(this.taskMode.isTyped()) this.hasPassed &= automatonIsDeterministic(this.taskType, result.getsubmissionTaskType());
                 this.hasPassed &= automatonIsTuring(this.taskType, result.getsubmissionTaskType());
                 if (this.taskType == TaskType.MEALY && result.getsubmissionTaskType() != TaskType.MEALY) {
-                    aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.TRANSDUCER_Mealy)));
+                    aditionalFeedback.append(messages.getString(FeedbackMessage.TRANSDUCER_Mealy.name()));
                     this.hasPassed = false;
                 }
                 else if (this.taskType == TaskType.MOORE && result.getsubmissionTaskType() != TaskType.MOORE) {
-                    aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.TRANSDUCER_Moore)));
+                    aditionalFeedback.append(messages.getString(FeedbackMessage.TRANSDUCER_Moore.name()));
                     this.hasPassed = false;
                 }
                 if(!this.hasPassed){
-                    message = messages.getString(AnswerMessages.TRANSDUCER_Feedback.toString());
+                    message = messages.getString(FeedbackMessage.TRANSDUCER_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
                     this.feedback.append(aditionalFeedbackDelimiter).append(aditionalFeedback);
                 }
                 break;
 
             case WW:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.WORD_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.WORD_Svgtitle.name());
                 if(!this.hasPassed){
-                    message = messages.getString(AnswerMessages.WORD_Feedback.toString());
+                    message = messages.getString(FeedbackMessage.WORD_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
                 }
                 break;
 
             case CYK:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.CYK_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.CYK_Svgtitle.name());
                 if(!this.hasPassed){
-                    message = messages.getString(AnswerMessages.CYK_Feedback.toString());
+                    message = messages.getString(FeedbackMessage.CYK_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
                 }
                 break;
 
             case DER:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.DERIVATION_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.DERIVATION_Svgtitle.name());
                 if(!this.hasPassed){
-                    message = messages.getString(AnswerMessages.DERIVATION_Feedback.toString());
+                    message = messages.getString(FeedbackMessage.DERIVATION_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
                 }
                 break;
 
             case SVGA: case SVGG:
-                this.svgTitle = messages.getString(String.valueOf(AnswerMessages.SVG_Svgtitle));
+                this.svgTitle = messages.getString(FeedbackMessage.SVG_Svgtitle.name());
                 if(!this.hasPassed){
-                    message = messages.getString(AnswerMessages.SVG_Feedback.toString());
+                    message = messages.getString(FeedbackMessage.SVG_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
                 }
                 break;
@@ -180,10 +180,10 @@ public class AnswerMessage {
 
     private boolean automatonIsDeterministic(TaskType solutionTaskType, TaskType submissionTaskType) {
         if (solutionTaskType.isNonDeterministic() && submissionTaskType.isDeterministic()) {
-            aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.AUTOMATON_MatchesNotDeterministic)));
+            aditionalFeedback.append(messages.getString(FeedbackMessage.AUTOMATON_MatchesNotDeterministic.name()));
         }
         else if (solutionTaskType.isDeterministic() && submissionTaskType.isNonDeterministic()) {
-            aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.AUTOMATON_MatchesDeterministic)));
+            aditionalFeedback.append(messages.getString(FeedbackMessage.AUTOMATON_MatchesDeterministic.name()));
             return false;
         }
         return true;
@@ -191,7 +191,7 @@ public class AnswerMessage {
 
     private boolean automatonIsTuring(TaskType solutionTaskType, TaskType submissionTaskType){
         if (solutionTaskType.isTuring() && !submissionTaskType.isTuring()){
-            aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.AUTOMATON_IsTuring))).append(" ").append(this.svgTitle);
+            aditionalFeedback.append(messages.getString(FeedbackMessage.AUTOMATON_IsTuring.name())).append(" ").append(this.svgTitle);
             return false;
         }
         return true;
@@ -202,11 +202,11 @@ public class AnswerMessage {
         if (taskMode.isTyped()) {
             passed = automatonIsDeterministic(solutionTaskType, submissionTaskType);
             if (solutionTaskType.isFiniteAutomaton() && !submissionTaskType.isFiniteAutomaton()) {
-                aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_FAFeedback)));
+                aditionalFeedback.append(messages.getString(FeedbackMessage.ACCEPTOR_FAFeedback.name()));
                 return false;
             }
             else if (solutionTaskType.isPushDownAutomaton() && !submissionTaskType.isPushDownAutomaton()) {
-                aditionalFeedback.append(messages.getString(String.valueOf(AnswerMessages.ACCEPTOR_PDAFeedback)));
+                aditionalFeedback.append(messages.getString(FeedbackMessage.ACCEPTOR_PDAFeedback.name()));
                 return false;
             }
             else
@@ -259,14 +259,7 @@ public class AnswerMessage {
             feedback.append(name).append(": ");
             switch(marker){
                 case SquareBrackets:
-                    switch(this.userLocale.getLanguage()){
-                        case "de":
-                          feedback.append("Du hast eckige Klammern verwendet, korrekt wären runde Klammern. Kein Punktabzug.");
-                          break;
-                        default:
-                            feedback.append("You used square brackets, round brackets would be correct. No point deduction.");
-                            break;
-                    }
+                    feedback.append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_SQUAREBRACKETS.name()));
                     break;
             }
         }
@@ -275,13 +268,7 @@ public class AnswerMessage {
         if(errors > 0){
             if(addedComments) feedback.append(" ");
             else feedback.append(name).append(": ");
-            switch(this.userLocale.getLanguage()){
-                case "de":
-                    feedback.append(errors).append(" Fehler. Keine Punkte für diesen Aufgabenteil.");
-                    break;
-                default:
-                    feedback.append(errors).append(" mistakes. No points for this part.");
-            }
+            feedback.append(errors).append(" ").append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_ERRORS.name()));
         }
         ArrayList<T> tmp = result.getDoubles();
         if(tmp.size() > 0){
@@ -293,13 +280,7 @@ public class AnswerMessage {
 
             if(errors > 0 || addedComments) feedback.append(" ");
             else feedback.append(name).append(": ");
-            switch(this.userLocale.getLanguage()){
-                case "de":
-                    feedback.append("Duplikate: ").append(doubles);
-                    break;
-                default:
-                    feedback.append("Duplicates: ").append(doubles);
-            }
+            feedback.append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_DUPLICATES.name())).append(" ").append(doubles);
         }
         if(GraFlap.printAsACII) return replaceGermanCharacters(feedback.toString());
         return feedback.toString();

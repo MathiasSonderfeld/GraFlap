@@ -37,9 +37,9 @@ public class AnswerMessageDeTypeTest {
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
 
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.GRAMMAR_Feedback.name()));
+        s.append(resourceBundle.getString(FeedbackMessage.GRAMMAR_Feedback.name()));
 
-        Assertions.assertEquals(resourceBundle.getString(AnswerMessages.GRAMMAR_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(resourceBundle.getString(FeedbackMessage.GRAMMAR_Svgtitle.name()), answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
     }
 
@@ -49,11 +49,11 @@ public class AnswerMessageDeTypeTest {
         arguments.setTaskType(TaskType.NFA);
         result = new Result(submission, numberOfWordsFailed, TaskType.DFA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = resourceBundle.getString(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(resourceBundle.getString(AnswerMessages.AUTOMATON_MatchesNotDeterministic.name()));
+        s.append(resourceBundle.getString(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(resourceBundle.getString(FeedbackMessage.AUTOMATON_MatchesNotDeterministic.name()));
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
@@ -65,11 +65,11 @@ public class AnswerMessageDeTypeTest {
         arguments.setTaskType(TaskType.DFA);
         result = new Result(submission, numberOfWordsFailed, TaskType.NFA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = resourceBundle.getString(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(resourceBundle.getString(AnswerMessages.AUTOMATON_MatchesDeterministic.name()));
+        s.append(resourceBundle.getString(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(resourceBundle.getString(FeedbackMessage.AUTOMATON_MatchesDeterministic.name()));
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());

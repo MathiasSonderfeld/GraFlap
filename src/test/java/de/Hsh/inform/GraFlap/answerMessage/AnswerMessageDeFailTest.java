@@ -50,7 +50,7 @@ public class AnswerMessageDeFailTest {
 
     @Test
     void testEnumMatchesRessourceBundle(){
-        for(AnswerMessages e : AnswerMessages.values()){
+        for(FeedbackMessage e : FeedbackMessage.values()){
             Assertions.assertDoesNotThrow(() -> resourceBundle.getString(e.toString()));
         }
     }
@@ -59,8 +59,8 @@ public class AnswerMessageDeFailTest {
     void testCYKMode(){
         arguments.setTaskMode(TaskMode.CYK);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(filter(AnswerMessages.CYK_Svgtitle.name()), answerMessage.getSvgTitle());
-        String fb = filter(AnswerMessages.CYK_Feedback.name());
+        Assertions.assertEquals(filter(FeedbackMessage.CYK_Svgtitle.name()), answerMessage.getSvgTitle());
+        String fb = filter(FeedbackMessage.CYK_Feedback.name());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, fb), answerMessage.getFeedback());
     }
 
@@ -68,24 +68,24 @@ public class AnswerMessageDeFailTest {
     void testDERMode(){
         arguments.setTaskMode(TaskMode.DER);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(filter(AnswerMessages.DERIVATION_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(AnswerMessages.DERIVATION_Feedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(filter(FeedbackMessage.DERIVATION_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.DERIVATION_Feedback.name())), answerMessage.getFeedback());
     }
 
     @Test
     void testWWMode(){
         arguments.setTaskMode(TaskMode.WW);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(filter(AnswerMessages.WORD_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(AnswerMessages.WORD_Feedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(filter(FeedbackMessage.WORD_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.WORD_Feedback.name())), answerMessage.getFeedback());
     }
 
     @Test
     void testSVGMode(){
         arguments.setTaskMode(TaskMode.SVGA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(filter(AnswerMessages.SVG_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(AnswerMessages.SVG_Feedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(filter(FeedbackMessage.SVG_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.SVG_Feedback.name())), answerMessage.getFeedback());
     }
 
     @Test
@@ -93,10 +93,10 @@ public class AnswerMessageDeFailTest {
         arguments.setTaskMode(TaskMode.MP);
         arguments.setTaskType(TaskType.DTM);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = filter(AnswerMessages.TRANSDUCER_Svgtitle.name());
+        String svgTitle = filter(FeedbackMessage.TRANSDUCER_Svgtitle.name());
         StringBuilder s = new StringBuilder();
-        s.append(filter(AnswerMessages.TRANSDUCER_Feedback.name()));
-        s.append("\n").append(filter(AnswerMessages.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
+        s.append(filter(FeedbackMessage.TRANSDUCER_Feedback.name()));
+        s.append("\n").append(filter(FeedbackMessage.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
@@ -108,10 +108,10 @@ public class AnswerMessageDeFailTest {
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
 
         StringBuilder s = new StringBuilder();
-        s.append(filter(AnswerMessages.GRAMMAR_Feedback.name()));
-        s.append("\n").append(filter(AnswerMessages.GRAMMAR_Type.name()));
+        s.append(filter(FeedbackMessage.GRAMMAR_Feedback.name()));
+        s.append("\n").append(filter(FeedbackMessage.GRAMMAR_Type.name()));
 
-        Assertions.assertEquals(filter(AnswerMessages.GRAMMAR_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(filter(FeedbackMessage.GRAMMAR_Svgtitle.name()), answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
     }
 
@@ -119,8 +119,8 @@ public class AnswerMessageDeFailTest {
     void testAAMode(){
         arguments.setTaskMode(TaskMode.AA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(filter(AnswerMessages.ACCEPTOR_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(AnswerMessages.ACCEPTOR_AAFeedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(filter(FeedbackMessage.ACCEPTOR_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.ACCEPTOR_AAFeedback.name())), answerMessage.getFeedback());
     }
 
     @Test
@@ -128,11 +128,11 @@ public class AnswerMessageDeFailTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DFA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = filter(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = filter(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(filter(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(filter(AnswerMessages.ACCEPTOR_FAFeedback.name()));
+        s.append(filter(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(filter(FeedbackMessage.ACCEPTOR_FAFeedback.name()));
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
@@ -143,11 +143,11 @@ public class AnswerMessageDeFailTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DPDA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = filter(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = filter(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(filter(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(filter(AnswerMessages.ACCEPTOR_PDAFeedback.name()));
+        s.append(filter(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(filter(FeedbackMessage.ACCEPTOR_PDAFeedback.name()));
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
@@ -158,11 +158,11 @@ public class AnswerMessageDeFailTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DTM);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = filter(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = filter(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(filter(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(filter(AnswerMessages.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
+        s.append(filter(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(filter(FeedbackMessage.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());

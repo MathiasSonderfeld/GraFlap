@@ -2,13 +2,10 @@ package de.HsH.inform.GraFlap.answerMessage;
 
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.entity.*;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -33,7 +30,7 @@ public class AnswerMessageFailTest {
 
     @Test
     void testEnumMatchesRessourceBundle(){
-        for(AnswerMessages e : AnswerMessages.values()){
+        for(FeedbackMessage e : FeedbackMessage.values()){
             Assertions.assertDoesNotThrow(() -> resourceBundle.getString(e.toString()));
         }
     }
@@ -42,32 +39,32 @@ public class AnswerMessageFailTest {
     void testCYKMode(){
         arguments.setTaskMode(TaskMode.CYK);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(resourceBundle.getString(AnswerMessages.CYK_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(AnswerMessages.CYK_Feedback.toString())), answerMessage.getFeedback());
+        Assertions.assertEquals(resourceBundle.getString(FeedbackMessage.CYK_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(FeedbackMessage.CYK_Feedback.toString())), answerMessage.getFeedback());
     }
 
     @Test
     void testDERMode(){
         arguments.setTaskMode(TaskMode.DER);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(resourceBundle.getString(AnswerMessages.DERIVATION_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(AnswerMessages.DERIVATION_Feedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(resourceBundle.getString(FeedbackMessage.DERIVATION_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(FeedbackMessage.DERIVATION_Feedback.name())), answerMessage.getFeedback());
     }
 
     @Test
     void testWWMode(){
         arguments.setTaskMode(TaskMode.WW);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(resourceBundle.getString(AnswerMessages.WORD_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(AnswerMessages.WORD_Feedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(resourceBundle.getString(FeedbackMessage.WORD_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(FeedbackMessage.WORD_Feedback.name())), answerMessage.getFeedback());
     }
 
     @Test
     void testSVGMode(){
         arguments.setTaskMode(TaskMode.SVGA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(resourceBundle.getString(AnswerMessages.SVG_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(AnswerMessages.SVG_Feedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(resourceBundle.getString(FeedbackMessage.SVG_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(FeedbackMessage.SVG_Feedback.name())), answerMessage.getFeedback());
     }
 
     @Test
@@ -75,10 +72,10 @@ public class AnswerMessageFailTest {
         arguments.setTaskMode(TaskMode.MP);
         arguments.setTaskType(TaskType.DTM);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = resourceBundle.getString(AnswerMessages.TRANSDUCER_Svgtitle.name());
+        String svgTitle = resourceBundle.getString(FeedbackMessage.TRANSDUCER_Svgtitle.name());
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.TRANSDUCER_Feedback.name()));
-        s.append("\n").append(resourceBundle.getString(AnswerMessages.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
+        s.append(resourceBundle.getString(FeedbackMessage.TRANSDUCER_Feedback.name()));
+        s.append("\n").append(resourceBundle.getString(FeedbackMessage.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
@@ -90,10 +87,10 @@ public class AnswerMessageFailTest {
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
 
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.GRAMMAR_Feedback.name()));
-        s.append("\n").append(resourceBundle.getString(AnswerMessages.GRAMMAR_Type.name()));
+        s.append(resourceBundle.getString(FeedbackMessage.GRAMMAR_Feedback.name()));
+        s.append("\n").append(resourceBundle.getString(FeedbackMessage.GRAMMAR_Type.name()));
 
-        Assertions.assertEquals(resourceBundle.getString(AnswerMessages.GRAMMAR_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(resourceBundle.getString(FeedbackMessage.GRAMMAR_Svgtitle.name()), answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
     }
 
@@ -101,8 +98,8 @@ public class AnswerMessageFailTest {
     void testAAMode(){
         arguments.setTaskMode(TaskMode.AA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        Assertions.assertEquals(resourceBundle.getString(AnswerMessages.ACCEPTOR_Svgtitle.name()), answerMessage.getSvgTitle());
-        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(AnswerMessages.ACCEPTOR_AAFeedback.name())), answerMessage.getFeedback());
+        Assertions.assertEquals(resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name()), answerMessage.getSvgTitle());
+        Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, resourceBundle.getString(FeedbackMessage.ACCEPTOR_AAFeedback.name())), answerMessage.getFeedback());
     }
 
     @Test
@@ -110,11 +107,11 @@ public class AnswerMessageFailTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DFA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = resourceBundle.getString(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(resourceBundle.getString(AnswerMessages.ACCEPTOR_FAFeedback.name()));
+        s.append(resourceBundle.getString(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(resourceBundle.getString(FeedbackMessage.ACCEPTOR_FAFeedback.name()));
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
@@ -125,11 +122,11 @@ public class AnswerMessageFailTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DPDA);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = resourceBundle.getString(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(resourceBundle.getString(AnswerMessages.ACCEPTOR_PDAFeedback.name()));
+        s.append(resourceBundle.getString(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(resourceBundle.getString(FeedbackMessage.ACCEPTOR_PDAFeedback.name()));
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
@@ -140,11 +137,11 @@ public class AnswerMessageFailTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DTM);
         AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
-        String svgTitle = resourceBundle.getString(AnswerMessages.ACCEPTOR_Svgtitle.name());
+        String svgTitle = resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
-        s.append(resourceBundle.getString(AnswerMessages.ACCEPTOR_Feedback.name()));
-        s.append("\n").append(resourceBundle.getString(AnswerMessages.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
+        s.append(resourceBundle.getString(FeedbackMessage.ACCEPTOR_Feedback.name()));
+        s.append("\n").append(resourceBundle.getString(FeedbackMessage.AUTOMATON_IsTuring.name())).append(" ").append(svgTitle);
 
         Assertions.assertEquals(svgTitle, answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, s), answerMessage.getFeedback());
