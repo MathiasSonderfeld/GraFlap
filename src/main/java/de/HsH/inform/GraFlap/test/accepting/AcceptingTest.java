@@ -36,12 +36,12 @@ public abstract class AcceptingTest<T extends Object> {
      */
     HashMap<String, String[]> generateTestWordsFromString(String solution, Testwords testwords) throws GraFlapException {
         HashMap<String, String[]> words = new HashMap<>();
-        words.put("rightWords", WordSeparator.getCorrectTestingWords(testwords.getWordString()));
+        words.put("rightWords", testwords.getCorrectWordsArray());
         if (solution.contains("->")){
             GenerateWords generateWords = new GenerateWords(10);
             words.put("wrongWords", generateWords.checkWrongGrammarWords(solution, testwords.getWordString()));
         } else {
-            words.put("wrongWords", WordSeparator.getWrongTestingWords(testwords.getWordString()));
+            words.put("wrongWords", testwords.getFailingWordsArray());
         }
         return words;
     }
