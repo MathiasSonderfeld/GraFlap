@@ -30,18 +30,18 @@ public abstract class AcceptingTest<T extends Object> {
     /**
      * method to generate correct and wrong test words for the given solution based on a string with coded input words
      * @param solution the given solution
-     * @param wordString a string with coded test words
+     * @param testwords the test words
      * @return a hashmap mapping {keyword, String[]} which holds the string array for the accepted and non accepted
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    HashMap<String, String[]> generateTestWordsFromString(String solution, String wordString) throws GraFlapException {
+    HashMap<String, String[]> generateTestWordsFromString(String solution, Testwords testwords) throws GraFlapException {
         HashMap<String, String[]> words = new HashMap<>();
-        words.put("rightWords", WordSeparator.getCorrectTestingWords(wordString));
+        words.put("rightWords", WordSeparator.getCorrectTestingWords(testwords.getWordString()));
         if (solution.contains("->")){
             GenerateWords generateWords = new GenerateWords(10);
-            words.put("wrongWords", generateWords.checkWrongGrammarWords(solution, wordString));
+            words.put("wrongWords", generateWords.checkWrongGrammarWords(solution, testwords.getWordString()));
         } else {
-            words.put("wrongWords", WordSeparator.getWrongTestingWords(wordString));
+            words.put("wrongWords", WordSeparator.getWrongTestingWords(testwords.getWordString()));
         }
         return words;
     }
