@@ -41,18 +41,4 @@ public class WordSeparator {
         words.put("wrongWords", wrongWords);
         return words;
     }
-
-    /**
-     * splits a string coded with correct and false test words and returns the wrong words
-     * @param longStringToSplit the string that contains the test word as r1%r2%...%rn!w1%w2%...%wn
-     * @return the array with the words of the requested type
-     * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
-     */
-    public static String[] getWrongTestingWords(String longStringToSplit) throws GraFlapException {
-        try {
-            return longStringToSplit.split("!")[1].split("%");
-        }  catch (ArrayIndexOutOfBoundsException e) {
-            throw new GraFlapException("String split does not work.");
-        }
-    }
 }

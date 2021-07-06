@@ -39,7 +39,7 @@ public abstract class AcceptingTest<T extends Object> {
         words.put("rightWords", testwords.getCorrectWordsArray());
         if (solution.contains("->")){
             GenerateWords generateWords = new GenerateWords(10);
-            words.put("wrongWords", generateWords.checkWrongGrammarWords(solution, testwords.getWordString()));
+            words.put("wrongWords", generateWords.checkWrongGrammarWords(solution, testwords));
         } else {
             words.put("wrongWords", testwords.getFailingWordsArray());
         }

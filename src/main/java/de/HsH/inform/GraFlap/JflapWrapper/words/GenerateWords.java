@@ -4,6 +4,7 @@ import de.HsH.inform.GraFlap.GrammarBuilder;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.simulation.WordBuilder;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
@@ -158,19 +159,17 @@ public class GenerateWords {
     /**
      * checks the correctness of the wrong words
      * @param grammarString a string with the coded grammar
-     * @param wordString a string containing test words
+     * @param testwords the test words
      * @return an array containing the wrong words
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
-    public String[] checkWrongGrammarWords(String grammarString, String wordString) throws GraFlapException {
+    public String[] checkWrongGrammarWords( String grammarString, Testwords testwords) throws GraFlapException {
         String jffGrammar = GrammarBuilder.buildGrammar(grammarString);
         Grammar grammar = ConvertSubmission.openGrammar(jffGrammar).getSubmissionObject();
 
-        String[] wrongWords = WordSeparator.getWrongTestingWords(wordString);
-
         ArrayList<String> listOfWords = new ArrayList<>();
         Parser parser = determineParser(grammar);
-        for (String wrongWord : wrongWords) {
+        for (String wrongWord : testwords.getFailingWordsArray()) {
             if (!parser.solve(wrongWord)) {
                 listOfWords.add(wrongWord);
             }
