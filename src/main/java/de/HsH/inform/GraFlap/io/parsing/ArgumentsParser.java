@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.TaskType;
@@ -14,6 +15,15 @@ import java.util.Locale;
  *  Abstract class to parse input data to Arguments Object for further processing.
  */
 public abstract class ArgumentsParser {
+    private static final int wordLengthLimit = 250;
+    private static final double warningThreshhold = 0.8;
+    private static final double abortThreshhold = 0.1;
+
+    private int correctWordsAmount = 0;
+    private int filteredCorrectWordsAmount = 0;
+    private int failingWordsAmount = 0;
+    private int filteredFailingWordsAmount = 0;
+    private boolean filterWarning = false;
 
     public abstract Arguments parse(String[] args) throws GraFlapException;
 
@@ -43,28 +53,38 @@ public abstract class ArgumentsParser {
      * method to check if test words are provided and if the number of provided words in the word string match the specified number of input words
      * @throws GraFlapException if the number of words does not match the number of words in the word string
      */
-    protected void checkInputWords( int numberOfWords, String wordString ) throws GraFlapException {
+    protected Testwords parseInputWords( int numberOfWords, String wordString ) throws GraFlapException {
         boolean ok = false;
-        if(wordString != null) {
-            if(wordString.equals("-")) {
-                if(numberOfWords == 0) {
-                    ok = true;
-                }
-            }
-            else {
-                String[] tmp = wordString.split("!");
-                int wordNumber = 0;
-                for(String words : tmp) {
-                    wordNumber += words.split("%").length;
-                }
-                if(numberOfWords == wordNumber) {
-                    ok = true;
-                }
+        if(wordString == null) throw new GraFlapException("WordString must not be null");
+        if(wordString.equals("-")){
+            if(numberOfWords != 0) throw new GraFlapException("NumberOfWords and WordString Mismatch");
+            return new Testwords(0,0);
+        }
+        String[] wordsSplitByCategory = wordString.split("!");
+        String[] correctWordsArray = wordsSplitByCategory[0].split("%");
+        String[] failingWordsArray = wordsSplitByCategory[1].split("%");
+        this.correctWordsAmount = correctWordsArray.length;
+        this.failingWordsAmount = failingWordsArray.length;
+        if(this.correctWordsAmount + this.failingWordsAmount != numberOfWords) throw new GraFlapException("NumberOfWords and WordString Mismatch");
+
+        Testwords testwords = new Testwords(this.correctWordsAmount, this.failingWordsAmount);
+        for(String word : correctWordsArray){
+            if(word.length() < wordLengthLimit){
+                testwords.addToCorrectWords(word);
+                this.filteredCorrectWordsAmount++;
             }
         }
-        if(!ok) {
-            throw new GraFlapException("ERROR - The number of test words is not equal to the number of provided words. Please check.");
+        for(String word : failingWordsArray){
+            if(word.length() < wordLengthLimit){
+                testwords.addToFailingWords(word);
+                this.filteredFailingWordsAmount++;
+            }
         }
+        double filteredPercentage = (this.filteredCorrectWordsAmount + this.filteredFailingWordsAmount) / ((double) (this.correctWordsAmount + this.failingWordsAmount));
+        if(filteredPercentage < warningThreshhold) this.filterWarning = true;
+        if(filteredPercentage < abortThreshhold) throw new GraFlapException("more than "+ Math.round((1-abortThreshhold)*100) +"% of the words were filtered because they were too long. Grading " +
+                "aborted.");
+        return testwords;
     }
 
     /**
@@ -144,5 +164,25 @@ public abstract class ArgumentsParser {
             default:
                 return;
         }
+    }
+
+    public boolean isFilterWarning() {
+        return filterWarning;
+    }
+
+    public int getCorrectWordsAmount() {
+        return correctWordsAmount;
+    }
+
+    public int getFilteredCorrectWordsAmount() {
+        return filteredCorrectWordsAmount;
+    }
+
+    public int getFailingWordsAmount() {
+        return failingWordsAmount;
+    }
+
+    public int getFilteredFailingWordsAmount() {
+        return filteredFailingWordsAmount;
     }
 }

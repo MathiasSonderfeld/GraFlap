@@ -37,6 +37,7 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getSvgTitle()).thenReturn(svgTitle);
         when(messageMock.getTaskMode()).thenReturn(taskMode);
         when(messageMock.getFeedback()).thenReturn(feedback);
+        when(messageMock.getWarnings()).thenReturn("");
         when(messageMock.getScore()).thenReturn(score);
 
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/>" +
@@ -114,6 +115,7 @@ public class ProformaOutputFormatterTest {
         when(message.getSvgTitle()).thenReturn("SVGTitle");
         when(message.getTaskMode()).thenReturn(TaskMode.GG);
         when(message.getFeedback()).thenReturn("mocked test successfull");
+        when(message.getWarnings()).thenReturn("");
         when(message.hasPassed()).thenReturn(false);
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/><proforma:tests-response><proforma:test-response id=\"Test for LoncapaBuilder.getXML Result Fail\"><proforma:test-result><proforma:result><proforma:score>0.0</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">Test for LoncapaBuilder.getXML Result Fail</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">SVGTitle</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"plaintext\"><![CDATA[<thisIsATest />]]></proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>FeedbackText</proforma:title><proforma:content format=\"plaintext\">mocked test successfull</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/><proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"0.3\"/></proforma:response-meta-data></proforma:response>";
 

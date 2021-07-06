@@ -3,16 +3,42 @@ package de.HsH.inform.GraFlap.io.parsing;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.entity.TaskMode;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 public class ArgumentsParserTest {
-    ArgumentsParser argumentsParser = new ArgumentsParser(){
-        @Override
-        public Arguments parse( String[] args ) throws GraFlapException {
-            return null;
+    ArgumentsParser argumentsParser;
+
+    static String buildToooLongWords(int okWordCount, int tooLongWordCount){
+        String longWord ="LoremipsumdolorsitametconsetetursadipscingelitrseddiamnonumyeirmodtemporinviduntutlaboreetdoloremagnaaliquyameratseddiamvoluptuaAtveroeosetaccusametjustoduodoloresetearebumStetclitakasdgubergrennoseatakimatasanctusestLoremipsumdolorsitametLoremipsumdolorsitametconsetetursadipscingelitrseddiamnonumyeirmodtemporinviduntutlaboreetdoloremagnaaliquyameratseddiamvoluptuaAtveroeosetaccusametjustoduodoloresetearebumStetclitakasdgubergrennoseatakimatasanctusestLoremipsumdolorsitamet";
+        String okWord = "buffer";
+        StringBuilder sb = new StringBuilder(), half = new StringBuilder();
+        for(int i = 0; i < okWordCount-1; i++) {
+            half.append(okWord).append("%");
         }
-    };
+        half.append(okWord);
+        for(int i = 0; i < tooLongWordCount; i++) {
+            half.append("%").append(longWord);
+        }
+        sb.append(half).append("!").append(half);
+        return sb.toString();
+    }
+
+    @BeforeEach
+    void init(){
+        argumentsParser = new ArgumentsParser(){
+            @Override
+            public Arguments parse( String[] args ) throws GraFlapException {
+                return null;
+            }
+        };
+    }
 
     @Test
     void parseNumberOfWordsTestMinusOne(){
@@ -41,28 +67,60 @@ public class ArgumentsParserTest {
 
 
     @Test
-    void checkInputWordsZeroMinus(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkInputWords(0, "-"));
+    void parseInputWordsExceptionNull(){
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(0, null));
     }
 
     @Test
-    void checkInputWordsOneOne(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkInputWords(1, "One"));
+    void parseInputWordsExceptionMisMatchEmpty(){
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(1, "-"));
     }
 
     @Test
-    void checkInputWordsFourWords(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.checkInputWords(4, "One%Two!Three%Four"));
+    void parseInputWordsSuccessEmpty(){
+        Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(0, "-"));
+        Assertions.assertFalse(argumentsParser.isFilterWarning());
     }
 
     @Test
-    void checkInputWordsMismatch(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkInputWords(1, "One%Two!Three%Four"));
+    void parseInputWordsIndexOutOfBoundsException(){
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> argumentsParser.parseInputWords(2, "OneTwo"));
     }
 
     @Test
-    void checkInputWordsNull(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkInputWords(1, null));
+    void parseInputWordsExceptionMisMatch(){
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(3, "One!Two"));
+    }
+
+    @Test
+    void parseInputWordsSuccess(){
+        Testwords toCompare = new Testwords(2,2);
+        toCompare.addToCorrectWords("One");
+        toCompare.addToCorrectWords("Two");
+        toCompare.addToFailingWords("three");
+        toCompare.addToFailingWords("four");
+
+        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(4, "One%Two!three%four"));
+        Assertions.assertFalse(argumentsParser.isFilterWarning());
+        Assertions.assertEquals(toCompare, result);
+    }
+
+    @Test
+    void parseInputWordsWarning(){
+        int expectedWords = 6;
+        Testwords toCompare = new Testwords(expectedWords,expectedWords);
+        for(int i = 0; i <expectedWords; i++) {
+            toCompare.addToCorrectWords("buffer");
+            toCompare.addToFailingWords("buffer");
+        }
+        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(20, buildToooLongWords(expectedWords,(int) (expectedWords*0.75))));
+        Assertions.assertTrue(argumentsParser.isFilterWarning());
+        Assertions.assertEquals(toCompare, result);
+    }
+
+    @Test
+    void parseInputWordsTooFewWords(){
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(24, buildToooLongWords(1,11)));
     }
 
 

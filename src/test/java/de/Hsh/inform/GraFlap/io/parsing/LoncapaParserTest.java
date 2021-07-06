@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
+import de.HsH.inform.GraFlap.GraFlapBlackBoxTest;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.entity.TaskType;
@@ -20,7 +21,7 @@ public class LoncapaParserTest {
         arguments.setTaskType(TaskType.CFG);
         arguments.setSolution("ThisIsGiven");
         arguments.setNumberOfWords(0);
-        arguments.setWordString("-");
+        arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
 
         Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(ParserTestUtils.compareTo(arguments,
@@ -37,7 +38,7 @@ public class LoncapaParserTest {
         arguments.setTaskType(TaskType.NON);
         arguments.setSolution(null);
         arguments.setNumberOfWords(0);
-        arguments.setWordString("-");
+        arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer(null);
 
         Assertions.assertDoesNotThrow(() -> loncapaParser.parse(ParserTestUtils.getLoncapaInput(arguments)));

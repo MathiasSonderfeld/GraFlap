@@ -14,7 +14,7 @@ public class Arguments {
     private String taskTitle = "";
     private Locale userLanguage = Locale.ROOT;
     private String solution = "";
-    private String wordString = "";
+    private Testwords testwords;
     private int numberOfWords = -1;
     private String studentAnswer = "";
     private TaskMode taskMode = TaskMode.ERROR;
@@ -59,12 +59,16 @@ public class Arguments {
         this.solution = solution;
     }
 
-    public String getWordString() {
-        return wordString;
+    public void setTestwords(Testwords testwords){
+        this.testwords = testwords;
     }
 
-    public void setWordString( String wordString ) {
-        this.wordString = wordString;
+    public Testwords getTestwords() {
+        return testwords;
+    }
+
+    public String getWordString() {
+        return testwords.getWordString();
     }
 
     public int getNumberOfWords() {

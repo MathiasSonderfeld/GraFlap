@@ -32,6 +32,7 @@ public class AnswerMessage {
     private TaskMode taskMode;
     private TaskType taskType;
     protected StringBuilder aditionalFeedback;
+    protected StringBuilder warnings;
     protected String svgTitle;
     private StringBuilder feedback;
     private ResourceBundle.Control control;
@@ -46,6 +47,7 @@ public class AnswerMessage {
     private AnswerMessage(Result result, Arguments arguments){
         this.feedback = new StringBuilder();
         this.aditionalFeedback = new StringBuilder();
+        this.warnings = new StringBuilder();
         this.control = new ResourceBundle.Control(){
             @Override
             public Locale getFallbackLocale(String baseName, Locale locale){
@@ -225,7 +227,16 @@ public class AnswerMessage {
                  .replaceAll("ß","ss");
     }
 
-    private <T> String getTeacherFeedback(String name, SetResult<T> result){
+    public void addWarning(String warning){
+        if(warnings.length() > 0) warnings.append("; ");
+        this.warnings.append(warning);
+    }
+
+    public String getWarnings() {
+        return warnings.toString();
+    }
+
+    private <T> String getTeacherFeedback( String name, SetResult<T> result){
         StringBuilder feedback = new StringBuilder();
         boolean noneMissing = true;
         ArrayList<T> tmp = result.getMissing();

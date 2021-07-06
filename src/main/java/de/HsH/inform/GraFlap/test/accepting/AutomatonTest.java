@@ -41,6 +41,7 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
+    //TODO replace HashMap with Struct
     @Override
     public int openInput( String solution, Submission<Automaton> studentInput, String wordString) throws GraFlapException {
         HashMap<String, String[]> words = generateTestWordsFromString(solution, wordString);

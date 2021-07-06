@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
+import de.HsH.inform.GraFlap.GraFlapBlackBoxTest;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.entity.TaskType;
@@ -22,7 +23,7 @@ public class ProformaParserTest {
         arguments.setTaskType(TaskType.CFG);
         arguments.setSolution("ThisIsGiven");
         arguments.setNumberOfWords(0);
-        arguments.setWordString("-");
+        arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
 
         Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(ParserTestUtils.compareTo(arguments,
@@ -38,7 +39,7 @@ public class ProformaParserTest {
         arguments.setTaskType(TaskType.DFA);
         arguments.setSolution("ThisIsGiven");
         arguments.setNumberOfWords(0);
-        arguments.setWordString("-");
+        arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
         arguments.setTransitions("Transitions");
         arguments.setStackalphabet("StackAlphabet");
@@ -60,7 +61,7 @@ public class ProformaParserTest {
         arguments.setTaskType(TaskType.NON);
         arguments.setSolution(null);
         arguments.setNumberOfWords(0);
-        arguments.setWordString("-");
+        arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer(null);
 
         Assertions.assertDoesNotThrow(() -> proformaParser.parse(ParserTestUtils.getProformaInput(arguments)));

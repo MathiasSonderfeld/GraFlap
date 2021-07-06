@@ -115,7 +115,10 @@ public class ProformaOutputFormatter implements OutputFormatter {
         addFeedback(feedbackList, true, "SvgTitle", "plaintext", answerMessage.getSvgTitle(), false);
         addFeedback(feedbackList, true, "SvgImage", "plaintext", svgAsString, true);
         addFeedback(feedbackList, true, "FeedbackText", "plaintext", answerMessage.getFeedback(), false);
-
+        String warnings = answerMessage.getWarnings();
+        if(warnings.length() > 0){
+            addFeedback(feedbackList, false, "Warnings", "plaintext", warnings, false);
+        }
     }
 
     /**

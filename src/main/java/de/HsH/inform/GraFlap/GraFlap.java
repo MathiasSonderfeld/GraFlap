@@ -89,6 +89,10 @@ public class GraFlap {
             }
             arguments = parser.parse(args);
             answerMessage = processSubmission(arguments);
+            if(parser.isFilterWarning()){
+                answerMessage.addWarning(String.format("Nach der Filterung sind nur noch %d von %d korrekten und %d von %d falschen Worten übrig", parser.getFilteredCorrectWordsAmount(),
+                        parser.getCorrectWordsAmount(), parser.getFilteredFailingWordsAmount(), parser.getFailingWordsAmount()));
+            }
         }
         catch(IOException | IllegalArgumentException e){
             e.printStackTrace(System.err);

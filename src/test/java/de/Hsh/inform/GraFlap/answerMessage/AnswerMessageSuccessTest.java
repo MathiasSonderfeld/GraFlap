@@ -24,7 +24,7 @@ public class AnswerMessageSuccessTest {
         arguments.setStudentAnswer("StudentAnswer");
         arguments.setSolution("Solution");
         arguments.setTaskTitle("TaskTitle");
-        arguments.setWordString("WordString");
+        arguments.setTestwords(new Testwords(0,0));
         arguments.setNumberOfWords(123);
         arguments.setUserLanguage(locale);
     }
