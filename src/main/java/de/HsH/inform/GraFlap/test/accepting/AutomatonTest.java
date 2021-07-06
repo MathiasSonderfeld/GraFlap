@@ -4,6 +4,7 @@ import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
 import de.HsH.inform.GraFlap.JflapWrapper.words.WordSeparator;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.accepting.AutomatonScoringTest;
 
@@ -37,14 +38,14 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
      * from the provided word string
      * @param solution the reference solution coded in a string
      * @param studentInput the submission of the student
-     * @param wordString a string with concatenated test words
+     * @param testwords a string with concatenated test words
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     //TODO replace HashMap with Struct
     @Override
-    public int openInput( String solution, Submission<Automaton> studentInput, String wordString) throws GraFlapException {
-        HashMap<String, String[]> words = generateTestWordsFromString(solution, wordString);
+    public int openInput( String solution, Submission<Automaton> studentInput, Testwords testwords ) throws GraFlapException {
+        HashMap<String, String[]> words = generateTestWordsFromString(solution, testwords.getWordString());
         return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
     }
 

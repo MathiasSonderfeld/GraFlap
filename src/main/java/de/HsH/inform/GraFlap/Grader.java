@@ -104,7 +104,7 @@ public class Grader {
                 if (!arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                     percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
-                                                           arguments.getWordString());
+                                                           arguments.getTestwords());
                 }else {
                     throw new GraFlapException("Error in LON-CAPA problem. Please check regular expression.");
                 }
@@ -116,7 +116,7 @@ public class Grader {
                 if (arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                     percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
-                                                           arguments.getWordString());
+                                                           arguments.getTestwords());
                 } else {
                     throw new GraFlapException("Error in LON-CAPA problem. Please check given grammar.");
                 }
@@ -127,7 +127,7 @@ public class Grader {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                                buildGrammar(arguments.getStudentAnswer()));
                     percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
-                                                         arguments.getWordString());
+                                                         arguments.getTestwords());
                 }else {
                     throw new GraFlapException("Error. Please check grammar.");
                 }
@@ -165,7 +165,7 @@ public class Grader {
                     submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
                     if ((submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG)) {
                         percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
-                                                             arguments.getWordString());
+                                                             arguments.getTestwords());
                     } else {
                         throw new GraFlapException("Error. Please check grammar type.");
                     }
