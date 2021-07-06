@@ -32,7 +32,7 @@ public class AnswerMessage {
     private TaskMode taskMode;
     private TaskType taskType;
     protected StringBuilder aditionalFeedback;
-    private String svgTitle;
+    protected String svgTitle;
     private StringBuilder feedback;
 
     private SetResult<State> states = null;

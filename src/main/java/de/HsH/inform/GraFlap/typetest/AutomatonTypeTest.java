@@ -1,13 +1,10 @@
 package de.HsH.inform.GraFlap.typetest;
 
-import de.HsH.inform.GraFlap.entity.TaskType;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.DeterminismChecker;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
-import javafx.concurrent.Task;
-
-import java.util.concurrent.ExecutionException;
+import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
  * static helper class to determine the type of an automaton
