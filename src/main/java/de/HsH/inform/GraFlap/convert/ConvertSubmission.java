@@ -3,6 +3,7 @@ package de.HsH.inform.GraFlap.convert;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.SubmissionType;
 import de.HsH.inform.GraFlap.entity.ValuePair;
+import de.HsH.inform.GraFlap.util.EmptyErrorHandler;
 import org.xml.sax.SAXException;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
@@ -84,6 +85,7 @@ public class ConvertSubmission {
             InputStream stream = new ByteArrayInputStream(submissionString.getBytes(StandardCharsets.UTF_8));
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
+            builder.setErrorHandler(EmptyErrorHandler.instance);
             Document doc = builder.parse(stream);
             Transducer transducer = new Transducer();
             Object obj = transducer.parseDocument(doc);

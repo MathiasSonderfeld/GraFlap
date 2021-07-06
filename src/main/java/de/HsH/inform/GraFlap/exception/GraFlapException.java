@@ -16,15 +16,4 @@ public class GraFlapException extends Exception {
     public GraFlapException( String s){
         super(s);
     }
-
-    /**
-     * method to return the string that will be send to LonCapa
-     * @param taskTitle the title string of the given task
-     * @return the message for LON-CAPA to be shown
-     */
-   public String getErrorMessage( String taskTitle){
-    StringWriter errors = new StringWriter();
-    this.printStackTrace(new PrintWriter(errors));
-    return taskTitle + ": " + errors;
-   }
 }

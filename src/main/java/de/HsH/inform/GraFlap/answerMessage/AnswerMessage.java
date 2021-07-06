@@ -26,14 +26,15 @@ public class AnswerMessage {
 
     protected String taskTitle;
     private Locale userLocale;
-    private final Element svgImage;
-    private final int percentOfTestWordsFailed;
+    private Element svgImage;
+    private int percentOfTestWordsFailed;
     private boolean hasPassed;
     private TaskMode taskMode;
     private TaskType taskType;
     protected StringBuilder aditionalFeedback;
     protected String svgTitle;
     private StringBuilder feedback;
+    private ResourceBundle.Control control;
 
     private SetResult<State> states = null;
     private SetResult<State> initials = null;
@@ -42,25 +43,34 @@ public class AnswerMessage {
     private SetResult<String> stackalphabet = null;
     private SetResult<Transition> transitions = null;
 
-    public AnswerMessage(Result result, Arguments arguments, Element svg) {
+    private AnswerMessage(Result result, Arguments arguments){
         this.feedback = new StringBuilder();
         this.aditionalFeedback = new StringBuilder();
-        ResourceBundle.Control control = new ResourceBundle.Control(){
+        this.control = new ResourceBundle.Control(){
             @Override
             public Locale getFallbackLocale(String baseName, Locale locale){
                 return Locale.ROOT;
             }
         };
-
         this.taskTitle = arguments.getTaskTitle();
         this.percentOfTestWordsFailed = result.getPercentageFailed();
         this.userLocale = arguments.getUserLanguage();
         messages = ResourceBundle.getBundle("GraFlapAnswerMessage", userLocale, control);
-        this.svgImage = svg;
         this.taskMode = arguments.getTaskMode();
         this.taskType = arguments.getTaskType();
         this.hasPassed = percentOfTestWordsFailed == 0;
+    }
 
+    public AnswerMessage(Result result, Arguments arguments, String errorMessage){
+        this(result, arguments);
+        this.svgImage = null;
+        this.svgTitle = "ERROR";
+        this.feedback.append(errorMessage);
+    }
+
+    public AnswerMessage(Result result, Arguments arguments, Element svg) {
+        this(result, arguments);
+        this.svgImage = svg;
         String message = "", format = "%d %s";
         String aditionalFeedbackDelimiter ="\n";
         switch(this.taskMode){

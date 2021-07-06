@@ -20,10 +20,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
-import de.HsH.inform.GraFlap.answerMessage.ErrorAnswerMessage;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.ProformaOutputFormatter;
@@ -90,7 +91,7 @@ public class GraFlap {
             answerMessage = processSubmission(arguments);
         }
         catch(IOException | IllegalArgumentException e){
-            e.printStackTrace(System.out);
+            e.printStackTrace(System.err);
         }
         catch(GraFlapException e){
             if(outputFormatter != null){
@@ -98,7 +99,7 @@ public class GraFlap {
                 if(arguments != null){
                     taskTitle = arguments.getTaskTitle();
                 }
-                answerMessage = new ErrorAnswerMessage(e.getMessage(), taskTitle);
+                answerMessage = new AnswerMessage(new Result(new Submission(), 100, TaskType.ERROR), arguments, e.getMessage());
             }
             else{
                 e.printStackTrace(System.out);
@@ -115,7 +116,7 @@ public class GraFlap {
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
      */
-    protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException {
+    protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException{
         Result result = Grader.generateResult(arguments);
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA).getSvg();
