@@ -61,7 +61,13 @@ public abstract class ArgumentsParser {
         }
         String[] wordsSplitByCategory = wordString.split("!");
         String[] correctWordsArray = wordsSplitByCategory[0].split("%");
-        String[] failingWordsArray = wordsSplitByCategory[1].split("%");
+        String[] failingWordsArray;
+        if(wordsSplitByCategory.length == 2){
+            failingWordsArray = wordsSplitByCategory[1].split("%");
+        }
+        else{
+            failingWordsArray = new String[0];
+        }
         this.correctWordsAmount = correctWordsArray.length;
         this.failingWordsAmount = failingWordsArray.length;
         if(this.correctWordsAmount + this.failingWordsAmount != numberOfWords) throw new GraFlapException("NumberOfWords and WordString Mismatch");

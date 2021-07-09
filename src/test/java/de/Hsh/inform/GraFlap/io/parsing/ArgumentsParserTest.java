@@ -72,8 +72,8 @@ public class ArgumentsParserTest {
     }
 
     @Test
-    void parseInputWordsExceptionMisMatchEmpty(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(1, "-"));
+    void parseInputWordsEmpty(){
+        Assertions.assertDoesNotThrow( () -> argumentsParser.parseInputWords(1, "-"));
     }
 
     @Test
@@ -83,8 +83,8 @@ public class ArgumentsParserTest {
     }
 
     @Test
-    void parseInputWordsIndexOutOfBoundsException(){
-        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> argumentsParser.parseInputWords(2, "OneTwo"));
+    void parseInputWordsOneWord(){
+        Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(1, "OneTwo"));
     }
 
     @Test
