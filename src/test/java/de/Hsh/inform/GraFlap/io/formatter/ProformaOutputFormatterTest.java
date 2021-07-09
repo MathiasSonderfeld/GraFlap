@@ -50,7 +50,7 @@ public class ProformaOutputFormatterTest {
                 "</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/>" +
                 "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"0.3\"/></proforma:response-meta-data></proforma:response>";
 
-        Assertions.assertEquals(xml, proformaFormatter.format(messageMock).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(messageMock).replaceAll("\\s+", "").trim());
     }
 
     @Test
@@ -132,7 +132,7 @@ public class ProformaOutputFormatterTest {
         when(message.getTaskMode()).thenReturn(TaskMode.SVGA);
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><thisIsATest/>";
 
-        Assertions.assertEquals(xml, proformaFormatter.format(message).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(message).replaceAll("\\s+", "").trim());
     }
 
     /**
