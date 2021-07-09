@@ -57,7 +57,6 @@ public abstract class ArgumentsParser {
         boolean ok = false;
         if(wordString == null) throw new GraFlapException("WordString must not be null");
         if(wordString.equals("-")){
-            if(numberOfWords != 0) throw new GraFlapException("NumberOfWords and WordString Mismatch");
             return new Testwords(0,0);
         }
         String[] wordsSplitByCategory = wordString.split("!");
