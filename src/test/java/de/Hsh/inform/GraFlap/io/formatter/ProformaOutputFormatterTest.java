@@ -54,6 +54,41 @@ public class ProformaOutputFormatterTest {
     }
 
     @Test
+    void testFeedbackSuccess() {
+        String taskTitle = "Test Success";
+        String svgImageContent = "thisIsATest";
+        String svgTitle = "SVGTitle";
+        TaskMode taskMode = TaskMode.GG;
+        String feedback = "mocked test successfull";
+        String warning = "this is a warning";
+        double score = 1.0;
+
+
+        AnswerMessage messageMock = mock(AnswerMessage.class);
+        when(messageMock.getTaskTitle()).thenReturn(taskTitle);
+        when(messageMock.getSvgImage()).thenReturn(new Element(svgImageContent));
+        when(messageMock.getSvgTitle()).thenReturn(svgTitle);
+        when(messageMock.getTaskMode()).thenReturn(taskMode);
+        when(messageMock.getFeedback()).thenReturn(feedback);
+        when(messageMock.getWarnings()).thenReturn(warning);
+        when(messageMock.getScore()).thenReturn(score);
+
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/>" +
+                "<proforma:tests-response><proforma:test-response id=\"" + taskTitle + "\"><proforma:test-result><proforma:result><proforma:score>" + score + "</proforma:score><proforma:validity>1" +
+                ".0</proforma:validity></proforma:result><proforma:feedback-list>" +
+                "<proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">" + taskTitle +
+                "</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">" + svgTitle +
+                "</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"plaintext\"><![CDATA[<" + svgImageContent +
+                " />]]></proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>FeedbackText</proforma:title><proforma:content format=\"plaintext\">" + feedback +
+                "</proforma:content></proforma:student-feedback><proforma:teacher-feedback><proforma:title>Warnings</proforma:title><proforma:contentformat=\"plaintext\">" + warning + "</proforma" +
+                ":content></proforma:teacher-feedback>" +
+                "</proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/>" +
+                "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"0.3\"/></proforma:response-meta-data></proforma:response>";
+
+        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(messageMock).replaceAll("\\s+", "").trim());
+    }
+
+    @Test
     void testSetsSuccess() {
         String taskTitle = "Test Success with Sets";
         String svgImageContent = "thisIsATest";
