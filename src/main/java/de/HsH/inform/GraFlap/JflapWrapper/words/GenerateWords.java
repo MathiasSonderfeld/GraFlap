@@ -50,6 +50,15 @@ public class GenerateWords {
         generatedWords = new ConcurrentSkipListSet<>();
     }
 
+
+    public Testwords generateTestWords(String regex) throws GraFlapException {
+        Testwords testwords = new Testwords(this.numberOfTestWords, this.numberOfTestWords * this.WRONG_WORD_RATIO_FACTOR);
+        testwords.addAllToCorrectWords(Arrays.asList(generateRightWordForRegex(regex)));
+        testwords.addAllToFailingWords(Arrays.asList(generateWrongWordsForRegex(regex)));
+        return testwords;
+    }
+
+
     /**
      * method to generate random wrong words based on a regular expression
      * @param regex the regular expression coded in a string from LON-CAPA

@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.entity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 public class Testwords {
@@ -16,8 +17,16 @@ public class Testwords {
         correctWords.add(word);
     }
 
+    public void addAllToCorrectWords( Collection<String> collection){
+        this.correctWords.addAll(collection);
+    }
+
     public void addToFailingWords(String word){
         failingWords.add(word);
+    }
+
+    public void addAllToFailingWords(Collection<String> collection){
+        this.failingWords.addAll(collection);
     }
 
     public String[] getCorrectWordsArray(){
