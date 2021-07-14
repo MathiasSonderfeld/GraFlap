@@ -29,45 +29,17 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
      */
     @Override
     protected void testing() throws GraFlapException {
-        testRightWords(testwords.getCorrectWordsArray());
-        testWrongWords(testwords.getFailingWordsArray());
-    }
-
-    /**
-     * method to test the correct words against the automaton
-     * @param testWords the array with the correct test words
-     * @throws GraFlapException throws a {@link GraFlapException} if the number of words is not zero
-     */
-    private void testRightWords(String[] testWords) throws GraFlapException {
-        int numberOfWords = testWords.length;
-        for (String input : testWords) {
-            boolean result = new AutomatonSimulator(object).acceptInput(input);
-            if (result) {
+        AutomatonSimulator automatonSimulator = new AutomatonSimulator(object);
+        for (String input : testwords.getCorrectWords()) {
+            if (automatonSimulator.acceptInput(input)) {
                 correctWordsCount--;
             }
-            numberOfWords--;
         }
-        if (numberOfWords != 0) {
-            throw new GraFlapException("Error in Logic: numberOfWords is " + numberOfWords + " and not zero.");
-        }
-    }
 
-    /**
-     * method to test the wrong words against the automaton
-     * @param testWords the array with the wrong test words
-     * @throws GraFlapException throws a {@link GraFlapException} if the number of words is not zero
-     */
-    private void testWrongWords(String[] testWords) throws GraFlapException {
-        int numberOfWords = testWords.length;
-        for (String input : testWords) {
-            boolean result = new AutomatonSimulator(object).acceptInput(input);
-            if (!result) {
+        for (String input : testwords.getFailingWords()) {
+            if (!automatonSimulator.acceptInput(input)) {
                 wrongWordsCount--;
             }
-            numberOfWords--;
-        }
-        if (numberOfWords != 0) {
-            throw new GraFlapException("Error in Logic: numberOfWords is " + numberOfWords + " and not zero.");
         }
     }
 }
