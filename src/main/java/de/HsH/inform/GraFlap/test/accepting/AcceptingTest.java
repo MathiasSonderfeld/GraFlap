@@ -20,12 +20,11 @@ public abstract class AcceptingTest<T extends Object> {
     /**
      * method to test words with a given submission
      * @param obj the object transformation of the submission that should be used for testing
-     * @param rightWords generated words that should be accepted
-     * @param wrongWords generated words that should be rejected
+     * @param testwords generated words for testing
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    abstract int testInput(T obj, String[] rightWords, String[] wrongWords) throws GraFlapException;
+    abstract int testInput(T obj, Testwords testwords) throws GraFlapException;
 
     /**
      * method to generate correct and wrong test words for the given solution based on a string with coded input words

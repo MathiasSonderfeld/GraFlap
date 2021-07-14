@@ -22,14 +22,13 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
     /**
      * method to test the given words an generate the appropriate score
      * @param obj the object transformation of the submission that should be used for testing
-     * @param rightWords generated words that should be accepted
-     * @param wrongWords generated words that should be rejected
+     * @param testwords generated words for testing
      * @return the result score of the testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     @Override
-    int testInput(Automaton obj, String[] rightWords, String[] wrongWords) throws GraFlapException {
-        AutomatonScoringTest scoringTest = new AutomatonScoringTest(obj, rightWords, wrongWords);
+    int testInput(Automaton obj, Testwords testwords) throws GraFlapException {
+        AutomatonScoringTest scoringTest = new AutomatonScoringTest(obj, testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
         return scoringTest.returnScore();
     }
 
@@ -45,7 +44,7 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
     @Override
     public int openInput( String solution, Submission<Automaton> studentInput, Testwords testwords ) throws GraFlapException {
         testwords = generateTestWordsFromString(solution, testwords);
-        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 
     /**
@@ -61,7 +60,7 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
     public int openInput(String solution, Submission<Automaton> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
         Testwords testwords = generateWords.generateTestWords(solution);
-        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 
     public static String getType() {

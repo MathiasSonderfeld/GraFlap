@@ -29,6 +29,6 @@ public class GrammarRegexTest extends GrammarTest {
     public int openInput( String solution, Submission<Grammar> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
         Testwords testwords = generateWords.generateTestWords(solution);
-        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 }

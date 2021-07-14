@@ -29,6 +29,6 @@ public class AutomatonRegexTest extends AutomatonTest {
     public int openInput( String solution, Submission<Automaton> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
         Testwords testwords = generateWords.generateTestWords(solution);
-        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 }

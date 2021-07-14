@@ -22,14 +22,13 @@ public class GrammarTest extends AcceptingTest<Grammar> {
     /**
      * method to test the given words an generate the appropriate score
      * @param obj the object transformation of the submission that should be used for testing
-     * @param rightWords generated words that should be accepted
-     * @param wrongWords generated words that should be rejected
+     * @param testwords generated words for testing
      * @return the result score of the testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     @Override
-    int testInput(Grammar obj, String[] rightWords, String[] wrongWords) throws GraFlapException {
-        GrammarScoringTest scoringTest = new GrammarScoringTest(obj, rightWords, wrongWords);
+    int testInput(Grammar obj, Testwords testwords) throws GraFlapException {
+        GrammarScoringTest scoringTest = new GrammarScoringTest(obj, testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
         return scoringTest.returnScore();
     }
 
@@ -44,7 +43,7 @@ public class GrammarTest extends AcceptingTest<Grammar> {
      */
     @Override
     public int openInput( String solution, Submission<Grammar> studentInput, Testwords testwords ) throws GraFlapException {
-        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 
     /**
@@ -60,6 +59,6 @@ public class GrammarTest extends AcceptingTest<Grammar> {
     public int openInput(String solution, Submission<Grammar> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
         Testwords testwords = generateWords.generateTestWords(solution);
-        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 }
