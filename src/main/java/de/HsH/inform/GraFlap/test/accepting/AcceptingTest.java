@@ -34,16 +34,12 @@ public abstract class AcceptingTest<T extends Object> {
      * @return a hashmap mapping {keyword, String[]} which holds the string array for the accepted and non accepted
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    HashMap<String, String[]> generateTestWordsFromString(String solution, Testwords testwords) throws GraFlapException {
-        HashMap<String, String[]> words = new HashMap<>();
-        words.put("rightWords", testwords.getCorrectWordsArray());
-        if (solution.contains("->")){
+    Testwords generateTestWordsFromString(String solution, Testwords testwords) throws GraFlapException {
+        if (solution.contains("->")) {
             GenerateWords generateWords = new GenerateWords(10);
-            words.put("wrongWords", generateWords.checkWrongGrammarWords(solution, testwords));
-        } else {
-            words.put("wrongWords", testwords.getFailingWordsArray());
+            generateWords.checkWrongGrammarWords(solution, testwords);
         }
-        return words;
+        return testwords;
     }
 
     /**

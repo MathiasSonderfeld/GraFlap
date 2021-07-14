@@ -172,18 +172,18 @@ public class GenerateWords {
      * @return an array containing the wrong words
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
-    public String[] checkWrongGrammarWords( String grammarString, Testwords testwords) throws GraFlapException {
+    public Testwords checkWrongGrammarWords( String grammarString, Testwords testwords) throws GraFlapException {
         String jffGrammar = GrammarBuilder.buildGrammar(grammarString);
         Grammar grammar = ConvertSubmission.openGrammar(jffGrammar).getSubmissionObject();
 
-        ArrayList<String> listOfWords = new ArrayList<>();
+        ArrayList<String> listOfWords = testwords.getFailingWords();
         Parser parser = determineParser(grammar);
         for (String wrongWord : testwords.getFailingWordsArray()) {
-            if (!parser.solve(wrongWord)) {
-                listOfWords.add(wrongWord);
+            if (parser.solve(wrongWord)) {
+                listOfWords.remove(wrongWord);
             }
         }
-        return listOfWords.toArray(new String[0]);
+        return testwords;
     }
 
     /**

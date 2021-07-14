@@ -44,8 +44,8 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
      */
     @Override
     public int openInput( String solution, Submission<Automaton> studentInput, Testwords testwords ) throws GraFlapException {
-        HashMap<String, String[]> words = generateTestWordsFromString(solution, testwords);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        testwords = generateTestWordsFromString(solution, testwords);
+        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
     }
 
     /**

@@ -29,6 +29,14 @@ public class Testwords {
         this.failingWords.addAll(collection);
     }
 
+    public ArrayList<String> getCorrectWords() {
+        return correctWords;
+    }
+
+    public ArrayList<String> getFailingWords() {
+        return failingWords;
+    }
+
     public String[] getCorrectWordsArray(){
         return correctWords.toArray(new String[correctWords.size()]);
     }

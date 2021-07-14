@@ -56,13 +56,10 @@ public class GrammarTest extends AcceptingTest<Grammar> {
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a GraFlapException that occurs further within the calling hierarchy
      */
-    //TODO replace HashMap with Struct
     @Override
     public int openInput(String solution, Submission<Grammar> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
-        HashMap<String, String[]> words = WordSeparator.splitAcceptedAndNotAcceptedWords(
-                                                        generateWords.generateWordsForGrammar(solution),
-                                                        numberOfWordsToBeGenerated);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        Testwords testwords = generateWords.generateTestWords(solution);
+        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
     }
 }
