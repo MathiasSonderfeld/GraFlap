@@ -2,6 +2,7 @@ package de.HsH.inform.GraFlap.scoring.accepting;
 
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.simulation.AutomatonSimulator;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
@@ -15,13 +16,11 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
     /**
      * constructor
      * @param object the automaton that should be used to test the words
-     * @param rightWords a list of words that should be accepted
-     * @param wrongWords a list of words that should be rejected
+     * @param testwords a list of words for testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    public AutomatonScoringTest(Automaton object, String[] rightWords, String[] wrongWords)
-            throws GraFlapException {
-        super(object, rightWords, wrongWords);
+    public AutomatonScoringTest( Automaton object, Testwords testwords) throws GraFlapException {
+        super(object, testwords);
     }
 
     /**

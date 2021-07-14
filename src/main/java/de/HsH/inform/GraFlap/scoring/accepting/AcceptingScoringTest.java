@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.scoring.accepting;
 
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
 
@@ -12,8 +13,10 @@ import java.util.HashMap;
  *  @version 0.1.1
  */
 abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
-    int correctWordsCount;
-    int wrongWordsCount;
+    protected int correctWordsCount;
+    protected int wrongWordsCount;
+
+    protected Testwords testwords;
     /**
      * an array for the word that should be accepted
      */
@@ -26,16 +29,16 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
     /**
      * constructor
      * @param object the object that should be used; can be an Automaton or a Grammar
-     * @param rightWords a list of words that should be accepted
-     * @param wrongWords a list of words that should be rejected
+     * @param testwords words for testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    AcceptingScoringTest(T object, String[] rightWords, String[] wrongWords) throws GraFlapException {
+    AcceptingScoringTest(T object, Testwords testwords) throws GraFlapException {
         super(object);
+        this.rightWords = testwords.getCorrectWordsArray();
+        this.wrongWords = testwords.getFailingWordsArray();
         correctWordsCount = rightWords.length;
         wrongWordsCount = wrongWords.length;
-        this.rightWords = rightWords;
-        this.wrongWords = wrongWords;
+        this.testwords = testwords;
         testing();
         resultScore = calculateResultScore();
     }

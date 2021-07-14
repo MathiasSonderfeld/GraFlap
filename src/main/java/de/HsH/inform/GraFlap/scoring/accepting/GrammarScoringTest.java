@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.scoring.accepting;
 
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.test.WordTest;
 
@@ -15,13 +16,11 @@ public class GrammarScoringTest extends AcceptingScoringTest<Grammar> {
     /**
      * constructor
      * @param object the grammar that should be used to test the words
-     * @param rightWords a list of words that should be accepted
-     * @param wrongWords a list of words that should be rejected
+     * @param testwords a list of words for testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    public GrammarScoringTest(Grammar object, String[] rightWords, String[] wrongWords)
-            throws GraFlapException {
-        super(object, rightWords, wrongWords);
+    public GrammarScoringTest( Grammar object, Testwords testwords) throws GraFlapException {
+        super(object, testwords);
     }
 
     /**
