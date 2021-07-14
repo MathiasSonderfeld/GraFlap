@@ -60,10 +60,8 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
     @Override
     public int openInput(String solution, Submission<Automaton> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
-        HashMap<String, String[]> words = WordSeparator.splitAcceptedAndNotAcceptedWords(
-                                                        generateWords.generateWordsForGrammar(solution),
-                                                        numberOfWordsToBeGenerated);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        Testwords testwords = generateWords.generateTestWords(solution);
+        return testInput(studentInput.getSubmissionObject(), testwords.getCorrectWordsArray(), testwords.getFailingWordsArray());
     }
 
     public static String getType() {
