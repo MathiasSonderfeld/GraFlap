@@ -126,43 +126,29 @@ public class GenerateWords {
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy or when
      * a problem occurs within the CYK Parser
      */
-    public String[] generateWordsForGrammar(String grammarString) throws GraFlapException {
+    public Testwords generateTestWordsForGrammar(String grammarString) throws GraFlapException {
         String jffGrammar = GrammarBuilder.buildGrammar(grammarString);
         Submission<Grammar> submission = ConvertSubmission.openGrammar(jffGrammar);
         Grammar grammar = submission.getSubmissionObject();
         Parser parser = determineParser(grammar);
-        String[] rightWords = WordBuilder.buildWords(numberOfTestWords, submission.getSubmissionObject());
-        String[] wrongWords = new String[numberOfTestWords * WRONG_WORD_RATIO_FACTOR];
+        Testwords testwords = new Testwords(numberOfTestWords, numberOfTestWords * WRONG_WORD_RATIO_FACTOR);
+        testwords.addAllToCorrectWords(Arrays.asList(WordBuilder.buildWords(numberOfTestWords, submission.getSubmissionObject())));
+        ArrayList<String> wrongWords = testwords.getFailingWords();
         int wrongWordCount = 0;
 
         if (!parser.solve("")) {
-            wrongWords[0] = "";
+            wrongWords.add("");
             wrongWordCount++;
         }
 
         while (wrongWordCount < numberOfTestWords * WRONG_WORD_RATIO_FACTOR) {
             String word = generateRandomWord(grammar.getAlphabet(), 20);
-            if (!parser.solve(word) && !doesContain(word, wrongWords)) {
-                wrongWords[wrongWordCount] = word;
+            if (!parser.solve(word) && !wrongWords.contains(word)) {
+                wrongWords.add(word);
                 wrongWordCount++;
             }
         }
-        return Stream.concat(Arrays.stream(rightWords), Arrays.stream(wrongWords)).toArray(String[]::new);
-    }
-
-    /**
-     * mwthod to check if a produced word already is in the given word array
-     * @param givenWord the newly produced word
-     * @param words the array with the generated words
-     * @return true: if the word already exists in the array, false if not
-     */
-    private boolean doesContain(String givenWord, String[] words) {
-        for (String word: words) {
-            if (givenWord.equals(word)) {
-                return true;
-            }
-        }
-        return false;
+        return testwords;
     }
 
     /**

@@ -58,7 +58,7 @@ public class GrammarTest extends AcceptingTest<Grammar> {
     @Override
     public int openInput(String solution, Submission<Grammar> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
-        Testwords testwords = generateWords.generateTestWords(solution);
+        Testwords testwords = generateWords.generateTestWordsForGrammar(solution);
         return testInput(studentInput.getSubmissionObject(), testwords);
     }
 }
