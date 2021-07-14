@@ -15,10 +15,9 @@ import de.HsH.inform.GraFlap.JflapWrapper.parse.RestrictedBruteParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Helper class to generate words for a given grammar or regular expression
@@ -39,7 +38,7 @@ public class GenerateWords {
     /**
      * a set holding all generated words
      */
-    private final ConcurrentSkipListSet<String> generatedWords;
+    private final HashSet<String> generatedWords;
 
     /**
      * Constructor
@@ -47,7 +46,7 @@ public class GenerateWords {
      */
     public GenerateWords(int numberOfTestWords) {
         this.numberOfTestWords = numberOfTestWords;
-        generatedWords = new ConcurrentSkipListSet<>();
+        generatedWords = new HashSet<>();
     }
 
 
@@ -224,7 +223,7 @@ public class GenerateWords {
             for (int j = 0; j <= rand.nextInt(maxWordLength) ; j++) {
                 word = word + alphabet[rand.nextInt(alphabet.length)];
             }
-        } while(!generatedWords.add(word));
+        } while(generatedWords.contains(word));
         generatedWords.add(word);
         return word;
     }
