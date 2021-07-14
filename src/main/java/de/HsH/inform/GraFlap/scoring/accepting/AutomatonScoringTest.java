@@ -44,7 +44,7 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
         for (String input : testWords) {
             boolean result = new AutomatonSimulator(object).acceptInput(input);
             if (result) {
-                countWordTypes.put(true, countWordTypes.get(true) - 1);
+                correctWordsCount--;
             }
             numberOfWords--;
         }
@@ -63,7 +63,7 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
         for (String input : testWords) {
             boolean result = new AutomatonSimulator(object).acceptInput(input);
             if (!result) {
-                countWordTypes.put(false, countWordTypes.get(false) - 1);
+                wrongWordsCount--;
             }
             numberOfWords--;
         }

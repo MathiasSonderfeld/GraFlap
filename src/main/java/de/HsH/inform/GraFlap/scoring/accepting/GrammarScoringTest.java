@@ -30,7 +30,7 @@ public class GrammarScoringTest extends AcceptingScoringTest<Grammar> {
      */
     @Override
     protected void testing() throws GraFlapException {
-        countWordTypes.put(true, WordTest.checkWordsWithGrammar(object, rightWords));
-        countWordTypes.put(false, wrongWords.length - WordTest.checkWordsWithGrammar(object, wrongWords));
+        correctWordsCount = WordTest.checkWordsWithGrammar(object, rightWords);
+        wrongWordsCount = wrongWords.length - WordTest.checkWordsWithGrammar(object, wrongWords);
     }
 }

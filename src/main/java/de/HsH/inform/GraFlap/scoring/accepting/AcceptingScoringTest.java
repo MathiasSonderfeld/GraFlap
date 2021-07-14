@@ -12,12 +12,8 @@ import java.util.HashMap;
  *  @version 0.1.1
  */
 abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
-    /**
-     * this {@link HashMap} stores the values of correct and wrong words.
-     * correct words will be counted under the true key, the wrong
-     * word will be counted under the false key
-     */
-    HashMap<Boolean, Integer> countWordTypes;
+    int correctWordsCount;
+    int wrongWordsCount;
     /**
      * an array for the word that should be accepted
      */
@@ -36,9 +32,8 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
      */
     AcceptingScoringTest(T object, String[] rightWords, String[] wrongWords) throws GraFlapException {
         super(object);
-        countWordTypes = new HashMap<>();
-        countWordTypes.put(true, rightWords.length);
-        countWordTypes.put(false, wrongWords.length);
+        correctWordsCount = rightWords.length;
+        wrongWordsCount = wrongWords.length;
         this.rightWords = rightWords;
         this.wrongWords = wrongWords;
         testing();
@@ -51,8 +46,8 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
      */
     @Override
     protected int calculateResultScore() {
-        double resultValue = (countWordTypes.get(true) + countWordTypes.get(false)) * 100.0 /
-                             (rightWords.length + wrongWords.length);
+        double resultValue = (correctWordsCount + wrongWordsCount * 100.0 /
+                             (rightWords.length + wrongWords.length));
         if (resultValue > 0 && resultValue < 1) {
             return 1;
         }
