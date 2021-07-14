@@ -29,8 +29,8 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
      */
     @Override
     protected void testing() throws GraFlapException {
-        testRightWords(rightWords);
-        testWrongWords(wrongWords);
+        testRightWords(testwords.getCorrectWordsArray());
+        testWrongWords(testwords.getFailingWordsArray());
     }
 
     /**

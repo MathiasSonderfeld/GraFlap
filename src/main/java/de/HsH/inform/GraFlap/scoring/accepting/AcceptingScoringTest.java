@@ -17,14 +17,6 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
     protected int wrongWordsCount;
 
     protected Testwords testwords;
-    /**
-     * an array for the word that should be accepted
-     */
-    String[] rightWords;
-    /**
-     * an array for the word that should not be accepted
-     */
-    String[] wrongWords;
 
     /**
      * constructor
@@ -34,11 +26,9 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
      */
     AcceptingScoringTest(T object, Testwords testwords) throws GraFlapException {
         super(object);
-        this.rightWords = testwords.getCorrectWordsArray();
-        this.wrongWords = testwords.getFailingWordsArray();
-        correctWordsCount = rightWords.length;
-        wrongWordsCount = wrongWords.length;
         this.testwords = testwords;
+        correctWordsCount = testwords.getCorrectWords().size();
+        wrongWordsCount = testwords.getFailingWords().size();
         testing();
         resultScore = calculateResultScore();
     }
@@ -50,7 +40,7 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
     @Override
     protected int calculateResultScore() {
         double resultValue = (correctWordsCount + wrongWordsCount * 100.0 /
-                             (rightWords.length + wrongWords.length));
+                             (testwords.getCorrectWords().size() + testwords.getFailingWords().size()));
         if (resultValue > 0 && resultValue < 1) {
             return 1;
         }
