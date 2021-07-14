@@ -32,6 +32,7 @@ public class LoncapaParser extends ArgumentsParser{
         int numberOfWords = parseAndCheckNumberOfWords(taskArguments[5]);
         arguments.setNumberOfWords(numberOfWords);
         arguments.setTestwords(parseInputWords(numberOfWords, taskArguments[6]));
+        arguments.setWordString(taskArguments[6]);
 
         TaskMode taskMode;
         try{
