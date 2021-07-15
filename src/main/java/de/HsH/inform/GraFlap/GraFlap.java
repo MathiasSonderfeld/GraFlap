@@ -30,6 +30,7 @@ import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.ProformaOutputFormatter;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.parsing.ArgumentsParser;
+import de.HsH.inform.GraFlap.svg.SvgBuilder;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.io.parsing.LoncapaParser;
@@ -64,6 +65,10 @@ public class GraFlap {
      *             Example: "Beispiel fuer eine kontextfreie Grammatik#de#n,o,p#egt#cfg#0#-" "S -> E | p | n S o"
      */
     public static void main(String[] args) {
+        System.out.println(parseAndProcessSubmission(args));
+    }
+
+    public static String parseAndProcessSubmission(String[] args){
         Arguments arguments = null;
         OutputFormatter outputFormatter = null;
         ArgumentsParser parser = null;
@@ -96,6 +101,7 @@ public class GraFlap {
         }
         catch(IOException | IllegalArgumentException e){
             e.printStackTrace(System.err);
+            return "";
         }
         catch(GraFlapException e){
             if(outputFormatter != null){
@@ -110,9 +116,7 @@ public class GraFlap {
             }
         }
         finally {
-            if(outputFormatter != null && answerMessage != null){
-                System.out.println(outputFormatter.format(answerMessage));
-            }
+            return outputFormatter.format(answerMessage);
         }
     }
 
@@ -123,8 +127,11 @@ public class GraFlap {
     protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException{
         Result result = Grader.generateResult(arguments);
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
-        Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA).getSvg();
+        SvgBuilder svgBuilder = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA);
+        Element svg = svgBuilder.getSvg();
+        String test = svgBuilder.getSvgString();
         String svgString = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svg);
+        System.out.println(test.equals(svgString));
         return new AnswerMessage(result, arguments, svgString);
     }
 }
