@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.*;
 

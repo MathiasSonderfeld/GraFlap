@@ -2,11 +2,8 @@ package de.HsH.inform.GraFlap.test.accepting;
 
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
-import de.HsH.inform.GraFlap.JflapWrapper.words.WordSeparator;
 import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-
-import java.util.HashMap;
 
 /**
  * abstract class to serve as a parent class for different testing mechanisms of accepting components like grammars

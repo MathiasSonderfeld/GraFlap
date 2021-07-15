@@ -1,8 +1,5 @@
 package de.HsH.inform.GraFlap.exception;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 /**
  * Exception-class that creates an error message that can be returned
  * @author Ufuk Tosun (12-11-12)

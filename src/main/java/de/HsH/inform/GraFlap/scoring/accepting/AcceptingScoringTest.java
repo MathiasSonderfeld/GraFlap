@@ -4,8 +4,6 @@ import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
 
-import java.util.HashMap;
-
 /**
  *  parent class to generate the resulting score for test words for grammars and accepting automatons
  *  @author Benjamin Held (06-16-2016)

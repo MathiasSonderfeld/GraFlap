@@ -1,25 +1,28 @@
 package de.HsH.inform.GraFlap.convert;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.SubmissionType;
-import de.HsH.inform.GraFlap.entity.ValuePair;
-import de.HsH.inform.GraFlap.util.EmptyErrorHandler;
-import org.xml.sax.SAXException;
-import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
 import de.HsH.inform.GraFlap.JflapWrapper.file.Transducer;
-import org.w3c.dom.Document;
-import org.w3c.dom.*;
-import org.w3c.dom.Element;
 import de.HsH.inform.GraFlap.JflapWrapper.file.TuringConverter;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.entity.ValuePair;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.util.EmptyErrorHandler;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  *  helper class with static method to read and convert the given submission string

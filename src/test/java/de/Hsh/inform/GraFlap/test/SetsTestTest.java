@@ -5,7 +5,6 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;

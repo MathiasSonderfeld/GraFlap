@@ -1,9 +1,9 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import org.jdom2.Document;
 import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import org.jdom2.Document;
 
 /**
  * Child class of the {@link SvgBuilder} that creates result output for cyk exercises

@@ -2,7 +2,6 @@ package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.TreeSet;
 
 public class SetResult<Generic> {
     private double score;

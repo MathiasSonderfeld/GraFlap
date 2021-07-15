@@ -1,12 +1,15 @@
 package de.HsH.inform.GraFlap.svg;
 
+import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 
 import java.awt.geom.Point2D;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * Child class of the {@link SvgBuilder} that creates a result svg for a jflap automaton

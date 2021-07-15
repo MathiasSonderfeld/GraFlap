@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.scoring.derivation;
 
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.derivation.DerivationChecker;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
 
 /**

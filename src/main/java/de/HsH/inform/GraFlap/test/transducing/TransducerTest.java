@@ -1,12 +1,12 @@
 package de.HsH.inform.GraFlap.test.transducing;
 
 
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.exception.AutomatonMismatchException;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.transducing.FiniteTransducerScoringTest;
 import de.HsH.inform.GraFlap.scoring.transducing.TuringMachineScoringTest;
-import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
-import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
-import de.HsH.inform.GraFlap.JflapWrapper.exception.AutomatonMismatchException;
 
 import java.util.HashMap;
 

@@ -1,11 +1,13 @@
 package de.HsH.inform.GraFlap.JflapWrapper.file;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import file.xml.*;
+import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
 import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import file.xml.JFFTransducerFactory;
+import file.xml.StructureTransducer;
+import file.xml.XMLHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
 
 /**
  * wrapper class for JFLAP isolation to represent a Transducer

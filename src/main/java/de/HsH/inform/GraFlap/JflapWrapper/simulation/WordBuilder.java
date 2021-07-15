@@ -1,10 +1,10 @@
 package de.HsH.inform.GraFlap.JflapWrapper.simulation;
 
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import model.languages.BruteLanguageGenerator;
 import model.languages.GrammarFactory;
 import model.symbols.SymbolString;
-import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
-import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.JflapWrapper.entity;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
  * wrapper class which holds all related information of a submission or solution string during the grading process

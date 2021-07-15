@@ -2,12 +2,12 @@ package de.HsH.inform.GraFlap.test;
 
 import de.HsH.inform.GraFlap.GrammarBuilder;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.BruteParser;
 import de.HsH.inform.GraFlap.JflapWrapper.parse.Parser;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.RestrictedBruteParser;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
-import de.HsH.inform.GraFlap.JflapWrapper.parse.BruteParser;
-import de.HsH.inform.GraFlap.JflapWrapper.parse.RestrictedBruteParser;
 
 import java.util.regex.Pattern;
 

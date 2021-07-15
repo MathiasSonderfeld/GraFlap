@@ -1,7 +1,5 @@
 package de.HsH.inform.GraFlap.JflapWrapper.words;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-
 import java.util.HashMap;
 
 /**

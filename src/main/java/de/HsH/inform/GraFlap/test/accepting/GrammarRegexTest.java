@@ -6,8 +6,6 @@ import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
 import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
-import java.util.HashMap;
-
 /**
  * child class of {@link GrammarTest} to separate the testing process with words from the testing process with
  * a regular expression

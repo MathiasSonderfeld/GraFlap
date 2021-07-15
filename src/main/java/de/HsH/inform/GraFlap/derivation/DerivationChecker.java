@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.derivation;
 
-import de.HsH.inform.GraFlap.entity.ValuePair;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
+import de.HsH.inform.GraFlap.entity.ValuePair;
 
 import java.util.ArrayList;
 import java.util.List;

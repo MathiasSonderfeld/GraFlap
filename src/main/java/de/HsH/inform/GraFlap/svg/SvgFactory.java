@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.svg;
 
+import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.SubmissionType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Arguments;
 
 /**
  * Static factory class to return the correct svg builder based on the input

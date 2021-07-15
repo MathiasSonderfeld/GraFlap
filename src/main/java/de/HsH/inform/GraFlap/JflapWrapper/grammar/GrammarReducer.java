@@ -3,8 +3,8 @@ package de.HsH.inform.GraFlap.JflapWrapper.grammar;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import model.algorithms.AlgorithmException;
 import model.algorithms.transform.grammar.LambdaProductionRemover;
-import model.algorithms.transform.grammar.UselessProductionRemover;
 import model.algorithms.transform.grammar.UnitProductionRemover;
+import model.algorithms.transform.grammar.UselessProductionRemover;
 
 
 /**

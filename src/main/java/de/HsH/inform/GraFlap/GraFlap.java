@@ -15,27 +15,26 @@ package de.HsH.inform.GraFlap;
  *
  */
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.TaskMode;
+import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.ProformaOutputFormatter;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.parsing.ArgumentsParser;
-import de.HsH.inform.GraFlap.svg.SvgBuilder;
-import de.HsH.inform.GraFlap.svg.SvgFactory;
-import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.io.parsing.LoncapaParser;
 import de.HsH.inform.GraFlap.io.parsing.ProformaParser;
-import org.jdom2.Element;
+import de.HsH.inform.GraFlap.svg.SvgBuilder;
+import de.HsH.inform.GraFlap.svg.SvgFactory;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Main execution file that starts the application
@@ -124,11 +123,6 @@ public class GraFlap {
         Result result = Grader.generateResult(arguments);
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         SvgBuilder svgBuilder = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA);
-        Element svg = svgBuilder.getSvg();
-        //TODO test vs svgString???
-        //String test = svgBuilder.getSvgString();
-        String svgString = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svg);
-        //System.out.println(test.equals(svgString));
-        return new AnswerMessage(result, arguments, svgString);
+        return new AnswerMessage(result, arguments, svgBuilder.getSvgString());
     }
 }

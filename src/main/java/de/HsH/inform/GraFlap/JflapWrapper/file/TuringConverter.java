@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.JflapWrapper.file;
 
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import model.automata.*;
 import model.automata.acceptors.FinalStateSet;
@@ -7,7 +8,6 @@ import model.automata.turing.*;
 import model.symbols.Symbol;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 
 import java.util.List;
 

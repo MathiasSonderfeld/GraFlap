@@ -1,11 +1,11 @@
 package de.HsH.inform.GraFlap.JflapWrapper.parse;
 
+import de.HsH.inform.GraFlap.JflapWrapper.exception.NonCNFGrammarException;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import model.algorithms.AlgorithmException;
 import model.symbols.Symbol;
-import de.HsH.inform.GraFlap.JflapWrapper.exception.NonCNFGrammarException;
 
 import java.util.HashSet;
 import java.util.Set;

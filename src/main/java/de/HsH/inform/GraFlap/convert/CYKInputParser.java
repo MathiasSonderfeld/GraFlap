@@ -1,11 +1,11 @@
 package de.HsH.inform.GraFlap.convert;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.CYKTable;
-import de.HsH.inform.GraFlap.entity.SubmissionType;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
+import de.HsH.inform.GraFlap.entity.CYKTable;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.HashSet;
 

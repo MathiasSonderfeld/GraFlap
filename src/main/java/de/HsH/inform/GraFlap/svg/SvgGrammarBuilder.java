@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;

@@ -7,7 +7,6 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.util.LocaleControl;
-import org.jdom2.Element;
 
 import java.util.ArrayList;
 import java.util.Locale;

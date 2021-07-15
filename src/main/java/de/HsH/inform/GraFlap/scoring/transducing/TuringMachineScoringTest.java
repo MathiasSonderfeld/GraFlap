@@ -1,9 +1,9 @@
 package de.HsH.inform.GraFlap.scoring.transducing;
 
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.ValuePair;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.TuringMachine;
+import de.HsH.inform.GraFlap.entity.ValuePair;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.HashMap;
 

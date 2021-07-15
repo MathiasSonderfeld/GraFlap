@@ -3,12 +3,9 @@ package de.HsH.inform.GraFlap.test.accepting;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
-import de.HsH.inform.GraFlap.JflapWrapper.words.WordSeparator;
 import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.accepting.AutomatonScoringTest;
-
-import java.util.HashMap;
 
 /**
  *  child class of test to open and test a given automaton or regex

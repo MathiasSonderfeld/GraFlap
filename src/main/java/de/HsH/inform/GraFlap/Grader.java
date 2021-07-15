@@ -22,8 +22,6 @@ import de.HsH.inform.GraFlap.test.transducing.TransducerWordTest;
 import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 
-import java.util.Arrays;
-
 /**
  * helper class for the main method to determine the result of the submission
  * @author Benjamin Held (04-17-2016)

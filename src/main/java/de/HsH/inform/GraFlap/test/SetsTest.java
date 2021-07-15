@@ -7,7 +7,8 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.parsing.XmlAutomatonParser;
 
-import java.util.*;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
