@@ -26,7 +26,7 @@ public class AnswerMessage {
 
     protected String taskTitle;
     private Locale userLocale;
-    private Element svgImage;
+    private String svgImage;
     private int percentOfTestWordsFailed;
     private boolean hasPassed;
     private TaskMode taskMode;
@@ -72,7 +72,7 @@ public class AnswerMessage {
 
     public AnswerMessage(Result result, Arguments arguments, Element svg) {
         this(result, arguments);
-        this.svgImage = svg;
+        this.svgImage = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svg);
         String message = "", format = "%d %s";
         String aditionalFeedbackDelimiter ="\n";
         switch(this.taskMode){
@@ -391,7 +391,7 @@ public class AnswerMessage {
     }
 
     public String getSvgImage() {
-        return new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svgImage);
+        return svgImage;
     }
 
     public int getPercentOfTestWordsFailed() {

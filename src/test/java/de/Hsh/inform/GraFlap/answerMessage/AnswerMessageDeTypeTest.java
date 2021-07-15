@@ -2,6 +2,7 @@ package de.HsH.inform.GraFlap.answerMessage;
 
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.entity.*;
+import org.jdom2.Element;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class AnswerMessageDeTypeTest {
     private static int numberOfWordsFailed = 50;
     private static Submission submission = new Submission();
     private static Result result;
-    private org.jdom2.Element nullElement = null;
+    private org.jdom2.Element nullElement = new Element("null");;
 
     @BeforeAll
     static void init(){

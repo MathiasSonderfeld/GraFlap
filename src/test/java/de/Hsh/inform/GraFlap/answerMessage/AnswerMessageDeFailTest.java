@@ -3,6 +3,7 @@ package de.HsH.inform.GraFlap.answerMessage;
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.entity.*;
+import org.jdom2.Element;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ public class AnswerMessageDeFailTest {
     private static Arguments arguments = new Arguments();
     private static int numberOfWordsFailed = 50;
     private static Result result = new Result(new Submission(), numberOfWordsFailed, TaskType.NON);
-    private org.jdom2.Element nullElement = null;
+    private org.jdom2.Element nullElement = new Element("null");;
 
     String convertToAscii(String in){
         return in.replaceAll("ä","ae")
