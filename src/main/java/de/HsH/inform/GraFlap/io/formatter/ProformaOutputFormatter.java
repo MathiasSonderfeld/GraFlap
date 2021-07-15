@@ -33,31 +33,23 @@ public class ProformaOutputFormatter implements OutputFormatter {
      * @return xml as String
      */
     public String format(AnswerMessage answerMessage){
+        if (answerMessage.getTaskMode() == TaskMode.SVGA) {
+            return answerMessage.getSvgImage();
+        }
         try{
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             StringWriter stringWriter = new StringWriter();
-            Document svgImage = null;
-            String svgAsString = "";
-            if(answerMessage.getSvgImage() != null){
-                svgAsString = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(answerMessage.getSvgImage());
-                svgImage = db.parse(new ByteArrayInputStream(svgAsString.getBytes(StandardCharsets.UTF_8)));
-            }
+            document = db.newDocument();
 
-            if (answerMessage.getTaskMode() == TaskMode.SVGA) {
-                document = svgImage;
-            }
-            else {
-                document = db.newDocument();
-                buildProforma(answerMessage, svgAsString);
-            }
+            buildProforma(answerMessage);
             document.normalizeDocument();
             transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
             return stringWriter.toString();
         }
-        catch(ParserConfigurationException | TransformerException | IOException |SAXException e) {
+        catch(ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
             return "";
         }
@@ -66,15 +58,9 @@ public class ProformaOutputFormatter implements OutputFormatter {
     /**
      * builds the mainframe of the document
      * @param answerMessage data
-     * @param svgAsString workaround because svgImage is Jdom2 Element
      */
-    private void buildProforma(AnswerMessage answerMessage, String svgAsString){
+    private void buildProforma(AnswerMessage answerMessage){
         Element response;
-        if ("asvg".equals(answerMessage.getTaskMode())) {
-            response = document.createElement(svgAsString);
-            document.appendChild(response);
-            return;
-        }
 
         response = document.createElementNS("urn:proforma:v2.1","response");
         response.setPrefix(namespace);
@@ -83,7 +69,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
         createElement(seperateTestFeedback, "submission-feedback-list");
 
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
-        buildMainTestResponse(testsResponse, answerMessage, svgAsString);
+        buildMainTestResponse(testsResponse, answerMessage, answerMessage.getSvgImage());
         if(answerMessage.getTaskMode().isParameterized() || answerMessage.getTaskMode() == TaskMode.AA){
             buildSetsTestResponse(testsResponse, "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
             buildSetsTestResponse(testsResponse, "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());

@@ -33,7 +33,7 @@ public class ProformaOutputFormatterTest {
 
         AnswerMessage messageMock = mock(AnswerMessage.class);
         when(messageMock.getTaskTitle()).thenReturn(taskTitle);
-        when(messageMock.getSvgImage()).thenReturn(new Element(svgImageContent));
+        when(messageMock.getSvgImage()).thenReturn("<" + svgImageContent +"/>");
         when(messageMock.getSvgTitle()).thenReturn(svgTitle);
         when(messageMock.getTaskMode()).thenReturn(taskMode);
         when(messageMock.getFeedback()).thenReturn(feedback);
@@ -66,7 +66,7 @@ public class ProformaOutputFormatterTest {
 
         AnswerMessage messageMock = mock(AnswerMessage.class);
         when(messageMock.getTaskTitle()).thenReturn(taskTitle);
-        when(messageMock.getSvgImage()).thenReturn(new Element(svgImageContent));
+        when(messageMock.getSvgImage()).thenReturn("<" + svgImageContent +"/>");
         when(messageMock.getSvgTitle()).thenReturn(svgTitle);
         when(messageMock.getTaskMode()).thenReturn(taskMode);
         when(messageMock.getFeedback()).thenReturn(feedback);
@@ -103,7 +103,7 @@ public class ProformaOutputFormatterTest {
 
         AnswerMessage messageMock = mock(AnswerMessage.class);
         when(messageMock.getTaskTitle()).thenReturn(taskTitle);
-        when(messageMock.getSvgImage()).thenReturn(new Element(svgImageContent));
+        when(messageMock.getSvgImage()).thenReturn("<" + svgImageContent +"/>");
         when(messageMock.getSvgTitle()).thenReturn(svgTitle);
         when(messageMock.getTaskMode()).thenReturn(taskMode);
         when(messageMock.getFeedback()).thenReturn(feedback);
@@ -146,7 +146,7 @@ public class ProformaOutputFormatterTest {
     void testGetXMLResultFail() {
         AnswerMessage message = mock(AnswerMessage.class);
         when(message.getTaskTitle()).thenReturn("Test for LoncapaBuilder.getXML Result Fail");
-        when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
+        when(message.getSvgImage()).thenReturn("<thisIsATest/>");
         when(message.getSvgTitle()).thenReturn("SVGTitle");
         when(message.getTaskMode()).thenReturn(TaskMode.GG);
         when(message.getFeedback()).thenReturn("mocked test successfull");
@@ -163,9 +163,9 @@ public class ProformaOutputFormatterTest {
     @Test
     void testGetXMLResultSVG() {
         AnswerMessage message = mock(AnswerMessage.class);
-        when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
+        when(message.getSvgImage()).thenReturn("<svgimagecontent/>");
         when(message.getTaskMode()).thenReturn(TaskMode.SVGA);
-        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><thisIsATest/>";
+        String xml = "<svgimagecontent/>";
 
         Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(message).replaceAll("\\s+", "").trim());
     }

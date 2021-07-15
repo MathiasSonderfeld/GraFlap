@@ -23,10 +23,10 @@ public class LoncapaOutputFormatter implements OutputFormatter {
      * @return String containing the whole xml document
      */
     public String format( AnswerMessage answerMessage ) {
-        XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         if (answerMessage.getTaskMode() == TaskMode.SVGA) {
-            return out.outputString(answerMessage.getSvgImage());
+            return answerMessage.getSvgImage();
         }
+        XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         String award, grade;
 
         if(answerMessage.getPercentOfTestWordsFailed() < 0){
@@ -49,9 +49,7 @@ public class LoncapaOutputFormatter implements OutputFormatter {
         taskResult.addContent(new Element("titlesvg").addContent(answerMessage.getSvgTitle()));
 
         if (!(answerMessage.getSvgImage() == null)) {
-            String svgstring = new XMLOutputter().outputString(answerMessage.getSvgImage());
-
-            taskResult.addContent(new Element("imagesvg").addContent(new CDATA(svgstring)));
+            taskResult.addContent(new Element("imagesvg").addContent(new CDATA(answerMessage.getSvgImage())));
         }
 
         taskResult.addContent(new Element("resulttext").addContent(answerMessage.getFeedback()));

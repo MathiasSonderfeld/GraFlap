@@ -390,8 +390,8 @@ public class AnswerMessage {
         return taskTitle;
     }
 
-    public Element getSvgImage() {
-        return svgImage;
+    public String getSvgImage() {
+        return new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svgImage);
     }
 
     public int getPercentOfTestWordsFailed() {

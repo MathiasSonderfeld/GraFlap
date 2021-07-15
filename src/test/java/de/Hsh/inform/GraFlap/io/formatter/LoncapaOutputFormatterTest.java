@@ -25,7 +25,7 @@ public class LoncapaOutputFormatterTest {
     void testGetXMLResultSuccess(){
         AnswerMessage message = mock(AnswerMessage.class);
         when(message.getTaskTitle()).thenReturn("Test for LoncapaBuilder.getXML Result Success");
-        when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
+        when(message.getSvgImage()).thenReturn("<thisIsATest />");
         when(message.getSvgTitle()).thenReturn("SVGTitle");
         when(message.getTaskMode()).thenReturn(TaskMode.GG);
         when(message.getFeedback()).thenReturn("mocked test successfull");
@@ -42,7 +42,7 @@ public class LoncapaOutputFormatterTest {
     void testGetXMLResultFail(){
         AnswerMessage message = mock(AnswerMessage.class);
         when(message.getTaskTitle()).thenReturn("Test for LoncapaBuilder.getXML Result Fail");
-        when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
+        when(message.getSvgImage()).thenReturn("<thisIsATest />");
         when(message.getSvgTitle()).thenReturn("SVGTitle");
         when(message.getTaskMode()).thenReturn(TaskMode.GG);
         when(message.getFeedback()).thenReturn("mocked test successfull");
@@ -58,7 +58,7 @@ public class LoncapaOutputFormatterTest {
     @Test
     void testGetXMLResultSVG(){
         AnswerMessage message = mock(AnswerMessage.class);
-        when(message.getSvgImage()).thenReturn(new Element("thisIsATest"));
+        when(message.getSvgImage()).thenReturn("<thisIsATest />");
         when(message.getTaskMode()).thenReturn(TaskMode.SVGA);
         String xml = "<thisIsATest />";
 
