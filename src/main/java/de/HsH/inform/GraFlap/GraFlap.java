@@ -105,14 +105,10 @@ public class GraFlap {
         }
         catch(GraFlapException e){
             if(outputFormatter != null){
-                String taskTitle = "";
-                if(arguments != null){
-                    taskTitle = arguments.getTaskTitle();
-                }
                 answerMessage = new AnswerMessage(new Result(new Submission(), 100, TaskType.ERROR), arguments,"" , e.getMessage());
             }
             else{
-                e.printStackTrace(System.out);
+                e.printStackTrace(System.err);
             }
         }
         finally {
@@ -129,9 +125,10 @@ public class GraFlap {
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         SvgBuilder svgBuilder = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA);
         Element svg = svgBuilder.getSvg();
-        String test = svgBuilder.getSvgString();
+        //TODO test vs svgString???
+        //String test = svgBuilder.getSvgString();
         String svgString = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svg);
-        System.out.println(test.equals(svgString));
+        //System.out.println(test.equals(svgString));
         return new AnswerMessage(result, arguments, svgString);
     }
 }

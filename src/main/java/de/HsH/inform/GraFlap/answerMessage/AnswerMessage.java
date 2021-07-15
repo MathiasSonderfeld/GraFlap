@@ -6,6 +6,7 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.CommentMarker;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
+import de.HsH.inform.GraFlap.util.LocaleControl;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
@@ -35,7 +36,6 @@ public class AnswerMessage {
     protected StringBuilder warnings;
     protected String svgTitle;
     private StringBuilder feedback;
-    private ResourceBundle.Control control;
 
     private SetResult<State> states = null;
     private SetResult<State> initials = null;
@@ -48,16 +48,10 @@ public class AnswerMessage {
         this.feedback = new StringBuilder();
         this.aditionalFeedback = new StringBuilder();
         this.warnings = new StringBuilder();
-        this.control = new ResourceBundle.Control(){
-            @Override
-            public Locale getFallbackLocale(String baseName, Locale locale){
-                return Locale.ROOT;
-            }
-        };
         this.taskTitle = arguments.getTaskTitle();
         this.percentOfTestWordsFailed = result.getPercentageFailed();
         this.userLocale = arguments.getUserLanguage();
-        messages = ResourceBundle.getBundle("GraFlapAnswerMessage", userLocale, control);
+        messages = ResourceBundle.getBundle("GraFlapAnswerMessage", userLocale, new LocaleControl());
         this.taskMode = arguments.getTaskMode();
         this.taskType = arguments.getTaskType();
         this.hasPassed = percentOfTestWordsFailed == 0;

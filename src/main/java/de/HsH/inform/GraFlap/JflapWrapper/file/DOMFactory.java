@@ -26,7 +26,6 @@ public class DOMFactory {
      * @return the parsed xml document
      * @throws GraFlapException throws {@link GraFlapException} if the content cannot be parsed
      */
-    //TODO umschreibbar?
     public static Document buildDocument(String givenString, String errorMessage) throws GraFlapException {
         try {
             InputStream stream = new ByteArrayInputStream(givenString.getBytes(StandardCharsets.UTF_8));
