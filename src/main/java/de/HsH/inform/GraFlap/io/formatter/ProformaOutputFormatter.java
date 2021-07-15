@@ -42,8 +42,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
             Document svgImage = null;
             String svgAsString = "";
             if(answerMessage.getSvgImage() != null){
-                org.jdom2.output.XMLOutputter jdom2outputter = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat());
-                svgAsString = jdom2outputter.outputString(answerMessage.getSvgImage());
+                svgAsString = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(answerMessage.getSvgImage());
                 svgImage = db.parse(new ByteArrayInputStream(svgAsString.getBytes(StandardCharsets.UTF_8)));
             }
 
