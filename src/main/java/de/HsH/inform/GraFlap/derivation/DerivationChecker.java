@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
 /**
  * logic class to evaluate the submission of a derivation exercise
  * @author Benjamin Held (08-17-2016)
- * @since 09-04-2016
- * @version 0.1.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class DerivationChecker {
     private final Grammar grammar;

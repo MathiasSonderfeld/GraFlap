@@ -3,6 +3,11 @@ package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Datastructure for rating results from Automaton Automaton comparison
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public class SetResult<Generic> {
     private double score;
     private ArrayList<Generic> doubles;

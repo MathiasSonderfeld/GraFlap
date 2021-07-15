@@ -7,8 +7,7 @@ import java.util.HashMap;
  * @author Ufuk Tosun (2012)
  * @author Frauke Sprengel (2015)
  * @author Benjamin Held (04-15-2016)
- * @since 06-25-2016
- * @version 0.3.5
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class WordSeparator {
     /**

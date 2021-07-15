@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * helper class to transform a single tape turing machine coded in jff block format into a jflap 8 automaton
  * @author Benjamin Held (05-02-2016)
- * @since 06-14-2016
- * @version 0.1.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class TuringConverter {
     private final StateSet states;

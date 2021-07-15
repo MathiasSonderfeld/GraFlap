@@ -23,8 +23,7 @@ import java.util.regex.Pattern;
  * Helper class to generate words for a given grammar or regular expression
  * @author Ufuk Tosun (11-29-2012)
  * @author Benjamin Held (04-12-2016)
- * @since 06-19-2016
- * @version 0.4.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class GenerateWords {
     /**

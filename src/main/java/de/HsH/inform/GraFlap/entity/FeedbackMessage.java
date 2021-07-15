@@ -1,5 +1,10 @@
 package de.HsH.inform.GraFlap.entity;
 
+/**
+ * Enum that match the ResourceBundle tags to make sure no typo creates issues.
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public enum FeedbackMessage {
     CYK_Svgtitle, CYK_Feedback,
     DERIVATION_Svgtitle, DERIVATION_Feedback,

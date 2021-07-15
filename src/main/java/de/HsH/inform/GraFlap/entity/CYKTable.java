@@ -5,8 +5,8 @@ import java.util.HashSet;
 /**
  * Helper entity to represent the entries of a cyk algorithm.
  * @author Benjamin Held (07-12-2016)
- * @since 07-18-2016
- * @version 0.1.0
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class CYKTable {
 

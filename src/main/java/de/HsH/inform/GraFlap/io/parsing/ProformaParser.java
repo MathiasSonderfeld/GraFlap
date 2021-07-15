@@ -19,8 +19,9 @@ import java.util.stream.Collectors;
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.*;
 
 /**
- * @author Mathias Sonderfeld
  * parses Input-Data in Proforma-XML 2.1 Format to Arguments Object
+ * @author Mathias Sonderfeld
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class ProformaParser extends ArgumentsParser{
 

@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * Child class of the {@link SvgAutomatonBuilder} that creates a result svg for a jflap automaton
  * @author Benjamin Held (04-24-2016)
- * @since 07-07-2016
- * @version 0.3.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 class SvgJflapBuilder extends SvgAutomatonBuilder {
 

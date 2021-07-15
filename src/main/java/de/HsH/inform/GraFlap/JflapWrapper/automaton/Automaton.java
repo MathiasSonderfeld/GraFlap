@@ -8,8 +8,7 @@ import file.xml.graph.AutomatonEditorData;
  * wrapper class for JFLAP isolation
  *
  * @author Benjamin Held (04-20-2016)
- * @version 0.1.4
- * @since 07-04-2016
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Automaton {
     model.automata.Automaton automaton;

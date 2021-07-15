@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test.transducing;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.words.MachineInputOutputParser;
@@ -8,8 +9,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 /**
  * child class to to start the testing mechanism when receiving input/output pairs
  * @author Benjamin Held (06-30-2016)
- * @since 07-02-2016
- * @version 0.1.0
+ * @version {@value GraFlap#version}
  */
 public class TransducerPairTest extends TransducerTest {
 

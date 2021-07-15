@@ -8,8 +8,7 @@ import model.symbols.symbolizer.Symbolizers;
 /**
  * wrapper class for JFLAP isolation to serve as a hierarchy for the used Parser
  * @author Benjamin Held (04-20-2016)
- * @since 09-24-2016
- * @version 0.4.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Parser<T extends model.algorithms.testinput.parse.Parser> {
     /**

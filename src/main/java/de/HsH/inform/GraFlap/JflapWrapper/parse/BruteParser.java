@@ -5,8 +5,7 @@ import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 /**
  * wrapper class for JFLAP isolation
  * @author Benjamin Held (04-20-2016)
- * @since 07-14-2016
- * @version 0.3.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class BruteParser extends Parser<model.algorithms.testinput.parse.brute.UnrestrictedBruteParser> {
 

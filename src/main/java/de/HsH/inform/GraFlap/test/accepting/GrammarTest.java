@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
@@ -11,8 +12,8 @@ import de.HsH.inform.GraFlap.scoring.accepting.GrammarScoringTest;
  *  child class of test to open and test a given grammar or regex
  *  @author Ufuk Tosun (11-29-2012)
  *  @author Benjamin Held (04-06-2016)
- *  @since 06-23-2016
- *  @version 0.6.3
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public class GrammarTest extends AcceptingTest<Grammar> {
 

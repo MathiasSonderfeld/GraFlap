@@ -12,8 +12,7 @@ import org.w3c.dom.Element;
 /**
  * wrapper class for JFLAP isolation to represent a Transducer
  * @author Benjamin Held (04-20-2016)
- * @since 09-22-2016
- * @version 0.2.6
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Transducer {
     private SubmissionType submissionType = SubmissionType.UNDEFINED;

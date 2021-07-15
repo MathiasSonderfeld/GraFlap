@@ -8,8 +8,7 @@ import de.HsH.inform.GraFlap.scoring.ScoringTest;
 /**
  * child class to generate the resulting score for a derivation exercise
  * @author Benjamin Held (07-27-2016)
- * @since 09-17-2016
- * @version 0.1.4
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class DerivationScoringTest extends ScoringTest<String[]> {
 

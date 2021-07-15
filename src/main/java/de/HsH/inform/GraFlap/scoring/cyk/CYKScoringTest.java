@@ -9,8 +9,7 @@ import de.HsH.inform.GraFlap.scoring.ScoringTest;
 /**
  * child class to generate the resulting score for a cyk algorithm exercise
  * @author Benjamin Held (07-12-2016)
- * @since 09-17-2016
- * @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class CYKScoringTest extends ScoringTest<CYKTable> {
 

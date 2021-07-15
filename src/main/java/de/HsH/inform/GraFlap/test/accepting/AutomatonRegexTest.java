@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
@@ -10,8 +11,8 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  * child class of {@link AutomatonTest} to separate the testing process with words from the testing process with
  * a regular expression
  * @author Benjamin Held (04-18-2016)
- * @since 06-16-2016
- * @version 0.2.2
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public class AutomatonRegexTest extends AutomatonTest {
 

@@ -1,11 +1,18 @@
 package de.HsH.inform.GraFlap.test;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.parsing.XmlAutomatonParser;
 
+/**
+ * grades an automaton against another automaton.
+ * Gives full score if they are equal, zero if not.
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
+ */
 public class AutomatonComparisonTest {
     private SetResult<State> statesResult = new SetResult<>();
     private SetResult<State> initialsResult = new SetResult<>();

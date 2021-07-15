@@ -9,8 +9,7 @@ import java.util.HashMap;
 /**
  * child class to generate the resulting score for test words and a given finite transducer
  * @author Benjamin Held (07-05-2016)
- * @since 07-11-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class FiniteTransducerScoringTest extends TransducerScoringTest<Automaton> {
 

@@ -5,8 +5,7 @@ import model.grammar.typetest.matchers.CNFChecker;
 /**
  * wrapper class for JFLAP isolation to represent a CNFConverter
  * @author Benjamin Held (04-20-2016)
- * @since 05-29-2016
- * @version 0.2.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class CNFConverter {
     /**

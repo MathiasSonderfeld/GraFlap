@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.io.formatter;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import org.w3c.dom.Document;
@@ -17,11 +18,9 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 
 /**
+ * makes an Proforma-2.1-XML String from a given answerMessage.
  * @author Mathias Sonderfeld
- * @version 1.0
- *
- * makes an Proforma-XML String from given answerMessage.
- * requires Jdom-2.0.6 Library.
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class ProformaOutputFormatter implements OutputFormatter {
     private String namespace = "proforma";
@@ -86,7 +85,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
         Element metaData = createElement(response, "response-meta-data");
         Element graderEngine = createElement(metaData, "grader-engine");
         graderEngine.setAttribute("name","GraFlap");
-        graderEngine.setAttribute("version", "0.3");
+        graderEngine.setAttribute("version", "" + GraFlap.version);
 
     }
 

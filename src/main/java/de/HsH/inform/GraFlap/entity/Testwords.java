@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Datastructure to store the given words for grading
+ * @author Benjamin Held (07-04-2016)
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public class Testwords {
     private ArrayList<String> correctWords;
     private ArrayList<String> failingWords;
@@ -43,24 +49,6 @@ public class Testwords {
 
     public String[] getFailingWordsArray(){
         return failingWords.toArray(new String[failingWords.size()]);
-    }
-
-    public String getWordString(){
-        StringBuilder sb = new StringBuilder();
-        if(correctWords.size() > 0){
-            for(int i = 0; i < correctWords.size()-1; i++) {
-                sb.append(correctWords.get(i)).append("%");
-            }
-            sb.append(correctWords.get(correctWords.size()-1)).append("!");
-        }
-        if(failingWords.size() > 0){
-            for(int i = 0; i < failingWords.size()-1; i++) {
-                sb.append(failingWords.get(i)).append("%");
-            }
-            sb.append(failingWords.get(failingWords.size()-1));
-        }
-        if(sb.length() == 0) sb.append("-");
-        return sb.toString();
     }
 
     @Override

@@ -7,8 +7,7 @@ import java.util.HashMap;
 /**
  * class to read and generate the test words for machine input and output
  * @author Benjamin Held (06-16-2016)
- * @since 04-29-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class MachineInputOutputParser {
     private final HashMap<String, String> inputOutputMapping;

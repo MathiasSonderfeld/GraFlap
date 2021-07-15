@@ -7,8 +7,7 @@ import org.jdom2.Element;
  * abstract class to generate an svg image for the submitted solution
  * @author Frauke Sprengel (08-14-2015)
  * @author Benjamin Held (04-09-2016)
- * @since 07-06-2016
- * @version 0.4.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public abstract class SvgBuilder {
     /**

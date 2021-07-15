@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.GrammarBuilder;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.parse.BruteParser;
@@ -16,8 +17,7 @@ import java.util.regex.Pattern;
  * a given grammar
  * @author Frauke Sprengel (08-17-2015)
  * @author Benjamin Held (04-10-2016)
- * @since 05-30-2016
- * @version 0.3.4
+ * @version {@value GraFlap#version}
  */
 public class WordTest {
 

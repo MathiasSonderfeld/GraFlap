@@ -9,8 +9,7 @@ import org.jdom2.output.XMLOutputter;
 /**
  * Child class of the {@link SvgBuilder} that creates a result svg for a grammar
  * @author Benjamin Held (04-24-2016)
- * @since 05-01-2016
- * @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 class SvgGrammarBuilder extends SvgBuilder {
 

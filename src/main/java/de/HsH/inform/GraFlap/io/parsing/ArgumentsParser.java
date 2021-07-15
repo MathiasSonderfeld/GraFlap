@@ -9,10 +9,9 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 import java.util.Locale;
 
 /**
- * @author Mathias Sonderfeld
- * @version 0.5
- *
  *  Abstract class to parse input data to Arguments Object for further processing.
+ * @author Mathias Sonderfeld
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public abstract class ArgumentsParser {
     private static final int wordLengthLimit = 250;
@@ -54,7 +53,6 @@ public abstract class ArgumentsParser {
      * @throws GraFlapException if the number of words does not match the number of words in the word string
      */
     protected Testwords parseInputWords( int numberOfWords, String wordString ) throws GraFlapException {
-        boolean ok = false;
         if(wordString == null) throw new GraFlapException("WordString must not be null");
         if(wordString.equals("-")){
             return new Testwords(0,0);

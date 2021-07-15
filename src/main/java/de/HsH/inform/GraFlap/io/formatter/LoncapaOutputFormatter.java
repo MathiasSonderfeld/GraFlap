@@ -8,11 +8,11 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 /**
- * @author Mathias Sonderfeld
- * @version 1.0
- *
  * makes an XML String, that can be passed to Loncapa, from given answerMessage.
- * requires Jdom-2.0.6 Library.
+ * requires Jdom-2.0.6 Library. TODO remove this dependency
+ *
+ * @author Mathias Sonderfeld
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class LoncapaOutputFormatter implements OutputFormatter {
 

@@ -14,8 +14,7 @@ import java.io.PrintWriter;
 /**
  * Child class of the {@link SvgBuilder} that creates a result svg for a jflap automaton
  * @author Benjamin Held (04-30-2016)
- * @since 07-06-2016
- * @version 0.2.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 abstract class SvgAutomatonBuilder extends SvgBuilder {
     /**

@@ -12,8 +12,7 @@ import java.util.HashSet;
 /**
  * Helper class with static method to read and convert the given submission string for cyk input
  * @author Benjamin Held (07-12-2016)
- * @since 09-07-2016
- * @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class CYKInputParser {
 

@@ -5,8 +5,7 @@ import model.symbols.SymbolString;
 /**
  * wrapper class for JFLAP isolation to represent a derivation
  * @author Benjamin Held (07-26-2016)
- * @since 08-01-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Derivation {
 

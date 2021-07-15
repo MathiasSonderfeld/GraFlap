@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
 import de.HsH.inform.GraFlap.entity.Testwords;
@@ -9,8 +10,8 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  * abstract class to serve as a parent class for different testing mechanisms of accepting components like grammars
  * and accepting automatons
  * @author Benjamin Held (04-14-2016)
- * @since 06-23-2016
- * @version 0.8.0
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public abstract class AcceptingTest<T extends Object> {
 

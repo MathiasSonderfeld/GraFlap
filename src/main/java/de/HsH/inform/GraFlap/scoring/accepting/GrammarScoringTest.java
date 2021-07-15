@@ -8,8 +8,7 @@ import de.HsH.inform.GraFlap.test.WordTest;
 /**
  *  child class to generate the resulting score for test words and a given grammar
  *  @author Benjamin Held (05-30-2016)
- *  @since 06-25-2016
- *  @version 0.2.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class GrammarScoringTest extends AcceptingScoringTest<Grammar> {
 

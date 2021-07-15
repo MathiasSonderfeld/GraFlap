@@ -6,8 +6,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 /**
  * wrapper class which holds all related information of a submission or solution string during the grading process
  * @author Benjamin Held (04-25-2016)
- * @since 04-27-2016
- * @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Submission<T> {
     private final String submissionString;

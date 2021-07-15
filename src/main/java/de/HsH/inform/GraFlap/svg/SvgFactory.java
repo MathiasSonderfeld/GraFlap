@@ -7,8 +7,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 /**
  * Static factory class to return the correct svg builder based on the input
  * @author Benjamin Held (04-24-2016)
- * @since 08-03-2016
- * @version 0.2.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class SvgFactory {
 

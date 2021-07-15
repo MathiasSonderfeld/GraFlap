@@ -12,8 +12,7 @@ import java.util.List;
  * Static wrapper class to generate words for a given grammar or automaton with the help of the jflap
  * LanguageGenerator
  * @author Benjamin Held (05-07-2016)
- * @since 05-09-2016
- * @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class WordBuilder {
 

@@ -6,6 +6,12 @@ import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
+/**
+ * Datastructure to store the grading result
+ * @auther Benjamin Held (07-12-2016)
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public class Result {
     private TaskType submissionTaskType;
     private int percentageFailed;

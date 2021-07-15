@@ -6,8 +6,9 @@ import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
- * @author Mathias Sonderfeld
  * parses Input-Data in Loncapa Format to Arguments Object
+ * @author Mathias Sonderfeld
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class LoncapaParser extends ArgumentsParser{
 

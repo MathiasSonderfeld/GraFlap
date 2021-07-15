@@ -4,11 +4,10 @@ import java.util.Locale;
 
 /**
  * Data-Structure Class for program arguments.
- * Input-Processing moved to ArgumentsParser.
  * @author Benjamin Held (04-17-2016)
  * @author Mathias Sonderfeld
- * @since 07-03-2016
- * @version 0.1.3
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Arguments {
     private String taskTitle = "";

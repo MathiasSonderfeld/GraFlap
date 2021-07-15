@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.CommentMarker;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
@@ -12,6 +13,11 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * grades the formally noted automaton against a given xml.
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
+ */
 public class SetsTest {
     private String jflapXml = "";
     private String studentStatesSet = "";

@@ -20,6 +20,11 @@ import java.util.stream.Collectors;
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.getNodeListAsList;
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.toElement;
 
+/**
+ * parses a jff automaton into Sets of State, String and Transition objects for states, initials, finals, alphabet, stackalphabet and transitions
+ * @author Mathias Sonderfeld
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public class XmlAutomatonParser {
     private String xml;
     private TreeSet<State> xmlStates = new TreeSet<>();

@@ -13,8 +13,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * Static helper class to create {@link Document}s
  * @author Benjamin Held (05-05-2016)
- * @since 05-05-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class DOMFactory {
 

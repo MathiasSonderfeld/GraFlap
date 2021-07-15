@@ -1,5 +1,12 @@
 package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
+/**
+ * Entity Class to store a transition of an formally written automaton
+ * implements comparable to be useable by TreeMap and TreeSet
+ *
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public class Transition implements Comparable{
     private State from;
     private State to;

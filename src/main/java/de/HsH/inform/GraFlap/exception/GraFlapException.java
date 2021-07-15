@@ -6,11 +6,10 @@ package de.HsH.inform.GraFlap.exception;
  * @author Frauke Sprengel (08-15-2015)
  * @author Benjamin Held (03-31-2016)
  * @author Mathias Sonderfeld (2021)
- * @since 04-19-2016
- * @version 0.2.5
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class GraFlapException extends Exception {
-    public GraFlapException( String s){
+    public GraFlapException(String s){
         super(s);
     }
 }

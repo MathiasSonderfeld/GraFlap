@@ -25,8 +25,8 @@ import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 /**
  * helper class for the main method to determine the result of the submission
  * @author Benjamin Held (04-17-2016)
- * @since 08-03-2016
- * @version 0.2.3
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public class Grader {
      /**

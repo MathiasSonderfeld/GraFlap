@@ -25,12 +25,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
- *  helper class with static method to read and convert the given submission string
- *  @author Frauke Sprengel (08-15-2015)
- *  @author Benjamin Held (04-09-2016)
- *  @since 04-14-2016
- *  @version 0.3.3
+ * helper class with static method to read and convert the given submission string
+ * @author Frauke Sprengel (08-15-2015)
+ * @author Benjamin Held (04-09-2016)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
+
 public class ConvertSubmission {
 
     /**

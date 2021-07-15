@@ -14,12 +14,11 @@ import java.util.ResourceBundle;
 
 
 /**
- * abstract class that serves a parent to generate the answer message, which is sent back to LON-CAPA
+ * generates the feedback texts for the result so it can be printed
  * @author Benjamin Held (07-29-2016)
  * @author Lukas Seltmann (06-12-2019)
- * @author Mathias Sonderfeld
- * @since 08-04-2016
- * @version 0.5
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public class AnswerMessage {
     protected ResourceBundle messages;

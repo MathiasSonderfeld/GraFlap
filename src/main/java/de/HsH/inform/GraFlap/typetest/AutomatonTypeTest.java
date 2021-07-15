@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.typetest;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.DeterminismChecker;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
@@ -10,8 +11,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  * static helper class to determine the type of an automaton
  * @author Frauke Sprengel
  * @author Benjamin Held (04-10-2016)
- * @since 05-09-2016
- * @version 0.2.8
+ * @version {@value GraFlap#version}
  */
 public class AutomatonTypeTest {
 

@@ -41,11 +41,11 @@ import java.nio.file.Paths;
  * @author Ufuk Tosun (2012)
  * @author Benjamin Held (04-17-2016)
  * @author Mathias Sonderfeld (07-2021)
- * @since 08-11-2016
- * @version 0.3
+ * @version {@value GraFlap#version}
  */
 public class GraFlap {
     public static final boolean printAsACII = false;
+    public static final double version = 1.0;
 
     /**
      * Grades a submission for a theoretical computer science task

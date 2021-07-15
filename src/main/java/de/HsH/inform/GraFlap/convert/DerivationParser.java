@@ -7,8 +7,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
 /**
  * Helper class with static method to read and convert the given submission string for derivation input
  * @author Benjamin Held (07-27-2016)
- * @since 08-02-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class DerivationParser {
 

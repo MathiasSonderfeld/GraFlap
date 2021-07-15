@@ -7,8 +7,7 @@ import de.HsH.inform.GraFlap.scoring.ScoringTest;
 /**
  *  parent class to generate the resulting score for test words for grammars and accepting automatons
  *  @author Benjamin Held (06-16-2016)
- *  @since 06-28-2016
- *  @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
     protected int correctWordsCount;

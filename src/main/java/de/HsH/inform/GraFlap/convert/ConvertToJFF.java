@@ -17,8 +17,7 @@ import java.util.TreeSet;
  * helper class to convert an xml formatted string to a convert-formatted string
  * @author Ufuk Tosun (2012)
  * @author Benjamin Held (04-12-2016)
- * @since 05-05-2016
- * @version 0.2.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class ConvertToJFF {
     /**

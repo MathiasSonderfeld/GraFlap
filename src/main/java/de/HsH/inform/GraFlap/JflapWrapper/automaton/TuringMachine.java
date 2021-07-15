@@ -5,8 +5,7 @@ import de.HsH.inform.GraFlap.JflapWrapper.exception.AutomatonMismatchException;
 /**
  * child class of {@link Automaton} to use specific details of turing machines
  * @author Benjamin Held (06-23-2016)
- * @since 06-26-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class TuringMachine extends Automaton {
 

@@ -11,8 +11,7 @@ import model.algorithms.transform.grammar.UselessProductionRemover;
  * static helper class to reduce a given grammar in order to transform it into chomsky form
  * @author Ufuk Tosun (12-06-2012)
  * @author Benjamin Held (04-10-2016)
- * @since 05-29-2016
- * @version 0.2.4
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class GrammarReducer {
 

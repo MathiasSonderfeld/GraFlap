@@ -1,5 +1,11 @@
 package de.HsH.inform.GraFlap.entity;
 
+/**
+ * Enumeration to represent the input type that is specified
+ * @author Benjamin Held (07-04-2016)
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public enum TaskType {
     FA, DFA, NFA, NON, PDA, DPDA, NPDA, TM, DTM, NTM, TMWW, MEALY, MOORE, RL, RLCFG, CFG, NCFG, GINT, ERROR;
 

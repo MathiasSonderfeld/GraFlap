@@ -12,8 +12,7 @@ import java.util.regex.Pattern;
  *  helper class to build a grammar form a given string
  *  @author Frauke Sprengel (08-15-2015)
  *  @author Benjamin Held (04-10-2016)
- *  @since 04-25-2016
- *  @version 0.3.0
+ * @version {@value GraFlap#version}
  */
 public class GrammarBuilder {
     /**

@@ -9,6 +9,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+/**
+ * Constants for multiple classes in IO
+ * @author Mathias Sonderfeld
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
+ */
 public class XmlStreamConstants {
     public static final Predicate<Node> byIsElement = node -> node.getNodeType() == Node.ELEMENT_NODE;
     public static final Predicate<Node> byIsCDATAOrText = node -> node.getNodeType() == Node.CDATA_SECTION_NODE ||

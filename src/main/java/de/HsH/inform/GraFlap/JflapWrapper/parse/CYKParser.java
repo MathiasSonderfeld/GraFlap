@@ -13,8 +13,7 @@ import java.util.Set;
 /**
  * wrapper class for JFLAP isolation to represent the CYK parser
  * @author Benjamin Held (04-20-2016)
- * @since 09-20-2016
- * @version 0.3.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class CYKParser extends Parser<model.algorithms.testinput.parse.cyk.CYKParser> {
 

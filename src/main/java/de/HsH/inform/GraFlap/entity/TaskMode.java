@@ -3,8 +3,8 @@ package de.HsH.inform.GraFlap.entity;
 /**
  * Enumeration to represent the input mode that is specified
  * @author Benjamin Held (07-04-2016)
- * @since 07-30-2016
- * @version 0.2.1
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public enum TaskMode {
     ERROR,
