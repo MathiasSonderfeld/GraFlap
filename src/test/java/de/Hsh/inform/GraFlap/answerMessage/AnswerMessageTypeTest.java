@@ -18,7 +18,6 @@ public class AnswerMessageTypeTest {
     private static int numberOfWordsFailed = 50;
     private static Submission submission = new Submission();
     private static Result result;
-    private org.jdom2.Element nullElement = new Element("null");;
 
     @BeforeAll
     static void init(){
@@ -35,7 +34,7 @@ public class AnswerMessageTypeTest {
         arguments.setTaskMode(TaskMode.GGT);
         arguments.setTaskType(TaskType.RLCFG);
         result = new Result(submission, numberOfWordsFailed, TaskType.CFG);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
 
         StringBuilder s = new StringBuilder();
         s.append(resourceBundle.getString(FeedbackMessage.GRAMMAR_Feedback.name()));
@@ -49,7 +48,7 @@ public class AnswerMessageTypeTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.NFA);
         result = new Result(submission, numberOfWordsFailed, TaskType.DFA);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         String svgTitle = resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
@@ -65,7 +64,7 @@ public class AnswerMessageTypeTest {
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DFA);
         result = new Result(submission, numberOfWordsFailed, TaskType.NFA);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         String svgTitle = resourceBundle.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();

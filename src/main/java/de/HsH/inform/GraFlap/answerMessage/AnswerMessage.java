@@ -63,16 +63,16 @@ public class AnswerMessage {
         this.hasPassed = percentOfTestWordsFailed == 0;
     }
 
-    public AnswerMessage(Result result, Arguments arguments, String errorMessage){
+    public AnswerMessage(Result result, Arguments arguments, String svg, String errorMessage){
         this(result, arguments);
-        this.svgImage = null;
+        this.svgImage = svg;
         this.svgTitle = "ERROR";
         this.feedback.append(errorMessage);
     }
 
-    public AnswerMessage(Result result, Arguments arguments, Element svg) {
+    public AnswerMessage(Result result, Arguments arguments, String svg) {
         this(result, arguments);
-        this.svgImage = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svg);
+        this.svgImage = svg;
         String message = "", format = "%d %s";
         String aditionalFeedbackDelimiter ="\n";
         switch(this.taskMode){

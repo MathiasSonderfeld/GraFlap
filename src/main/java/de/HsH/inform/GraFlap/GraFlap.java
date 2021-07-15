@@ -103,7 +103,7 @@ public class GraFlap {
                 if(arguments != null){
                     taskTitle = arguments.getTaskTitle();
                 }
-                answerMessage = new AnswerMessage(new Result(new Submission(), 100, TaskType.ERROR), arguments, e.getMessage());
+                answerMessage = new AnswerMessage(new Result(new Submission(), 100, TaskType.ERROR), arguments,"" , e.getMessage());
             }
             else{
                 e.printStackTrace(System.out);
@@ -124,6 +124,7 @@ public class GraFlap {
         Result result = Grader.generateResult(arguments);
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         Element svg = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA).getSvg();
-        return new AnswerMessage(result, arguments, svg);
+        String svgString = new org.jdom2.output.XMLOutputter(org.jdom2.output.Format.getPrettyFormat()).outputString(svg);
+        return new AnswerMessage(result, arguments, svgString);
     }
 }

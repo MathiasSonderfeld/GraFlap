@@ -18,7 +18,6 @@ public class AnswerMessageDeFailTest {
     private static Arguments arguments = new Arguments();
     private static int numberOfWordsFailed = 50;
     private static Result result = new Result(new Submission(), numberOfWordsFailed, TaskType.NON);
-    private org.jdom2.Element nullElement = new Element("null");;
 
     String convertToAscii(String in){
         return in.replaceAll("ä","ae")
@@ -59,7 +58,7 @@ public class AnswerMessageDeFailTest {
     @Test
     void testCYKMode(){
         arguments.setTaskMode(TaskMode.CYK);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         Assertions.assertEquals(filter(FeedbackMessage.CYK_Svgtitle.name()), answerMessage.getSvgTitle());
         String fb = filter(FeedbackMessage.CYK_Feedback.name());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, fb), answerMessage.getFeedback());
@@ -68,7 +67,7 @@ public class AnswerMessageDeFailTest {
     @Test
     void testDERMode(){
         arguments.setTaskMode(TaskMode.DER);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         Assertions.assertEquals(filter(FeedbackMessage.DERIVATION_Svgtitle.name()), answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.DERIVATION_Feedback.name())), answerMessage.getFeedback());
     }
@@ -76,7 +75,7 @@ public class AnswerMessageDeFailTest {
     @Test
     void testWWMode(){
         arguments.setTaskMode(TaskMode.WW);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         Assertions.assertEquals(filter(FeedbackMessage.WORD_Svgtitle.name()), answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.WORD_Feedback.name())), answerMessage.getFeedback());
     }
@@ -84,7 +83,7 @@ public class AnswerMessageDeFailTest {
     @Test
     void testSVGMode(){
         arguments.setTaskMode(TaskMode.SVGA);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         Assertions.assertEquals(filter(FeedbackMessage.SVG_Svgtitle.name()), answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.SVG_Feedback.name())), answerMessage.getFeedback());
     }
@@ -93,7 +92,7 @@ public class AnswerMessageDeFailTest {
     void testMMode(){
         arguments.setTaskMode(TaskMode.MP);
         arguments.setTaskType(TaskType.DTM);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         String svgTitle = filter(FeedbackMessage.TRANSDUCER_Svgtitle.name());
         StringBuilder s = new StringBuilder();
         s.append(filter(FeedbackMessage.TRANSDUCER_Feedback.name()));
@@ -106,7 +105,7 @@ public class AnswerMessageDeFailTest {
     @Test
     void testGRAMMARMode(){
         arguments.setTaskMode(TaskMode.GG);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
 
         StringBuilder s = new StringBuilder();
         s.append(filter(FeedbackMessage.GRAMMAR_Feedback.name()));
@@ -119,7 +118,7 @@ public class AnswerMessageDeFailTest {
     @Test
     void testAAMode(){
         arguments.setTaskMode(TaskMode.AA);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         Assertions.assertEquals(filter(FeedbackMessage.ACCEPTOR_Svgtitle.name()), answerMessage.getSvgTitle());
         Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, filter(FeedbackMessage.ACCEPTOR_AAFeedback.name())), answerMessage.getFeedback());
     }
@@ -128,7 +127,7 @@ public class AnswerMessageDeFailTest {
     void testFAMode(){
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DFA);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         String svgTitle = filter(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
@@ -143,7 +142,7 @@ public class AnswerMessageDeFailTest {
     void testPDAMode(){
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DPDA);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         String svgTitle = filter(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
@@ -158,7 +157,7 @@ public class AnswerMessageDeFailTest {
     void testTMMode(){
         arguments.setTaskMode(TaskMode.ARTWP);
         arguments.setTaskType(TaskType.DTM);
-        AnswerMessage answerMessage = new AnswerMessage(result, arguments, nullElement);
+        AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
         String svgTitle = filter(FeedbackMessage.ACCEPTOR_Svgtitle.name());
 
         StringBuilder s = new StringBuilder();
