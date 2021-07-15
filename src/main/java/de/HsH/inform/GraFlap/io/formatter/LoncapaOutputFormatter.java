@@ -2,20 +2,23 @@ package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.TaskMode;
-import org.jdom2.CDATA;
-import org.jdom2.Element;
-import org.jdom2.output.Format;
-import org.jdom2.output.XMLOutputter;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
 
 /**
  * makes an XML String, that can be passed to Loncapa, from given answerMessage.
- * requires Jdom-2.0.6 Library. TODO remove this dependency
- *
  * @author Mathias Sonderfeld
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class LoncapaOutputFormatter implements OutputFormatter {
-
     /**
      * converts AnswerMessage to XML in Loncapa-Style
      * @param answerMessage the answerMessage to convert into XML
@@ -26,34 +29,66 @@ public class LoncapaOutputFormatter implements OutputFormatter {
         if (answerMessage.getTaskMode() == TaskMode.SVGA) {
             return answerMessage.getSvgImage();
         }
-        XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
-        String award, grade;
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.newDocument();
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            StringWriter stringWriter = new StringWriter();
+            String award, grade;
 
-        if(answerMessage.getPercentOfTestWordsFailed() < 0){
-            award = "ERROR";
-            grade = "error";
+            if (answerMessage.getPercentOfTestWordsFailed() < 0) {
+                award = "ERROR";
+                grade = "error";
+            } else if (answerMessage.hasPassed()) {
+                award = "EXACT_ANS";
+                grade = "passed";
+            } else {
+                award = "INCORRECT";
+                grade = "failed";
+            }
+
+            Element root = document.createElement("loncapagrade");
+            Element awardDetail = document.createElement("awarddetail");
+            Element taskResult = document.createElement("taskresult");
+            Element taskTitle = document.createElement("tasktitle");
+            Element titlesvg = document.createElement("titlesvg");
+            Element resulttext = document.createElement("resulttext");
+            Element message = document.createElement("message");
+
+            root.appendChild(awardDetail);
+
+            awardDetail.appendChild(document.createTextNode(award));
+
+            taskResult.setAttribute("grade", grade);
+            taskResult.appendChild(taskTitle);
+            taskResult.appendChild(titlesvg);
+
+            taskTitle.appendChild(document.createTextNode(answerMessage.getTaskTitle()));
+
+            titlesvg.appendChild(document.createTextNode(answerMessage.getSvgTitle()));
+
+            if (!(answerMessage.getSvgImage() == null)) {
+                Element imagesvg = document.createElement("imagesvg");
+                imagesvg.appendChild(document.createCDATASection(answerMessage.getSvgImage()));
+                taskResult.appendChild(imagesvg);
+            }
+            taskResult.appendChild(resulttext);
+            resulttext.appendChild(document.createTextNode(answerMessage.getFeedback()));
+            message.appendChild(taskResult);
+            root.appendChild(message);
+            document.appendChild(root);
+            document.normalizeDocument();
+            transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
+            return stringWriter.toString().substring(56);
         }
-        else if (answerMessage.hasPassed()) {
-            award = "EXACT_ANS";
-            grade = "passed";
-        } else {
-            award = "INCORRECT";
-            grade = "failed";
+        catch (TransformerException | ParserConfigurationException e) {
+            e.printStackTrace();
         }
-
-        Element root = new Element("loncapagrade");
-        root.addContent(new Element("awarddetail").addContent(award));
-        Element taskResult = new Element("taskresult");
-        taskResult.setAttribute("grade", grade);
-        taskResult.addContent(new Element("tasktitle").addContent(answerMessage.getTaskTitle()));
-        taskResult.addContent(new Element("titlesvg").addContent(answerMessage.getSvgTitle()));
-
-        if (!(answerMessage.getSvgImage() == null)) {
-            taskResult.addContent(new Element("imagesvg").addContent(new CDATA(answerMessage.getSvgImage())));
+        catch (NullPointerException e){
         }
-
-        taskResult.addContent(new Element("resulttext").addContent(answerMessage.getFeedback()));
-        root.addContent(new Element("message").addContent(taskResult));
-        return out.outputString(root);
+        return "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle /><titlesvg /><resulttext /></taskresult></message></loncapagrade>";
     }
 }

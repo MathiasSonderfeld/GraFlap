@@ -33,11 +33,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testTuringForSpMTp2M() {
+        String title = "Turing-Automat fuer s^m t^{2 m}";
+        TaskMode taskMode = TaskMode.AGTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Turing-Automat fuer s^m t^{2 m}");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> s tt | s S t t");
-        arguments.setTaskMode(TaskMode.AGTW);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.DTM);
         arguments.setTestwords(getTestWords("stt%sstttt%ssstttttt%sssstttttttt%ssssstttttttttt%sssssstttttttttttt%ssssssstttttttttttttt%sssssssstttttttttttttttt%ssssssssstttttttttttttttttt" +
                         "%sssssssssstttttttttttttttttttt%ssssssssssstttttttttttttttttttttt%sssssssssssstttttttttttttttttttttttt%ssssssssssssstttttttttttttttttttttttttt%sssssssssssssstttttttttttttttttttttttttttt%ssssssssssssssstttttttttttttttttttttttttttttt%sssssssssssssssstttttttttttttttttttttttttttttttt%ssssssssssssssssstttttttttttttttttttttttttttttttttt%sssssssssssssssssstttttttttttttttttttttttttttttttttttt%ssssssssssssssssssstttttttttttttttttttttttttttttttttttttt%sssssssssssssssssssstttttttttttttttttttttttttttttttttttttttt%ssssssssssssssssssssstttttttttttttttttttttttttttttttttttttttttt%sssssssssssssssssssssstttttttttttttttttttttttttttttttttttttttttttt!%t%s%st%tt%ss%ts%tts%tst%sts%sst%sss%stss%stts%ttst%tsts%ssst%ssss%tttt%ttss%tsss%ttts%stsss%ttttt%sstss%ststs%stsst%sssts%sssss%sssst%ssstt%tssss%tstst%tsstt%tstts%ttsss%stttt%sstst%tssts%ssttt%sttts%ststt"));
@@ -55,11 +58,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testAutomatonForEvenNumberOfW() {
+        String title = "Automat fuer gerade Anzahl von w";
+        TaskMode taskMode = TaskMode.ARTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Automat fuer gerade Anzahl von w");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("x*(x*wx*wx*)*");
-        arguments.setTaskMode(TaskMode.ARTW);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.DFA);
         arguments.setTestwords(getTestWords("xxxxxxx%xxxxxxxxxxxwxwxxwxwxxwxwxxwxwxxwxwxxwxw%xxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxx" +
                 "%xxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxx%xxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxx!w%xw%xwx%www%wxww%xwxx%wwwx%xxwxxx%wxxxww%xwwxxwx%wwxwwxwx%wxxxwwww%wxxxwwxww%wxxwwxwxxw%xxxxwwwwxw"));
@@ -77,11 +83,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testAutomatonForBinaryNumbers() {
+        String title = "Automat fuer den Vergleich von Dualzahlen";
+        TaskMode taskMode = TaskMode.ARTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Automat fuer den Vergleich von Dualzahlen");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("(00|11)*10(00|01|10|11)*");
-        arguments.setTaskMode(TaskMode.ARTW);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.FA);
         Testwords testwords = getTestWords("0010%111100000010%1100111111110011001100001110001100%0000110011001111001110101010010111%1100000000001100000011111110111010" +
                 "%0000000010001110011010000110111100%11111001010110100111111101011010001011%10110110101111110101001111001110010010%11111010001001100001001011001101100000" +
@@ -101,11 +110,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testContextFreeGrammar() {
+        String title = "Beispiel fuer eine kontextfreie Grammatik";
+        TaskMode taskMode = TaskMode.EGT;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Beispiel fuer eine kontextfreie Grammatik");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("n,o,p");
-        arguments.setTaskMode(TaskMode.EGT);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.CFG);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(0);
@@ -122,11 +134,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testNonContextFreeGrammar() {
+        String title = "Beispiel fuer eine nicht kontextfreie Grammatik";
+        TaskMode taskMode = TaskMode.EGT;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Beispiel fuer eine nicht kontextfreie Grammatik");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("u,v,w");
-        arguments.setTaskMode(TaskMode.EGT);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.NCFG);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(0);
@@ -143,11 +158,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testRightRegularGrammar() {
+        String title = "Beispiel fuer eine rechtslineare Grammatik";
+        TaskMode taskMode = TaskMode.EGT;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Beispiel fuer eine rechtslineare Grammatik");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("h,i,j");
-        arguments.setTaskMode(TaskMode.EGT);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.RL);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(0);
@@ -164,11 +182,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testContextFreeGrammarForGivenLanguage() {
+        String title = "Kontextfreie Grammatik fuer gegebene Sprache";
+        TaskMode taskMode = TaskMode.GGTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Kontextfreie Grammatik fuer gegebene Sprache");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> T|V, T -> ef | e T f, V -> eef | ee V f");
-        arguments.setTaskMode(TaskMode.GGTW);
+        arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.CFG);
         arguments.setTestwords(getTestWords("ef%eef%eeff%eeeeff%eeefff%eeeeffff%eeeeeefff%eeeeefffff%eeeeeeeeffff%eeeeeeffffff%eeeeeeefffffff%eeeeeeeeeefffff%eeeeeeeeffffffff%eeeeeeeeeeeeffffff%eeeeeeeeefffffffff%eeeeeeeeeeffffffffff%eeeeeeeeeeeeeefffffff%eeeeeeeeeeefffffffffff%eeeeeeeeeeeeeeeeffffffff%eeeeeeeeeeeeeeeeeefffffffff%eeeeeeeeeeeeeeeeeeeeffffffffff%eeeeeeeeeeeeeeeeeeeeeefffffffffff!%f%ee%ff%fe%fff%ffe%fee%eee%eff%efe%efee%fefe%ffef%ffff%eeef%efef%feff%eeee%efffe%eeefe%efeff%feeff%effee%eefff%eeeee%eeeef%effff%eefee%fefee%ffeee%fffef%eeffe%efefe%feeef%feefe%ffffe%fefff%efeee%efeef%effef%eefef"));
         arguments.setNumberOfWords(64);
@@ -185,11 +206,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testGrammarForIntegers() {
+        String title = "Grammatik fuer ganze Zahlen";
+        TaskMode taskMode = TaskMode.GGTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Grammatik fuer ganze Zahlen");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D | -P, P ->  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D , D ->  0| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0D | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D");
-        arguments.setTaskMode(TaskMode.GGTW);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.RL);
         arguments.setTestwords(getTestWords("0%9%-2%91%24%-10%-20%437%-32%350%720%887%-791%-253%-532%-268%-319%-680%-973%-807%-431!-%-0%00%-00%-1-2%00884%00687%00695%00224%00957%00855%00806%00656" +
                 "%00871%00292%-0090%00892%00870%00907%00-703%-00106%00-558%-00819%00-380%-00547%-00785%00-943%-00352%-00528%00-695%-00-28%-00594%-00717%-00-180%-00-328%-00-793%-00-304%-00-388%-00-384%-00-365%-00-392"));
@@ -207,11 +231,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testAutomatonForGivenLanguage() {
+        String title = "Automat fuer gegebene Sprache";
+        TaskMode taskMode = TaskMode.AGTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Automat fuer gegebene Sprache");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> A, A -> x B|y C, B -> x A|y D,C -> x D|y F, D -> x C|y G, F -> x G|y H, G -> x F|y J, H -> x J| y H | E, J -> x H|y J");
-        arguments.setTaskMode(TaskMode.AGTW);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.FA);
         arguments.setTestwords(getTestWords("yyy%yyyy%xxyyy%xyxyy%xyyxy%xyyyx%yxxyy%yxyxy%yxyyx%yyxxy%yyxyx%yyyxx%yyyyy%xxyyyy%xyxyyy%xyyxyy%xyyyxy%xyyyyx%yxxyyy%yxyxyy%yxyyxy%yxyyyx!%y%xx%yx%yyx%xyy%yxx%xxy%xyx%xxyy%yxxy%yxxx%xyxx%yyxy%xyxy%xxxx%xyyy%xxxy%yyxx%xyxxx%xyxyx%yyyxy%xyyxx%yxxxy%xxxyy%xxyyx%yxxxx%xxxyx%yyxxx%xyxxy%xyyyy%xxyxy%xxyxx"));
         arguments.setNumberOfWords(55);
@@ -228,11 +255,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testAutomatonForRegex() {
+        String title = "Automat fuer e^n f^n";
+        TaskMode taskMode = TaskMode.AGTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Automat fuer e^n f^n");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S->eSf|ef");
-        arguments.setTaskMode(TaskMode.AGTW);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.PDA);
         arguments.setTestwords(getTestWords("ef%eeff%eeefff%eeeeffff%eeeeefffff%eeeeeeffffff%eeeeeeefffffff%eeeeeeeeffffffff%eeeeeeeeefffffffff%eeeeeeeeeeffffffffff%eeeeeeeeeeefffffffffff%eeeeeeeeeeeeffffffffffff%eeeeeeeeeeeeefffffffffffff%eeeeeeeeeeeeeeffffffffffffff%eeeeeeeeeeeeeeefffffffffffffff%eeeeeeeeeeeeeeeeffffffffffffffff%eeeeeeeeeeeeeeeeefffffffffffffffff%eeeeeeeeeeeeeeeeeeffffffffffffffffff%eeeeeeeeeeeeeeeeeeefffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeffffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeefffffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeeeffffffffffffffffffffff!%f%e%ee%efe%eff%eee%fef%fee%ffe%ffee%eeef%fefe%ffef%efee%feef%feff%efef%efffe%efeee%eefee%ffeee%eefff%efefe%effef%fefff%efeff%feffe%ffffe%fefee%eefef%ffeef%eeeff%eeefe%eeeee%feeff%feeffe%eefeff%fefefe%fefeef%effeef%efefef"));
         arguments.setNumberOfWords(64);
@@ -249,11 +279,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testAutomatonForCombinedLanguage() {
+        String title = "Automat fuer Worte einer zusammengesetzten Sprache";
+        TaskMode taskMode = TaskMode.ART;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Automat fuer Worte einer zusammengesetzten Sprache");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("(g|h)*|(hi)*");
-        arguments.setTaskMode(TaskMode.ART);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.FA);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(10);
@@ -270,11 +303,14 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testGrammarForGivenLanguage() {
+        String title = "Grammatik fuer Sprache (enthaelt nicht ef)";
+        TaskMode taskMode = TaskMode.GRTW;
+
         Arguments arguments = new Arguments();
-        arguments.setTaskTitle("Grammatik fuer Sprache (enthaelt nicht ef)");
+        arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("e*|(f|g)*e*((g+f*)*e*)*");
-        arguments.setTaskMode(TaskMode.GRTW);
+	    arguments.setTaskMode(taskMode);
         arguments.setTaskType(TaskType.RL);
         arguments.setTestwords(getTestWords("eeeee%eeeeee%eeeeeeeeee%eeeeeeeeeee%eeeeeeeeeeee%eeeeeeeeeeeeee%eeeeeeeeeeeeeee%eeeeeeeeeeeeeeee%eeeeeeeeeeeeeeeee%eeeeeeeeeeeeeeeeee%ffeeeegffffffffffffffgffffffffffffffegffffffffffffffgffffffffffffffegffffffffffffffgffffffffffffffegffffffffffffffgffffffffffffffe%ffgfggfgfggffggfgeeeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeee%!eef%gffef%egfeefg%eefefeegg%ggffgefgf%fgfgeffgff%ggegfefgff%feeggeffgf%gffffeefgee%eeggffefefe%egegeffgeee%eeggefefege%efgegegggfg%fgegggeeefee%efefgggggeef%eeffgeefffeg%egeefefeffge%ggfgffeefffg%fffeeeegeeef%eegggfeefeef%gefffgefegeg%geffeegefggff%fgefgffgfegff%egffeffffgegf%fefeegegggfgee%ggeefggfgegfgg%fefgeefgeggfgg%egffgfeeffggeg%fgefeeggffffee%fgfeegfgeeffff%fgefgegegeeege%egegeffegfffefg%efgfefgfffggeff%egggggefgggfgef%fgggfffefgggggf%ffegefegggeffff%fffeefgefgeggee%feggfgefgggfgeef%efgegffgfgeggfgf%gfggffgefefggggg%feffgegefeeggfegg%fegegeeefgeggeggf%ggffgefeffgffggeff%gfgefffeggfeffffef%gegfegfefeeeffgfeg%gfgggfffegfeeggefg%efeffffffggfgfgffe%eegeffffggeeefeeff%ffefgfeffgggggefege%fgefgefeeffgefegfef%effeggeeggfegfgffge%eegeeeffgeffggggggg%feffgegfggeffgfffeg%ffefeffeffffgggegfg%gfeefefegfgfgeeffee%efggffgegfeegffeefef%eggeegeeegefgeegeeef%geefefeegffeffgfegge%feeeefgefeffgeeggggf%ffgfefeegegffeefgegg"));
         arguments.setNumberOfWords(80);

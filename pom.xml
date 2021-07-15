@@ -6,7 +6,7 @@
 
     <groupId>de.HsHannover.inform</groupId>
     <artifactId>GraFlap</artifactId>
-    <version>0.1</version>
+    <version>1.0</version>
     <name>GraFlap</name>
     <description>Grader for JFlap Tasks and more</description>
 
