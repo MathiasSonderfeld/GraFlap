@@ -64,12 +64,18 @@ public class ProformaParser extends ArgumentsParser{
                                                           .filter(byName("files")).flatMap(toChildElements)
                                                           .collect(Collectors.toList());
 
-            String studentAnswer = submissionFiles.stream().filter(byAttribute("id","studentAnswer")).flatMap(toChildElements)
-                                                  .filter(byName("embedded")).flatMap(toChildNodes)
-                                                  .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
-
-            arguments = new LoncapaParser().parse(new String[]{graflapArguments, studentAnswer});
+            arguments = new LoncapaParser().parse(new String[]{graflapArguments, ""});
             arguments.setTestId(testid);
+
+            String studentAnswerFileName = null;
+            if(arguments.getTaskMode().isGrammar()) studentAnswerFileName = "grammar";
+            if(arguments.getTaskMode().isAutomaton()) studentAnswerFileName = "\\.*(jff|jflap)";
+            else{ studentAnswerFileName = "exampleWords";}
+
+            String studentAnswer = submissionFiles.stream().flatMap(toChildElements)
+                    .filter(byName("embedded")).filter(byAttribute("filename", studentAnswerFileName)).flatMap(toChildNodes)
+                    .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
+            arguments.setStudentAnswer(studentAnswer);
 
             //check if sets need to be extracted
             if(arguments.getTaskMode().isParameterized()){

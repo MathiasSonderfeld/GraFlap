@@ -44,7 +44,21 @@ public class ParserTestUtils {
                 "<proforma:description>Blocked</proforma:description><proforma:proglang version=\"1.0\">Blocked</proforma:proglang><proforma:files><proforma:file id=\"graflap-arguments\" " +
                 "mimetype=\"base64\" used-by-grader=\"true\" visible=\"no\" usage-by-lms=\"edit\"><proforma:embedded-txt-file filename=\"graflap-arguments\">" +
                 "<![CDATA[" + largs[0] + "]]>" +
-                "</proforma:embedded-txt-file></proforma:file></proforma:files><proforma:tests /><proforma:meta-data /></proforma:task><proforma:files><proforma:file id=\"studentAnswer\" " +
+                "</proforma:embedded-txt-file></proforma:file></proforma:files><tests>\n" +
+                "<test id=\"graflap\">\n" +
+                "<title>\n" +
+                "GraFlap\n" +
+                "</title>\n" +
+                "<test-type>\n" +
+                "graflap\n" +
+                "</test-type>\n" +
+                "<test-configuration>\n" +
+                "<filerefs>\n" +
+                "<fileref refid=\"graflap-arguments\" />\n" +
+                "</filerefs>\n" +
+                "</test-configuration>\n" +
+                "</test>\n" +
+                "</tests><proforma:meta-data /></proforma:task><proforma:files><proforma:file id=\"studentAnswer\" " +
                 "mimetype=\"xml\"><proforma:embedded-txt-file filename=\"test.jff\">" +
                 "<![CDATA[" + largs[1] + "]]>" +
                 "</proforma:embedded-txt-file>" +
@@ -61,7 +75,21 @@ public class ParserTestUtils {
                 "<proforma:description>Blocked</proforma:description><proforma:proglang version=\"1.0\">Blocked</proforma:proglang><proforma:files><proforma:file id=\"graflap-arguments\" " +
                 "mimetype=\"base64\" used-by-grader=\"true\" visible=\"no\" usage-by-lms=\"edit\"><proforma:embedded-txt-file filename=\"graflap-arguments\">" +
                 "<![CDATA[" + largs[0] + "]]>" +
-                "</proforma:embedded-txt-file></proforma:file></proforma:files><proforma:tests /><proforma:meta-data /></proforma:task><proforma:files><proforma:file id=\"studentAnswer\" " +
+                "</proforma:embedded-txt-file></proforma:file></proforma:files><tests>\\n\" +\n" +
+                "                \"<test id=\\\"graflap\\\">\\n\" +\n" +
+                "                \"<title>\\n\" +\n" +
+                "                \"GraFlap\\n\" +\n" +
+                "                \"</title>\\n\" +\n" +
+                "                \"<test-type>\\n\" +\n" +
+                "                \"graflap\\n\" +\n" +
+                "                \"</test-type>\\n\" +\n" +
+                "                \"<test-configuration>\\n\" +\n" +
+                "                \"<filerefs>\\n\" +\n" +
+                "                \"<fileref refid=\\\"graflap-arguments\\\" />\\n\" +\n" +
+                "                \"</filerefs>\\n\" +\n" +
+                "                \"</test-configuration>\\n\" +\n" +
+                "                \"</test>\\n\" +\n" +
+                "                \"</tests><proforma:meta-data /></proforma:task><proforma:files><proforma:file id=\"studentAnswer\" " +
                 "mimetype=\"xml\"><proforma:embedded-txt-file filename=\"test.jff\">" +
                 "<![CDATA[" + largs[1] + "]]>" +
                 "</proforma:embedded-txt-file></proforma:file><proforma:file id=\"\" mimetype=\"xml\"><proforma:embedded-txt-file filename=\"states\">" +
