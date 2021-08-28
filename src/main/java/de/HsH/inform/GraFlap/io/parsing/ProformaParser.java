@@ -49,7 +49,15 @@ public class ProformaParser extends ArgumentsParser{
                                                     .filter(byAttribute("id","graflap-arguments")).flatMap(toChildElements)
                                                     .filter(byName("embedded")).flatMap(toChildNodes)
                                                     .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
-
+            String testid = "";
+            try {
+                testid = submissionAsList.stream()
+                        .flatMap(toChildElements)
+                        .filter(byName("task")).flatMap(toChildElements)
+                        .filter(byName("tests")).flatMap(toChildElements)
+                        .filter(byName("test")).findFirst().map(toElement).get().getAttribute("id");
+            }
+            catch (Exception e){}
 
             List<Element> submissionFiles = submissionAsList.stream()
                                                           .flatMap(toChildElements)
@@ -61,6 +69,7 @@ public class ProformaParser extends ArgumentsParser{
                                                   .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
 
             arguments = new LoncapaParser().parse(new String[]{graflapArguments, studentAnswer});
+            arguments.setTestId(testid);
 
             //check if sets need to be extracted
             if(arguments.getTaskMode().isParameterized()){

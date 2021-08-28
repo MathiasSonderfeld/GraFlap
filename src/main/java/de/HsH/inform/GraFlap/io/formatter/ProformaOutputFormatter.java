@@ -2,6 +2,7 @@ package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.MetaData;
 import de.HsH.inform.GraFlap.entity.TaskMode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -16,6 +17,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
+import java.util.Date;
 
 /**
  * makes an Proforma-2.1-XML String from a given answerMessage.
@@ -25,16 +27,17 @@ import java.io.StringWriter;
 public class ProformaOutputFormatter implements OutputFormatter {
     private String namespace = "proforma";
     private Document document;
-
+    private MetaData metaData;
     /**
      * creates a proforma xml from given AnswerMessage
      * @param answerMessage the AnswerMessage containing the values
      * @return xml as String
      */
-    public String format(AnswerMessage answerMessage){
+    public String format(AnswerMessage answerMessage, MetaData metaData){
         if (answerMessage.getTaskMode() == TaskMode.SVGA) {
             return answerMessage.getSvgImage();
         }
+        this.metaData = metaData;
         try{
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
@@ -86,14 +89,15 @@ public class ProformaOutputFormatter implements OutputFormatter {
         Element graderEngine = createElement(metaData, "grader-engine");
         graderEngine.setAttribute("name","GraFlap");
         graderEngine.setAttribute("version", "" + GraFlap.version);
-
+        Element dateTime = createElement(metaData, "grade-date");
+        dateTime.setAttribute("datetime", "" + new Date().getTime());
     }
 
     /**
      * builds Test Response Segment for general feedback
      */
     private void buildMainTestResponse(Element testsResponse, AnswerMessage answerMessage, String svgAsString){
-        Element feedbackList = buildPartTestResponse(testsResponse, answerMessage.getTaskTitle(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
+        Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
         //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, "TaskTitle", "plaintext", answerMessage.getTaskTitle(), false);
         addFeedback(feedbackList, true, "SvgTitle", "plaintext", answerMessage.getSvgTitle(), false);

@@ -10,6 +10,7 @@ import java.util.Locale;
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Arguments {
+    private String testId = "";
     private String taskTitle = "";
     private Locale userLanguage = Locale.ROOT;
     private String solution = "";
@@ -26,6 +27,14 @@ public class Arguments {
     private String alphabet = "";
     private String stackalphabet = "";
     private String transitions = "";
+
+    public String getTestId() {
+        return testId;
+    }
+
+    public void setTestId(String testId) {
+        this.testId = testId;
+    }
 
     public TaskType getTaskType() {
         return taskType;

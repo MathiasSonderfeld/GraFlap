@@ -2,9 +2,11 @@ package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
+import de.HsH.inform.GraFlap.entity.MetaData;
 import de.HsH.inform.GraFlap.entity.TaskMode;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.util.Date;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -17,6 +19,12 @@ import static org.mockito.Mockito.when;
 
 public class ProformaOutputFormatterTest {
     ProformaOutputFormatter proformaFormatter = new ProformaOutputFormatter();
+    static MetaData metaData = new MetaData();
+
+    @BeforeAll
+    static void init(){
+        metaData.setTestID("graflap");
+    }
 
     /**
      * Tests if correct Submission gets printed as such.
@@ -41,16 +49,16 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getScore()).thenReturn(score);
 
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/>" +
-                "<proforma:tests-response><proforma:test-response id=\"" + taskTitle + "\"><proforma:test-result><proforma:result><proforma:score>" + score + "</proforma:score><proforma:validity>1" +
+                "<proforma:tests-response><proforma:test-response id=\"graflap\"><proforma:test-result><proforma:result><proforma:score>" + score + "</proforma:score><proforma:validity>1" +
                 ".0</proforma:validity></proforma:result><proforma:feedback-list>" +
                 "<proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">" + taskTitle +
                 "</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">" + svgTitle +
                 "</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"plaintext\"><![CDATA[<" + svgImageContent +
                 " />]]></proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>FeedbackText</proforma:title><proforma:content format=\"plaintext\">" + feedback +
                 "</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/>" +
-                "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/></proforma:response-meta-data></proforma:response>";
+                "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/><proforma:grade-date datetime=\"\"/></proforma:response-meta-data></proforma:response>";
 
-        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(messageMock).replaceAll("\\s+", "").trim());
+        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(messageMock, ProformaOutputFormatterTest.metaData).replaceAll("\\s+", "").replaceAll("datetime=\"[0-9]*\"", "datetime=\"\"").trim());
     }
 
     @Test
@@ -74,7 +82,7 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getScore()).thenReturn(score);
 
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/>" +
-                "<proforma:tests-response><proforma:test-response id=\"" + taskTitle + "\"><proforma:test-result><proforma:result><proforma:score>" + score + "</proforma:score><proforma:validity>1" +
+                "<proforma:tests-response><proforma:test-response id=\"graflap\"><proforma:test-result><proforma:result><proforma:score>" + score + "</proforma:score><proforma:validity>1" +
                 ".0</proforma:validity></proforma:result><proforma:feedback-list>" +
                 "<proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">" + taskTitle +
                 "</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">" + svgTitle +
@@ -83,9 +91,9 @@ public class ProformaOutputFormatterTest {
                 "</proforma:content></proforma:student-feedback><proforma:teacher-feedback><proforma:title>Warnings</proforma:title><proforma:contentformat=\"plaintext\">" + warning + "</proforma" +
                 ":content></proforma:teacher-feedback>" +
                 "</proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/>" +
-                "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/></proforma:response-meta-data></proforma:response>";
+                "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/><proforma:grade-datedatetime=\"\"/></proforma:response-meta-data></proforma:response>";
 
-        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(messageMock).replaceAll("\\s+", "").trim());
+        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(messageMock, ProformaOutputFormatterTest.metaData).replaceAll("\\s+", "").replaceAll("datetime=\"[0-9]*\"", "datetime=\"\"").trim());
     }
 
     @Test
@@ -128,7 +136,7 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getTransitionsStudentFeedback()).thenReturn(setsStudentFeedback);
 
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/>" +
-                "<proforma:tests-response><proforma:test-response id=\"" + taskTitle + "\"><proforma:test-result><proforma:result><proforma:score>" + score + "</proforma:score><proforma:validity>1" +
+                "<proforma:tests-response><proforma:test-response id=\"graflap\"><proforma:test-result><proforma:result><proforma:score>" + score + "</proforma:score><proforma:validity>1" +
                 ".0</proforma:validity></proforma:result><proforma:feedback-list><proforma:teacher-feedback><proforma:title>Musterloesung</proforma:title><proforma:content format=\"plaintext\"/></proforma:teacher-feedback>" +
                 "<proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">" + taskTitle +
                 "</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">" + svgTitle +
@@ -136,7 +144,7 @@ public class ProformaOutputFormatterTest {
                 " />]]></proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>FeedbackText</proforma:title><proforma:content format=\"plaintext\">" + feedback +
                 "</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response><proforma:test-response id=\"states\"><proforma:test-result>" +
                 "<proforma:result><proforma:score>0.5</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:teacher-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsTeacherFeedback + \"</proforma:content></proforma:teacher-feedback><proforma:student-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsStudentFeedback + \"</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response><proforma:test-response id=\"initials\"><proforma:test-result><proforma:result><proforma:score>0.5</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:teacher-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsTeacherFeedback + \"</proforma:content></proforma:teacher-feedback><proforma:student-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsStudentFeedback + \"</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response><proforma:test-response id=\"finals\"><proforma:test-result><proforma:result><proforma:score>0.5</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:teacher-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsTeacherFeedback + \"</proforma:content></proforma:teacher-feedback><proforma:student-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsStudentFeedback + \"</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response><proforma:test-response id=\"transitions\"><proforma:test-result><proforma:result><proforma:score>0.5</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:teacher-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsTeacherFeedback + \"</proforma:content></proforma:teacher-feedback><proforma:student-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsStudentFeedback + \"</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response><proforma:test-response id=\"alphabet\"><proforma:test-result><proforma:result><proforma:score>0.5</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:teacher-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsTeacherFeedback + \"</proforma:content></proforma:teacher-feedback><proforma:student-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsStudentFeedback + \"</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response><proforma:test-response id=\"stackalphabet\"><proforma:test-result><proforma:result><proforma:score>0.5</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:teacher-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsTeacherFeedback + \"</proforma:content></proforma:teacher-feedback><proforma:student-feedback><proforma:title>Feedback</proforma:title><proforma:content format=\"plaintext\">\" + setsStudentFeedback + \"</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/>" +
-                "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/></proforma:response-meta-data></proforma:response>";
+                "<proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/><proforma:grade-datedatetime=\"\"/></proforma:response-meta-data></proforma:response>";
     }
 
     /**
@@ -152,9 +160,9 @@ public class ProformaOutputFormatterTest {
         when(message.getFeedback()).thenReturn("mocked test successfull");
         when(message.getWarnings()).thenReturn("");
         when(message.hasPassed()).thenReturn(false);
-        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/><proforma:tests-response><proforma:test-response id=\"Test for LoncapaBuilder.getXML Result Fail\"><proforma:test-result><proforma:result><proforma:score>0.0</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">Test for LoncapaBuilder.getXML Result Fail</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">SVGTitle</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"plaintext\"><![CDATA[<thisIsATest />]]></proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>FeedbackText</proforma:title><proforma:content format=\"plaintext\">mocked test successfull</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/><proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/></proforma:response-meta-data></proforma:response>";
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><proforma:response xmlns:proforma=\"urn:proforma:v2.1\"><proforma:separate-test-feedback><proforma:submission-feedback-list/><proforma:tests-response><proforma:test-response id=\"graflap\"><proforma:test-result><proforma:result><proforma:score>0.0</proforma:score><proforma:validity>1.0</proforma:validity></proforma:result><proforma:feedback-list><proforma:student-feedback><proforma:title>TaskTitle</proforma:title><proforma:content format=\"plaintext\">Test for LoncapaBuilder.getXML Result Fail</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgTitle</proforma:title><proforma:content format=\"plaintext\">SVGTitle</proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>SvgImage</proforma:title><proforma:content format=\"plaintext\"><![CDATA[<thisIsATest />]]></proforma:content></proforma:student-feedback><proforma:student-feedback><proforma:title>FeedbackText</proforma:title><proforma:content format=\"plaintext\">mocked test successfull</proforma:content></proforma:student-feedback></proforma:feedback-list></proforma:test-result></proforma:test-response></proforma:tests-response></proforma:separate-test-feedback><proforma:files/><proforma:response-meta-data><proforma:grader-engine name=\"GraFlap\" version=\"" + GraFlap.version + "\"/><proforma:grade-datedatetime=\"\"/></proforma:response-meta-data></proforma:response>";
 
-        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(message).replaceAll("\\s+", "").trim());
+        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(message, ProformaOutputFormatterTest.metaData).replaceAll("\\s+", "").replaceAll("datetime=\"[0-9]*\"", "datetime=\"\"").trim());
     }
 
     /**
@@ -167,7 +175,7 @@ public class ProformaOutputFormatterTest {
         when(message.getTaskMode()).thenReturn(TaskMode.SVGA);
         String xml = "<svgimagecontent/>";
 
-        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(message).replaceAll("\\s+", "").trim());
+        Assertions.assertEquals(xml.replaceAll("\\s+", "").trim(), proformaFormatter.format(message, ProformaOutputFormatterTest.metaData).replaceAll("\\s+", "").trim());
     }
 
     /**
@@ -182,7 +190,7 @@ public class ProformaOutputFormatterTest {
         when(message.getTaskMode()).thenReturn(null);
         when(message.getFeedback()).thenReturn(null);
         when(message.hasPassed()).thenReturn(false);
-        Assertions.assertThrows(NullPointerException.class, () -> proformaFormatter.format(message));
+        Assertions.assertThrows(NullPointerException.class, () -> proformaFormatter.format(message, ProformaOutputFormatterTest.metaData));
     }
 
     /**
@@ -190,6 +198,6 @@ public class ProformaOutputFormatterTest {
      */
     @Test
     void testGetXMLNull() {
-        Assertions.assertThrows(NullPointerException.class, () -> proformaFormatter.format(null));
+        Assertions.assertThrows(NullPointerException.class, () -> proformaFormatter.format(null, null));
     }
 }

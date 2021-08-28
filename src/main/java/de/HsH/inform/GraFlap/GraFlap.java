@@ -17,10 +17,7 @@ package de.HsH.inform.GraFlap;
 
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.Result;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.*;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
@@ -72,6 +69,7 @@ public class GraFlap {
         OutputFormatter outputFormatter = null;
         ArgumentsParser parser = null;
         AnswerMessage answerMessage = null;
+        MetaData metaData = new MetaData();
         try {
             if(args.length < 2){
                 throw new IllegalArgumentException("not enough Parameters.");
@@ -92,6 +90,7 @@ public class GraFlap {
                 parser = new LoncapaParser();
             }
             arguments = parser.parse(args);
+            metaData.setTestID(arguments.getTestId());
             answerMessage = processSubmission(arguments);
             if(parser.isFilterWarning()){
                 answerMessage.addWarning(String.format("Nach der Filterung sind nur noch %d von %d korrekten und %d von %d falschen Worten übrig", parser.getFilteredCorrectWordsAmount(),
@@ -110,9 +109,7 @@ public class GraFlap {
                 e.printStackTrace(System.err);
             }
         }
-        finally {
-            return outputFormatter.format(answerMessage);
-        }
+        return outputFormatter.format(answerMessage, metaData);
     }
 
     /**
