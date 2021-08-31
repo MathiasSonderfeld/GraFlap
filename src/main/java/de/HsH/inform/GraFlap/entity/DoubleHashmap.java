@@ -23,4 +23,13 @@ public class DoubleHashmap <A, B>{
     public B getFromA(A reference){
         return ABHashMap.get(reference);
     }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(A a : ABHashMap.keySet()){
+            sb.append(a.toString()).append(" - ").append(ABHashMap.get(a).toString()).append("\n");
+        }
+        return sb.toString();
+    }
 }

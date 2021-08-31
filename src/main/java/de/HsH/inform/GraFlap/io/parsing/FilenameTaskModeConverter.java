@@ -9,6 +9,9 @@ public class FilenameTaskModeConverter {
     public static final String grammar = "grammar";
     public static final String automaton = "(jff|jflap)";
     public static final String exampleWords = "examplewords";
+    public static final String internal = "internal";
+    public static final String derivation = "derivation";
+    public static final String cyk = "cyk";
 
     private DoubleHashmap<TaskMode, String> mapping = null;
 
@@ -22,10 +25,23 @@ public class FilenameTaskModeConverter {
                 mapping.add(t, automaton);
             }
             else{
-                mapping.add(t, exampleWords);
+                switch (t){
+                    case MP:
+                    case MMW:
+                    case WW: mapping.add(t, automaton); break;
+                    case CYK: mapping.add(t, cyk); break;
+                    case DER: mapping.add(t, derivation); break;
+                    case SVGA:
+                    case SVGG:
+                    case ERROR:
+                    default: mapping.add(t, internal); break;
+                }
             }
         }
 
     }
 
+    public DoubleHashmap<TaskMode, String> getMapping() {
+        return mapping;
+    }
 }

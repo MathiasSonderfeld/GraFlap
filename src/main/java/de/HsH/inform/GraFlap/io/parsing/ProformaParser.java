@@ -67,10 +67,8 @@ public class ProformaParser extends ArgumentsParser{
             arguments = new LoncapaParser().parse(new String[]{graflapArguments, ""});
             arguments.setTestId(testid);
 
-            String studentAnswerFileName = null;
-            if(arguments.getTaskMode().isGrammar()) studentAnswerFileName = "grammar";
-            if(arguments.getTaskMode().isAutomaton()) studentAnswerFileName = "\\.*(jff|jflap)";
-            else{ studentAnswerFileName = "exampleWords";}
+            FilenameTaskModeConverter fico = new FilenameTaskModeConverter();
+            String studentAnswerFileName = fico.getMapping().getFromA(arguments.getTaskMode());
 
             String studentAnswer = submissionFiles.stream().flatMap(toChildElements)
                     .filter(byName("embedded")).filter(byAttribute("filename", studentAnswerFileName)).flatMap(toChildNodes)
