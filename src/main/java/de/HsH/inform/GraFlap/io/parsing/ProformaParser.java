@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.*;
@@ -114,6 +115,12 @@ public class ProformaParser extends ArgumentsParser{
         }
         catch(ClassCastException | NullPointerException | SAXException | IOException | ParserConfigurationException e) {
             throw new GraFlapException("Cant parse Proforma XML");
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            throw new GraFlapException("Cant parse Proforma XML (ArrayIndexOutOfBoundsException)");        	
+        }
+        catch(NoSuchElementException e) {
+            throw new GraFlapException("Cant parse Proforma XML (NoSuchElementException)");        	        	
         }
         return arguments;
     }
