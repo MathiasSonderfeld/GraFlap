@@ -72,8 +72,9 @@ public class ProformaParser extends ArgumentsParser{
                                                           .flatMap(toChildElements)
                                                           .filter(byName("files")).flatMap(toChildElements)
                                                           .collect(Collectors.toList());
-
-            String studentAnswer = getFileContent(submissionFiles, new FilenameTaskModeConverter().getMapping().getFromA(arguments.getTaskMode()));
+            String studentAnswerFileName = new FilenameTaskModeConverter().getMapping().getFromA(arguments.getTaskMode());
+            if(studentAnswerFileName.equals("internal")) throw new GraFlapException("Illegal Taskmode");
+            String studentAnswer = getFileContent(submissionFiles, studentAnswerFileName);
             arguments.setStudentAnswer(studentAnswer);
 
             //check if sets need to be extracted
