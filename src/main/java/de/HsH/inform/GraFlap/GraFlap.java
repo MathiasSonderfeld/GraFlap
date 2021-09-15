@@ -47,9 +47,9 @@ public class GraFlap {
     /**
      * Grades a submission for a theoretical computer science task
      * @param args Parameters:
-     *             -f: input is given by file. Path to file containinga Submission as Proforma-XML in version 2.1 is expected to follow as second
+     *             -f: input is given by file. Path to file containing a Submission as Proforma-XML in version 2.1 is expected to follow as second
      *             parameter.
-     *             Example: -f ./test.xml
+     *             Example: -f ./submission.xml
      *
      *             -s input is given as String. Submission as Proforma-XML in Version 2.1 is expected as next argument.
      *             Example: -s <?xml version="1.0" encoding="UTF-8"?><proforma:submisison>...</proforma:submisison>
