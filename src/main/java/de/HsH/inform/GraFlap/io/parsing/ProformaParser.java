@@ -47,26 +47,39 @@ public class ProformaParser extends ArgumentsParser{
             ArrayList<Node> submissionAsList = new ArrayList<>(1);
             submissionAsList.add(doc.getDocumentElement());
 
-            String graflapArguments = submissionAsList.stream()
-                                                    .flatMap(toChildElements)
-                                                    .filter(byName("task")).flatMap(toChildElements)
-                                                    .filter(byName("files")).flatMap(toChildElements)
-                                                    .filter(byAttribute("id","graflap-arguments")).flatMap(toChildElements)
-                                                    .filter(byName("embedded")).flatMap(toChildNodes)
-                                                    .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
-            arguments = new LoncapaParser().parse(new String[]{graflapArguments, ""});
 
+
+            List<Element> tests = null;
             String testid = "";
+            String graflapArgumentsFileName = "";
             try {
-                testid = submissionAsList.stream()
-                        .flatMap(toChildElements)
-                        .filter(byName("task")).flatMap(toChildElements)
+                tests = submissionAsList.stream().flatMap(toChildElements).filter(byName("task")).flatMap(toChildElements)
                         .filter(byName("tests")).flatMap(toChildElements)
-                        .filter(byName("test")).findFirst().map(toElement).get().getAttribute("id");
+                        .filter(byName("test"))
+                        .filter(byAttribute("id", "graflap"))
+                        .collect(Collectors.toList());
+
+                testid = tests.stream().filter(byName("test")).findFirst().map(toElement).get().getAttribute("id");
+                graflapArgumentsFileName = tests.stream().filter(byName("test")).flatMap(toChildElements)
+                                                         .filter(byName("test-configuration")).flatMap(toChildElements)
+                                                         .filter(byName("filerefs")).flatMap(toChildElements)
+                                                         .findFirst().get().getAttribute("refid");
             }
             catch (Exception e){}
+
             if(testid.equals("")) testid = "graflap";
+            if(graflapArgumentsFileName.equals("")) graflapArgumentsFileName = "graflap-arguments";
+
+            String graflapArguments = submissionAsList.stream()
+                    .flatMap(toChildElements)
+                    .filter(byName("task")).flatMap(toChildElements)
+                    .filter(byName("files")).flatMap(toChildElements)
+                    .filter(byAttribute("id", graflapArgumentsFileName)).flatMap(toChildElements)
+                    .filter(byName("embedded")).flatMap(toChildNodes)
+                    .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
+            arguments = new LoncapaParser().parse(new String[]{graflapArguments, ""});
             arguments.setTestId(testid);
+
 
             List<Element> submissionFiles = submissionAsList.stream()
                                                           .flatMap(toChildElements)
