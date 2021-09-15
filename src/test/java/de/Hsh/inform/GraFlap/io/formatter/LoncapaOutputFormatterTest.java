@@ -31,7 +31,7 @@ public class LoncapaOutputFormatterTest {
         when(message.hasPassed()).thenReturn(true);
         String xml = "<loncapagrade><awarddetail>EXACT_ANS</awarddetail><message><taskresult grade=\"passed\"><tasktitle>Test for LoncapaBuilder.getXML Result Success</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
 
-        Assertions.assertEquals(xml, loncapaFormatter.format(message, null).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(Filter.filter(xml), Filter.filter(loncapaFormatter.format(message, null)));
     }
 
     /**
@@ -48,7 +48,7 @@ public class LoncapaOutputFormatterTest {
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle>Test for LoncapaBuilder.getXML Result Fail</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
 
-        Assertions.assertEquals(xml, loncapaFormatter.format(message, null).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(Filter.filter(xml), Filter.filter(loncapaFormatter.format(message, null)));
     }
 
     /**
@@ -61,7 +61,7 @@ public class LoncapaOutputFormatterTest {
         when(message.getTaskMode()).thenReturn(TaskMode.SVGA);
         String xml = "<thisIsATest />";
 
-        Assertions.assertEquals(xml, loncapaFormatter.format(message, null).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(Filter.filter(xml), Filter.filter(loncapaFormatter.format(message, null)));
     }
 
     /**
@@ -78,7 +78,7 @@ public class LoncapaOutputFormatterTest {
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle /><titlesvg /><resulttext /></taskresult></message></loncapagrade>";
 
-        Assertions.assertEquals(xml, loncapaFormatter.format(message, null).replaceAll("[\r|\n]\\s+", "").trim());
+        Assertions.assertEquals(Filter.filter(xml), Filter.filter(loncapaFormatter.format(message, null)));
     }
 
     /**

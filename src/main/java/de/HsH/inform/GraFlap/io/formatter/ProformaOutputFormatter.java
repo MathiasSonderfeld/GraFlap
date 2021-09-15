@@ -62,16 +62,14 @@ public class ProformaOutputFormatter implements OutputFormatter {
      * @param answerMessage data
      */
     private void buildProforma(AnswerMessage answerMessage){
-        Element response;
-
-        response = document.createElementNS("urn:proforma:v2.1","response");
+        Element response = document.createElementNS("urn:proforma:v2.1","response");
         response.setPrefix(namespace);
         document.appendChild(response);
         Element seperateTestFeedback = createElement(response, "separate-test-feedback");
         createElement(seperateTestFeedback, "submission-feedback-list");
-
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
         buildMainTestResponse(testsResponse, answerMessage, answerMessage.getSvgImage());
+
         if(answerMessage.getTaskMode().isParameterized() || answerMessage.getTaskMode() == TaskMode.AA){
             buildSetsTestResponse(testsResponse, "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
             buildSetsTestResponse(testsResponse, "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
@@ -81,7 +79,6 @@ public class ProformaOutputFormatter implements OutputFormatter {
             if(answerMessage.getTaskType().isPushDownAutomaton()){
                 buildSetsTestResponse(testsResponse, "stackalphabet", answerMessage.getStackAlphabetScore(), answerMessage.getStackAlphabetTeacherFeedback(), answerMessage.getStackAlphabetStudentFeedback());
             }
-
         }
 
         createElement(response, "files");
@@ -99,10 +96,8 @@ public class ProformaOutputFormatter implements OutputFormatter {
     private void buildMainTestResponse(Element testsResponse, AnswerMessage answerMessage, String svgAsString){
         Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
         //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
-        addFeedback(feedbackList, true, "TaskTitle", "plaintext", answerMessage.getTaskTitle(), false);
-        addFeedback(feedbackList, true, "SvgTitle", "plaintext", answerMessage.getSvgTitle(), false);
-        addFeedback(feedbackList, true, "SvgImage", "plaintext", svgAsString, true);
-        addFeedback(feedbackList, true, "FeedbackText", "plaintext", answerMessage.getFeedback(), false);
+        addFeedback(feedbackList, true, answerMessage.getSvgTitle(), "plaintext", svgAsString, true);
+        addFeedback(feedbackList, true, "Ergebnis des Tests", "plaintext", answerMessage.getFeedback(), false);
         String warnings = answerMessage.getWarnings();
         if(warnings.length() > 0){
             addFeedback(feedbackList, false, "Warnings", "plaintext", warnings, false);
