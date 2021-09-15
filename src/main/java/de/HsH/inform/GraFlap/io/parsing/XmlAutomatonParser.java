@@ -3,10 +3,13 @@ package de.HsH.inform.GraFlap.io.parsing;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.io.SilentHandler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
@@ -41,7 +44,9 @@ public class XmlAutomatonParser {
 
     private void parse() throws GraFlapException {
         try {
-            Document jflapXmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new ByteArrayInputStream(this.xml.getBytes(StandardCharsets.UTF_8)));
+            DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            db.setErrorHandler(SilentHandler.instance);
+            Document jflapXmlDocument = db.parse(new ByteArrayInputStream(this.xml.getBytes(StandardCharsets.UTF_8)));
             Element structure = jflapXmlDocument.getDocumentElement();
             List<Element> parsedStates = getNodeListAsList(structure.getElementsByTagName("state")).stream().map(toElement).collect(Collectors.toList());
             List<Element> parsedTransitions = getNodeListAsList(structure.getElementsByTagName("transition")).stream().map(toElement).collect(Collectors.toList());
