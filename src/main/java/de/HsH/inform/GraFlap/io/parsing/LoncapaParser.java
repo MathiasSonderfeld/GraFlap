@@ -25,6 +25,7 @@ public class LoncapaParser extends ArgumentsParser{
     public Arguments parse( String[] args ) throws GraFlapException {
         Arguments arguments = new Arguments();
         String[] taskArguments = args[0].split("#");
+        if(taskArguments.length < 7) throw new GraFlapException("less than 7 graflap-arguments, cant parse task");
         arguments.setStudentAnswer(args[1]);
 
         arguments.setTaskTitle(taskArguments[0]);

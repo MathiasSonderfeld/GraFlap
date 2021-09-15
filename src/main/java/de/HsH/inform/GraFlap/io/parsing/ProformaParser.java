@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.*;
@@ -49,6 +50,8 @@ public class ProformaParser extends ArgumentsParser{
                                                     .filter(byAttribute("id","graflap-arguments")).flatMap(toChildElements)
                                                     .filter(byName("embedded")).flatMap(toChildNodes)
                                                     .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
+            arguments = new LoncapaParser().parse(new String[]{graflapArguments, ""});
+
             String testid = "";
             try {
                 testid = submissionAsList.stream()
@@ -58,14 +61,12 @@ public class ProformaParser extends ArgumentsParser{
                         .filter(byName("test")).findFirst().map(toElement).get().getAttribute("id");
             }
             catch (Exception e){}
+            arguments.setTestId(testid);
 
             List<Element> submissionFiles = submissionAsList.stream()
                                                           .flatMap(toChildElements)
                                                           .filter(byName("files")).flatMap(toChildElements)
                                                           .collect(Collectors.toList());
-
-            arguments = new LoncapaParser().parse(new String[]{graflapArguments, ""});
-            arguments.setTestId(testid);
 
             FilenameTaskModeConverter fico = new FilenameTaskModeConverter();
             String studentAnswerFileName = fico.getMapping().getFromA(arguments.getTaskMode());
@@ -114,6 +115,12 @@ public class ProformaParser extends ArgumentsParser{
         }
         catch(ClassCastException | NullPointerException | SAXException | IOException | ParserConfigurationException e) {
             throw new GraFlapException("Cant parse Proforma XML");
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            throw new GraFlapException("Cant parse Proforma XML (ArrayIndexOutOfBoundsException)");        	
+        }
+        catch(NoSuchElementException e) {
+            throw new GraFlapException("Cant parse Proforma XML (NoSuchElementException)");
         }
         return arguments;
     }
