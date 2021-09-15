@@ -65,6 +65,7 @@ public class ProformaParser extends ArgumentsParser{
                         .filter(byName("test")).findFirst().map(toElement).get().getAttribute("id");
             }
             catch (Exception e){}
+            if(testid.equals("")) testid = "graflap";
             arguments.setTestId(testid);
 
             List<Element> submissionFiles = submissionAsList.stream()

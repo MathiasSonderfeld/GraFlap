@@ -4,7 +4,7 @@ public class MetaData {
     String testID = "";
 
     public String getTestID() {
-        return testID.equals("")?"graflap":testID;
+        return testID;
     }
 
     public void setTestID(String testID) {
