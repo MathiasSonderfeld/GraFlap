@@ -46,17 +46,31 @@ public class AnswerMessage {
         this.feedback = new StringBuilder();
         this.aditionalFeedback = new StringBuilder();
         this.warnings = new StringBuilder();
-        this.taskTitle = arguments.getTaskTitle();
-        this.percentOfTestWordsFailed = result.getPercentageFailed();
-        this.userLocale = arguments.getUserLanguage();
-        messages = ResourceBundle.getBundle("GraFlapAnswerMessage", userLocale, new LocaleControl());
-        this.taskMode = arguments.getTaskMode();
-        this.taskType = arguments.getTaskType();
-        this.hasPassed = percentOfTestWordsFailed == 0;
+
+        if(arguments != null){
+            this.taskTitle = arguments.getTaskTitle();
+            this.userLocale = arguments.getUserLanguage();
+
+            this.taskMode = arguments.getTaskMode();
+            this.taskType = arguments.getTaskType();
+            this.percentOfTestWordsFailed = result.getPercentageFailed();
+            this.hasPassed = percentOfTestWordsFailed == 0;
+        }
+        else{
+            this.taskTitle = "ERROR";
+            this.userLocale = Locale.ENGLISH;
+            this.taskMode = TaskMode.ERROR;
+            this.taskType = TaskType.ERROR;
+            this.percentOfTestWordsFailed = 100;
+            this.hasPassed = false;
+        }
+        this.messages = ResourceBundle.getBundle("GraFlapAnswerMessage", this.userLocale, new LocaleControl());
     }
 
     public AnswerMessage(Result result, Arguments arguments, String svg, String errorMessage){
         this(result, arguments);
+        this.taskMode = TaskMode.ERROR;
+        this.taskType = TaskType.ERROR;
         this.svgImage = svg;
         this.svgTitle = "ERROR";
         this.feedback.append(errorMessage);

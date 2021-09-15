@@ -103,15 +103,7 @@ public class GraFlap {
         }
         catch(GraFlapException e){
             if(outputFormatter != null){
-            	if(arguments!=null){
                 answerMessage = new AnswerMessage(new Result(new Submission(), 100, TaskType.ERROR), arguments,"" , e.getMessage());
-            	}else{
-            		//TODO: this is a bad hack to fill with empty arguments just to get rid of null-pointer
-                    answerMessage = new AnswerMessage(new Result(new Submission(), 100, TaskType.ERROR), new Arguments(),"" , e.getMessage());
-            	}
-            }
-            else{
-                e.printStackTrace(System.err);
             }
         }
         return outputFormatter.format(answerMessage, metaData);
