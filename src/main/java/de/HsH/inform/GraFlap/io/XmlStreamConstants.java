@@ -27,7 +27,7 @@ public class XmlStreamConstants {
     }
 
     public static Predicate<Element> byAttribute(String attributeName, String attributeValue){
-        return element -> element.getAttribute(attributeName).contains(attributeValue);
+        return element -> element.getAttribute(attributeName).matches(".*" + attributeValue + ".*");
     }
 
     public static ArrayList<Node> getNodeListAsList( NodeList nodeList){
