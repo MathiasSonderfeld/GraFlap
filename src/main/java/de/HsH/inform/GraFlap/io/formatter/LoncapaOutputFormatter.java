@@ -83,7 +83,7 @@ public class LoncapaOutputFormatter implements OutputFormatter {
             document.appendChild(root);
             document.normalizeDocument();
             transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
-            return stringWriter.toString().substring(56);
+            return stringWriter.toString().substring(55);
         }
         catch (TransformerException | ParserConfigurationException e) {
             e.printStackTrace();
