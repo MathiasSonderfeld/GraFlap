@@ -17,6 +17,7 @@ public class ProformaParserTest {
     @Test
     void testSuccess(){
         Arguments arguments = new Arguments();
+        arguments.setTestId("graflap");
         arguments.setTaskTitle("LoncapaParserTest OK");
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setTaskMode(TaskMode.GG);
@@ -25,14 +26,16 @@ public class ProformaParserTest {
         arguments.setNumberOfWords(0);
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
-
-        Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(ParserTestUtils.compareTo(arguments,
-                proformaParser.parse(ParserTestUtils.getProformaInput(arguments)))));
+        ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+        String[] generatedInput = argumentsToInputConverter.getProformaInput();
+        Arguments parsed = Assertions.assertDoesNotThrow(() -> proformaParser.parse(generatedInput));
+        Assertions.assertEquals(arguments, parsed);
     }
 
     @Test
     void testSetsSuccess() throws GraFlapException {
         Arguments arguments = new Arguments();
+        arguments.setTestId("graflap");
         arguments.setTaskTitle("LoncapaParserTest OK");
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setTaskMode(TaskMode.AGP);
@@ -42,14 +45,14 @@ public class ProformaParserTest {
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
         arguments.setTransitions("Transitions");
-        arguments.setStackalphabet("StackAlphabet");
         arguments.setInitials("Initials");
         arguments.setFinals("Finals");
         arguments.setStates("States");
         arguments.setAlphabet("Alphabet");
-
-        Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(ParserTestUtils.compareTo(arguments,
-                proformaParser.parse(ParserTestUtils.getProformaInputWithSets(arguments)))));
+        ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+        String[] generatedInput = argumentsToInputConverter.getProformaInputWithSets();
+        Arguments parsed = Assertions.assertDoesNotThrow(() -> proformaParser.parse(generatedInput));
+        Assertions.assertEquals(arguments, parsed);
     }
 
     @Test
@@ -57,13 +60,13 @@ public class ProformaParserTest {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(null);
         arguments.setUserLanguage(null);
-        arguments.setTaskMode(TaskMode.ERROR);
+        arguments.setTaskMode(TaskMode.AG);
         arguments.setTaskType(TaskType.NON);
         arguments.setSolution(null);
         arguments.setNumberOfWords(0);
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer(null);
-
-        Assertions.assertDoesNotThrow(() -> proformaParser.parse(ParserTestUtils.getProformaInput(arguments)));
+        ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+        Assertions.assertDoesNotThrow(() -> proformaParser.parse(argumentsToInputConverter.getProformaInput()));
     }
 }

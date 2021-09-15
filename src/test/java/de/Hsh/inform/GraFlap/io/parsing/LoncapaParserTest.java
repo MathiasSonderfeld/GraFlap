@@ -15,6 +15,7 @@ public class LoncapaParserTest {
     @Test
     void testFine(){
         Arguments arguments = new Arguments();
+        arguments.setTestId("");
         arguments.setTaskTitle("LoncapaParserTest OK");
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setTaskMode(TaskMode.GG);
@@ -23,15 +24,17 @@ public class LoncapaParserTest {
         arguments.setNumberOfWords(0);
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
-
-        Assertions.assertDoesNotThrow(() -> Assertions.assertTrue(ParserTestUtils.compareTo(arguments,
-                loncapaParser.parse(ParserTestUtils.getLoncapaInput(arguments)))));
+        ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+        String[] generatedInput = argumentsToInputConverter.getLoncapaInput();
+        Arguments parsed = Assertions.assertDoesNotThrow(() -> loncapaParser.parse(generatedInput));
+        Assertions.assertEquals(arguments, parsed);
     }
 
 
     @Test
     void testNull(){
         Arguments arguments = new Arguments();
+        arguments.setTestId(null);
         arguments.setTaskTitle(null);
         arguments.setUserLanguage(null);
         arguments.setTaskMode(TaskMode.ERROR);
@@ -40,7 +43,7 @@ public class LoncapaParserTest {
         arguments.setNumberOfWords(0);
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
         arguments.setStudentAnswer(null);
-
-        Assertions.assertDoesNotThrow(() -> loncapaParser.parse(ParserTestUtils.getLoncapaInput(arguments)));
+        ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+        Assertions.assertDoesNotThrow(() -> loncapaParser.parse(argumentsToInputConverter.getLoncapaInput()));
     }
 }
