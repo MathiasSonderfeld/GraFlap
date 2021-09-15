@@ -10,6 +10,7 @@ mvn package
 This will build all classes in `target/` directory, then build a graflap-1.0.jar thats not executable and finally a graflap-1.0-jar-with-dependencies.jar, that is executable.
 
 If that build fails because it cant find the dependencies in the public repo, just run maven again.
+This should be fixed now, so please report to me if thats still neccessary.
 If youre on MacOS, you might have to skip the tests. I dont know why they fail as I dont have access to a Mac currently.
 Linux and Windows get verified to work.
 
