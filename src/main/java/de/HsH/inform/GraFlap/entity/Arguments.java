@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.entity;
 
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Data-Structure Class for program arguments.
@@ -154,5 +155,18 @@ public class Arguments {
 
     public void setTransitions( String transitions ) {
         this.transitions = transitions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Arguments)) return false;
+        Arguments arguments = (Arguments) o;
+        return getNumberOfWords() == arguments.getNumberOfWords() && Objects.equals(getTestId(), arguments.getTestId()) && Objects.equals(getTaskTitle(), arguments.getTaskTitle()) && Objects.equals(getUserLanguage(), arguments.getUserLanguage()) && Objects.equals(getSolution(), arguments.getSolution()) && Objects.equals(getTestwords(), arguments.getTestwords()) && Objects.equals(getWordString(), arguments.getWordString()) && Objects.equals(getStudentAnswer(), arguments.getStudentAnswer()) && getTaskMode() == arguments.getTaskMode() && getTaskType() == arguments.getTaskType() && Objects.equals(getStates(), arguments.getStates()) && Objects.equals(getInitials(), arguments.getInitials()) && Objects.equals(getFinals(), arguments.getFinals()) && Objects.equals(getAlphabet(), arguments.getAlphabet()) && Objects.equals(getStackalphabet(), arguments.getStackalphabet()) && Objects.equals(getTransitions(), arguments.getTransitions());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTestId(), getTaskTitle(), getUserLanguage(), getSolution(), getTestwords(), getWordString(), getNumberOfWords(), getStudentAnswer(), getTaskMode(), getTaskType(), getStates(), getInitials(), getFinals(), getAlphabet(), getStackalphabet(), getTransitions());
     }
 }
