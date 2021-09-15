@@ -23,7 +23,7 @@ public class XmlStreamConstants {
     public static final Function<Node, Stream<Element>> toChildElements = element -> toChildNodes.apply(element).filter(byIsElement).map(toElement);
 
     public static Predicate<Element> byName(String name){
-        return element -> element.getTagName().contains(name);
+        return element -> element.getTagName().matches(".*" + name + ".*");
     }
 
     public static Predicate<Element> byAttribute(String attributeName, String attributeValue){
