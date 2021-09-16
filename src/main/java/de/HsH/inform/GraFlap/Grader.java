@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap;
 
+import com.sun.source.tree.Tree;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.convert.CYKInputParser;
@@ -22,6 +23,9 @@ import de.HsH.inform.GraFlap.test.transducing.TransducerWordTest;
 import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 
+import java.util.ArrayList;
+import java.util.TreeSet;
+
 /**
  * helper class for the main method to determine the result of the submission
  * @author Benjamin Held (04-17-2016)
@@ -29,6 +33,24 @@ import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
  * @version {@value GraFlap#version}
  */
 public class Grader {
+    /**
+     * generates a Set of Characters that a student submitted grammar MUST contain to be processed.
+     * Otherwise its not terminating and the program fails.
+     * @return the Set of required Characters
+     */
+    private static TreeSet<Character> getGrammarFilterSet(){
+        TreeSet<Character> grammarFilterSet = new TreeSet<>();
+        //add all small letters
+        for(int i=0;i<26;i++){
+            grammarFilterSet.add((char) ('a' + i));
+        }
+        //add all digits
+        for(int i=0;i<10;i++){
+            grammarFilterSet.add((char) ('0' + i));
+        }
+        return grammarFilterSet;
+    }
+
      /**
      * starts the process to generate the result and the grading
      * @param arguments the {@link Arguments} object that holds the submission information
@@ -40,6 +62,14 @@ public class Grader {
         Submission submission = new Submission();
         int percentageFailed = -1;
         TaskType submissionTaskType = TaskType.NON;
+
+        //Grammar Precheck
+        if(arguments.getTaskMode().isGrammar()){
+            TreeSet<Character> filter = getGrammarFilterSet();
+            int matches = 0;
+            for(char c : arguments.getStudentAnswer().toCharArray()) if(filter.contains(c)) matches++;
+            if(matches == 0) throw new GraFlapException("Grammar is not terminating, grading aborted");
+        }
 
 
         if(arguments.getTaskMode() == TaskMode.AA){
