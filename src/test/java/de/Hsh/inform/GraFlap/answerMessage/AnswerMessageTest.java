@@ -62,7 +62,7 @@ public class AnswerMessageTest {
                         () -> Assertions.assertEquals(getStringFromBundle(svgT.name(), bundles.get(l)), answerMessage.getSvgTitle())));
 
                 set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "FB", resultText, localeText),
-                        () -> Assertions.assertEquals("", answerMessage.getFeedback())));
+                        () -> Assertions.assertEquals(getStringFromBundle(FeedbackMessage.All_Correct.name(), bundles.get(l)), answerMessage.getFeedback())));
             }
             return set;
         }
@@ -120,7 +120,7 @@ public class AnswerMessageTest {
                         () -> Assertions.assertEquals(getStringFromBundle(svgT.name(), bundles.get(l)).trim(), answerMessage.getSvgTitle().trim())));
 
                 set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "FB", resultText, localeText),
-                        () -> Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, getStringFromBundle(fb.name(), bundles.get(l))).trim(), answerMessage.getFeedback().trim())));
+                        () -> Assertions.assertEquals(getStringFromBundle(FeedbackMessage.Anything_wrong.name(), bundles.get(l)) + " " + String.format(feedbackFormat, numberOfWordsFailed, getStringFromBundle(fb.name(), bundles.get(l))).trim(), answerMessage.getFeedback().trim())));
             }
             return set;
         }
@@ -186,7 +186,7 @@ public class AnswerMessageTest {
                         () -> Assertions.assertEquals(getStringFromBundle(svgT.name(), bundles.get(l)).trim(), answerMessage.getSvgTitle().trim())));
 
                 set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "FB", resultText, localeText),
-                        () -> Assertions.assertEquals(String.format(feedbackFormat, numberOfWordsFailed, stringBuilder).trim(), answerMessage.getFeedback().trim())));
+                        () -> Assertions.assertEquals(getStringFromBundle(FeedbackMessage.Anything_wrong.name(), bundles.get(l)) + " " + String.format(feedbackFormat, numberOfWordsFailed, stringBuilder).trim(), answerMessage.getFeedback().trim())));
             }
             return set;
         }

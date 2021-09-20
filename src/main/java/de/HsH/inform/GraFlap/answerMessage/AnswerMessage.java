@@ -33,6 +33,7 @@ public class AnswerMessage {
     protected StringBuilder aditionalFeedback;
     protected StringBuilder warnings;
     protected String svgTitle;
+    private String feedbackTitle;
     private StringBuilder feedback;
 
     private SetResult<State> states = null;
@@ -65,6 +66,7 @@ public class AnswerMessage {
             this.hasPassed = false;
         }
         this.messages = ResourceBundle.getBundle("GraFlapAnswerMessage", this.userLocale, new LocaleControl());
+        this.feedbackTitle = messages.getString(FeedbackMessage.Feedback_Title.name());
     }
 
     public AnswerMessage(Result result, Arguments arguments, String svg, String errorMessage){
@@ -81,6 +83,14 @@ public class AnswerMessage {
         this.svgImage = svg;
         String message = "", format = "%d %s";
         String aditionalFeedbackDelimiter ="\n";
+
+        if(this.hasPassed) {
+            feedback.append(messages.getString(FeedbackMessage.All_Correct.name()));
+        }
+        else {
+            feedback.append(messages.getString(FeedbackMessage.Anything_wrong.name())).append(" ");
+        }
+
         switch(this.taskMode){
             //Grammar
             case GG: case GGW: case GGT: case GGTW: case EGT: case GR: case GRT: case GRW: case GRTW:
@@ -423,5 +433,9 @@ public class AnswerMessage {
 
     public boolean hasPassed() {
         return hasPassed;
+    }
+
+    public String getFeedbackTitle() {
+        return feedbackTitle;
     }
 }

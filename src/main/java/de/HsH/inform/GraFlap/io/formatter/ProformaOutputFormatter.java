@@ -45,9 +45,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             StringWriter stringWriter = new StringWriter();
             document = db.newDocument();
-
             buildProforma(answerMessage);
-            document.normalizeDocument();
             transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
             return stringWriter.toString();
         }
@@ -97,7 +95,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
         Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
         //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, answerMessage.getSvgTitle(), "plaintext", svgAsString, true);
-        addFeedback(feedbackList, true, "Ergebnis des Tests", "plaintext", answerMessage.getFeedback(), false);
+        addFeedback(feedbackList, true, answerMessage.getFeedbackTitle(), "HTML", answerMessage.getFeedback(), true);
         String warnings = answerMessage.getWarnings();
         if(warnings.length() > 0){
             addFeedback(feedbackList, false, "Warnings", "plaintext", warnings, false);
