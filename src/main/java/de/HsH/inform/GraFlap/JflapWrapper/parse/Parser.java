@@ -36,12 +36,18 @@ public class Parser<T extends model.algorithms.testinput.parse.Parser> {
      */
     public boolean solve(String word) throws GraFlapException {
         try {
-            if (word.equals("λ")) {
+            if (word.equals("λ") || word.equals("E") || word.equals("ε") ) {
                 word = "";
             }
             return this.parser.quickParse(Symbolizers.symbolize(word, this.useGrammar));
         } catch (ParserException ex) {
-            throw new GraFlapException("Error [Parser] while parsing: " + ex.getMessage());
+            if (ex.getMessage().equals("The string must not contain non-terminal symbols.")){
+                // abfangen The string must not contain non-terminal symbols. ist bei uns Unsinn
+                return false;
+            }else {
+                throw new GraFlapException("Error [Parser] while parsing: " + ex.getMessage());
+
+            }
         }
     }
 
