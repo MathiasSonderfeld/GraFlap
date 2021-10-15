@@ -105,10 +105,11 @@ public class ProformaParser extends ArgumentsParser{
         catch(ClassCastException | NullPointerException | SAXException | IOException | ParserConfigurationException e) {
             throw new GraFlapException("Cant parse Proforma XML - no readable XML found");
         }
+
         return arguments;
     }
 
-    private String getFileContent(List<Element> list, String fileName) throws GraFlapException{
+    private String getFileContent(List<Element> list, String fileName) throws GraFlapException {
         String found = "";
         try{
              found = list.stream().flatMap(toChildElements).filter(byName("embedded"))
@@ -116,7 +117,7 @@ public class ProformaParser extends ArgumentsParser{
                     .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
         }
         catch (NoSuchElementException e){
-            throw new GraFlapException("Can't parse Proforma XML - a file with name \"" + fileName + "\" expected in submission files but none found.");
+            //             throw new GraFlapException("A file with name \"" + fileName + "\" expected in submission files but none found.");
         }
         return found;
     }

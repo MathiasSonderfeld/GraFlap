@@ -95,7 +95,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
         Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
         //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, answerMessage.getSvgTitle(), "plaintext", svgAsString, true);
-        addFeedback(feedbackList, true, answerMessage.getFeedbackTitle(), "HTML", answerMessage.getFeedback(), true);
+        addFeedback(feedbackList, true, answerMessage.getFeedbackTitle(), "html", answerMessage.getFeedback(), true);
         String warnings = answerMessage.getWarnings();
         if(warnings.length() > 0){
             addFeedback(feedbackList, false, "Warnings", "plaintext", warnings, false);
