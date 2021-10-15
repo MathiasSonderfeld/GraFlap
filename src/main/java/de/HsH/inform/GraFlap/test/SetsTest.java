@@ -13,6 +13,8 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.System.out;
+
 /**
  * grades the formally noted automaton against a given xml.
  * @author Mathias Sonderfeld (07-2021)
@@ -82,24 +84,28 @@ public class SetsTest {
         splitMatcher = getAtomarElementsFromSet.matcher(studentInitialsSet);
         while(splitMatcher.find()){
             newState = states.get(splitMatcher.group());
-            if(studentInitialStates.contains(newState)){
-                initialsResult.addToDoubles(newState);
-                continue;
+            if (!(newState == null)){
+                if (studentInitialStates.contains(newState)) {
+                    initialsResult.addToDoubles(newState);
+                    continue;
+                }
+                newState.setInitial(true);
+                studentInitialStates.add(newState);
             }
-            newState.setInitial(true);
-            studentInitialStates.add(newState);
         }
 
         //Finals
         splitMatcher = getAtomarElementsFromSet.matcher(studentFinalsSet);
         while(splitMatcher.find()){
             newState = states.get(splitMatcher.group());
-            if(studentFinalStates.contains(newState)){
-                finalsResult.addToDoubles(newState);
-                continue;
+            if (!(newState == null)) {
+                if (studentFinalStates.contains(newState)) {
+                    finalsResult.addToDoubles(newState);
+                    continue;
+                }
+                newState.setFinale(true);
+                studentFinalStates.add(newState);
             }
-            newState.setFinale(true);
-            studentFinalStates.add(newState);
         }
 
         //Transitions
