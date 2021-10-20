@@ -71,8 +71,6 @@ public class AnswerMessage {
 
     public AnswerMessage(Result result, Arguments arguments, String svg, String errorMessage){
         this(result, arguments);
-        this.taskMode = TaskMode.ERROR;
-        this.taskType = TaskType.ERROR;
         this.svgImage = svg;
         this.svgTitle = "ERROR";
         this.feedback.append(errorMessage);
@@ -322,86 +320,92 @@ public class AnswerMessage {
     }
 
     public double getStatesScore(){
+        if(states == null) return 0.0;
         return states.getScore();
     }
 
     public String getStatesTeacherFeedback(){
-        if(states == null) return "";
+        if(states == null) return "No test possible.";
         return getTeacherFeedback("States", states);
     }
 
     public String getStatesStudentFeedback(){
-        if(states == null) return "";
+        if(states == null) return "No test possible.";
         return getStudentFeedback("States", states);
     }
 
     public double getInitialsScore(){
+        if(initials == null) return 0.0;
         return  initials.getScore();
     }
 
     public String getInitialsTeacherFeedback(){
-        if(initials == null) return "";
+        if(initials == null) return "No test possible.";
         return getTeacherFeedback("Initials", initials);
     }
 
     public String getInitialsStudentFeedback(){
-        if(initials == null) return "";
+        if(initials == null) return "No test possible.";
         return getStudentFeedback("Initials", initials);
     }
 
     public double getFinalsScore(){
+        if(finals == null) return 0.0;
         return  finals.getScore();
     }
 
     public String getFinalsTeacherFeedback(){
-        if(finals == null) return "";
+        if(finals == null) return "No test possible.";
         return getTeacherFeedback("Finals", finals);
     }
 
     public String getFinalsStudentFeedback(){
-        if(finals == null) return "";
+        if(finals == null) return "No test possible.";
         return getStudentFeedback("Finals", finals);
     }
 
     public double getAlphabetScore(){
+        if(alphabet == null) return 0.0;
         return  alphabet.getScore();
     }
 
     public String getAlphabetTeacherFeedback(){
-        if(alphabet == null) return "";
+        if(alphabet == null) return "No test possible.";
         return getTeacherFeedback("Alphabet", alphabet);
     }
 
     public String getAlphabetStudentFeedback(){
-        if(alphabet == null) return "";
+        if(alphabet == null) return "No test possible.";
         return getStudentFeedback("Alphabet", alphabet);
     }
 
     public double getStackAlphabetScore(){
+        if(stackalphabet == null) return 0.0;
         return  stackalphabet.getScore();
     }
 
     public String getStackAlphabetTeacherFeedback(){
-        if(stackalphabet == null) return "";
+        if(stackalphabet == null) return "No test possible.";
         return getTeacherFeedback("Stack Alphabet", stackalphabet);
     }
 
     public String getStackAlphabetStudentFeedback(){
-        if(stackalphabet == null) return "";
+        if(stackalphabet == null) return "No test possible.";
         return getStudentFeedback("Stack Alphabet", stackalphabet);
     }
 
     public double getTransitionsScore(){
+        if(transitions == null) return 0.0;
         return  transitions.getScore();
     }
 
     public String getTransitionsTeacherFeedback(){
-        if(transitions == null) return "";
+        if(transitions == null) return "No test possible.";
         return getTeacherFeedback("Transitions", transitions);
     }
 
     public String getTransitionsStudentFeedback(){
-        if(transitions == null) return "";
+        if(transitions == null) return "No test possible.";
         return getStudentFeedback("Transitions", transitions);
     }
 

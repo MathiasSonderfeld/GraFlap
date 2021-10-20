@@ -94,7 +94,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
     private void buildMainTestResponse(Element testsResponse, AnswerMessage answerMessage, String svgAsString){
         Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
         //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
-        addFeedback(feedbackList, true, answerMessage.getSvgTitle(), "plaintext", svgAsString, true);
+        addFeedback(feedbackList, true, answerMessage.getSvgTitle(), "html", svgAsString, true);
         addFeedback(feedbackList, true, answerMessage.getFeedbackTitle(), "html", answerMessage.getFeedback(), true);
         String warnings = answerMessage.getWarnings();
         if(warnings.length() > 0){
@@ -107,8 +107,8 @@ public class ProformaOutputFormatter implements OutputFormatter {
      */
     private void buildSetsTestResponse(Element testsResponse, String testTitle, double score ,String teacherFeedbackText, String studentFeedbackText){
         Element feedbackList = buildPartTestResponse(testsResponse, testTitle, "" + score, "1.0");
-        addFeedback(feedbackList, false, "Feedback", "plaintext", teacherFeedbackText, false);
-        addFeedback(feedbackList,true, "Feedback", "plaintext", studentFeedbackText, false);
+        addFeedback(feedbackList, false, "Feedback", "html", teacherFeedbackText, false);
+        addFeedback(feedbackList,true, "Feedback", "html", studentFeedbackText, false);
         System.out.println("");
     }
 
@@ -133,10 +133,10 @@ public class ProformaOutputFormatter implements OutputFormatter {
     private void addFeedback(Element feedbackList, boolean isStudentFeedback, String title, String formatValue, String content, boolean asCDATA){
         Element feedback;
         if(isStudentFeedback){
-            feedback = createElement(feedbackList, "student-feedback");
+            feedback = createElement(feedbackList, "student-feedback","level","info");
         }
         else{
-            feedback = createElement(feedbackList, "teacher-feedback");
+            feedback = createElement(feedbackList, "teacher-feedback","level","info");
         }
         Element fbTitle = createElement(feedback, "title");
         fbTitle.appendChild(document.createTextNode(title));
