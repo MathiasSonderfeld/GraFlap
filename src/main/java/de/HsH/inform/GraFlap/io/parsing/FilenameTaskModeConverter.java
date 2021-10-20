@@ -12,6 +12,7 @@ public class FilenameTaskModeConverter {
     public static final String internal = "internal";
     public static final String derivation = "derivation";
     public static final String cyk = "cyk";
+    public static final String regex = "regex";
 
     private DoubleHashmap<TaskMode, String> mapping = null;
 
@@ -31,6 +32,9 @@ public class FilenameTaskModeConverter {
                     case WW: mapping.add(t, automaton); break;
                     case CYK: mapping.add(t, cyk); break;
                     case DER: mapping.add(t, derivation); break;
+                    case RR:
+                    case RRW:
+                        mapping.add(t, regex); break;
                     case SVGA:
                     case SVGG:
                     case ERROR:

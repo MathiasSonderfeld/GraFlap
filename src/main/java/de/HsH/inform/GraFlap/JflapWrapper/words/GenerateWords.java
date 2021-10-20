@@ -59,7 +59,7 @@ public class GenerateWords {
 
     /**
      * method to generate random wrong words based on a regular expression
-     * @param regex the regular expression coded in a string from LON-CAPA
+     * @param regex the regular expression coded in a string from task
      * @return an array containing not accepted words
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */

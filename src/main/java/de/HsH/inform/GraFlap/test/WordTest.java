@@ -82,7 +82,7 @@ public class WordTest {
      * @param words the test words
      * @return the number of correctly tested words
      */
-    private static int checkWordsWithRegex(String regex, String[] words) {
+    public static int checkWordsWithRegex(String regex, String[] words) {
         int result = 0;
         int numberOfRightWords = 0;
         Pattern p = Pattern.compile(regex);

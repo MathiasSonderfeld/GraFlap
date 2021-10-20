@@ -109,6 +109,14 @@ public class AnswerMessage {
                 }
                 break;
 
+            case RR: case RRW:
+                this.svgTitle = messages.getString(FeedbackMessage.REGEX_Svgtitle.name());
+                if(!this.hasPassed) {
+                    message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.REGEX_Feedback.toString()));
+                    feedback.append(message);
+                }
+                break;
+
             //Automaton
             case ARP: case ARTP: case AGP: case AGTP: case ARWP: case AGWP: case ARTWP: case AGTWP:
                 setSetResults(result);

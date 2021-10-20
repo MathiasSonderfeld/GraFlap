@@ -14,6 +14,7 @@ public enum FeedbackMessage {
     TRANSDUCER_Svgtitle, TRANSDUCER_Feedback, TRANSDUCER_Mealy, TRANSDUCER_Moore,
     ERROR_Svgtitle, ERROR_Feedback,
     GRAMMAR_Svgtitle, GRAMMAR_Feedback, GRAMMAR_Type,
+    REGEX_Svgtitle, REGEX_Feedback,
     WORD_Svgtitle, WORD_Feedback,
     SVG_Svgtitle, SVG_Feedback;
 }

@@ -14,10 +14,7 @@ import de.HsH.inform.GraFlap.test.AlphabetTest;
 import de.HsH.inform.GraFlap.test.AutomatonComparisonTest;
 import de.HsH.inform.GraFlap.test.SetsTest;
 import de.HsH.inform.GraFlap.test.WordTest;
-import de.HsH.inform.GraFlap.test.accepting.AutomatonRegexTest;
-import de.HsH.inform.GraFlap.test.accepting.AutomatonTest;
-import de.HsH.inform.GraFlap.test.accepting.GrammarRegexTest;
-import de.HsH.inform.GraFlap.test.accepting.GrammarTest;
+import de.HsH.inform.GraFlap.test.accepting.*;
 import de.HsH.inform.GraFlap.test.transducing.TransducerPairTest;
 import de.HsH.inform.GraFlap.test.transducing.TransducerWordTest;
 import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
@@ -87,7 +84,7 @@ public class Grader {
 
         switch(arguments.getTaskMode()) {
             case ERROR:
-                throw new GraFlapException("Error in LON-CAPA problem. Please check mode variable.");
+                throw new GraFlapException("Error in given ProFormA task. Please check mode variable.");
             case AR:
             case ARP:
             case ART:
@@ -97,7 +94,7 @@ public class Grader {
                     percentageFailed = new AutomatonRegexTest().openInput(arguments.getSolution(), submission,
                                                                 arguments.getNumberOfWords());
                 } else {
-                    throw new GraFlapException("Error in LON-CAPA problem. Please check regular expression.");
+                    throw new GraFlapException("Error in given ProFormA task. Please check regular expression.");
                 }
                 break;
             case AG:
@@ -110,7 +107,7 @@ public class Grader {
                                                            arguments.getNumberOfWords());
 
                 } else {
-                    throw new GraFlapException("Error in LON-CAPA problem. Please check given grammar.");
+                    throw new GraFlapException("Error in given ProFormA task. Please check given grammar.");
                 }
 
                 break;
@@ -134,7 +131,7 @@ public class Grader {
                     percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
                                                            arguments.getTestwords());
                 }else {
-                    throw new GraFlapException("Error in LON-CAPA problem. Please check regular expression.");
+                    throw new GraFlapException("Error in given ProFormA task. Please check regular expression.");
                 }
                 break;
             case AGW:
@@ -146,7 +143,7 @@ public class Grader {
                     percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
                                                            arguments.getTestwords());
                 } else {
-                    throw new GraFlapException("Error in LON-CAPA problem. Please check given grammar.");
+                    throw new GraFlapException("Error in given ProFormA task. Please check given grammar.");
                 }
                 break;
             case GGW:
@@ -199,6 +196,24 @@ public class Grader {
                     }
                 } else {
                     throw new GraFlapException("Error. Please check grammar.");
+                }
+                break;
+            case RR:
+                if (!arguments.getStudentAnswer().contains("->") ) {
+                    submission = ConvertSubmission.openRegex(RegexBuilder.checkAndClean(arguments.getStudentAnswer()));
+                    percentageFailed = new RegexTest().getResult(arguments.getSolution(), submission,
+                                arguments.getNumberOfWords());
+                } else {
+                    throw new GraFlapException("Error. Please check regex.");
+                }
+                break;
+            case RRW:
+                if (!arguments.getStudentAnswer().contains("->") ) {
+                    submission = ConvertSubmission.openRegex(RegexBuilder.checkAndClean(arguments.getStudentAnswer()));
+                    percentageFailed = new RegexTest().getResult(arguments.getSolution(), submission,
+                                arguments.getTestwords());
+                } else {
+                    throw new GraFlapException("Error. Please check regex.");
                 }
                 break;
             case MP:

@@ -59,6 +59,16 @@ public class ConvertSubmission {
     }
 
     /**
+     * method to generate a grammar from the given string input
+     * @param submissionString the submission string
+     * @return the {@link Submission} object with the grammar that is produced from the submission string
+     * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
+     */
+    public static Submission<String> openRegex(String submissionString) throws GraFlapException {
+        return new Submission<>(submissionString, submissionString, SubmissionType.REGEX);
+    }
+
+    /**
      * method to generate a list of test words from the given string input
      * @param submissionString the submission string
      * @param numberOfWords the number of given test words

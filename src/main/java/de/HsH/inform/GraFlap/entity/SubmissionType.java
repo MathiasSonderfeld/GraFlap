@@ -9,6 +9,6 @@ package de.HsH.inform.GraFlap.entity;
 public enum SubmissionType {
     JFFSTRUCTURE, JFLAPSTRUCTURE, JFFTURING,
     ALPHABET, GRAMMAR, WORDS,
-    CYKINPUT, DERIVATION,
+    CYKINPUT, DERIVATION, REGEX,
     UNDEFINED
 }

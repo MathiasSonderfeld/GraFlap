@@ -11,6 +11,7 @@ public enum TaskMode {
     AR, ART, AG, AGT, ARW, AGW, ARTW, AGTW, EAT, AA,
     ARP, ARTP, AGP, AGTP, ARWP, AGWP, ARTWP, AGTWP,
     GG, GGW, GGT, GGTW, EGT, GR, GRT, GRW, GRTW,
+    RR, RRW,
     WW,
     MP, MMW,
     CYK, DER,

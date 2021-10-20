@@ -22,6 +22,8 @@ public class SvgFactory {
                 return new SvgGrammarBuilder(arguments);
             case GRAMMAR:
                 return new SvgGrammarBuilder(arguments);
+            case REGEX:
+                return new SvgGrammarBuilder(arguments);
             case JFFSTRUCTURE:
                 return new SvgJffBuilder(arguments, isSVGA);
             case JFFTURING:
