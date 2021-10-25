@@ -27,6 +27,7 @@ import de.HsH.inform.GraFlap.io.parsing.LoncapaParser;
 import de.HsH.inform.GraFlap.io.parsing.ProformaParser;
 import de.HsH.inform.GraFlap.svg.SvgBuilder;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
+import de.HsH.inform.GraFlap.util.TimeoutBlock;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -92,6 +93,7 @@ public class GraFlap {
             arguments = parser.parse(args);
             metaData.setTestID(arguments.getTestId());
             answerMessage = processSubmission(arguments);
+
             if(parser.isFilterWarning()){
                 answerMessage.addWarning(String.format("Nach der Filterung sind nur noch %d von %d korrekten und %d von %d falschen Worten übrig", parser.getFilteredCorrectWordsAmount(),
                         parser.getCorrectWordsAmount(), parser.getFilteredFailingWordsAmount(), parser.getFailingWordsAmount()));
@@ -114,7 +116,7 @@ public class GraFlap {
      * @param arguments the {@link Arguments} object that holds the submission information
      */
     protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException{
-        Result result = Grader.generateResult(arguments);
+        Result result = Grader.generateResultWithTimeout(arguments);
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         SvgBuilder svgBuilder = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA);
         return new AnswerMessage(result, arguments, svgBuilder.getSvgString());

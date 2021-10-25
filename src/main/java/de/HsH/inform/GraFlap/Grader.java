@@ -19,6 +19,7 @@ import de.HsH.inform.GraFlap.test.transducing.TransducerPairTest;
 import de.HsH.inform.GraFlap.test.transducing.TransducerWordTest;
 import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
+import de.HsH.inform.GraFlap.util.TimeoutBlock;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -268,6 +269,8 @@ public class Grader {
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());
             setsTest.setStudentStatesSet(arguments.getStates());
+            // TODO
+            // ob das ein DFA ist, entscheidet nicht der TaskType, sondern ergibt sich aus dem JFF !!!!!!!
             setsTest.setStudentInitialsSet(arguments.getInitials(), arguments.getTaskType() == TaskType.DFA);
             setsTest.setStudentFinalsSet(arguments.getFinals());
             setsTest.setStudentAlphabetSet(arguments.getAlphabet());
@@ -284,4 +287,31 @@ public class Grader {
         }
         return result;
     }
+
+    public static Result generateResultWithTimeout(Arguments arguments) throws GraFlapException {
+        final Result[] result = {null};
+        final Arguments args = arguments;
+        final String[] exeptionmessage = {"nothing"};
+        TimeoutBlock timeoutBlock = new TimeoutBlock(30 * 1000);//set timeout in milliseconds
+
+            Runnable block = new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                    result[0] = generateResult(args);
+                    }catch(GraFlapException e){
+                        exeptionmessage[0] = e.getMessage();
+                }
+                }
+            };
+            if (!exeptionmessage[0].equals("nothing")){
+                throw new GraFlapException(exeptionmessage[0]);
+            }
+            timeoutBlock.addBlock(block);
+
+        return result[0];
+    }
+
+
 }
