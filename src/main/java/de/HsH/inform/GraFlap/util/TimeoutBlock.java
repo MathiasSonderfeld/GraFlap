@@ -2,47 +2,35 @@ package de.HsH.inform.GraFlap.util;
 
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class TimeoutBlock {
 
-    private final long timeoutMilliSeconds;
-    private long timeoutInteval=100;
+    private long timeoutSeconds=30;
 
-    public TimeoutBlock(long timeoutMilliSeconds){
-        this.timeoutMilliSeconds=timeoutMilliSeconds;
+    public TimeoutBlock(long timeoutSeconds){
+        this.timeoutSeconds=timeoutSeconds;
     }
 
-    public void addBlock(Runnable runnable) throws GraFlapException {
-        long collectIntervals=0;
-        Thread timeoutWorker=new Thread(runnable);
-        timeoutWorker.start();
-        do{
-            if(collectIntervals>=this.timeoutMilliSeconds){
-                timeoutWorker.interrupt();
-                throw new GraFlapException("Test execution time exceeded " + timeoutMilliSeconds +" milli seconds. Test terminated.");
-            }
-            collectIntervals+=timeoutInteval;
-            try {
-                Thread.sleep(timeoutInteval);
-            }catch(InterruptedException e){
-                // do nothing
-            }
+    public void addBlock(Callable<String> task) throws GraFlapException {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<String> future = executor.submit(task);
+        AtomicBoolean timeout = new AtomicBoolean(false);
 
-        }while(timeoutWorker.isAlive() && !timeoutWorker.isInterrupted());
+        try {
+           future.get(timeoutSeconds, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            future.cancel(true);
+            timeout.set(true);
+        } catch (Exception e) {
+            throw new GraFlapException("Test terminated: " + e.getMessage());
+        }
+        executor.shutdownNow();
 
-    }
+        if (timeout.get()){ throw new GraFlapException("Test execution time exceeded " + timeoutSeconds + " seconds. Test terminated."); }
 
-    /**
-     * @return the timeoutInteval
-     */
-    public long getTimeoutInteval() {
-        return timeoutInteval;
-    }
-
-    /**
-     * @param timeoutInteval the timeoutInteval to set
-     */
-    public void setTimeoutInteval(long timeoutInteval) {
-        this.timeoutInteval = timeoutInteval;
     }
 
 }
+

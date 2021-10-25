@@ -63,6 +63,7 @@ public class GraFlap {
      */
     public static void main(String[] args) {
         System.out.println(parseAndProcessSubmission(args));
+        System.exit(0);
     }
 
     public static String parseAndProcessSubmission(String[] args){

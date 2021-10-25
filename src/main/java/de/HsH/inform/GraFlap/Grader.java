@@ -1,6 +1,5 @@
 package de.HsH.inform.GraFlap;
 
-import com.sun.source.tree.Tree;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.convert.CYKInputParser;
@@ -21,8 +20,8 @@ import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.util.TimeoutBlock;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
 
 /**
  * helper class for the main method to determine the result of the submission
@@ -292,23 +291,25 @@ public class Grader {
         final Result[] result = {null};
         final Arguments args = arguments;
         final String[] exeptionmessage = {"nothing"};
-        TimeoutBlock timeoutBlock = new TimeoutBlock(30 * 1000);//set timeout in milliseconds
+        TimeoutBlock timeoutBlock = new TimeoutBlock(30);
 
-            Runnable block = new Runnable() {
-
-                @Override
-                public void run() {
-                    try {
+         Callable<String> block = new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                try {
                     result[0] = generateResult(args);
                     }catch(GraFlapException e){
                         exeptionmessage[0] = e.getMessage();
                 }
-                }
-            };
-            if (!exeptionmessage[0].equals("nothing")){
+                if (!exeptionmessage[0].equals("nothing")){
                 throw new GraFlapException(exeptionmessage[0]);
             }
-            timeoutBlock.addBlock(block);
+
+                return "ready";
+            }
+        };
+
+         timeoutBlock.addBlock(block);
 
         return result[0];
     }
