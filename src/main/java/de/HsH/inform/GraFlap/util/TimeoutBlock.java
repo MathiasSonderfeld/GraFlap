@@ -23,7 +23,10 @@ public class TimeoutBlock {
         } catch (TimeoutException e) {
             future.cancel(true);
             timeout.set(true);
-        } catch (Exception e) {
+        }catch (ExecutionException  e) {
+            throw new GraFlapException("Test terminated: " + e.getCause().getMessage());
+        }
+        catch (Exception  e) {
             throw new GraFlapException("Test terminated: " + e.getMessage());
         }
         executor.shutdownNow();
