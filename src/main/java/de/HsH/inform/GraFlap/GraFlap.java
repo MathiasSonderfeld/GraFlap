@@ -44,6 +44,7 @@ import java.nio.file.Paths;
 public class GraFlap {
     public static final boolean printAsACII = false;
     public static final double version = 1.0;
+    public static final long timeOutSeconds = 20;
 
     /**
      * Grades a submission for a theoretical computer science task
@@ -117,7 +118,7 @@ public class GraFlap {
      * @param arguments the {@link Arguments} object that holds the submission information
      */
     protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException{
-        Result result = Grader.generateResultWithTimeout(arguments);
+        Result result = Grader.generateResultWithTimeout(arguments,timeOutSeconds);
         boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
         SvgBuilder svgBuilder = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA);
         return new AnswerMessage(result, arguments, svgBuilder.getSvgString());

@@ -17,6 +17,7 @@ public class TimeoutBlock {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(task);
         AtomicBoolean timeout = new AtomicBoolean(false);
+        String reason =  "Most probable reason: endless loop in submission.";
 
         try {
            future.get(timeoutSeconds, TimeUnit.SECONDS);
@@ -24,14 +25,15 @@ public class TimeoutBlock {
             future.cancel(true);
             timeout.set(true);
         }catch (ExecutionException  e) {
-            throw new GraFlapException("Test terminated: " + e.getCause().getMessage());
+            if (!e.getCause().getMessage().contains("heap")) { reason =""; }
+            throw new GraFlapException("Test terminated: " + e.getCause().getMessage() + reason);
         }
         catch (Exception  e) {
             throw new GraFlapException("Test terminated: " + e.getMessage());
         }
         executor.shutdownNow();
 
-        if (timeout.get()){ throw new GraFlapException("Test execution time exceeded " + timeoutSeconds + " seconds. Test terminated."); }
+        if (timeout.get()){ throw new GraFlapException("Test execution time exceeded " + timeoutSeconds + " seconds. Test terminated." + reason); }
 
     }
 

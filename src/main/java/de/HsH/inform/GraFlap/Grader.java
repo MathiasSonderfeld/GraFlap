@@ -287,11 +287,11 @@ public class Grader {
         return result;
     }
 
-    public static Result generateResultWithTimeout(Arguments arguments) throws GraFlapException {
+    public static Result generateResultWithTimeout(Arguments arguments, long timeOutSeconds) throws GraFlapException {
         final Result[] result = {null};
         final Arguments args = arguments;
         final String[] exeptionmessage = {"nothing"};
-        TimeoutBlock timeoutBlock = new TimeoutBlock(30);
+        TimeoutBlock timeoutBlock = new TimeoutBlock(timeOutSeconds);
 
          Callable<String> block = new Callable<String>() {
             @Override

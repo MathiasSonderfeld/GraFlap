@@ -33,6 +33,9 @@ public class TuringConverter {
         String errorMessage = "Error: Transformation of the jff turing machine to jflap automaton failed.";
         Document document = DOMFactory.buildDocument(submission, errorMessage);
         generateStates(document.getRootElement().getChild("automaton").getChildren("block"));
+        if (states.isEmpty()){
+            generateStates(document.getRootElement().getChild("automaton").getChildren("state"));
+        }
         generateTransitions(document.getRootElement().getChild("automaton").getChildren("transition"));
         checkFormalComponents();
     }
@@ -128,6 +131,6 @@ public class TuringConverter {
             }
         }
 
-        throw new GraFlapException("Error: Could not find state to given id.");
+        throw new GraFlapException("Error: Could not find state to given id " + idString);
     }
 }
