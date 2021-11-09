@@ -6,7 +6,7 @@ package de.HsH.inform.GraFlap.entity;
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public enum FeedbackMessage {
-    Feedback_Title, All_Correct, Anything_wrong,
+    Feedback_Title, All_Correct, Anything_wrong, Partly_correct,
     CYK_Svgtitle, CYK_Feedback,
     DERIVATION_Svgtitle, DERIVATION_Feedback,
     ACCEPTOR_Svgtitle, ACCEPTOR_Feedback, ACCEPTOR_AAFeedback, ACCEPTOR_FAFeedback, ACCEPTOR_PDAFeedback,

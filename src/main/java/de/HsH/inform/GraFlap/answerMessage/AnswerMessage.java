@@ -35,6 +35,8 @@ public class AnswerMessage {
     protected String svgTitle;
     private String feedbackTitle;
     private StringBuilder feedback;
+    private long time = 0;
+    private double score = 0.0;
 
     private SetResult<State> states = null;
     private SetResult<State> initials = null;
@@ -56,6 +58,7 @@ public class AnswerMessage {
             this.taskType = arguments.getTaskType();
             this.percentOfTestWordsFailed = result.getPercentageFailed();
             this.hasPassed = percentOfTestWordsFailed == 0;
+            if (this.hasPassed) { this.score = 1.0; }
         }
         else{
             this.taskTitle = "ERROR";
@@ -79,15 +82,10 @@ public class AnswerMessage {
     public AnswerMessage(Result result, Arguments arguments, String svg) {
         this(result, arguments);
         this.svgImage = svg;
+        this.time = result.getTime();
         String message = "", format = "%d %s";
         String aditionalFeedbackDelimiter ="\n";
 
-        if(this.hasPassed) {
-            feedback.append(messages.getString(FeedbackMessage.All_Correct.name()));
-        }
-        else {
-            feedback.append(messages.getString(FeedbackMessage.Anything_wrong.name())).append(" ");
-        }
 
         switch(this.taskMode){
             //Grammar
@@ -96,7 +94,9 @@ public class AnswerMessage {
                 if (this.taskType != result.getsubmissionTaskType() && !(this.taskType == TaskType.RLCFG && (result.getsubmissionTaskType() == TaskType.RL || result.getsubmissionTaskType() == TaskType.CFG))) {
                     this.aditionalFeedback.append(messages.getString(FeedbackMessage.GRAMMAR_Type.name()));
                     this.hasPassed = false;
+                    score -= 0.5;
                 }
+                generalFeedback();
                 if(!this.hasPassed){
                     message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.GRAMMAR_Feedback.toString()));
                     feedback.append(message);
@@ -109,6 +109,7 @@ public class AnswerMessage {
 
             case RR: case RRW:
                 this.svgTitle = messages.getString(FeedbackMessage.REGEX_Svgtitle.name());
+                generalFeedback();
                 if(!this.hasPassed) {
                     message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.REGEX_Feedback.toString()));
                     feedback.append(message);
@@ -120,8 +121,10 @@ public class AnswerMessage {
                 setSetResults(result);
             case AR: case ART: case AG: case AGT: case ARW: case AGW: case ARTW: case AGTW: case EAT:
                 this.svgTitle = messages.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
-                this.hasPassed &= automatonSubmissionMatchesType(this.taskType, result.getsubmissionTaskType());
-
+                boolean typeMatch = automatonSubmissionMatchesType(this.taskType, result.getsubmissionTaskType());
+                this.hasPassed &= typeMatch;
+                if (!typeMatch) { score -= 0.5; }
+                generalFeedback();
                 if(!this.hasPassed){
                     message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.ACCEPTOR_Feedback.name()));
                     feedback.append(message).append(aditionalFeedbackDelimiter).append(aditionalFeedback);
@@ -132,6 +135,7 @@ public class AnswerMessage {
             case AA:
                 this.svgTitle = messages.getString(FeedbackMessage.ACCEPTOR_Svgtitle.name());
                 setSetResults(result);
+                generalFeedback();
                 if(!this.hasPassed){
                     message = String.format(format, percentOfTestWordsFailed, messages.getString(FeedbackMessage.ACCEPTOR_AAFeedback.name()));
                     feedback.append(message);
@@ -145,11 +149,14 @@ public class AnswerMessage {
                 if (this.taskType == TaskType.MEALY && result.getsubmissionTaskType() != TaskType.MEALY) {
                     aditionalFeedback.append(messages.getString(FeedbackMessage.TRANSDUCER_Mealy.name()));
                     this.hasPassed = false;
+                    score -= 0.5;
                 }
                 else if (this.taskType == TaskType.MOORE && result.getsubmissionTaskType() != TaskType.MOORE) {
                     aditionalFeedback.append(messages.getString(FeedbackMessage.TRANSDUCER_Moore.name()));
                     this.hasPassed = false;
+                    score -= 0.5;
                 }
+                generalFeedback();
                 if(!this.hasPassed){
                     message = messages.getString(FeedbackMessage.TRANSDUCER_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
@@ -159,6 +166,7 @@ public class AnswerMessage {
 
             case WW:
                 this.svgTitle = messages.getString(FeedbackMessage.WORD_Svgtitle.name());
+                generalFeedback();
                 if(!this.hasPassed){
                     message = messages.getString(FeedbackMessage.WORD_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
@@ -167,6 +175,7 @@ public class AnswerMessage {
 
             case CYK:
                 this.svgTitle = messages.getString(FeedbackMessage.CYK_Svgtitle.name());
+                generalFeedback();
                 if(!this.hasPassed){
                     message = messages.getString(FeedbackMessage.CYK_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
@@ -175,6 +184,7 @@ public class AnswerMessage {
 
             case DER:
                 this.svgTitle = messages.getString(FeedbackMessage.DERIVATION_Svgtitle.name());
+                generalFeedback();
                 if(!this.hasPassed){
                     message = messages.getString(FeedbackMessage.DERIVATION_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
@@ -183,6 +193,7 @@ public class AnswerMessage {
 
             case SVGA: case SVGG:
                 this.svgTitle = messages.getString(FeedbackMessage.SVG_Svgtitle.name());
+                generalFeedback();
                 if(!this.hasPassed){
                     message = messages.getString(FeedbackMessage.SVG_Feedback.toString());
                     this.feedback.append(String.format(format, percentOfTestWordsFailed, message));
@@ -191,6 +202,19 @@ public class AnswerMessage {
 
             default:
         }
+    }
+
+    private void generalFeedback(){
+        double eps = 1e-6;
+        if(score > 1-eps) {
+            feedback.append(messages.getString(FeedbackMessage.All_Correct.name()));
+        }
+        else if (score < eps){
+            feedback.append(messages.getString(FeedbackMessage.Anything_wrong.name())).append(" ");
+        }else{
+            feedback.append(messages.getString(FeedbackMessage.Partly_correct.name())).append(" ");
+        }
+
     }
 
     private void setSetResults(Result result){
@@ -410,7 +434,7 @@ public class AnswerMessage {
     }
 
     public double getScore(){
-        return hasPassed?1.0:0.0;
+        return (score > 0)?score:0.0;
     }
 
     public String getTaskTitle() {
@@ -450,4 +474,6 @@ public class AnswerMessage {
     public String getFeedbackTitle() {
         return feedbackTitle;
     }
+
+    public String getTime() { return "Grading took " + time + " ms."; }
 }

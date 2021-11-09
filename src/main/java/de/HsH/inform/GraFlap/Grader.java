@@ -20,6 +20,7 @@ import de.HsH.inform.GraFlap.typetest.AutomatonTypeTest;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.util.TimeoutBlock;
 
+import java.util.Date;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
@@ -60,6 +61,7 @@ public class Grader {
         int percentageFailed = -1;
         TaskType submissionTaskType = TaskType.NON;
 
+        long start = new Date().getTime();
         //Grammar Precheck
         if(arguments.getTaskMode().isGrammar()){
             TreeSet<Character> filter = getGrammarFilterSet();
@@ -284,6 +286,8 @@ public class Grader {
             result.setStackalphabet(setsTest.getStackAlphabetResult());
             result.setTransitions(setsTest.getTransitionsResult());
         }
+        long runningTime = new Date().getTime() - start;
+        result.setTime(runningTime);
         return result;
     }
 
