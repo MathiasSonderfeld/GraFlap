@@ -270,9 +270,7 @@ public class Grader {
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());
             setsTest.setStudentStatesSet(arguments.getStates());
-            // TODO
-            // ob das ein DFA ist, entscheidet nicht der TaskType, sondern ergibt sich aus dem JFF !!!!!!!
-            setsTest.setStudentInitialsSet(arguments.getInitials(), arguments.getTaskType() == TaskType.DFA);
+            setsTest.setStudentInitialsSet(arguments.getInitials());
             setsTest.setStudentFinalsSet(arguments.getFinals());
             setsTest.setStudentAlphabetSet(arguments.getAlphabet());
             setsTest.setStudentStackAlphabetSet(arguments.getStackalphabet());

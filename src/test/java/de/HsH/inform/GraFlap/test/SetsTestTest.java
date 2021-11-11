@@ -17,7 +17,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>");
         setsTest.setStudentStatesSet(" { q 0 , q 1 , q 2 , q 3 } ");
-        setsTest.setStudentInitialsSet(" { q 0 } ", false);
+        setsTest.setStudentInitialsSet(" { q 0 } ");
         setsTest.setStudentFinalsSet("{ q 3 } ");
         setsTest.setStudentAlphabetSet("{ e , f } ");
         setsTest.setStudentStackAlphabetSet("{ Z , e } ");
@@ -49,7 +49,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<state id=\"0\" name=\"s0\">&#13;<x>82.0</x>&#13;<y>90.0</y>&#13;<initial/>&#13;<final/>&#13;</state>&#13;<state id=\"1\" name=\"s1\">&#13;<x>180.0</x>&#13;<y>90.0</y>&#13;</state>&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>1</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>0</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>x</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>1</to>&#13;<read>x</read>&#13;</transition>&#13;</automaton>&#13;</structure>");
         setsTest.setStudentStatesSet("{s0,s1}");
-        setsTest.setStudentInitialsSet("s0", true);
+        setsTest.setStudentInitialsSet("s0");
         setsTest.setStudentFinalsSet("{s0}");
         setsTest.setStudentAlphabetSet("{w,x}");
         setsTest.setStudentStackAlphabetSet("");
@@ -81,7 +81,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<state id=\"0\" name=\"s0\">&#13;<x>82.0</x>&#13;<y>90.0</y>&#13;<initial/>&#13;<final/>&#13;</state>&#13;<state id=\"1\" name=\"s1\">&#13;<x>180.0</x>&#13;<y>90.0</y>&#13;</state>&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>1</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>0</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>x</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>1</to>&#13;<read>x</read>&#13;</transition>&#13;</automaton>&#13;</structure>");
         setsTest.setStudentStatesSet("{s0,s1}");
-        setsTest.setStudentInitialsSet("s0,s0", true);
+        setsTest.setStudentInitialsSet("s0,s0");
         setsTest.setStudentFinalsSet("{s0}");
         setsTest.setStudentAlphabetSet("{w,x}");
         setsTest.setStudentStackAlphabetSet("");
@@ -114,7 +114,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<state id=\"0\" name=\"s0\">&#13;<x>82.0</x>&#13;<y>90.0</y>&#13;<initial/>&#13;<final/>&#13;</state>&#13;<state id=\"1\" name=\"s1\">&#13;<x>180.0</x>&#13;<y>90.0</y>&#13;</state>&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>1</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>0</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>x</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>1</to>&#13;<read>x</read>&#13;</transition>&#13;</automaton>&#13;</structure>");
         setsTest.setStudentStatesSet("{s0,s1}");
-        setsTest.setStudentInitialsSet("{s0}", true);
+        setsTest.setStudentInitialsSet("{s0}");
         setsTest.setStudentFinalsSet("{s0}");
         setsTest.setStudentAlphabetSet("{w,x}");
         setsTest.setStudentStackAlphabetSet("");
@@ -146,7 +146,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<state id=\"0\" name=\"s0\">&#13;<x>82.0</x>&#13;<y>90.0</y>&#13;<initial/>&#13;<final/>&#13;</state>&#13;<state id=\"1\" name=\"s1\">&#13;<x>180.0</x>&#13;<y>90.0</y>&#13;</state>&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>1</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>0</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>x</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>1</to>&#13;<read>x</read>&#13;</transition>&#13;</automaton>&#13;</structure>");
         setsTest.setStudentStatesSet("{s0,s0,s1}");
-        setsTest.setStudentInitialsSet("{s0,s0}", true);
+        setsTest.setStudentInitialsSet("{s0,s0}");
         setsTest.setStudentFinalsSet("{s0,s0}");
         setsTest.setStudentAlphabetSet("{w,w,x}");
         setsTest.setStudentStackAlphabetSet("");
@@ -186,7 +186,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<state id=\"0\" name=\"s0\">&#13;<x>82.0</x>&#13;<y>90.0</y>&#13;<initial/>&#13;<final/>&#13;</state>&#13;<state id=\"1\" name=\"s1\">&#13;<x>180.0</x>&#13;<y>90.0</y>&#13;</state>&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>1</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>0</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>x</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>1</to>&#13;<read>x</read>&#13;</transition>&#13;</automaton>&#13;</structure>");
         setsTest.setStudentStatesSet("{s1}");
-        setsTest.setStudentInitialsSet("{}", true);
+        setsTest.setStudentInitialsSet("{}");
         setsTest.setStudentFinalsSet("{}");
         setsTest.setStudentAlphabetSet("{x}");
         setsTest.setStudentStackAlphabetSet("");
@@ -227,7 +227,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure>&#13;<type>fa</type>&#13;<automaton>&#13;<!--The list of states.-->&#13;<state id=\"0\" name=\"s0\">&#13;<x>82.0</x>&#13;<y>90.0</y>&#13;<initial/>&#13;<final/>&#13;</state>&#13;<state id=\"1\" name=\"s1\">&#13;<x>180.0</x>&#13;<y>90.0</y>&#13;</state>&#13;<!--The list of transitions.-->&#13;<transition>&#13;<from>0</from>&#13;<to>1</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>0</to>&#13;<read>w</read>&#13;</transition>&#13;<transition>&#13;<from>0</from>&#13;<to>0</to>&#13;<read>x</read>&#13;</transition>&#13;<transition>&#13;<from>1</from>&#13;<to>1</to>&#13;<read>x</read>&#13;</transition>&#13;</automaton>&#13;</structure>");
         setsTest.setStudentStatesSet("{s0,s2,s1}");
-        setsTest.setStudentInitialsSet("{s0,s2}", true);
+        setsTest.setStudentInitialsSet("{s0,s2}");
         setsTest.setStudentFinalsSet("{s0,s2}");
         setsTest.setStudentAlphabetSet("{w,y,x}");
         setsTest.setStudentStackAlphabetSet("");
@@ -265,7 +265,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>");
         setsTest.setStudentStatesSet("{q0,q1,q2,q3}");
-        setsTest.setStudentInitialsSet("{q0}", false);
+        setsTest.setStudentInitialsSet("{q0}");
         setsTest.setStudentFinalsSet("{q3}");
         setsTest.setStudentAlphabetSet("{e,f}");
         setsTest.setStudentStackAlphabetSet("{Z,e}");
@@ -297,7 +297,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>");
         setsTest.setStudentStatesSet("{q0,q0,q1,q2,q3}");
-        setsTest.setStudentInitialsSet("{q0,q0}", false);
+        setsTest.setStudentInitialsSet("{q0,q0}");
         setsTest.setStudentFinalsSet("{q3,q3}");
         setsTest.setStudentAlphabetSet("{e,e,f}");
         setsTest.setStudentStackAlphabetSet("{Z,e,e}");
@@ -337,7 +337,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>");
         setsTest.setStudentStatesSet("{q1,q2,q3}");
-        setsTest.setStudentInitialsSet("{}", false);
+        setsTest.setStudentInitialsSet("{}");
         setsTest.setStudentFinalsSet("{}");
         setsTest.setStudentAlphabetSet("{f}");
         setsTest.setStudentStackAlphabetSet("{Z}");
@@ -379,7 +379,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>");
         setsTest.setStudentStatesSet("{q0,q1,q2,q3,q4}");
-        setsTest.setStudentInitialsSet("{q0,q1}", false);
+        setsTest.setStudentInitialsSet("{q0,q1}");
         setsTest.setStudentFinalsSet("{q2,q3}");
         setsTest.setStudentAlphabetSet("{e,f,g}");
         setsTest.setStudentStackAlphabetSet("{Z,e,f,h}");
@@ -418,7 +418,7 @@ public class SetsTestTest {
         SetsTest setsTest = new SetsTest();
         setsTest.setJflapXml("null");
         setsTest.setStudentStatesSet("{q0,q1,q2,q3}");
-        setsTest.setStudentInitialsSet("{q0}", false);
+        setsTest.setStudentInitialsSet("{q0}");
         setsTest.setStudentFinalsSet("{q3}");
         setsTest.setStudentAlphabetSet("{e,f}");
         setsTest.setStudentStackAlphabetSet("{Z,e}");

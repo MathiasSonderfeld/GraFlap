@@ -189,14 +189,11 @@ public class SetsTest {
         if(m.find()) this.studentTransitionsSet = m.group();
     }
 
-    public void setStudentInitialsSet( String studentInitialsSet, boolean isDFA ) {
+    public void setStudentInitialsSet( String studentInitialsSet) {
         Matcher m;
-        if(isDFA){
-            m = Pattern.compile("(^[a-zA-Z0-9]+$)|"+cleanUpAtomarSet.pattern()).matcher(studentInitialsSet.replaceAll("\\s+", ""));
-        }
-        else {
-            m = cleanUpAtomarSet.matcher(studentInitialsSet.replaceAll("\\s+", ""));
-        }
+        //  accept initials always with or without braces
+        m = Pattern.compile("(^[a-zA-Z0-9]+$)|"+cleanUpAtomarSet.pattern()).matcher(studentInitialsSet.replaceAll("\\s+", ""));
+
         if(m.find()) this.studentInitialsSet = m.group();
     }
 
