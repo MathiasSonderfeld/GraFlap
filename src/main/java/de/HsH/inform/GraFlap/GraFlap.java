@@ -15,9 +15,18 @@ package de.HsH.inform.GraFlap;
  *
  */
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.*;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.MetaData;
+import de.HsH.inform.GraFlap.entity.Result;
+import de.HsH.inform.GraFlap.entity.TaskMode;
+import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
@@ -27,12 +36,6 @@ import de.HsH.inform.GraFlap.io.parsing.LoncapaParser;
 import de.HsH.inform.GraFlap.io.parsing.ProformaParser;
 import de.HsH.inform.GraFlap.svg.SvgBuilder;
 import de.HsH.inform.GraFlap.svg.SvgFactory;
-import de.HsH.inform.GraFlap.util.TimeoutBlock;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * Main execution file that starts the application
@@ -44,7 +47,7 @@ import java.nio.file.Paths;
 public class GraFlap {
     public static final boolean printAsACII = false;
     public static final double version = 1.0;
-    public static final long timeOutSeconds = 20;
+    public static final long timeOutSeconds = 30;
 
     /**
      * Grades a submission for a theoretical computer science task

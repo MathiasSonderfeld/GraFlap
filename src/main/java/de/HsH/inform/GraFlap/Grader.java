@@ -300,18 +300,17 @@ public class Grader {
             public String call() throws Exception {
                 try {
                     result[0] = generateResult(args);
-                    }catch(GraFlapException e){
-                        exeptionmessage[0] = e.getMessage();
+                }catch(GraFlapException e){
+                    exeptionmessage[0] = e.getMessage();
                 }
                 if (!exeptionmessage[0].equals("nothing")){
-                throw new GraFlapException(exeptionmessage[0]);
-            }
-
+                	throw new GraFlapException(exeptionmessage[0]);
+                }
                 return "ready";
             }
         };
 
-         timeoutBlock.addBlock(block);
+        timeoutBlock.addBlock(block);
 
         return result[0];
     }
