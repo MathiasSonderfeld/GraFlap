@@ -25,6 +25,16 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
      * scaling factor of the coordinates
      */
     final double SCALING = 50.0;
+    protected String emptyWord = "&#949;";
+    protected String bottom = "&perp;";
+
+    /**
+     * zu ersetzen
+     * E = "&#949;";  // epsilon
+     * Z = "&perp;";
+     * einfügen
+     *  <style> svg { max-width: 100%; max-height: 100%; } </style>
+     */
 
     SvgAutomatonBuilder( boolean isSVGA ) {
         super(isSVGA);
@@ -51,13 +61,15 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
     String buildPDATransitionText(Element element) {
         String pop = element.getChildText("pop");
         if (pop.isEmpty()) {
-            pop = "E";
+            pop = emptyWord;
         }
         String push = element.getChildText("push");
         if (push.isEmpty()) {
-            push = "E";
+            push = emptyWord;
         }
-        return " , " + pop + " ; " + push;
+        String transText = " , " + pop + " ; " + push;
+        transText = transText.replaceAll("Z",bottom);
+        return transText;
     }
 
     /**
@@ -102,10 +114,14 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
             if ((line = graphVizResult.readLine()) != null) {
                 svgString +=line;
             }
+            // omit the DOCTYPE ...
             graphVizResult.readLine();
             graphVizResult.readLine();
             while ((line = graphVizResult.readLine()) != null) {
-                svgString += line;
+                // omit the background polygon
+                if (!line.startsWith("<polygon fill=")) {
+                    svgString += line;
+                }
             }
             graphViz.destroy();
             graphViz.waitFor();

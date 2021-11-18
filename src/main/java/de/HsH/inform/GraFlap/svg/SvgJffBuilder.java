@@ -58,7 +58,7 @@ class SvgJffBuilder extends SvgAutomatonBuilder {
                 String to = transition.getChildText("to");
                 StringBuilder label = new StringBuilder(transition.getChildText("read"));
                 if (label.toString().isEmpty()) {
-                    label.append("E");
+                    label.append(emptyWord);
                 }
                 switch (automatonType) {
                     case "pda":
@@ -72,7 +72,7 @@ class SvgJffBuilder extends SvgAutomatonBuilder {
                     case "turing": {
                         String write = transition.getChildText("write");
                         if (write.isEmpty()) {
-                            write = "E";
+                            write = emptyWord;
                         }
                         String move = transition.getChildText("move");
                         label.append(" : ").append(write).append(", ").append(move);

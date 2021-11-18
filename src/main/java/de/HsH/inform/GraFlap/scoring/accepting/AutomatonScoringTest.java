@@ -32,12 +32,16 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
         for (String input : testwords.getCorrectWords()) {
             if (automatonSimulator.acceptInput(input)) {
                 correctWordsCount--;
+            }else{
+                WordFeedback += input+ " should have been accepted" + System.lineSeparator();
             }
         }
 
         for (String input : testwords.getFailingWords()) {
             if (!automatonSimulator.acceptInput(input)) {
                 wrongWordsCount--;
+            }else{
+                WordFeedback += input+ " must not be accepted"+ System.lineSeparator();
             }
         }
     }

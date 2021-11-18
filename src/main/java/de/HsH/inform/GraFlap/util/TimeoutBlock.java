@@ -22,7 +22,6 @@ public class TimeoutBlock {
     public void addBlock(Callable<String> task) throws GraFlapException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<String> future = executor.submit(task);
-        //AtomicBoolean timeout = new AtomicBoolean(false);
         String reason =  "Most probable reason: endless loop in submission.";
 
         try{
@@ -30,10 +29,8 @@ public class TimeoutBlock {
         	future.get(timeoutSeconds, TimeUnit.SECONDS);
         }catch (TimeoutException e){
         	//if timeout exceeded
-            //future.cancel(true);
-            throw new GraFlapException("Test execution time exceeded " + timeoutSeconds + " seconds. Test terminated. " + reason);
-            //timeout.set(true);
-        }catch (ExecutionException  e){
+             throw new GraFlapException("Test execution time exceeded " + timeoutSeconds + " seconds. Test terminated. " + reason);
+         }catch (ExecutionException  e){
         	//if execution error occurred 
             if(!e.getCause().getMessage().contains("heap")){
             	reason="";
@@ -47,8 +44,6 @@ public class TimeoutBlock {
         	future.cancel(true);
         	executor.shutdownNow();
         }
-
-        //if (timeout.get()){ throw new GraFlapException("Test execution time exceeded " + timeoutSeconds + " seconds. Test terminated. " + reason); }
 
     }
 

@@ -14,6 +14,7 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
     protected int wrongWordsCount;
 
     protected Testwords testwords;
+    protected String WordFeedback;
 
     /**
      * constructor
@@ -42,5 +43,9 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
             return 1;
         }
         return (int) Math.round(resultValue);
+    }
+
+    protected String getWordFeedback() {
+        return WordFeedback;
     }
 }
