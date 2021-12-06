@@ -43,7 +43,8 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
 
             StringBuilder sb = new StringBuilder();
             sb.append("digraph automaton{ ");
-            sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1; size=\"15,30\"; ratio= compress;");
+         //   sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1; size=\"15,30\"; ratio= compress;");
+            sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1;  ratio= compress;");
 
             StringBuilder stateBuilder = new StringBuilder();
             for (Element state : states) {
@@ -63,7 +64,7 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
                     label.append(transition.getChildText("read0"));
                 }
                 if (label.toString().isEmpty()) {
-                    label.append("E");
+                    label.append(emptyWord);
                 }
 
                 if (automatonType.equals("pda")) {
@@ -74,7 +75,7 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
                 } else if (automatonType.equals("turing")) {
                     String write = transition.getChildText("write0");
                     if (write.isEmpty()) {
-                        write = "E";
+                        write = blank;
                     }
                     String move = transition.getChildText("move0");
                     label.append(" : ").append(write).append(", ").append(move);

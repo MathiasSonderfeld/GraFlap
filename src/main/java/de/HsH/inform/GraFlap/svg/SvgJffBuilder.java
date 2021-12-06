@@ -40,7 +40,8 @@ class SvgJffBuilder extends SvgAutomatonBuilder {
 
             StringBuilder sb = new StringBuilder();
             sb.append("digraph automaton{ ");
-            sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1; size=\"15,30\"; ratio= compress;");
+   //         sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1; size=\"15,30\"; ratio= compress;");
+            sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1;  ratio= compress;");
 
             StringBuilder elementBuilder = new StringBuilder();
             for (Element state : states) {
@@ -58,7 +59,11 @@ class SvgJffBuilder extends SvgAutomatonBuilder {
                 String to = transition.getChildText("to");
                 StringBuilder label = new StringBuilder(transition.getChildText("read"));
                 if (label.toString().isEmpty()) {
-                    label.append(emptyWord);
+                    if (automatonType.equals("turing")){
+                        label.append(blank);
+                    }else {
+                        label.append(emptyWord);
+                    }
                 }
                 switch (automatonType) {
                     case "pda":
@@ -72,7 +77,7 @@ class SvgJffBuilder extends SvgAutomatonBuilder {
                     case "turing": {
                         String write = transition.getChildText("write");
                         if (write.isEmpty()) {
-                            write = emptyWord;
+                            write = blank;
                         }
                         String move = transition.getChildText("move");
                         label.append(" : ").append(write).append(", ").append(move);

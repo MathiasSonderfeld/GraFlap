@@ -27,6 +27,7 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
     final double SCALING = 50.0;
     protected String emptyWord = "&#949;";
     protected String bottom = "&perp;";
+    protected String blank = "#";
 
     /**
      * zu ersetzen
@@ -119,7 +120,7 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
             graphVizResult.readLine();
             while ((line = graphVizResult.readLine()) != null) {
                 // omit the background polygon
-                if (!line.startsWith("<polygon fill=")) {
+                if (!line.contains("white")) {
                     svgString += line;
                 }
             }
