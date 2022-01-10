@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
  */
 public class WordTest {
 
+    private static String positiveFeedback;
+    private static String negativeFeedback;
+
     /**
      * method to test given test words against a grammar or regex
      * @param given the grammar or regular expression coded into a string
@@ -53,6 +56,9 @@ public class WordTest {
      */
     public static int checkWordsWithGrammar( Grammar grammar, String[] words) throws GraFlapException {
         int result = 0;
+        int pos = 0;
+        positiveFeedback = "";
+        negativeFeedback = "";
         Parser parser;
         if (GrammarTypeTest.isContextFreeGrammar(grammar)) {
             parser = new RestrictedBruteParser(grammar);
@@ -62,6 +68,12 @@ public class WordTest {
         for (String word : words) {
             if (!parser.solve(word)) {
                 result++;
+                if (result>1) { negativeFeedback += ", "; }
+                negativeFeedback += word ;
+            }else{
+                pos++;
+                if (pos>1) { positiveFeedback += ", "; }
+                positiveFeedback += word ;
             }
         }
 
@@ -84,7 +96,10 @@ public class WordTest {
      */
     public static int checkWordsWithRegex(String regex, String[] words) {
         int result = 0;
-        int numberOfRightWords = 0;
+        int pos = 0;
+        positiveFeedback = "";
+        negativeFeedback = "";
+         int numberOfRightWords = 0;
         Pattern p = Pattern.compile(regex);
         for (String word : words) {
             if ((p.matcher(word).matches())) {
@@ -96,9 +111,14 @@ public class WordTest {
                     result++;
                 } else {
                     numberOfRightWords++;
-                }
+                 pos++;
+                if (pos>1) { positiveFeedback += ", "; }
+                positiveFeedback += word ;
+               }
             } else {
                 result++;
+                if (result>1) { negativeFeedback += ", "; }
+                negativeFeedback += word ;
             }
         }
 
@@ -115,5 +135,13 @@ public class WordTest {
     private static int checkWordsWithGrammar(String grammarString, String[] words) throws GraFlapException {
         String jffGrammar = GrammarBuilder.buildGrammar(grammarString);
         return checkWordsWithGrammar(ConvertSubmission.openGrammar(jffGrammar).getSubmissionObject(), words);
+    }
+
+    public static String getPositiveFeedback() {
+        return positiveFeedback;
+    }
+
+    public static String getNegativeFeedback() {
+        return negativeFeedback;
     }
 }

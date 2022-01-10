@@ -99,7 +99,11 @@ public class ProformaOutputFormatter implements OutputFormatter {
         addFeedback(feedbackList, true, answerMessage.getFeedbackTitle(), "html", answerMessage.getFeedback(), true);
         String warnings = answerMessage.getWarnings();
         if(warnings.length() > 0){
-            addFeedback(feedbackList, false, "Warnings", "plaintext", warnings, false);
+            addFeedback(feedbackList, false, "Warnings", "html", warnings, true);
+        }
+        String extra = answerMessage.getTeachersExtra();
+        if (extra.length()>0){
+            addFeedback(feedbackList, false, "Extras", "html", extra, true);
         }
     }
 

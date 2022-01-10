@@ -8,6 +8,8 @@ import de.HsH.inform.GraFlap.scoring.accepting.RegexScoringTest;
 
 public class RegexTest {
 
+    private String wordFeedback="";
+
     public int getResult(String solution, Submission<String> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         String studentRegex = studentInput.getSubmissionObject();
 
@@ -39,7 +41,11 @@ public class RegexTest {
 
         int testInput(String regex, Testwords testwords) throws GraFlapException {
         RegexScoringTest scoringTest = new RegexScoringTest(regex, testwords);
+        wordFeedback = scoringTest.getWordFeedback();
         return scoringTest.returnScore();
     }
 
+    public String getWordFeedback() {
+        return wordFeedback;
+    }
 }

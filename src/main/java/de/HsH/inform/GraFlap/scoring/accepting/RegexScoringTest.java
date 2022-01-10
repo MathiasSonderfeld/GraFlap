@@ -24,6 +24,10 @@ public class RegexScoringTest extends AcceptingScoringTest<String> {
         @Override
         protected void testing() throws GraFlapException {
             correctWordsCount = WordTest.checkWordsWithRegex(object, testwords.getCorrectWordsArray());
+            String fb = WordTest.getNegativeFeedback();
+            if (!fb.equals("")) { WordFeedback += "false negative: " + fb + System.lineSeparator(); }
             wrongWordsCount = testwords.getFailingWords().size() - WordTest.checkWordsWithRegex(object, testwords.getFailingWordsArray());
+            fb = WordTest.getPositiveFeedback();
+            if (!fb.equals("")) { WordFeedback += "false positive: " + fb + System.lineSeparator(); }
         }
 }

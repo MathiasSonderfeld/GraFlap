@@ -23,6 +23,7 @@ public class Result {
     private SetResult<String> stackalphabet;
     private SetResult<Transition> transitions;
     private long time = 0;
+    private String extraText = "";
 
     public Result( Submission submission, int percentageFailed, TaskType submissionTaskType ){
         this.submission = submission;
@@ -96,4 +97,12 @@ public class Result {
     public long getTime( ) {return time;}
 
     public void setTime (long time) { this.time = time; }
+
+    public String getExtraText() {
+        return extraText;
+    }
+
+    public void setExtraText(String extraText) {
+        this.extraText = extraText;
+    }
 }

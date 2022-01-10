@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * helper class with static method to read and convert the given submission string
- * @author Frauke Sprengel (08-15-2015)
+ * @author Frauke Sprengel (08-15-2015, 12-06-2021)
  * @author Benjamin Held (04-09-2016)
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
@@ -140,12 +140,21 @@ public class ConvertSubmission {
             }
             if (processesMoreThanOneCharacter(elem.getElementsByTagName("read"))) {
                 hasFormalError = true;
-                errorString.append("\nPlease use only one character reading from the stack. ");
+                errorString.append("\nPlease use only one character reading from the input. ");
             }
             if (processesMoreThanOneCharacter(elem.getElementsByTagName("pop"))) {
                 hasFormalError = true;
                 errorString.append("\nPlease use only one character reading from the stack. ");
             }
+            if (processesMoreThanOneCharacter(elem.getElementsByTagName("write"))) {
+                hasFormalError = true;
+                errorString.append("\nPlease use only one character writing on the band. ");
+            }
+            if (empty(elem.getElementsByTagName("pop"))) {
+                hasFormalError = true;
+                errorString.append("\nReading the empty word from the stack is forbidden in our definition. ");
+            }
+
         }
         if (hasFormalError) {
             throw new GraFlapException(errorString.toString());
@@ -161,6 +170,21 @@ public class ConvertSubmission {
         for (int i = 0; i < nodeList.getLength(); i++){
             Node r = nodeList.item(i);
             if (r.getTextContent().length() > 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * static method to check if only empty content has been processed
+     * @param nodeList the element list specified by the given tag
+     * @return true, if content is empty, false if not
+     */
+    private static boolean empty(NodeList nodeList) {
+        for (int i = 0; i < nodeList.getLength(); i++){
+            Node r = nodeList.item(i);
+            if (r.getTextContent().length() < 1){
                 return true;
             }
         }

@@ -60,6 +60,7 @@ public class Grader {
         Submission submission = new Submission();
         int percentageFailed = -1;
         TaskType submissionTaskType = TaskType.NON;
+        String extraText = "";
 
         long start = new Date().getTime();
         //Grammar Precheck
@@ -93,8 +94,10 @@ public class Grader {
             case ARTP:
                 if (!arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    percentageFailed = new AutomatonRegexTest().openInput(arguments.getSolution(), submission,
+                    AutomatonRegexTest myTest = new AutomatonRegexTest();
+                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                                 arguments.getNumberOfWords());
+                    extraText = myTest.getWordFeedback();
                 } else {
                     throw new GraFlapException("Error in given ProFormA task. Please check regular expression.");
                 }
@@ -105,9 +108,10 @@ public class Grader {
             case AGTP:
                 if (arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
+                    AutomatonTest myTest = new AutomatonTest();
+                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                            arguments.getNumberOfWords());
-
+                    extraText = myTest.getWordFeedback();
                 } else {
                     throw new GraFlapException("Error in given ProFormA task. Please check given grammar.");
                 }
@@ -118,8 +122,10 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") && arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
+                    GrammarTest myTest = new GrammarTest();
+                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                          arguments.getNumberOfWords());
+                    extraText = myTest.getWordFeedback();
                 } else {
                     throw new GraFlapException("Error. Please check grammar.");
                 }
@@ -130,8 +136,10 @@ public class Grader {
             case ARTWP:
                 if (!arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
+                    AutomatonTest myTest = new AutomatonTest();
+                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                            arguments.getTestwords());
+                    extraText = myTest.getWordFeedback();
                 }else {
                     throw new GraFlapException("Error in given ProFormA task. Please check regular expression.");
                 }
@@ -142,8 +150,10 @@ public class Grader {
             case AGTWP:
                 if (arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                    percentageFailed = new AutomatonTest().openInput(arguments.getSolution(), submission,
+                    AutomatonTest myTest = new AutomatonTest();
+                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                            arguments.getTestwords());
+                    extraText = myTest.getWordFeedback();
                 } else {
                     throw new GraFlapException("Error in given ProFormA task. Please check given grammar.");
                 }
@@ -153,8 +163,10 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") && arguments.getSolution().contains("->")) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                                buildGrammar(arguments.getStudentAnswer()));
-                    percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
+                    GrammarTest myTest = new GrammarTest();
+                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                          arguments.getTestwords());
+                    extraText = myTest.getWordFeedback();
                 }else {
                     throw new GraFlapException("Error. Please check grammar.");
                 }
@@ -167,6 +179,7 @@ public class Grader {
             case WW:
                 submission = ConvertSubmission.openWords(arguments.getStudentAnswer(), arguments.getNumberOfWords());
                 percentageFailed = WordTest.checkWords(arguments.getSolution(), (String[]) submission.getSubmissionObject());
+                //extraText = WordTest.getWordFeedback();
                 break;
             case GR:
             case GRT:
@@ -191,8 +204,10 @@ public class Grader {
                                                    buildGrammar(arguments.getStudentAnswer()));
                     submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
                     if ((submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG)) {
-                        percentageFailed = new GrammarTest().openInput(arguments.getSolution(), submission,
+                        GrammarTest myTest = new GrammarTest();
+                        percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                              arguments.getTestwords());
+                        extraText = myTest.getWordFeedback();
                     } else {
                         throw new GraFlapException("Error. Please check grammar type.");
                     }
@@ -203,8 +218,10 @@ public class Grader {
             case RR:
                 if (!arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openRegex(RegexBuilder.checkAndClean(arguments.getStudentAnswer()));
-                    percentageFailed = new RegexTest().getResult(arguments.getSolution(), submission,
+                    RegexTest myTest = new RegexTest();
+                    percentageFailed = myTest.getResult(arguments.getSolution(), submission,
                                 arguments.getNumberOfWords());
+                    extraText = myTest.getWordFeedback();
                 } else {
                     throw new GraFlapException("Error. Please check regex.");
                 }
@@ -212,8 +229,10 @@ public class Grader {
             case RRW:
                 if (!arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openRegex(RegexBuilder.checkAndClean(arguments.getStudentAnswer()));
-                    percentageFailed = new RegexTest().getResult(arguments.getSolution(), submission,
+                    RegexTest myTest = new RegexTest();
+                    percentageFailed = myTest.getResult(arguments.getSolution(), submission,
                                 arguments.getTestwords());
+                    extraText = myTest.getWordFeedback();
                 } else {
                     throw new GraFlapException("Error. Please check regex.");
                 }
@@ -265,6 +284,7 @@ public class Grader {
         }
 
         result = new Result(submission, percentageFailed, submissionTaskType);
+        result.setExtraText(extraText);
 
         if(arguments.getTaskMode().isParameterized()){
             SetsTest setsTest = new SetsTest();

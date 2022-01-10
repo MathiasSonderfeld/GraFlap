@@ -44,6 +44,7 @@ public class AnswerMessage {
     private SetResult<String> alphabet = null;
     private SetResult<String> stackalphabet = null;
     private SetResult<Transition> transitions = null;
+    private String teachersExtra = "";
 
     private AnswerMessage(Result result, Arguments arguments){
         this.feedback = new StringBuilder();
@@ -59,6 +60,7 @@ public class AnswerMessage {
             this.percentOfTestWordsFailed = result.getPercentageFailed();
             this.hasPassed = percentOfTestWordsFailed == 0;
             if (this.hasPassed) { this.score = 1.0; }
+            this.teachersExtra = result.getExtraText();
         }
         else{
             this.taskTitle = "ERROR";
@@ -476,4 +478,8 @@ public class AnswerMessage {
     }
 
     public String getTime() { return "Grading took " + time + " ms."; }
+
+    public String getTeachersExtra() {
+        return teachersExtra;
+    }
 }

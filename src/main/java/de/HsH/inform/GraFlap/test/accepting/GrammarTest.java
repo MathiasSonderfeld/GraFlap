@@ -27,6 +27,7 @@ public class GrammarTest extends AcceptingTest<Grammar> {
     @Override
     int testInput(Grammar obj, Testwords testwords) throws GraFlapException {
         GrammarScoringTest scoringTest = new GrammarScoringTest(obj, testwords);
+        wordFeedback = scoringTest.getWordFeedback();
         return scoringTest.returnScore();
     }
 

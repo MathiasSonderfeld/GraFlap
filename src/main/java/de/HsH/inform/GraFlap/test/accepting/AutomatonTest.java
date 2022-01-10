@@ -27,6 +27,7 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
     @Override
     int testInput(Automaton obj, Testwords testwords) throws GraFlapException {
         AutomatonScoringTest scoringTest = new AutomatonScoringTest(obj, testwords);
+        wordFeedback = scoringTest.getWordFeedback();
         return scoringTest.returnScore();
     }
 

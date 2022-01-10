@@ -29,20 +29,31 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
     @Override
     protected void testing() throws GraFlapException {
         AutomatonSimulator automatonSimulator = new AutomatonSimulator(object);
+        String negative = "";
+        String positive = "";
+        int i=0;
         for (String input : testwords.getCorrectWords()) {
             if (automatonSimulator.acceptInput(input)) {
                 correctWordsCount--;
             }else{
-                WordFeedback += input+ " should have been accepted" + System.lineSeparator();
+                i++;
+                if (i>1) {WordFeedback += ", ";}
+                WordFeedback +=  input;
             }
         }
+        if (i>0) { WordFeedback += negative + " should have been accepted" + System.lineSeparator(); }
 
+        i=0;
         for (String input : testwords.getFailingWords()) {
             if (!automatonSimulator.acceptInput(input)) {
                 wrongWordsCount--;
             }else{
-                WordFeedback += input+ " must not be accepted"+ System.lineSeparator();
+                i++;
+                if (i>1) {WordFeedback += ", ";}
+                WordFeedback +=  input;
             }
         }
+        if (i>0) { WordFeedback += "false positive: " + positive + " must not be accepted"+ System.lineSeparator();}
+
     }
 }

@@ -45,7 +45,7 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
         return (int) Math.round(resultValue);
     }
 
-    protected String getWordFeedback() {
+    public String getWordFeedback() {
         return WordFeedback;
     }
 }

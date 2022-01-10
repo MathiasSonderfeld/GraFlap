@@ -15,6 +15,8 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  */
 public abstract class AcceptingTest<T extends Object> {
 
+    protected String wordFeedback;
+
     /**
      * method to test words with a given submission
      * @param obj the object transformation of the submission that should be used for testing
@@ -60,4 +62,8 @@ public abstract class AcceptingTest<T extends Object> {
      */
     public abstract int openInput(String solution, Submission<T> studentInput, int numberOfWordsToBeGenerated)
                                   throws GraFlapException;
+
+    public String getWordFeedback() {
+        return wordFeedback;
+    }
 }

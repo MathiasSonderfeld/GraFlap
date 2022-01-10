@@ -29,6 +29,11 @@ public class GrammarScoringTest extends AcceptingScoringTest<Grammar> {
     @Override
     protected void testing() throws GraFlapException {
         correctWordsCount = WordTest.checkWordsWithGrammar(object, testwords.getCorrectWordsArray());
+        String fb = WordTest.getNegativeFeedback();
+        if (!fb.equals("")) { WordFeedback += "false negative: " + fb + System.lineSeparator(); }
         wrongWordsCount = testwords.getFailingWords().size() - WordTest.checkWordsWithGrammar(object, testwords.getFailingWordsArray());
+        fb = WordTest.getPositiveFeedback();
+        if (!fb.equals("")) { WordFeedback += "false positive: " + fb + System.lineSeparator(); }
+
     }
 }
