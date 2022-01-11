@@ -102,8 +102,10 @@ public class ProformaOutputFormatter implements OutputFormatter {
             addFeedback(feedbackList, false, "Warnings", "html", warnings, true);
         }
         String extra = answerMessage.getTeachersExtra();
-        if (extra.length()>0){
-            addFeedback(feedbackList, false, "Extras", "html", extra, true);
+        if (!(extra==null)){
+            if(extra.length()>0) {
+                addFeedback(feedbackList, false, "Extras", "html", extra, true);
+            }
         }
     }
 

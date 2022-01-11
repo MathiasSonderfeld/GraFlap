@@ -14,7 +14,7 @@ abstract class AcceptingScoringTest<T> extends ScoringTest<T> {
     protected int wrongWordsCount;
 
     protected Testwords testwords;
-    protected String WordFeedback;
+    protected String WordFeedback ="";
 
     /**
      * constructor

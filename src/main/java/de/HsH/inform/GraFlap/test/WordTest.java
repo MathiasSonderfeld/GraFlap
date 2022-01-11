@@ -21,8 +21,8 @@ import java.util.regex.Pattern;
  */
 public class WordTest {
 
-    private static String positiveFeedback;
-    private static String negativeFeedback;
+    private static String positiveFeedback ="";
+    private static String negativeFeedback ="";
 
     /**
      * method to test given test words against a grammar or regex
