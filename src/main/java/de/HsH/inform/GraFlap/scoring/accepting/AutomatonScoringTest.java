@@ -41,7 +41,7 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
                 negative +=  input;
             }
         }
-        if (i>0) { WordFeedback += "The Words " + negative + " should have been accepted." + System.lineSeparator(); }
+        if (i>0) { WordFeedback += "<p>The Words " + negative + " should have been accepted.</p>" + System.lineSeparator(); }
 
         i=0;
         for (String input : testwords.getFailingWords()) {
@@ -53,7 +53,7 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
                 positive +=  input;
             }
         }
-        if (i>0) { WordFeedback +=  "The Words " + positive + " must not be accepted."+ System.lineSeparator();}
+        if (i>0) { WordFeedback +=  "<p>The Words " + positive + " must not be accepted.</p>"+ System.lineSeparator();}
 
     }
 }
