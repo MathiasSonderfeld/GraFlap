@@ -11,6 +11,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
+        private String emptyWord = "&#949;";
 
     /**
      * constructor
@@ -38,6 +39,9 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
             }else{
                 i++;
                 if (i>1) { negative += ", ";}
+                if (input.equals("")){
+                    negative += emptyWord;
+                }
                 negative +=  input;
             }
         }
@@ -50,6 +54,9 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
             }else{
                 i++;
                 if (i>1) {positive += ", ";}
+                if (input.equals("")){
+                    positive += emptyWord;
+                }
                 positive +=  input;
             }
         }

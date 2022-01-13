@@ -23,6 +23,7 @@ public class WordTest {
 
     private static String positiveFeedback ="";
     private static String negativeFeedback ="";
+    private static String emptyWord = "&#949;";
 
     /**
      * method to test given test words against a grammar or regex
@@ -69,10 +70,16 @@ public class WordTest {
             if (!parser.solve(word)) {
                 result++;
                 if (result>1) { negativeFeedback += ", "; }
+                if (word.equals("")){
+                        negativeFeedback += emptyWord;
+                     }
                 negativeFeedback += word ;
             }else{
                 pos++;
                 if (pos>1) { positiveFeedback += ", "; }
+                if (word.equals("")){
+                        positiveFeedback += emptyWord;
+                     }
                 positiveFeedback += word ;
             }
         }
@@ -113,11 +120,17 @@ public class WordTest {
                     numberOfRightWords++;
                  pos++;
                 if (pos>1) { positiveFeedback += ", "; }
+                if (word.equals("")){
+                        positiveFeedback += emptyWord;
+                     }
                 positiveFeedback += word ;
                }
             } else {
                 result++;
                 if (result>1) { negativeFeedback += ", "; }
+                if (word.equals("")){
+                        negativeFeedback += emptyWord;
+                     }
                 negativeFeedback += word ;
             }
         }
