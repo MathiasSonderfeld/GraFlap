@@ -16,5 +16,5 @@ public enum FeedbackMessage {
     GRAMMAR_Svgtitle, GRAMMAR_Feedback, GRAMMAR_Type,
     REGEX_Svgtitle, REGEX_Feedback,
     WORD_Svgtitle, WORD_Feedback,
-    SVG_Svgtitle, SVG_Feedback;
+    SVG_Svgtitle, SVG_Feedback, TEACHER_OK;
 }

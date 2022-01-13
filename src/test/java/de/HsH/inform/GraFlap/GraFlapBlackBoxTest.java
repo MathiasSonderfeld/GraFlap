@@ -50,7 +50,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Turing-Automat fuer s^m t^{2 m}", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -75,7 +75,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer gerade Anzahl von w", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.ARTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -102,7 +102,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer den Vergleich von Dualzahlen", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.ARTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -126,7 +126,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Beispiel fuer eine kontextfreie Grammatik", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -150,7 +150,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Beispiel fuer eine nicht kontextfreie Grammatik", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -174,7 +174,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Beispiel fuer eine rechtslineare Grammatik", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -198,7 +198,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Kontextfreie Grammatik fuer gegebene Sprache", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.GGTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -223,7 +223,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Grammatik fuer ganze Zahlen", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.GGTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -247,7 +247,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer gegebene Sprache", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -271,7 +271,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer e^n f^n", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -295,7 +295,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Automat fuer Worte einer zusammengesetzten Sprache", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.ART, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());
@@ -319,7 +319,7 @@ public class GraFlapBlackBoxTest {
         Assertions.assertEquals("Grammatik fuer Sprache (enthaelt nicht ef)", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
         Assertions.assertEquals(TaskMode.GRTW, answerMessage.getTaskMode());
-        Assertions.assertEquals("<span style=\"font-size: 1.5em; color:green;\"><i class=\"fafa-check\"></i></span>Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
+        Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
         Assertions.assertEquals(1.0, answerMessage.getScore());

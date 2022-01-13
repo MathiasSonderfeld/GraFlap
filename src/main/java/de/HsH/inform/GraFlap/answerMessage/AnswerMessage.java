@@ -287,9 +287,11 @@ public class AnswerMessage {
     private <T> String getTeacherFeedback( String name, SetResult<T> result){
         StringBuilder feedback = new StringBuilder();
         boolean noneMissing = true;
+        boolean allOK = true;
         ArrayList<T> tmp = result.getMissing();
         if(tmp.size() > 0){
             noneMissing = false;
+            allOK = false;
             feedback.append(name).append(": ").append("Es fehlen").append(" ");
             for(int i = 0; i <tmp.size()-1; i++) {
                 feedback.append(tmp.get(i).toString()).append(", ");
@@ -298,6 +300,7 @@ public class AnswerMessage {
         }
         tmp = result.getSurplus();
         if(tmp.size() > 0){
+            allOK = false;
             if(!noneMissing) feedback.append(". ");
             else feedback.append(name).append(": ");
             feedback.append("Zu viel sind").append(" ");
@@ -306,6 +309,9 @@ public class AnswerMessage {
             }
             feedback.append(tmp.get(tmp.size()-1));
         }
+        if (allOK) {
+            feedback.append(messages.getString(FeedbackMessage.TEACHER_OK.name()));
+        }
         if(GraFlap.printAsACII) return replaceGermanCharacters(feedback.toString());
         return feedback.toString();
     }
@@ -313,24 +319,28 @@ public class AnswerMessage {
     private <T> String getStudentFeedback(String name, SetResult<T> result){
         StringBuilder feedback = new StringBuilder();
         boolean addedComments = false;
+        boolean allOK = true;
         for(CommentMarker marker : result.getComments()){
             addedComments = true;
             feedback.append(name).append(": ");
             switch(marker){
                 case SquareBrackets:
                     feedback.append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_SQUAREBRACKETS.name()));
+                    allOK = false;
                     break;
             }
         }
 
         int errors = result.getTotalErrors();
         if(errors > 0){
+            allOK = false;
             if(addedComments) feedback.append(" ");
             else feedback.append(name).append(": ");
             feedback.append(errors).append(" ").append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_ERRORS.name()));
         }
         ArrayList<T> tmp = result.getDoubles();
         if(tmp.size() > 0){
+            allOK = false;
             StringBuilder doubles = new StringBuilder();
             for(int i = 0; i <tmp.size()-1; i++) {
                 doubles.append(tmp.get(i).toString()).append(", ");
@@ -340,6 +350,9 @@ public class AnswerMessage {
             if(errors > 0 || addedComments) feedback.append(" ");
             else feedback.append(name).append(": ");
             feedback.append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_DUPLICATES.name())).append(" ").append(doubles);
+        }
+        if (allOK) {
+            feedback.append(messages.getString(FeedbackMessage.All_Correct.name()));
         }
         if(GraFlap.printAsACII) return replaceGermanCharacters(feedback.toString());
         return feedback.toString();
