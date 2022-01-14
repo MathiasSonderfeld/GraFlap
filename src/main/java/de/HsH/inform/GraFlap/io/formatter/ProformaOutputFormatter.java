@@ -69,13 +69,13 @@ public class ProformaOutputFormatter implements OutputFormatter {
         buildMainTestResponse(testsResponse, answerMessage, answerMessage.getSvgImage());
 
         if(answerMessage.getTaskMode().isParameterized() || answerMessage.getTaskMode() == TaskMode.AA){
-            buildSetsTestResponse(testsResponse, "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
-            buildSetsTestResponse(testsResponse, "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
-            buildSetsTestResponse(testsResponse, "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());
-            buildSetsTestResponse(testsResponse, "transitions", answerMessage.getTransitionsScore(), answerMessage.getTransitionsTeacherFeedback(), answerMessage.getTransitionsStudentFeedback());
-            buildSetsTestResponse(testsResponse, "alphabet", answerMessage.getAlphabetScore(), answerMessage.getAlphabetTeacherFeedback(), answerMessage.getAlphabetStudentFeedback());
+            buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
+            buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
+            buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());
+            buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "transitions", answerMessage.getTransitionsScore(), answerMessage.getTransitionsTeacherFeedback(), answerMessage.getTransitionsStudentFeedback());
+            buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "alphabet", answerMessage.getAlphabetScore(), answerMessage.getAlphabetTeacherFeedback(), answerMessage.getAlphabetStudentFeedback());
             if(answerMessage.getTaskType().isPushDownAutomaton()){
-                buildSetsTestResponse(testsResponse, "stackalphabet", answerMessage.getStackAlphabetScore(), answerMessage.getStackAlphabetTeacherFeedback(), answerMessage.getStackAlphabetStudentFeedback());
+                buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "stackalphabet", answerMessage.getStackAlphabetScore(), answerMessage.getStackAlphabetTeacherFeedback(), answerMessage.getStackAlphabetStudentFeedback());
             }
         }
 
@@ -112,10 +112,10 @@ public class ProformaOutputFormatter implements OutputFormatter {
     /**
      * builds Test Response Segment for a Set Task Feedback
      */
-    private void buildSetsTestResponse(Element testsResponse, String testTitle, double score ,String teacherFeedbackText, String studentFeedbackText){
+    private void buildSetsTestResponse(Element testsResponse, String feedbackTitle, String testTitle, double score ,String teacherFeedbackText, String studentFeedbackText){
         Element feedbackList = buildPartTestResponse(testsResponse, testTitle, "" + score, "1.0");
-        addFeedback(feedbackList, false, "Feedback", "html", teacherFeedbackText, false);
-        addFeedback(feedbackList,true, "Feedback", "html", studentFeedbackText, false);
+        addFeedback(feedbackList, false, feedbackTitle, "html", teacherFeedbackText, false);
+        addFeedback(feedbackList,true, feedbackTitle, "html", studentFeedbackText, false);
         System.out.println("");
     }
 
