@@ -27,8 +27,7 @@ public class ArgumentsToInputConverter {
     }
 
     private StringBuilder getMainProforma(){
-        FilenameTaskModeConverter fico = new FilenameTaskModeConverter();
-        String filename = fico.getMapping().getFromA(arguments.getTaskMode());
+        String filename = ProformaParser.getFileNameFromTaskMode(arguments.getTaskMode());
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><proforma:submission xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:proforma=\"urn:proforma:v2.1\" id=\"SubmissionUUID\"><proforma:task uuid=\"0123\" parent-uuid=\"0\" lang=\"de\">")
                 .append(arguments.getTaskTitle()).append("<proforma:description>Blocked</proforma:description><proforma:proglang version=\"1.0\">Blocked</proforma:proglang><proforma:files><proforma:file id=\"graflap-arguments\" ")

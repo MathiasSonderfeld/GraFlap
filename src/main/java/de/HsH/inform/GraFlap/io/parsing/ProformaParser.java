@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.TaskMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.SilentHandler;
 import org.w3c.dom.Document;
@@ -85,7 +86,7 @@ public class ProformaParser extends ArgumentsParser{
                                                           .flatMap(toChildElements)
                                                           .filter(byName("files")).flatMap(toChildElements)
                                                           .collect(Collectors.toList());
-            String studentAnswerFileName = new FilenameTaskModeConverter().getMapping().getFromA(arguments.getTaskMode());
+            String studentAnswerFileName = getFileNameFromTaskMode(arguments.getTaskMode());
             if(studentAnswerFileName.equals("internal")) throw new GraFlapException("Illegal Taskmode");
             String studentAnswer = getFileContent(submissionFiles, studentAnswerFileName);
             arguments.setStudentAnswer(studentAnswer);
@@ -120,5 +121,34 @@ public class ProformaParser extends ArgumentsParser{
             //             throw new GraFlapException("A file with name \"" + fileName + "\" expected in submission files but none found.");
         }
         return found;
+    }
+
+    /**
+     * Maps TaskMode to expected filename in ProFormA Submission
+     * @param taskMode the TaskMode of the Submission
+     * @return the filename where the student answer should be
+     */
+    public static String getFileNameFromTaskMode(TaskMode taskMode){
+        if(taskMode.isGrammar()){
+            return "grammar";
+        }
+        else if(taskMode.isAutomaton()){
+            return "(jff|jflap)";
+        }
+        else{
+            switch (taskMode){
+                case MP:
+                case MMW: return "(jff|jflap)";
+                case WW: return "examplewords";
+                case CYK: return "cyk";
+                case DER: return "derivation";
+                case RR:
+                case RRW: return "regex";
+                case SVGA:
+                case SVGG:
+                case ERROR:
+                default: return "internal";
+            }
+        }
     }
 }
