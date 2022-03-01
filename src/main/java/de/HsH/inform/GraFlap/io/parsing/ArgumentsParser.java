@@ -25,7 +25,38 @@ public abstract class ArgumentsParser {
     private boolean filterWarning = false;
 
     public Arguments parse(String[] args) throws GraFlapException{
-        return null;
+        Arguments arguments = new Arguments();
+        String[] taskArguments = args[0].split("#");
+        if(taskArguments.length < 7) throw new GraFlapException("less than 7 graflap-arguments, cant parse task");
+
+        arguments.setTaskTitle(taskArguments[0]);
+        arguments.setUserLanguage(getLocale(taskArguments[1]));
+        arguments.setSolution(taskArguments[2]);
+        int numberOfWords = parseAndCheckNumberOfWords(taskArguments[5]);
+        arguments.setNumberOfWords(numberOfWords);
+        arguments.setTestwords(parseInputWords(numberOfWords, taskArguments[6]));
+        arguments.setWordString(taskArguments[6]);
+
+        TaskMode taskMode;
+        try{
+            taskMode = TaskMode.valueOf(taskArguments[3].toUpperCase());
+        }
+        catch(Exception e){
+            taskMode = TaskMode.ERROR;
+        }
+
+        TaskType taskType;
+        try{
+            taskType = TaskType.valueOf(taskArguments[4].toUpperCase());
+        }
+        catch(Exception e){
+            taskType = TaskType.ERROR;
+        }
+
+        checkCorrectModeAndType(taskMode, taskType);
+        arguments.setTaskMode(taskMode);
+        arguments.setTaskType(taskType);
+        return arguments;
     }
 
     protected Locale getLocale( String in){

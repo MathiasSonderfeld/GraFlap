@@ -6,7 +6,6 @@ import java.util.Objects;
 /**
  * Data-Structure Class for program arguments.
  * @author Benjamin Held (04-17-2016)
- * @author Mathias Sonderfeld
  * @author Mathias Sonderfeld (07-2021)
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */

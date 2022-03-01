@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.*;
 
@@ -44,16 +45,15 @@ public class ProformaParser extends ArgumentsParser{
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
             db.setErrorHandler(SilentHandler.instance);
-            Document doc = db.parse(new ByteArrayInputStream(args[1].getBytes(StandardCharsets.UTF_8)));
-            ArrayList<Node> submissionAsList = new ArrayList<>(1);
+            Document doc = db.parse(new ByteArrayInputStream(args[1].getBytes(StandardCharsets.UTF_8))); //get node tree from xml doc
+            ArrayList<Node> submissionAsList = new ArrayList<>(1); //easiest way to get a stream from an object
             submissionAsList.add(doc.getDocumentElement());
-
-
 
             List<Element> tests = null;
             String testid = "";
-            String graflapArgumentsFileName = "";
+            String graflapArgumentsFileId = "";
             try {
+                //workaround to split stream into two
                 tests = submissionAsList.stream().flatMap(toChildElements).filter(byName("task")).flatMap(toChildElements)
                         .filter(byName("tests")).flatMap(toChildElements)
                         .filter(byName("test"))
@@ -61,7 +61,7 @@ public class ProformaParser extends ArgumentsParser{
                         .collect(Collectors.toList());
 
                 testid = tests.stream().filter(byName("test")).findFirst().map(toElement).get().getAttribute("id");
-                graflapArgumentsFileName = tests.stream().filter(byName("test")).flatMap(toChildElements)
+                graflapArgumentsFileId = tests.stream().filter(byName("test")).flatMap(toChildElements)
                                                          .filter(byName("test-configuration")).flatMap(toChildElements)
                                                          .filter(byName("filerefs")).flatMap(toChildElements)
                                                          .findFirst().get().getAttribute("refid");
@@ -69,16 +69,16 @@ public class ProformaParser extends ArgumentsParser{
             catch (Exception e){}
 
             if(testid.equals("")) testid = "graflap";
-            if(graflapArgumentsFileName.equals("")) graflapArgumentsFileName = "graflap-arguments";
+            if(graflapArgumentsFileId.equals("")) graflapArgumentsFileId = "graflap-arguments";
 
             String graflapArguments = submissionAsList.stream()
                     .flatMap(toChildElements)
                     .filter(byName("task")).flatMap(toChildElements)
                     .filter(byName("files")).flatMap(toChildElements)
-                    .filter(byAttribute("id", graflapArgumentsFileName)).flatMap(toChildElements)
+                    .filter(byAttribute("id", graflapArgumentsFileId)).flatMap(toChildElements)
                     .filter(byName("embedded")).flatMap(toChildNodes)
                     .filter(byIsCDATAOrText).findFirst().get().getTextContent().trim();
-            arguments = new LoncapaParser().parse(new String[]{graflapArguments, ""});
+            arguments = super.parse(new String[]{graflapArguments});
             arguments.setTestId(testid);
 
 
