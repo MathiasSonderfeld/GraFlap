@@ -24,7 +24,9 @@ public abstract class ArgumentsParser {
     private int filteredFailingWordsAmount = 0;
     private boolean filterWarning = false;
 
-    public abstract Arguments parse(String[] args) throws GraFlapException;
+    public Arguments parse(String[] args) throws GraFlapException{
+        return null;
+    }
 
     protected Locale getLocale( String in){
         return Locale.forLanguageTag(in);
