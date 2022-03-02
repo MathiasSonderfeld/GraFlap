@@ -28,6 +28,7 @@ public class AnswerMessage {
     private String svgImage;
     private int percentOfTestWordsFailed;
     private boolean hasPassed;
+    private boolean isError;
     private TaskMode taskMode;
     private TaskType taskType;
     protected StringBuilder aditionalFeedback;
@@ -61,6 +62,7 @@ public class AnswerMessage {
             this.hasPassed = percentOfTestWordsFailed == 0;
             if (this.hasPassed) { this.score = 1.0; }
             this.teachersExtra = result.getExtraText();
+            this.isError = false;
         }
         else{
             this.taskTitle = "ERROR";
@@ -69,6 +71,7 @@ public class AnswerMessage {
             this.taskType = TaskType.ERROR;
             this.percentOfTestWordsFailed = 100;
             this.hasPassed = false;
+            this.isError = true;
         }
         this.messages = ResourceBundle.getBundle("GraFlapAnswerMessage", this.userLocale, new LocaleControl());
         this.feedbackTitle = messages.getString(FeedbackMessage.Feedback_Title.name());
@@ -76,7 +79,7 @@ public class AnswerMessage {
 
     public AnswerMessage(Result result, Arguments arguments, String svg, String errorMessage){
         this(result, arguments);
-        this.percentOfTestWordsFailed = -1;
+        this.isError = true;
         this.svgImage = svg;
         this.svgTitle = "ERROR";
         this.feedback.append(errorMessage);
@@ -485,6 +488,10 @@ public class AnswerMessage {
 
     public boolean hasPassed() {
         return hasPassed;
+    }
+
+    public boolean isError(){
+        return isError;
     }
 
     public String getFeedbackTitle() {

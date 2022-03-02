@@ -40,7 +40,7 @@ public class LoncapaOutputFormatter implements OutputFormatter {
             StringWriter stringWriter = new StringWriter();
             String award, grade;
 
-            if (answerMessage.getPercentOfTestWordsFailed() < 0) {
+            if (answerMessage.isError()) {
                 award = "ERROR";
                 grade = "error";
             } else if (answerMessage.hasPassed()) {

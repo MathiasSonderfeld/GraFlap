@@ -92,7 +92,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
      * builds Test Response Segment for general feedback
      */
     private void buildMainTestResponse(Element testsResponse, AnswerMessage answerMessage, String svgAsString){
-        Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), answerMessage.getPercentOfTestWordsFailed()>=0?"1.0":"0.0");
+        Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), !answerMessage.isError()?"1.0":"0.0");
         //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, false, "Time", "html", answerMessage.getTime(), false); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, answerMessage.getSvgTitle(), "html", svgAsString, true);
