@@ -76,6 +76,7 @@ public class AnswerMessage {
 
     public AnswerMessage(Result result, Arguments arguments, String svg, String errorMessage){
         this(result, arguments);
+        this.percentOfTestWordsFailed = -1;
         this.svgImage = svg;
         this.svgTitle = "ERROR";
         this.feedback.append(errorMessage);
