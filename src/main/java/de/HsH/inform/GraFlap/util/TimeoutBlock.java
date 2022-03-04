@@ -17,20 +17,24 @@ public class TimeoutBlock {
         FutureTask<String> futureTask = new FutureTask<>(task);
         Thread gradeThread = new Thread(futureTask);
         String reason =  "Most probable reason: endless loop in submission.";
-
+        gradeThread.start();
         try{
-        	//try grading within timeout 
+        	//try grading within timeout
         	futureTask.get(timeoutSeconds, TimeUnit.SECONDS);
-        }catch (TimeoutException e){
+
+        }
+        catch (TimeoutException e){
         	//if timeout exceeded
              throw new GraFlapException("Test execution time exceeded " + timeoutSeconds + " seconds. Test terminated. " + reason);
-         }catch (ExecutionException  e){
-        	//if execution error occurred 
+         }
+        catch (ExecutionException  e){
+        	//if execution error occurred
             if(!e.getCause().getMessage().contains("heap")){
             	reason="";
             }
             throw new GraFlapException("Test terminated: " + e.getCause().getMessage() + ". " + reason);
-        }catch (Exception  e){
+        }
+        catch (Exception  e){
         	//anything else went wrong
             throw new GraFlapException("Test terminated: " + e.getMessage());
         }finally{
