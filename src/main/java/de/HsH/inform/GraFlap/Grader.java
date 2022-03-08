@@ -21,7 +21,7 @@ import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.util.TimeoutBlock;
 
 import java.util.Date;
-import java.util.TreeSet;
+import java.util.HashSet;
 import java.util.concurrent.Callable;
 
 /**
@@ -36,8 +36,8 @@ public class Grader {
      * Otherwise its not terminating and the program fails.
      * @return the Set of required Characters
      */
-    private static TreeSet<Character> getGrammarFilterSet(){
-        TreeSet<Character> grammarFilterSet = new TreeSet<>();
+    private static HashSet<Character> getGrammarFilterSet(){
+        HashSet<Character> grammarFilterSet = new HashSet<>();
         //add all small letters
         for(int i=0;i<26;i++){
             grammarFilterSet.add((char) ('a' + i));
@@ -65,7 +65,7 @@ public class Grader {
         long start = new Date().getTime();
         //Grammar Precheck
         if(arguments.getTaskMode().isGrammar()){
-            TreeSet<Character> filter = getGrammarFilterSet();
+            HashSet<Character> filter = getGrammarFilterSet();
             int matches = 0;
             for(char c : arguments.getStudentAnswer().toCharArray()) if(filter.contains(c)) matches++;
             if(matches == 0) throw new GraFlapException("Grammar is not terminating, grading aborted");
