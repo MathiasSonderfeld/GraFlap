@@ -23,12 +23,6 @@ public class SetResult<Generic> {
         comments = new ArrayList<>();
     }
 
-    public SetResult( double score, ArrayList<Generic> missing, ArrayList<Generic> surplus){
-        this.score=score;
-        this.missing=missing;
-        this.surplus=surplus;
-    }
-
     public double getScore() {
         return score;
     }
