@@ -2,17 +2,11 @@ package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
 /**
  * Entity Class to store a state of a formally written automaton
- * implements comparable to be useable by TreeMap and TreeSet
- * Note: this class has a natural ordering that is inconsistent with equals!
- * Natural Ordering just goes by State name, equals verifies all attributes.
- * This is required to make sure no two states are in a Set with different tags but with same name as thats not allowed within one automaton,
- * while it is also required to mark a mismatch if the tags are not the same, e.g. if they come from different automatons.
- * Implement a Deep Comparator if you need consistency.
  *
  * @author Mathias Sonderfeld (07-2021)
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
-public class State implements Comparable{
+public class State{
     private String stateName;
     private boolean initial;
     private boolean finale;
@@ -67,18 +61,6 @@ public class State implements Comparable{
         return this.stateName.hashCode() * (this.initial?7:1) * (this.initial?13:1);
     }
 
-    /**
-     * Sorts by name
-     * @param o the Object to compare to
-     * @return 0 if not sortable, -1, 0 or 1 else
-     */
-    @Override
-    public int compareTo(Object o){
-        if(o instanceof State){
-            return this.stateName.compareTo(((State) o).getStateName());
-        }
-        return 0;
-    }
 
     /**
      * prints name followed by bracket if tags are set:

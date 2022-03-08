@@ -1,10 +1,7 @@
 package de.HsH.inform.GraFlap.test;
 
 import de.HsH.inform.GraFlap.GraFlap;
-import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.CommentMarker;
-import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
-import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
-import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.*;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.TreeMap;
@@ -32,12 +29,12 @@ public class SetsTest {
     private Pattern getAtomarSetsFromMultiSet = Pattern.compile("((\\(|\\[)([a-zA-Z0-9,]+)(\\)|\\])|(\\(\\([a-zA-Z0-9,]+\\),\\([a-zA-Z0-9,]+\\)\\)))");
     private Pattern getAtomarElementsFromSet = Pattern.compile("[a-zA-Z0-9]+");
 
-    private TreeSet<State> studentStates = new TreeSet<>();
-    private TreeSet<State> studentInitialStates = new TreeSet<>();
-    private TreeSet<State> studentFinalStates = new TreeSet<>();
+    private TreeSet<State> studentStates = new TreeSet<>(StateNameComparator.getInstance());
+    private TreeSet<State> studentInitialStates = new TreeSet<>(StateNameComparator.getInstance());
+    private TreeSet<State> studentFinalStates = new TreeSet<>(StateNameComparator.getInstance());
     private TreeSet<String> studentAlphabet = new TreeSet<>();
     private TreeSet<String> studentStackAlphabet = new TreeSet<>();
-    private TreeSet<Transition> studentTransitions = new TreeSet<>();
+    private TreeSet<Transition> studentTransitions = new TreeSet<>(TransitionComparator.getInstance());
 
     private SetResult<State> statesResult = new SetResult<>();
     private SetResult<State> initialsResult = new SetResult<>();
