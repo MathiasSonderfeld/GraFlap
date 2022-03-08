@@ -86,6 +86,7 @@ public abstract class ArgumentsParser {
      * @throws GraFlapException if the number of words does not match the number of words in the word string
      */
     protected Testwords parseInputWords( int numberOfWords, String wordString ) throws GraFlapException {
+        //TODO fix MP mode
         if(wordString == null) throw new GraFlapException("WordString must not be null");
         if(wordString.equals("-")){
             return new Testwords(0,0);

@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
 /**
- * Entity Class to store a state of an formally written automaton
+ * Entity Class to store a state of a formally written automaton
  * implements comparable to be useable by TreeMap and TreeSet
  * Note: this class has a natural ordering that is inconsistent with equals!
  * Natural Ordering just goes by State name, equals verifies all attributes.

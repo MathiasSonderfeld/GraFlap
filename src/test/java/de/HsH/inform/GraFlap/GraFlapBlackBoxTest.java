@@ -110,7 +110,7 @@ public class GraFlapBlackBoxTest {
 
     @Test
     void testContextFreeGrammar() {
-        String title = "Beispiel fuer eine kontextfreie Grammatik";
+        String title = "Beispiel fuer eine kontextfreie Grammatik"; //TODO use in comparison
         TaskMode taskMode = TaskMode.EGT;
 
         Arguments arguments = new Arguments();
