@@ -2,8 +2,8 @@ package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.GraFlapBlackBoxTest;
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.Mode;
+import de.HsH.inform.GraFlap.entity.Type;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,8 +20,8 @@ public class ProformaParserTest {
         arguments.setTestId("graflap");
         arguments.setTaskTitle("LoncapaParserTest OK");
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setTaskMode(TaskMode.GG);
-        arguments.setTaskType(TaskType.CFG);
+        arguments.setMode(Mode.GG);
+        arguments.setType(Type.CFG);
         arguments.setSolution("ThisIsGiven");
         arguments.setNumberOfWords(0);
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
@@ -38,8 +38,8 @@ public class ProformaParserTest {
         arguments.setTestId("graflap");
         arguments.setTaskTitle("LoncapaParserTest OK");
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setTaskMode(TaskMode.AGP);
-        arguments.setTaskType(TaskType.DFA);
+        arguments.setMode(Mode.AGP);
+        arguments.setType(Type.DFA);
         arguments.setSolution("ThisIsGiven");
         arguments.setNumberOfWords(0);
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
@@ -60,8 +60,8 @@ public class ProformaParserTest {
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(null);
         arguments.setUserLanguage(null);
-        arguments.setTaskMode(TaskMode.AG);
-        arguments.setTaskType(TaskType.NON);
+        arguments.setMode(Mode.AG);
+        arguments.setType(Type.NON);
         arguments.setSolution(null);
         arguments.setNumberOfWords(0);
         arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);

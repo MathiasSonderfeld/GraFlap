@@ -25,8 +25,8 @@ import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.MetaData;
 import de.HsH.inform.GraFlap.entity.Result;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.Mode;
+import de.HsH.inform.GraFlap.entity.Type;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.formatter.LoncapaOutputFormatter;
 import de.HsH.inform.GraFlap.io.formatter.OutputFormatter;
@@ -109,7 +109,7 @@ public class GraFlap {
         }
         catch(GraFlapException e){
             if(outputFormatter != null){
-                answerMessage = new AnswerMessage(new Result(new Submission(), 100, TaskType.ERROR), arguments,"" , e.getMessage());
+                answerMessage = new AnswerMessage(new Result(new Submission(), 100, Type.ERROR), arguments,"" , e.getMessage());
             }
         }
         return outputFormatter.format(answerMessage, metaData);
@@ -121,7 +121,7 @@ public class GraFlap {
      */
     protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException{
         Result result = Grader.generateResultWithTimeout(arguments,timeOutSeconds);
-        boolean isSVGA = arguments.getTaskMode() == TaskMode.SVGA;
+        boolean isSVGA = arguments.getMode() == Mode.SVGA;
         SvgBuilder svgBuilder = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA);
         return new AnswerMessage(result, arguments, svgBuilder.getSvgString());
     }

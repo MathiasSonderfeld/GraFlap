@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.Mode;
+import de.HsH.inform.GraFlap.entity.Type;
 import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
@@ -37,25 +37,25 @@ public abstract class ArgumentsParser {
         arguments.setTestwords(parseInputWords(numberOfWords, taskArguments[6]));
         arguments.setWordString(taskArguments[6]);
 
-        TaskMode taskMode;
+        Mode mode;
         try{
-            taskMode = TaskMode.valueOf(taskArguments[3].toUpperCase());
+            mode = Mode.valueOf(taskArguments[3].toUpperCase());
         }
         catch(Exception e){
-            taskMode = TaskMode.ERROR;
+            mode = Mode.ERROR;
         }
 
-        TaskType taskType;
+        Type type;
         try{
-            taskType = TaskType.valueOf(taskArguments[4].toUpperCase());
+            type = Type.valueOf(taskArguments[4].toUpperCase());
         }
         catch(Exception e){
-            taskType = TaskType.ERROR;
+            type = Type.ERROR;
         }
 
-        checkCorrectModeAndType(taskMode, taskType);
-        arguments.setTaskMode(taskMode);
-        arguments.setTaskType(taskType);
+        checkCorrectModeAndType(mode, type);
+        arguments.setMode(mode);
+        arguments.setType(type);
         return arguments;
     }
 
@@ -130,7 +130,7 @@ public abstract class ArgumentsParser {
      * @param type the type to verify
      * @throws GraFlapException if mismatch is found
      */
-    protected void checkCorrectModeAndType( TaskMode mode, TaskType type ) throws GraFlapException {
+    protected void checkCorrectModeAndType(Mode mode, Type type ) throws GraFlapException {
         if(mode == null) { throw new GraFlapException("Mode-Setting is wrong"); }
 
         if(type == null) { throw new GraFlapException("AgType-Setting is wrong"); }

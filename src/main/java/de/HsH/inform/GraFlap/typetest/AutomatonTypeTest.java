@@ -4,7 +4,7 @@ import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.DeterminismChecker;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.Type;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
@@ -21,18 +21,18 @@ public class AutomatonTypeTest {
      * @return the type of automaton as a string: (n|d)(fa|pda|tm)
      * @throws GraFlapException throws a {@link GraFlapException} if there is a problem with the submission
      */
-    public static TaskType checkForAutomatonType( Submission<Automaton> automatonSubmission) throws GraFlapException {
+    public static Type checkForAutomatonType(Submission<Automaton> automatonSubmission) throws GraFlapException {
         boolean isDeterministic = DeterminismChecker.isDeterministic(automatonSubmission.getSubmissionObject());
         switch(automatonSubmission.getSubmissionObject().testType()){
             case FA:
-                if(isDeterministic) return TaskType.DFA;
-                else return TaskType.NFA;
+                if(isDeterministic) return Type.DFA;
+                else return Type.NFA;
             case PDA:
-                if(isDeterministic) return TaskType.DPDA;
-                else return TaskType.NPDA;
+                if(isDeterministic) return Type.DPDA;
+                else return Type.NPDA;
             case TM:
-                if(isDeterministic) return TaskType.DTM;
-                else return TaskType.NTM;
+                if(isDeterministic) return Type.DTM;
+                else return Type.NTM;
             default:
                 return automatonSubmission.getSubmissionObject().testType();
         }

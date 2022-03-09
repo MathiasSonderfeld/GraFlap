@@ -6,7 +6,7 @@ package de.HsH.inform.GraFlap.entity;
  * @author Mathias Sonderfeld (07-2021)
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
-public enum TaskMode { //TODO Refactor to mode, also do with type
+public enum Mode{ //TODO Refactor to mode, also do with type
     ERROR,
     AR, ART, AG, AGT, ARW, AGW, ARTW, AGTW, EAT, AA,
     ARP, ARTP, AGP, AGTP, ARWP, AGWP, ARTWP, AGTWP,

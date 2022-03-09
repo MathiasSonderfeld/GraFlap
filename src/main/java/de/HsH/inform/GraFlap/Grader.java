@@ -59,12 +59,12 @@ public class Grader {
         Result result;
         Submission submission = new Submission();
         int percentageFailed = -1;
-        TaskType submissionTaskType = TaskType.NON;
+        Type submissionType = Type.NON;
         String extraText = "";
 
         long start = new Date().getTime();
         //Grammar Precheck
-        if(arguments.getTaskMode().isGrammar()){
+        if(arguments.getMode().isGrammar()){
             HashSet<Character> filter = getGrammarFilterSet();
             int matches = 0;
             for(char c : arguments.getStudentAnswer().toCharArray()) if(filter.contains(c)) matches++;
@@ -72,10 +72,10 @@ public class Grader {
         }
 
 
-        if(arguments.getTaskMode() == TaskMode.AA){
+        if(arguments.getMode() == Mode.AA){
             AutomatonComparisonTest automatonComparisonTest = new AutomatonComparisonTest(arguments.getSolution(), arguments.getStudentAnswer());
             submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-            result = new Result(submission, automatonComparisonTest.getTotalErrors(),arguments.getTaskType());
+            result = new Result(submission, automatonComparisonTest.getTotalErrors(),arguments.getType());
             result.setStates(automatonComparisonTest.getStatesResult());
             result.setInitials(automatonComparisonTest.getInitialsResult());
             result.setFinals(automatonComparisonTest.getFinalsResult());
@@ -85,7 +85,7 @@ public class Grader {
             return result;
         }
 
-        switch(arguments.getTaskMode()) {
+        switch(arguments.getMode()) {
             case ERROR:
                 throw new GraFlapException("Error in given ProFormA task. Please check mode variable.");
             case AR:
@@ -186,8 +186,8 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG)) {
+                    submissionType = GrammarTypeTest.checkForGrammarType(submission);
+                    if ((submissionType == Type.RL || submissionType == Type.CFG)) {
                         percentageFailed = new GrammarRegexTest().openInput(arguments.getSolution(), submission,
                                                                   arguments.getNumberOfWords());
                     } else {
@@ -202,8 +202,8 @@ public class Grader {
                 if (arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
-                    submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
-                    if ((submissionTaskType == TaskType.RL || submissionTaskType == TaskType.CFG)) {
+                    submissionType = GrammarTypeTest.checkForGrammarType(submission);
+                    if ((submissionType == Type.RL || submissionType == Type.CFG)) {
                         GrammarTest myTest = new GrammarTest();
                         percentageFailed = myTest.openInput(arguments.getSolution(), submission,
                                                              arguments.getTestwords());
@@ -239,12 +239,12 @@ public class Grader {
                 break;
             case MP:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = new TransducerPairTest().determineResult(submission, arguments.getWordString());
                 break;
             case MMW:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = new TransducerWordTest(arguments.getSolution()).determineResult(submission,
                                                                                          arguments.getWordString());
                 break;
@@ -265,28 +265,28 @@ public class Grader {
                 break;
             case SVGA:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = 0;
                 break;
             case SVGG:
                 submission = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getStudentAnswer()));
-                submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
+                submissionType = GrammarTypeTest.checkForGrammarType(submission);
                 percentageFailed = 0;
                 break;
         }
 
-        if (arguments.getTaskMode().isTyped()) {
-            if (arguments.getTaskMode().isAutomaton()) {
-                submissionTaskType = AutomatonTypeTest.checkForAutomatonType(submission);
-            } else if (arguments.getTaskMode().isGrammar()) {
-                submissionTaskType = GrammarTypeTest.checkForGrammarType(submission);
+        if (arguments.getMode().isTyped()) {
+            if (arguments.getMode().isAutomaton()) {
+                submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
+            } else if (arguments.getMode().isGrammar()) {
+                submissionType = GrammarTypeTest.checkForGrammarType(submission);
             }
         }
 
-        result = new Result(submission, percentageFailed, submissionTaskType);
+        result = new Result(submission, percentageFailed, submissionType);
         result.setExtraText(extraText);
 
-        if(arguments.getTaskMode().isParameterized()){
+        if(arguments.getMode().isParameterized()){
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());
             setsTest.setStudentStatesSet(arguments.getStates());

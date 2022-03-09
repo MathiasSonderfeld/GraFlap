@@ -15,8 +15,8 @@ public class ArgumentsToInputConverter {
         graflapArguments.append(arguments.getTaskTitle()).append("#")
                 .append(arguments.getUserLanguage()).append("#")
                 .append(arguments.getSolution()).append("#")
-                .append(arguments.getTaskMode().toString()).append("#")
-                .append(arguments.getTaskType().toString()).append("#")
+                .append(arguments.getMode().toString()).append("#")
+                .append(arguments.getType().toString()).append("#")
                 .append(arguments.getNumberOfWords()).append("#")
                 .append(arguments.getWordString());
     }
@@ -27,7 +27,7 @@ public class ArgumentsToInputConverter {
     }
 
     private StringBuilder getMainProforma(){
-        String filename = ProformaParser.getFileNameFromTaskMode(arguments.getTaskMode());
+        String filename = ProformaParser.getFileNameFromMode(arguments.getMode());
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><proforma:submission xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:proforma=\"urn:proforma:v2.1\" id=\"SubmissionUUID\"><proforma:task uuid=\"0123\" parent-uuid=\"0\" lang=\"de\">")
                 .append(arguments.getTaskTitle()).append("<proforma:description>Blocked</proforma:description><proforma:proglang version=\"1.0\">Blocked</proforma:proglang><proforma:files><proforma:file id=\"graflap-arguments\" ")

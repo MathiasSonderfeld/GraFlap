@@ -2,11 +2,10 @@ package de.HsH.inform.GraFlap;
 
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.Mode;
+import de.HsH.inform.GraFlap.entity.Type;
 import de.HsH.inform.GraFlap.entity.Testwords;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Locale;
@@ -34,14 +33,14 @@ public class GraFlapBlackBoxTest {
     @Test
     void testTuringForSpMTp2M() {
         String title = "Turing-Automat fuer s^m t^{2 m}";
-        TaskMode taskMode = TaskMode.AGTW;
+        Mode mode = Mode.AGTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> s tt | s S t t");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.DTM);
+	    arguments.setMode(mode);
+        arguments.setType(Type.DTM);
         arguments.setTestwords(getTestWords("stt%sstttt%ssstttttt%sssstttttttt%ssssstttttttttt%sssssstttttttttttt%ssssssstttttttttttttt%sssssssstttttttttttttttt%ssssssssstttttttttttttttttt" +
                         "%sssssssssstttttttttttttttttttt%ssssssssssstttttttttttttttttttttt%sssssssssssstttttttttttttttttttttttt%ssssssssssssstttttttttttttttttttttttttt%sssssssssssssstttttttttttttttttttttttttttt%ssssssssssssssstttttttttttttttttttttttttttttt%sssssssssssssssstttttttttttttttttttttttttttttttt%ssssssssssssssssstttttttttttttttttttttttttttttttttt%sssssssssssssssssstttttttttttttttttttttttttttttttttttt%ssssssssssssssssssstttttttttttttttttttttttttttttttttttttt%sssssssssssssssssssstttttttttttttttttttttttttttttttttttttttt%ssssssssssssssssssssstttttttttttttttttttttttttttttttttttttttttt%sssssssssssssssssssssstttttttttttttttttttttttttttttttttttttttttttt!%t%s%st%tt%ss%ts%tts%tst%sts%sst%sss%stss%stts%ttst%tsts%ssst%ssss%tttt%ttss%tsss%ttts%stsss%ttttt%sstss%ststs%stsst%sssts%sssss%sssst%ssstt%tssss%tstst%tsstt%tstts%ttsss%stttt%sstst%tssts%ssttt%sttts%ststt"));
         arguments.setNumberOfWords(64);
@@ -49,7 +48,7 @@ public class GraFlapBlackBoxTest {
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Turing-Automat fuer s^m t^{2 m}", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.AGTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -59,14 +58,14 @@ public class GraFlapBlackBoxTest {
     @Test
     void testAutomatonForEvenNumberOfW() {
         String title = "Automat fuer gerade Anzahl von w";
-        TaskMode taskMode = TaskMode.ARTW;
+        Mode mode = Mode.ARTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("x*(x*wx*wx*)*");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.DFA);
+	    arguments.setMode(mode);
+        arguments.setType(Type.DFA);
         arguments.setTestwords(getTestWords("xxxxxxx%xxxxxxxxxxxwxwxxwxwxxwxwxxwxwxxwxwxxwxw%xxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxx" +
                 "%xxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxxxxxxxwxxxxxwxx%xxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxxxxxxxxwxwxxxxxxx!w%xw%xwx%www%wxww%xwxx%wwwx%xxwxxx%wxxxww%xwwxxwx%wwxwwxwx%wxxxwwww%wxxxwwxww%wxxwwxwxxw%xxxxwwwwxw"));
         arguments.setNumberOfWords(20);
@@ -74,7 +73,7 @@ public class GraFlapBlackBoxTest {
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Automat fuer gerade Anzahl von w", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.ARTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.ARTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -84,14 +83,14 @@ public class GraFlapBlackBoxTest {
     @Test
     void testAutomatonForBinaryNumbers() {
         String title = "Automat fuer den Vergleich von Dualzahlen";
-        TaskMode taskMode = TaskMode.ARTW;
+        Mode mode = Mode.ARTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("(00|11)*10(00|01|10|11)*");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.FA);
+	    arguments.setMode(mode);
+        arguments.setType(Type.FA);
         Testwords testwords = getTestWords("0010%111100000010%1100111111110011001100001110001100%0000110011001111001110101010010111%1100000000001100000011111110111010" +
                 "%0000000010001110011010000110111100%11111001010110100111111101011010001011%10110110101111110101001111001110010010%11111010001001100001001011001101100000" +
                 "%001111111100110000001111101100000101110011%000000100110110111000001000010111110011000%11101010100110000111110001111101110000110101%000000000011000011111100110000000011101011101111%00111111111111110000000000110010000000100001011000%0011110011100110101100001101010101000000000000111111%110011111100000011000011110000000011111110100111011101%110000001111111111001111111111001100100000001111110000%00111111000000110000000000111111111100101011100000000001%00111100110011000000110011110000100001000110100110001101010110010010%1111111100111100110011111111000011001000000010000111101000111000100111!%1%0%11%01%110%111%100%000%010%0110%0000%1111%01111%01110%01001%011000%000001%1111100%0001110%0010011%01011101%11000001%00010110%011001001%111001010%111101000%110001110%111000010%0001111000%1111011000%11011110010%10000110010%110101000000%1101101000100%1010000101000%0110100001010%1010011010100%0011111101110%0100101101000%01111100111100%00000011110111%01000010101100%01110110010100%01100111100011%111110000111001%000000000100101%000011011001001%0110101111100101%1100110011001101%1101011100011010%0000010101100000%01111000010000001%11011000110111011%00001010001011101%00011111001000010%000111100011001101%0001101001010110011%01011001110000110000%00000011011000100101");
@@ -101,7 +100,7 @@ public class GraFlapBlackBoxTest {
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Automat fuer den Vergleich von Dualzahlen", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.ARTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.ARTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -111,21 +110,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testContextFreeGrammar() {
         String title = "Beispiel fuer eine kontextfreie Grammatik"; //TODO use in comparison
-        TaskMode taskMode = TaskMode.EGT;
+        Mode mode = Mode.EGT;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("n,o,p");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.CFG);
+	    arguments.setMode(mode);
+        arguments.setType(Type.CFG);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(0);
         arguments.setStudentAnswer("S -> E | p | n S o");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Beispiel fuer eine kontextfreie Grammatik", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.EGT, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -135,21 +134,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testNonContextFreeGrammar() {
         String title = "Beispiel fuer eine nicht kontextfreie Grammatik";
-        TaskMode taskMode = TaskMode.EGT;
+        Mode mode = Mode.EGT;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("u,v,w");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.NCFG);
+	    arguments.setMode(mode);
+        arguments.setType(Type.NCFG);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(0);
         arguments.setStudentAnswer("S -> w | uSv, uS -> Sw");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Beispiel fuer eine nicht kontextfreie Grammatik", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.EGT, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -159,21 +158,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testRightRegularGrammar() {
         String title = "Beispiel fuer eine rechtslineare Grammatik";
-        TaskMode taskMode = TaskMode.EGT;
+        Mode mode = Mode.EGT;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("h,i,j");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.RL);
+	    arguments.setMode(mode);
+        arguments.setType(Type.RL);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(0);
         arguments.setStudentAnswer("S -> E | j | hiS");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Beispiel fuer eine rechtslineare Grammatik", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.EGT, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.EGT, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -183,21 +182,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testContextFreeGrammarForGivenLanguage() {
         String title = "Kontextfreie Grammatik fuer gegebene Sprache";
-        TaskMode taskMode = TaskMode.GGTW;
+        Mode mode = Mode.GGTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> T|V, T -> ef | e T f, V -> eef | ee V f");
-        arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.CFG);
+        arguments.setMode(mode);
+        arguments.setType(Type.CFG);
         arguments.setTestwords(getTestWords("ef%eef%eeff%eeeeff%eeefff%eeeeffff%eeeeeefff%eeeeefffff%eeeeeeeeffff%eeeeeeffffff%eeeeeeefffffff%eeeeeeeeeefffff%eeeeeeeeffffffff%eeeeeeeeeeeeffffff%eeeeeeeeefffffffff%eeeeeeeeeeffffffffff%eeeeeeeeeeeeeefffffff%eeeeeeeeeeefffffffffff%eeeeeeeeeeeeeeeeffffffff%eeeeeeeeeeeeeeeeeefffffffff%eeeeeeeeeeeeeeeeeeeeffffffffff%eeeeeeeeeeeeeeeeeeeeeefffffffffff!%f%ee%ff%fe%fff%ffe%fee%eee%eff%efe%efee%fefe%ffef%ffff%eeef%efef%feff%eeee%efffe%eeefe%efeff%feeff%effee%eefff%eeeee%eeeef%effff%eefee%fefee%ffeee%fffef%eeffe%efefe%feeef%feefe%ffffe%fefff%efeee%efeef%effef%eefef"));
         arguments.setNumberOfWords(64);
         arguments.setStudentAnswer("S -> T|V, T -> ef | e T f, V -> eef | ee V f");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Kontextfreie Grammatik fuer gegebene Sprache", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.GGTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.GGTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -207,14 +206,14 @@ public class GraFlapBlackBoxTest {
     @Test
     void testGrammarForIntegers() {
         String title = "Grammatik fuer ganze Zahlen";
-        TaskMode taskMode = TaskMode.GGTW;
+        Mode mode = Mode.GGTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D | -P, P ->  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D , D ->  0| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0D | 1D | 2D | 3D | 4D | 5D | 6D | 7D | 8D | 9D");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.RL);
+	    arguments.setMode(mode);
+        arguments.setType(Type.RL);
         arguments.setTestwords(getTestWords("0%9%-2%91%24%-10%-20%437%-32%350%720%887%-791%-253%-532%-268%-319%-680%-973%-807%-431!-%-0%00%-00%-1-2%00884%00687%00695%00224%00957%00855%00806%00656" +
                 "%00871%00292%-0090%00892%00870%00907%00-703%-00106%00-558%-00819%00-380%-00547%-00785%00-943%-00352%-00528%00-695%-00-28%-00594%-00717%-00-180%-00-328%-00-793%-00-304%-00-388%-00-384%-00-365%-00-392"));
         arguments.setNumberOfWords(62);
@@ -222,7 +221,7 @@ public class GraFlapBlackBoxTest {
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Grammatik fuer ganze Zahlen", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.GGTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.GGTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -232,21 +231,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testAutomatonForGivenLanguage() {
         String title = "Automat fuer gegebene Sprache";
-        TaskMode taskMode = TaskMode.AGTW;
+        Mode mode = Mode.AGTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S -> A, A -> x B|y C, B -> x A|y D,C -> x D|y F, D -> x C|y G, F -> x G|y H, G -> x F|y J, H -> x J| y H | E, J -> x H|y J");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.FA);
+	    arguments.setMode(mode);
+        arguments.setType(Type.FA);
         arguments.setTestwords(getTestWords("yyy%yyyy%xxyyy%xyxyy%xyyxy%xyyyx%yxxyy%yxyxy%yxyyx%yyxxy%yyxyx%yyyxx%yyyyy%xxyyyy%xyxyyy%xyyxyy%xyyyxy%xyyyyx%yxxyyy%yxyxyy%yxyyxy%yxyyyx!%y%xx%yx%yyx%xyy%yxx%xxy%xyx%xxyy%yxxy%yxxx%xyxx%yyxy%xyxy%xxxx%xyyy%xxxy%yyxx%xyxxx%xyxyx%yyyxy%xyyxx%yxxxy%xxxyy%xxyyx%yxxxx%xxxyx%yyxxx%xyxxy%xyyyy%xxyxy%xxyxx"));
         arguments.setNumberOfWords(55);
         arguments.setStudentAnswer("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>fa</type><automaton><!--The list of states.--><state id=\"0\" name=\"s0\"><x>57.0</x><y>61.0</y><initial/></state><state id=\"1\" name=\"s1\"><x>200.0</x><y>65.0</y></state><state id=\"2\" name=\"s2\"><x>414.0</x><y>58.0</y></state><state id=\"3\" name=\"s4\"><x>53.0</x><y>188.0</y></state><state id=\"4\" name=\"s5\"><x>192.0</x><y>189.0</y></state><state id=\"5\" name=\"s6\"><x>404.0</x><y>188.0</y></state><state id=\"6\" name=\"s7\"><x>598.0</x><y>191.0</y></state><state id=\"7\" name=\"s3\"><x>593.0</x><y>57.0</y><final/></state><!--The list of transitions.--><transition><from>0</from><to>3</to><read>x</read></transition><transition><from>3</from><to>0</to><read>x</read></transition><transition><from>7</from><to>7</to><read>y</read></transition><transition><from>6</from><to>6</to><read>y</read></transition><transition><from>0</from><to>1</to><read>y</read></transition><transition><from>5</from><to>6</to><read>y</read></transition><transition><from>3</from><to>4</to><read>y</read></transition><transition><from>4</from><to>1</to><read>x</read></transition><transition><from>1</from><to>4</to><read>x</read></transition><transition><from>6</from><to>7</to><read>x</read></transition><transition><from>7</from><to>6</to><read>x</read></transition><transition><from>4</from><to>5</to><read>y</read></transition><transition><from>2</from><to>7</to><read>y</read></transition><transition><from>5</from><to>2</to><read>x</read></transition><transition><from>2</from><to>5</to><read>x</read></transition><transition><from>1</from><to>2</to><read>y</read></transition></automaton></structure> ");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Automat fuer gegebene Sprache", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.AGTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -256,21 +255,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testAutomatonForRegex() {
         String title = "Automat fuer e^n f^n";
-        TaskMode taskMode = TaskMode.AGTW;
+        Mode mode = Mode.AGTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("S->eSf|ef");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.PDA);
+	    arguments.setMode(mode);
+        arguments.setType(Type.PDA);
         arguments.setTestwords(getTestWords("ef%eeff%eeefff%eeeeffff%eeeeefffff%eeeeeeffffff%eeeeeeefffffff%eeeeeeeeffffffff%eeeeeeeeefffffffff%eeeeeeeeeeffffffffff%eeeeeeeeeeefffffffffff%eeeeeeeeeeeeffffffffffff%eeeeeeeeeeeeefffffffffffff%eeeeeeeeeeeeeeffffffffffffff%eeeeeeeeeeeeeeefffffffffffffff%eeeeeeeeeeeeeeeeffffffffffffffff%eeeeeeeeeeeeeeeeefffffffffffffffff%eeeeeeeeeeeeeeeeeeffffffffffffffffff%eeeeeeeeeeeeeeeeeeefffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeffffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeefffffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeeeffffffffffffffffffffff!%f%e%ee%efe%eff%eee%fef%fee%ffe%ffee%eeef%fefe%ffef%efee%feef%feff%efef%efffe%efeee%eefee%ffeee%eefff%efefe%effef%fefff%efeff%feffe%ffffe%fefee%eefef%ffeef%eeeff%eeefe%eeeee%feeff%feeffe%eefeff%fefefe%fefeef%effeef%efefef"));
         arguments.setNumberOfWords(64);
         arguments.setStudentAnswer("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Automat fuer e^n f^n", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.AGTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.AGTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -280,21 +279,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testAutomatonForCombinedLanguage() {
         String title = "Automat fuer Worte einer zusammengesetzten Sprache";
-        TaskMode taskMode = TaskMode.ART;
+        Mode mode = Mode.ART;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("(g|h)*|(hi)*");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.FA);
+	    arguments.setMode(mode);
+        arguments.setType(Type.FA);
         arguments.setTestwords(emptyTestwords);
         arguments.setNumberOfWords(10);
         arguments.setStudentAnswer("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>fa</type><automaton><!--The list of states.--><state id=\"0\" name=\"s0\"><x>48.0</x><y>143.0</y><initial/></state><state id=\"1\" name=\"s1\"><x>208.0</x><y>64.0</y><final/></state><state id=\"2\" name=\"s2\"><x>210.0</x><y>185.0</y><final/></state><state id=\"3\" name=\"s3\"><x>360.0</x><y>187.0</y></state><!--The list of transitions.--><transition><from>0</from><to>1</to><read/></transition><transition><from>1</from><to>1</to><read>h</read></transition><transition><from>0</from><to>2</to><read/></transition><transition><from>1</from><to>1</to><read>g</read></transition><transition><from>2</from><to>3</to><read>h</read></transition><transition><from>3</from><to>2</to><read>i</read></transition></automaton></structure>");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Automat fuer Worte einer zusammengesetzten Sprache", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.ART, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.ART, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Automat", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());
@@ -304,21 +303,21 @@ public class GraFlapBlackBoxTest {
     @Test
     void testGrammarForGivenLanguage() {
         String title = "Grammatik fuer Sprache (enthaelt nicht ef)";
-        TaskMode taskMode = TaskMode.GRTW;
+        Mode mode = Mode.GRTW;
 
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setSolution("e*|(f|g)*e*((g+f*)*e*)*");
-	    arguments.setTaskMode(taskMode);
-        arguments.setTaskType(TaskType.RL);
+	    arguments.setMode(mode);
+        arguments.setType(Type.RL);
         arguments.setTestwords(getTestWords("eeeee%eeeeee%eeeeeeeeee%eeeeeeeeeee%eeeeeeeeeeee%eeeeeeeeeeeeee%eeeeeeeeeeeeeee%eeeeeeeeeeeeeeee%eeeeeeeeeeeeeeeee%eeeeeeeeeeeeeeeeee%ffeeeegffffffffffffffgffffffffffffffegffffffffffffffgffffffffffffffegffffffffffffffgffffffffffffffegffffffffffffffgffffffffffffffe%ffgfggfgfggffggfgeeeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeeeggggfggggfeeeeeeeeeee%!eef%gffef%egfeefg%eefefeegg%ggffgefgf%fgfgeffgff%ggegfefgff%feeggeffgf%gffffeefgee%eeggffefefe%egegeffgeee%eeggefefege%efgegegggfg%fgegggeeefee%efefgggggeef%eeffgeefffeg%egeefefeffge%ggfgffeefffg%fffeeeegeeef%eegggfeefeef%gefffgefegeg%geffeegefggff%fgefgffgfegff%egffeffffgegf%fefeegegggfgee%ggeefggfgegfgg%fefgeefgeggfgg%egffgfeeffggeg%fgefeeggffffee%fgfeegfgeeffff%fgefgegegeeege%egegeffegfffefg%efgfefgfffggeff%egggggefgggfgef%fgggfffefgggggf%ffegefegggeffff%fffeefgefgeggee%feggfgefgggfgeef%efgegffgfgeggfgf%gfggffgefefggggg%feffgegefeeggfegg%fegegeeefgeggeggf%ggffgefeffgffggeff%gfgefffeggfeffffef%gegfegfefeeeffgfeg%gfgggfffegfeeggefg%efeffffffggfgfgffe%eegeffffggeeefeeff%ffefgfeffgggggefege%fgefgefeeffgefegfef%effeggeeggfegfgffge%eegeeeffgeffggggggg%feffgegfggeffgfffeg%ffefeffeffffgggegfg%gfeefefegfgfgeeffee%efggffgegfeegffeefef%eggeegeeegefgeegeeef%geefefeegffeffgfegge%feeeefgefeffgeeggggf%ffgfefeegegffeefgegg"));
         arguments.setNumberOfWords(80);
         arguments.setStudentAnswer("S -> e A | f S | g S | E , A -> e A | g S | E");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Grammatik fuer Sprache (enthaelt nicht ef)", answerMessage.getTaskTitle());
         Assertions.assertEquals(0, answerMessage.getPercentOfTestWordsFailed());
-        Assertions.assertEquals(TaskMode.GRTW, answerMessage.getTaskMode());
+        Assertions.assertEquals(Mode.GRTW, answerMessage.getMode());
         Assertions.assertEquals("Richtige Antwort, gut gemacht!", answerMessage.getFeedback());
         Assertions.assertEquals("Grammatik", answerMessage.getSvgTitle());
         Assertions.assertTrue(answerMessage.hasPassed());

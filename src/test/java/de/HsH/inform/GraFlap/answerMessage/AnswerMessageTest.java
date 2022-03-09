@@ -15,13 +15,13 @@ public class AnswerMessageTest {
     private static Locale[] locales = {Locale.ROOT, Locale.ENGLISH, Locale.GERMAN};
     private static HashMap<Locale, ResourceBundle> bundles = new HashMap<>();
 
-    static Arguments createArgumentsObject(TaskMode taskMode, TaskType taskType, Locale locale){
+    static Arguments createArgumentsObject(Mode mode, Type type, Locale locale){
         Arguments arguments = new Arguments();
         arguments.setStudentAnswer("StudentAnswer");
         arguments.setSolution("Solution");
         arguments.setTaskTitle("TaskTitle");
-        arguments.setTaskMode(taskMode);
-        arguments.setTaskType(taskType);
+        arguments.setMode(mode);
+        arguments.setType(type);
         arguments.setUserLanguage(locale);
         arguments.setTestwords(new Testwords(0,0));
         arguments.setNumberOfWords(123);
@@ -50,18 +50,18 @@ public class AnswerMessageTest {
         int numberOfWordsFailed = 0;
         String resultText = "Success";
 
-        HashSet<DynamicTest> createDynamicTests(TaskMode taskMode, TaskType taskType, FeedbackMessage svgT){
+        HashSet<DynamicTest> createDynamicTests(Mode mode, Type type, FeedbackMessage svgT){
             HashSet<DynamicTest> set = new HashSet<>();
             for(Locale l : locales) {
-                Result result = new Result(new Submission(), numberOfWordsFailed, taskType);
-                Arguments arguments = createArgumentsObject(taskMode, taskType, l);
+                Result result = new Result(new Submission(), numberOfWordsFailed, type);
+                Arguments arguments = createArgumentsObject(mode, type, l);
                 AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
                 String localeText = (l==Locale.ROOT?"root":l.toString());
 
-                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "SVG", resultText, localeText),
+                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat, mode.name(), "SVG", resultText, localeText),
                         () -> Assertions.assertEquals(getStringFromBundle(svgT.name(), bundles.get(l)), answerMessage.getSvgTitle())));
 
-                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "FB", resultText, localeText),
+                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat, mode.name(), "FB", resultText, localeText),
                         () -> Assertions.assertEquals(getStringFromBundle(FeedbackMessage.All_Correct.name(), bundles.get(l)), answerMessage.getFeedback())));
             }
             return set;
@@ -69,37 +69,37 @@ public class AnswerMessageTest {
 
         @TestFactory
         Collection<DynamicTest> testCYKMode(){
-            return createDynamicTests(TaskMode.CYK, TaskType.NON, FeedbackMessage.CYK_Svgtitle);
+            return createDynamicTests(Mode.CYK, Type.NON, FeedbackMessage.CYK_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testDERMode(){
-            return createDynamicTests(TaskMode.DER, TaskType.NON, FeedbackMessage.DERIVATION_Svgtitle);
+            return createDynamicTests(Mode.DER, Type.NON, FeedbackMessage.DERIVATION_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testWWMode(){
-            return createDynamicTests(TaskMode.WW, TaskType.NON, FeedbackMessage.WORD_Svgtitle);
+            return createDynamicTests(Mode.WW, Type.NON, FeedbackMessage.WORD_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testSVGMode(){
-            return createDynamicTests(TaskMode.SVGA, TaskType.NON, FeedbackMessage.SVG_Svgtitle);
+            return createDynamicTests(Mode.SVGA, Type.NON, FeedbackMessage.SVG_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testMPMode(){
-            return createDynamicTests(TaskMode.MP, TaskType.NON, FeedbackMessage.TRANSDUCER_Svgtitle);
+            return createDynamicTests(Mode.MP, Type.NON, FeedbackMessage.TRANSDUCER_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testGrammarMode(){
-            return createDynamicTests(TaskMode.GG, TaskType.NON, FeedbackMessage.GRAMMAR_Svgtitle);
+            return createDynamicTests(Mode.GG, Type.NON, FeedbackMessage.GRAMMAR_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testAutomatonMode(){
-            return createDynamicTests(TaskMode.AA, TaskType.NON, FeedbackMessage.ACCEPTOR_Svgtitle);
+            return createDynamicTests(Mode.AA, Type.NON, FeedbackMessage.ACCEPTOR_Svgtitle);
         }
     }
 
@@ -108,18 +108,18 @@ public class AnswerMessageTest {
         int numberOfWordsFailed = 50;
         String resultText = "Fail";
 
-        HashSet<DynamicTest> createDynamicTests( TaskMode taskMode, TaskType taskType, FeedbackMessage svgT, FeedbackMessage fb){
+        HashSet<DynamicTest> createDynamicTests(Mode mode, Type type, FeedbackMessage svgT, FeedbackMessage fb){
             HashSet<DynamicTest> set = new HashSet<>();
             for(Locale l : locales) {
-                Result result = new Result(new Submission(), numberOfWordsFailed, taskType);
-                Arguments arguments = createArgumentsObject(taskMode, taskType, l);
+                Result result = new Result(new Submission(), numberOfWordsFailed, type);
+                Arguments arguments = createArgumentsObject(mode, type, l);
                 AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
                 String localeText = (l==Locale.ROOT?"root":l.toString());
 
-                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "SVG", resultText, localeText),
+                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat, mode.name(), "SVG", resultText, localeText),
                         () -> Assertions.assertEquals(getStringFromBundle(svgT.name(), bundles.get(l)).trim(), answerMessage.getSvgTitle().trim())));
 
-                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "FB", resultText, localeText),
+                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat, mode.name(), "FB", resultText, localeText),
                         () -> Assertions.assertEquals(getStringFromBundle(FeedbackMessage.Anything_wrong.name(), bundles.get(l)) + " " + String.format(feedbackFormat, numberOfWordsFailed, getStringFromBundle(fb.name(), bundles.get(l))).trim(), answerMessage.getFeedback().trim())));
             }
             return set;
@@ -127,37 +127,37 @@ public class AnswerMessageTest {
 
         @TestFactory
         Collection<DynamicTest> testCYKMode(){
-            return createDynamicTests(TaskMode.CYK, TaskType.NON, FeedbackMessage.CYK_Svgtitle, FeedbackMessage.CYK_Feedback);
+            return createDynamicTests(Mode.CYK, Type.NON, FeedbackMessage.CYK_Svgtitle, FeedbackMessage.CYK_Feedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testDERMode(){
-            return createDynamicTests(TaskMode.DER, TaskType.NON, FeedbackMessage.DERIVATION_Svgtitle, FeedbackMessage.DERIVATION_Feedback);
+            return createDynamicTests(Mode.DER, Type.NON, FeedbackMessage.DERIVATION_Svgtitle, FeedbackMessage.DERIVATION_Feedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testWWMode(){
-            return createDynamicTests(TaskMode.WW, TaskType.NON, FeedbackMessage.WORD_Svgtitle, FeedbackMessage.WORD_Feedback);
+            return createDynamicTests(Mode.WW, Type.NON, FeedbackMessage.WORD_Svgtitle, FeedbackMessage.WORD_Feedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testSVGMode(){
-            return createDynamicTests(TaskMode.SVGA, TaskType.NON, FeedbackMessage.SVG_Svgtitle, FeedbackMessage.SVG_Feedback);
+            return createDynamicTests(Mode.SVGA, Type.NON, FeedbackMessage.SVG_Svgtitle, FeedbackMessage.SVG_Feedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testMPMode(){
-            return createDynamicTests(TaskMode.MP, TaskType.NON, FeedbackMessage.TRANSDUCER_Svgtitle, FeedbackMessage.TRANSDUCER_Feedback);
+            return createDynamicTests(Mode.MP, Type.NON, FeedbackMessage.TRANSDUCER_Svgtitle, FeedbackMessage.TRANSDUCER_Feedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testGrammarMode(){
-            return createDynamicTests(TaskMode.GG, TaskType.NON, FeedbackMessage.GRAMMAR_Svgtitle, FeedbackMessage.GRAMMAR_Feedback);
+            return createDynamicTests(Mode.GG, Type.NON, FeedbackMessage.GRAMMAR_Svgtitle, FeedbackMessage.GRAMMAR_Feedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testAutomatonMode(){
-            return createDynamicTests(TaskMode.ARTWP, TaskType.NON, FeedbackMessage.ACCEPTOR_Svgtitle, FeedbackMessage.ACCEPTOR_Feedback);
+            return createDynamicTests(Mode.ARTWP, Type.NON, FeedbackMessage.ACCEPTOR_Svgtitle, FeedbackMessage.ACCEPTOR_Feedback);
         }
     }
 
@@ -165,11 +165,11 @@ public class AnswerMessageTest {
     class TypeTests{
         int numberOfWordsFailed = 50;
         String resultText = "Type Fail";
-        HashSet<DynamicTest> createDynamicTests( TaskMode taskMode, TaskType solutionTaskType, TaskType submissionTaskType, FeedbackMessage svgT, FeedbackMessage... feedbackMessages){
+        HashSet<DynamicTest> createDynamicTests(Mode mode, Type solutionType, Type submissionType, FeedbackMessage svgT, FeedbackMessage... feedbackMessages){
             HashSet<DynamicTest> set = new HashSet<>();
             for(Locale l : locales) {
-                Result result = new Result(new Submission(), numberOfWordsFailed, submissionTaskType);
-                Arguments arguments = createArgumentsObject(taskMode, solutionTaskType, l);
+                Result result = new Result(new Submission(), numberOfWordsFailed, submissionType);
+                Arguments arguments = createArgumentsObject(mode, solutionType, l);
                 AnswerMessage answerMessage = new AnswerMessage(result, arguments, "");
                 String localeText = (l==Locale.ROOT?"root":l.toString());
 
@@ -182,10 +182,10 @@ public class AnswerMessageTest {
                     stringBuilder.append(" ").append(getStringFromBundle(feedbackMessages[2].name(), bundles.get(l)));
                 }
 
-                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "SVG", resultText, localeText),
+                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat, mode.name(), "SVG", resultText, localeText),
                         () -> Assertions.assertEquals(getStringFromBundle(svgT.name(), bundles.get(l)).trim(), answerMessage.getSvgTitle().trim())));
 
-                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat,taskMode.name(), "FB", resultText, localeText),
+                set.add(DynamicTest.dynamicTest(String.format(testTitleFormat, mode.name(), "FB", resultText, localeText),
                         () -> Assertions.assertEquals(getStringFromBundle(FeedbackMessage.Anything_wrong.name(), bundles.get(l)) + " " + String.format(feedbackFormat, numberOfWordsFailed, stringBuilder).trim(), answerMessage.getFeedback().trim())));
             }
             return set;
@@ -193,49 +193,49 @@ public class AnswerMessageTest {
 
         @TestFactory
         Collection<DynamicTest> testMPMode(){
-            return createDynamicTests(TaskMode.MP, TaskType.DTM, TaskType.NON, FeedbackMessage.TRANSDUCER_Svgtitle,
+            return createDynamicTests(Mode.MP, Type.DTM, Type.NON, FeedbackMessage.TRANSDUCER_Svgtitle,
                     FeedbackMessage.TRANSDUCER_Feedback, FeedbackMessage.AUTOMATON_IsTuring, FeedbackMessage.TRANSDUCER_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testGrammarMode(){
-            return createDynamicTests(TaskMode.GG, TaskType.CFG, TaskType.NON, FeedbackMessage.GRAMMAR_Svgtitle,
+            return createDynamicTests(Mode.GG, Type.CFG, Type.NON, FeedbackMessage.GRAMMAR_Svgtitle,
                     FeedbackMessage.GRAMMAR_Feedback, FeedbackMessage.GRAMMAR_Type);
         }
 
         @TestFactory
         Collection<DynamicTest> testFAMode(){
-            return createDynamicTests(TaskMode.ARTWP, TaskType.DFA, TaskType.NON, FeedbackMessage.ACCEPTOR_Svgtitle,
+            return createDynamicTests(Mode.ARTWP, Type.DFA, Type.NON, FeedbackMessage.ACCEPTOR_Svgtitle,
                     FeedbackMessage.ACCEPTOR_Feedback, FeedbackMessage.ACCEPTOR_FAFeedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testPDAMode(){
-            return createDynamicTests(TaskMode.ARTWP, TaskType.DPDA, TaskType.NON, FeedbackMessage.ACCEPTOR_Svgtitle,
+            return createDynamicTests(Mode.ARTWP, Type.DPDA, Type.NON, FeedbackMessage.ACCEPTOR_Svgtitle,
                     FeedbackMessage.ACCEPTOR_Feedback, FeedbackMessage.ACCEPTOR_PDAFeedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testTMMode(){
-            return createDynamicTests(TaskMode.ARTWP, TaskType.DTM, TaskType.NON, FeedbackMessage.ACCEPTOR_Svgtitle,
+            return createDynamicTests(Mode.ARTWP, Type.DTM, Type.NON, FeedbackMessage.ACCEPTOR_Svgtitle,
                     FeedbackMessage.ACCEPTOR_Feedback, FeedbackMessage.AUTOMATON_IsTuring, FeedbackMessage.ACCEPTOR_Svgtitle);
         }
 
         @TestFactory
         Collection<DynamicTest> testRLCFG(){
-            return createDynamicTests(TaskMode.GGT, TaskType.RLCFG, TaskType.CFG, FeedbackMessage.GRAMMAR_Svgtitle,
+            return createDynamicTests(Mode.GGT, Type.RLCFG, Type.CFG, FeedbackMessage.GRAMMAR_Svgtitle,
                     FeedbackMessage.GRAMMAR_Feedback);
         }
 
         @TestFactory
         Collection<DynamicTest> testDFAvsNFA(){
-            return createDynamicTests(TaskMode.ARTWP, TaskType.NFA, TaskType.DFA, FeedbackMessage.ACCEPTOR_Svgtitle,
+            return createDynamicTests(Mode.ARTWP, Type.NFA, Type.DFA, FeedbackMessage.ACCEPTOR_Svgtitle,
                     FeedbackMessage.ACCEPTOR_Feedback, FeedbackMessage.AUTOMATON_MatchesNotDeterministic);
         }
 
         @TestFactory
         Collection<DynamicTest> testNFAvsDFA(){
-            return createDynamicTests(TaskMode.ARTWP, TaskType.NFA, TaskType.DFA, FeedbackMessage.ACCEPTOR_Svgtitle,
+            return createDynamicTests(Mode.ARTWP, Type.NFA, Type.DFA, FeedbackMessage.ACCEPTOR_Svgtitle,
                     FeedbackMessage.ACCEPTOR_Feedback, FeedbackMessage.AUTOMATON_MatchesNotDeterministic);
         }
     }

@@ -13,7 +13,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Result {
-    private TaskType submissionTaskType;
+    private Type submissionType;
     private int percentageFailed;
     private Submission submission;
     private SetResult<State> states;
@@ -25,14 +25,14 @@ public class Result {
     private long time = 0;
     private String extraText = "";
 
-    public Result( Submission submission, int percentageFailed, TaskType submissionTaskType ){
+    public Result( Submission submission, int percentageFailed, Type submissionType){
         this.submission = submission;
         this.percentageFailed = percentageFailed;
-        this.submissionTaskType = submissionTaskType;
+        this.submissionType = submissionType;
     }
 
-    public TaskType getsubmissionTaskType() {
-        return submissionTaskType;
+    public Type getsubmissionTaskType() {
+        return submissionType;
     }
 
     public int getPercentageFailed() {

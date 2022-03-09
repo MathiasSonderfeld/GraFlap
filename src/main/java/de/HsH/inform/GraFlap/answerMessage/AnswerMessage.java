@@ -29,8 +29,8 @@ public class AnswerMessage {
     private int percentOfTestWordsFailed;
     private boolean hasPassed;
     private boolean isError;
-    private TaskMode taskMode;
-    private TaskType taskType;
+    private Mode mode;
+    private Type taskType;
     protected StringBuilder aditionalFeedback;
     protected StringBuilder warnings;
     protected String svgTitle;
@@ -56,8 +56,8 @@ public class AnswerMessage {
             this.taskTitle = arguments.getTaskTitle();
             this.userLocale = arguments.getUserLanguage();
 
-            this.taskMode = arguments.getTaskMode();
-            this.taskType = arguments.getTaskType();
+            this.mode = arguments.getMode();
+            this.taskType = arguments.getType();
             this.percentOfTestWordsFailed = result.getPercentageFailed();
             this.hasPassed = percentOfTestWordsFailed == 0;
             if (this.hasPassed) { this.score = 1.0; }
@@ -67,8 +67,8 @@ public class AnswerMessage {
         else{
             this.taskTitle = "ERROR";
             this.userLocale = Locale.ENGLISH;
-            this.taskMode = TaskMode.ERROR;
-            this.taskType = TaskType.ERROR;
+            this.mode = Mode.ERROR;
+            this.taskType = Type.ERROR;
             this.percentOfTestWordsFailed = 100;
             this.hasPassed = false;
             this.isError = true;
@@ -93,11 +93,11 @@ public class AnswerMessage {
         String aditionalFeedbackDelimiter ="\n";
 
 
-        switch(this.taskMode){
+        switch(this.mode){
             //Grammar
             case GG: case GGW: case GGT: case GGTW: case EGT: case GR: case GRT: case GRW: case GRTW:
                 this.svgTitle = messages.getString(FeedbackMessage.GRAMMAR_Svgtitle.name());
-                if (this.taskType != result.getsubmissionTaskType() && !(this.taskType == TaskType.RLCFG && (result.getsubmissionTaskType() == TaskType.RL || result.getsubmissionTaskType() == TaskType.CFG))) {
+                if (this.taskType != result.getsubmissionTaskType() && !(this.taskType == Type.RLCFG && (result.getsubmissionTaskType() == Type.RL || result.getsubmissionTaskType() == Type.CFG))) {
                     this.aditionalFeedback.append(messages.getString(FeedbackMessage.GRAMMAR_Type.name()));
                     this.hasPassed = false;
                     score -= 0.5;
@@ -150,14 +150,14 @@ public class AnswerMessage {
 
             case MP: case MMW:
                 this.svgTitle = messages.getString(FeedbackMessage.TRANSDUCER_Svgtitle.name());
-                if(this.taskMode.isTyped()) this.hasPassed &= automatonIsDeterministic(this.taskType, result.getsubmissionTaskType());
+                if(this.mode.isTyped()) this.hasPassed &= automatonIsDeterministic(this.taskType, result.getsubmissionTaskType());
                 this.hasPassed &= automatonIsTuring(this.taskType, result.getsubmissionTaskType());
-                if (this.taskType == TaskType.MEALY && result.getsubmissionTaskType() != TaskType.MEALY) {
+                if (this.taskType == Type.MEALY && result.getsubmissionTaskType() != Type.MEALY) {
                     aditionalFeedback.append(messages.getString(FeedbackMessage.TRANSDUCER_Mealy.name()));
                     this.hasPassed = false;
                     score -= 0.5;
                 }
-                else if (this.taskType == TaskType.MOORE && result.getsubmissionTaskType() != TaskType.MOORE) {
+                else if (this.taskType == Type.MOORE && result.getsubmissionTaskType() != Type.MOORE) {
                     aditionalFeedback.append(messages.getString(FeedbackMessage.TRANSDUCER_Moore.name()));
                     this.hasPassed = false;
                     score -= 0.5;
@@ -232,39 +232,39 @@ public class AnswerMessage {
         this.transitions = result.getTransitions();
     }
 
-    private boolean automatonIsDeterministic(TaskType solutionTaskType, TaskType submissionTaskType) {
-        if (solutionTaskType.isNonDeterministic() && submissionTaskType.isDeterministic()) {
+    private boolean automatonIsDeterministic(Type solutionType, Type submissionType) {
+        if (solutionType.isNonDeterministic() && submissionType.isDeterministic()) {
             aditionalFeedback.append(messages.getString(FeedbackMessage.AUTOMATON_MatchesNotDeterministic.name()));
         }
-        else if (solutionTaskType.isDeterministic() && submissionTaskType.isNonDeterministic()) {
+        else if (solutionType.isDeterministic() && submissionType.isNonDeterministic()) {
             aditionalFeedback.append(messages.getString(FeedbackMessage.AUTOMATON_MatchesDeterministic.name()));
             return false;
         }
         return true;
     }
 
-    private boolean automatonIsTuring(TaskType solutionTaskType, TaskType submissionTaskType){
-        if (solutionTaskType.isTuring() && !submissionTaskType.isTuring()){
+    private boolean automatonIsTuring(Type solutionType, Type submissionType){
+        if (solutionType.isTuring() && !submissionType.isTuring()){
             aditionalFeedback.append(messages.getString(FeedbackMessage.AUTOMATON_IsTuring.name())).append(" ").append(this.svgTitle);
             return false;
         }
         return true;
     }
 
-    protected boolean automatonSubmissionMatchesType( TaskType solutionTaskType, TaskType submissionTaskType){
+    protected boolean automatonSubmissionMatchesType(Type solutionType, Type submissionType){
         boolean passed = true;
-        if (taskMode.isTyped()) {
-            passed = automatonIsDeterministic(solutionTaskType, submissionTaskType);
-            if (solutionTaskType.isFiniteAutomaton() && !submissionTaskType.isFiniteAutomaton()) {
+        if (mode.isTyped()) {
+            passed = automatonIsDeterministic(solutionType, submissionType);
+            if (solutionType.isFiniteAutomaton() && !submissionType.isFiniteAutomaton()) {
                 aditionalFeedback.append(messages.getString(FeedbackMessage.ACCEPTOR_FAFeedback.name()));
                 return false;
             }
-            else if (solutionTaskType.isPushDownAutomaton() && !submissionTaskType.isPushDownAutomaton()) {
+            else if (solutionType.isPushDownAutomaton() && !submissionType.isPushDownAutomaton()) {
                 aditionalFeedback.append(messages.getString(FeedbackMessage.ACCEPTOR_PDAFeedback.name()));
                 return false;
             }
             else
-                return automatonIsTuring(solutionTaskType, submissionTaskType) && passed;
+                return automatonIsTuring(solutionType, submissionType) && passed;
         }
         return passed;
     }
@@ -469,11 +469,11 @@ public class AnswerMessage {
         return percentOfTestWordsFailed;
     }
 
-    public TaskMode getTaskMode() {
-        return taskMode;
+    public Mode getMode() {
+        return mode;
     }
 
-    public TaskType getTaskType() {
+    public Type getTaskType() {
         return taskType;
     }
 

@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.JflapWrapper.automaton;
 
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.Type;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import file.xml.graph.AutomatonEditorData;
 
@@ -31,23 +31,23 @@ public class Automaton {
         return this.automaton;
     }
 
-    public TaskType testType() {
+    public Type testType() {
         if(isFiniteAutomation()) {
-            return TaskType.FA;
+            return Type.FA;
         }
         else if(isPushDownAutomaton()) {
-            return TaskType.PDA;
+            return Type.PDA;
         }
         else if(isTuringMachine()) {
-            return TaskType.TM;
+            return Type.TM;
         }
         else if(isMealyMachine()) {
-            return TaskType.MEALY;
+            return Type.MEALY;
         }
         else if(isMooreMachine()) {
-            return TaskType.MOORE;
+            return Type.MOORE;
         }
-        return TaskType.ERROR;
+        return Type.ERROR;
     }
 
     public boolean isFiniteAutomation() {
