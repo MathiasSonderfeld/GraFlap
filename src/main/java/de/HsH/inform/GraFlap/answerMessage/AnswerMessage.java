@@ -294,7 +294,7 @@ public class AnswerMessage {
     }
 
     private <T> String getTeacherFeedback( String name, SetResult<T> result){
-        if(result == null) return "No test possible.";
+        if(result == null) return "Keine Bewertung möglich.";
         
         StringBuilder feedback = new StringBuilder();
         boolean noneMissing = true;
@@ -307,18 +307,18 @@ public class AnswerMessage {
             for(int i = 0; i <tmp.size()-1; i++) {
                 feedback.append(tmp.get(i).toString()).append(", ");
             }
-            feedback.append(tmp.get(tmp.size()-1));
+            feedback.append(tmp.get(tmp.size()-1)).append(".");
         }
         tmp = result.getSurplus();
         if(tmp.size() > 0){
             allOK = false;
-            if(!noneMissing) feedback.append(". ");
+            if(!noneMissing) feedback.append(" ");
             else feedback.append(name).append(": ");
             feedback.append("Zu viel sind").append(" ");
             for(int i = 0; i <tmp.size()-1; i++) {
                 feedback.append(tmp.get(i).toString()).append(", ");
             }
-            feedback.append(tmp.get(tmp.size()-1));
+            feedback.append(tmp.get(tmp.size()-1)).append(".");
         }
         if (allOK) {
             feedback.append(messages.getString(FeedbackMessage.TEACHER_OK.name()));
