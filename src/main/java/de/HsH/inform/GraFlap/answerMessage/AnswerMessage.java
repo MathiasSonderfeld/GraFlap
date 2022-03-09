@@ -294,6 +294,8 @@ public class AnswerMessage {
     }
 
     private <T> String getTeacherFeedback( String name, SetResult<T> result){
+        if(result == null) return "No test possible.";
+        
         StringBuilder feedback = new StringBuilder();
         boolean noneMissing = true;
         boolean allOK = true;
@@ -326,6 +328,8 @@ public class AnswerMessage {
     }
 
     private <T> String getStudentFeedback(String name, SetResult<T> result){
+        if(result == null) return "No test possible.";
+        
         StringBuilder feedback = new StringBuilder();
         boolean addedComments = false;
         boolean allOK = true;
@@ -368,92 +372,74 @@ public class AnswerMessage {
     }
 
     public double getStatesScore(){
-        if(states == null) return 0.0;
-        return states.getScore();
+        return getSetScore(states);
     }
 
     public String getStatesTeacherFeedback(){
-        if(states == null) return "No test possible.";
         return getTeacherFeedback("States", states);
     }
 
     public String getStatesStudentFeedback(){
-        if(states == null) return "No test possible.";
         return getStudentFeedback("States", states);
     }
 
     public double getInitialsScore(){
-        if(initials == null) return 0.0;
-        return  initials.getScore();
+        return getSetScore(initials);
     }
 
     public String getInitialsTeacherFeedback(){
-        if(initials == null) return "No test possible.";
         return getTeacherFeedback("Initials", initials);
     }
 
     public String getInitialsStudentFeedback(){
-        if(initials == null) return "No test possible.";
         return getStudentFeedback("Initials", initials);
     }
 
     public double getFinalsScore(){
-        if(finals == null) return 0.0;
-        return  finals.getScore();
+        return getSetScore(finals);
     }
 
     public String getFinalsTeacherFeedback(){
-        if(finals == null) return "No test possible.";
         return getTeacherFeedback("Finals", finals);
     }
 
     public String getFinalsStudentFeedback(){
-        if(finals == null) return "No test possible.";
         return getStudentFeedback("Finals", finals);
     }
 
     public double getAlphabetScore(){
-        if(alphabet == null) return 0.0;
-        return  alphabet.getScore();
+        return getSetScore(alphabet);
     }
 
     public String getAlphabetTeacherFeedback(){
-        if(alphabet == null) return "No test possible.";
         return getTeacherFeedback("Alphabet", alphabet);
     }
 
     public String getAlphabetStudentFeedback(){
-        if(alphabet == null) return "No test possible.";
         return getStudentFeedback("Alphabet", alphabet);
     }
 
     public double getStackAlphabetScore(){
-        if(stackalphabet == null) return 0.0;
-        return  stackalphabet.getScore();
+        return getSetScore(stackalphabet);
     }
 
     public String getStackAlphabetTeacherFeedback(){
-        if(stackalphabet == null) return "No test possible.";
         return getTeacherFeedback("Stack Alphabet", stackalphabet);
     }
 
     public String getStackAlphabetStudentFeedback(){
-        if(stackalphabet == null) return "No test possible.";
         return getStudentFeedback("Stack Alphabet", stackalphabet);
     }
 
     public double getTransitionsScore(){
-        if(transitions == null) return 0.0;
-        return  transitions.getScore();
+        return getSetScore(transitions);
     }
 
     public String getTransitionsTeacherFeedback(){
-        if(transitions == null) return "No test possible.";
         return getTeacherFeedback("Transitions", transitions);
     }
 
     public String getTransitionsStudentFeedback(){
-        if(transitions == null) return "No test possible.";
         return getStudentFeedback("Transitions", transitions);
     }
 
