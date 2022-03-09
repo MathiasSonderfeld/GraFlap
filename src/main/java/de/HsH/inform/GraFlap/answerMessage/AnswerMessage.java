@@ -300,10 +300,11 @@ public class AnswerMessage {
         boolean noneMissing = true;
         boolean allOK = true;
         ArrayList<T> tmp = result.getMissing();
+        feedback.append(name).append(": ");
         if(tmp.size() > 0){
             noneMissing = false;
             allOK = false;
-            feedback.append(name).append(": ").append("Es fehlen").append(" ");
+            feedback.append("Es fehlen").append(" ");
             for(int i = 0; i <tmp.size()-1; i++) {
                 feedback.append(tmp.get(i).toString()).append(", ");
             }
@@ -313,7 +314,6 @@ public class AnswerMessage {
         if(tmp.size() > 0){
             allOK = false;
             if(!noneMissing) feedback.append(" ");
-            else feedback.append(name).append(": ");
             feedback.append("Zu viel sind").append(" ");
             for(int i = 0; i <tmp.size()-1; i++) {
                 feedback.append(tmp.get(i).toString()).append(", ");
@@ -331,11 +331,11 @@ public class AnswerMessage {
         if(result == null) return "No test possible.";
         
         StringBuilder feedback = new StringBuilder();
+        feedback.append(name).append(": ");
         boolean addedComments = false;
         boolean allOK = true;
         for(CommentMarker marker : result.getComments()){
             addedComments = true;
-            feedback.append(name).append(": ");
             switch(marker){
                 case SquareBrackets:
                     feedback.append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_SQUAREBRACKETS.name()));
@@ -348,7 +348,6 @@ public class AnswerMessage {
         if(errors > 0){
             allOK = false;
             if(addedComments) feedback.append(" ");
-            else feedback.append(name).append(": ");
             feedback.append(errors).append(" ").append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_ERRORS.name()));
         }
         ArrayList<T> tmp = result.getDoubles();
@@ -361,7 +360,6 @@ public class AnswerMessage {
             doubles.append(tmp.get(tmp.size()-1));
 
             if(errors > 0 || addedComments) feedback.append(" ");
-            else feedback.append(name).append(": ");
             feedback.append(messages.getString(FeedbackMessage.AUTOMATON_PARAMETERS_DUPLICATES.name())).append(" ").append(doubles);
         }
         if (allOK) {
