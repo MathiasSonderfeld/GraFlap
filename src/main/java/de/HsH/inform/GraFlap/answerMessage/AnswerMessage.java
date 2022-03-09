@@ -288,6 +288,11 @@ public class AnswerMessage {
         return warnings.toString();
     }
 
+    private <T> double getSetScore(SetResult<T> result){
+        if(result == null) return 0.0;
+        return result.getScore();
+    }
+
     private <T> String getTeacherFeedback( String name, SetResult<T> result){
         StringBuilder feedback = new StringBuilder();
         boolean noneMissing = true;

@@ -137,7 +137,7 @@ public class ProformaParser extends ArgumentsParser{
         else{
             switch (mode){
                 case MP:
-                case MMW: return "(jff|jflap)";
+                case MMW: return "(jff|jflap)"; //regex match for jff or jflap files
                 case WW: return "examplewords";
                 case CYK: return "cyk";
                 case DER: return "derivation";
