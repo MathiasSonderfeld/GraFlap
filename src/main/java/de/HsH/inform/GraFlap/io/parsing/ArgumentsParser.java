@@ -137,15 +137,24 @@ public abstract class ArgumentsParser {
 
         switch(mode){
             //Automaton Modes
+            case AA:
             case AR:
-            case AG:
             case ART:
+            case AG:
             case AGT:
-            case EAT:
             case ARW:
             case AGW:
             case ARTW:
             case AGTW:
+            case EAT:
+            case ARP:
+            case ARTP:
+            case AGP:
+            case AGTP:
+            case ARWP:
+            case AGWP:
+            case ARTWP:
+            case AGTWP:
                 switch(type){
                     //Automaton Types
                     case FA:
