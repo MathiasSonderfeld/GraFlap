@@ -6,6 +6,9 @@ import de.HsH.inform.GraFlap.convert.CYKInputParser;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import de.HsH.inform.GraFlap.convert.DerivationParser;
 import de.HsH.inform.GraFlap.entity.*;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.SetResult;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.cyk.CYKScoringTest;
 import de.HsH.inform.GraFlap.scoring.derivation.DerivationScoringTest;
@@ -61,6 +64,13 @@ public class Grader {
         int percentageFailed = -1;
         Type submissionType = Type.NON;
         String extraText = "";
+        boolean setResultsused = false;
+        SetResult<State> statesResult = new SetResult<>();
+        SetResult<State> initialsResult = new SetResult<>();
+        SetResult<State> finalsResult = new SetResult<>();
+        SetResult<String> alphabetResult = new SetResult<>();
+        SetResult<String> stackAlphabetResult = new SetResult<>();
+        SetResult<Transition> transitionsResult = new SetResult<>();
 
         long start = new Date().getTime();
         //Grammar Precheck
@@ -72,22 +82,22 @@ public class Grader {
         }
 
 
-        if(arguments.getMode() == Mode.AA){
-            AutomatonComparisonTest automatonComparisonTest = new AutomatonComparisonTest(arguments.getSolution(), arguments.getStudentAnswer());
-            submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
-            result = new Result(submission, automatonComparisonTest.getTotalErrors(),arguments.getType());
-            result.setStates(automatonComparisonTest.getStatesResult());
-            result.setInitials(automatonComparisonTest.getInitialsResult());
-            result.setFinals(automatonComparisonTest.getFinalsResult());
-            result.setAlphabet(automatonComparisonTest.getAlphabetResult());
-            result.setStackalphabet(automatonComparisonTest.getStackAlphabetResult());
-            result.setTransitions(automatonComparisonTest.getTransitionsResult());
-            return result;
-        }
-
         switch(arguments.getMode()) {
             case ERROR:
                 throw new GraFlapException("Error in given ProFormA task. Please check mode variable.");
+            case AA:
+                setResultsused = true;
+                AutomatonComparisonTest automatonComparisonTest = new AutomatonComparisonTest(arguments.getSolution(), arguments.getStudentAnswer());
+                submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
+                percentageFailed = automatonComparisonTest.getTotalErrors();
+                submissionType = arguments.getType();
+                statesResult = automatonComparisonTest.getStatesResult();
+                initialsResult = automatonComparisonTest.getInitialsResult();
+                finalsResult = automatonComparisonTest.getFinalsResult();
+                alphabetResult = automatonComparisonTest.getAlphabetResult();
+                stackAlphabetResult = automatonComparisonTest.getStackAlphabetResult();
+                transitionsResult = automatonComparisonTest.getTransitionsResult();
+                break;
             case AR:
             case ARP:
             case ART:
@@ -283,10 +293,8 @@ public class Grader {
             }
         }
 
-        result = new Result(submission, percentageFailed, submissionType);
-        result.setExtraText(extraText);
-
         if(arguments.getMode().isParameterized()){
+            setResultsused = true;
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());
             setsTest.setStudentStatesSet(arguments.getStates());
@@ -297,13 +305,26 @@ public class Grader {
             setsTest.setStudentTransitionsSet(arguments.getTransitions());
 
             setsTest.gradeSets();
-            result.setStates(setsTest.getStatesResult());
-            result.setInitials(setsTest.getInitialsResult());
-            result.setFinals(setsTest.getFinalsResult());
-            result.setAlphabet(setsTest.getAlphabetResult());
-            result.setStackalphabet(setsTest.getStackAlphabetResult());
-            result.setTransitions(setsTest.getTransitionsResult());
+            statesResult = setsTest.getStatesResult();
+            initialsResult = setsTest.getInitialsResult();
+            finalsResult = setsTest.getFinalsResult();
+            alphabetResult = setsTest.getAlphabetResult();
+            stackAlphabetResult = setsTest.getStackAlphabetResult();
+            transitionsResult = setsTest.getTransitionsResult();
         }
+
+        result = new Result(submission, percentageFailed, submissionType);
+        result.setExtraText(extraText);
+
+        if(setResultsused){
+            result.setStates(statesResult);
+            result.setInitials(initialsResult);
+            result.setFinals(finalsResult);
+            result.setAlphabet(alphabetResult);
+            result.setStackalphabet(stackAlphabetResult);
+            result.setTransitions(transitionsResult);
+        }
+
         long runningTime = new Date().getTime() - start;
         result.setTime(runningTime);
         return result;
