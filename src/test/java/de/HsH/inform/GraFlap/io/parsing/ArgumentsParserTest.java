@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
+import de.HsH.inform.GraFlap.GraFlapBlackBoxTest;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Mode;
 import de.HsH.inform.GraFlap.entity.Type;
@@ -7,7 +8,11 @@ import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Locale;
 
 public class ArgumentsParserTest {
     ArgumentsParser argumentsParser;
@@ -29,13 +34,9 @@ public class ArgumentsParserTest {
 
     @BeforeEach
     void init(){
-        argumentsParser = new ArgumentsParser(){
-            @Override
-            public Arguments parse( String[] args ) throws GraFlapException {
-                return null;
-            }
-        };
+        argumentsParser = new ArgumentsParser(){};
     }
+
 
     @Test
     void parseNumberOfWordsTestMinusOne(){
@@ -159,5 +160,63 @@ public class ArgumentsParserTest {
     @Test
     void checkCorrectModeAndTypeModeNull(){
         Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.checkCorrectModeAndType(null, null));
+    }
+
+    @Test
+    void testArgumentsToInputConverter(){
+        String studentAnswer = "ThisShouldBeTheStudentAnswer";
+        Arguments arguments = new Arguments();
+        arguments.setTestId("graflap");
+        arguments.setTaskTitle("LoncapaArgsToInputConverter");
+        arguments.setUserLanguage(Locale.GERMAN);
+        arguments.setMode(Mode.GG);
+        arguments.setType(Type.CFG);
+        arguments.setSolution("ThisIsGiven");
+        arguments.setNumberOfWords(0);
+        arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
+        arguments.setStudentAnswer(studentAnswer);
+        ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+        String[] loncapaInput = {"LoncapaArgsToInputConverter#de#ThisIsGiven#GG#CFG#0#-", studentAnswer};
+
+        Assertions.assertTrue(Arrays.equals(loncapaInput, argumentsToInputConverter.getLoncapaInput()));
+    }
+
+    @Nested
+    class ArgumentsParserNestedTest{
+        @Test
+        void testParseCorrect(){
+            Arguments arguments = new Arguments();
+            arguments.setTestId("");
+            arguments.setTaskTitle("ArgumentsParserTest parse OK");
+            arguments.setUserLanguage(Locale.GERMAN);
+            arguments.setMode(Mode.GG);
+            arguments.setType(Type.CFG);
+            arguments.setSolution("ThisIsGiven");
+            arguments.setNumberOfWords(0);
+            arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
+
+            ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+            String[] generatedInput = {argumentsToInputConverter.getBKP(), ""};
+            Arguments parsed = Assertions.assertDoesNotThrow(() -> argumentsParser.parse(generatedInput));
+            Assertions.assertEquals(arguments, parsed);
+        }
+
+        @Test
+        void testParseNull(){
+            Arguments arguments = new Arguments();
+            arguments.setTestId(null);
+            arguments.setTaskTitle(null);
+            arguments.setUserLanguage(null);
+            arguments.setMode(null);
+            arguments.setType(null);
+            arguments.setSolution(null);
+            arguments.setNumberOfWords(0);
+            arguments.setTestwords(null);
+            arguments.setStudentAnswer(null);
+
+            ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
+            String[] generatedInput = {argumentsToInputConverter.getBKP(), ""};
+            Assertions.assertDoesNotThrow(() -> argumentsParser.parse(generatedInput));
+        }
     }
 }
