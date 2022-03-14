@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Mode;
 
 /**
  * Helper class to compare Arguments Objects as it doenst have equals Method implemented yet
@@ -14,11 +15,24 @@ public class ArgumentsToInputConverter {
         graflapArguments = new StringBuilder();
         graflapArguments.append(arguments.getTaskTitle()).append("#")
                 .append(arguments.getUserLanguage()).append("#")
-                .append(arguments.getSolution()).append("#")
-                .append(arguments.getMode().toString()).append("#")
-                .append(arguments.getType().toString()).append("#")
-                .append(arguments.getNumberOfWords()).append("#")
-                .append(arguments.getWordString());
+                .append(arguments.getSolution()).append("#");
+
+        if(arguments.getMode() != null)
+            graflapArguments.append(arguments.getMode().toString()).append("#");
+        else
+            graflapArguments.append("null").append("#");
+
+        if(arguments.getType() != null)
+            graflapArguments.append(arguments.getType().toString()).append("#");
+        else
+            graflapArguments.append("null").append("#");
+
+        graflapArguments.append(arguments.getNumberOfWords()).append("#")
+                        .append(arguments.getWordString());
+    }
+
+    public String getBKP(){
+        return graflapArguments.toString();
     }
 
     public String[] getLoncapaInput(){
@@ -27,6 +41,8 @@ public class ArgumentsToInputConverter {
     }
 
     private StringBuilder getMainProforma(){
+        if(arguments.getMode() == null)
+            arguments.setMode(Mode.ERROR);
         String filename = ProformaParser.getFileNameFromMode(arguments.getMode());
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><proforma:submission xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:proforma=\"urn:proforma:v2.1\" id=\"SubmissionUUID\"><proforma:task uuid=\"0123\" parent-uuid=\"0\" lang=\"de\">")
