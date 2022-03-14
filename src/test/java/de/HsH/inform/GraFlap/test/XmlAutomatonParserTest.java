@@ -1,4 +1,4 @@
-package de.HsH.inform.GraFlap.io.parsing;
+package de.HsH.inform.GraFlap.test;
 
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.StateNameComparator;
