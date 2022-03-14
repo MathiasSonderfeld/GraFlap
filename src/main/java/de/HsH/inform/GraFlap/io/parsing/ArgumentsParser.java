@@ -30,7 +30,7 @@ public abstract class ArgumentsParser {
         if(taskArguments.length < 7) throw new GraFlapException("less than 7 graflap-arguments, cant parse task");
 
         arguments.setTaskTitle(taskArguments[0]);
-        arguments.setUserLanguage(getLocale(taskArguments[1]));
+        arguments.setUserLanguage(Locale.forLanguageTag((taskArguments[1])));
         arguments.setSolution(taskArguments[2]);
         int numberOfWords = parseAndCheckNumberOfWords(taskArguments[5]);
         arguments.setNumberOfWords(numberOfWords);
@@ -57,10 +57,6 @@ public abstract class ArgumentsParser {
         arguments.setMode(mode);
         arguments.setType(type);
         return arguments;
-    }
-
-    protected Locale getLocale( String in){
-        return Locale.forLanguageTag(in);
     }
 
     /**
