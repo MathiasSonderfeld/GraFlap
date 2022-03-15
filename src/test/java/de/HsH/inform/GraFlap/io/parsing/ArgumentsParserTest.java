@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
-import de.HsH.inform.GraFlap.GraFlapBlackBoxTest;
+import de.HsH.inform.GraFlap.BlackBoxTests.BlackBoxTestTestwordsUtil;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Mode;
 import de.HsH.inform.GraFlap.entity.Type;
@@ -173,7 +173,7 @@ public class ArgumentsParserTest {
         arguments.setType(Type.CFG);
         arguments.setSolution("ThisIsGiven");
         arguments.setNumberOfWords(0);
-        arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
+        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
         arguments.setStudentAnswer(studentAnswer);
         ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
         String[] loncapaInput = {"LoncapaArgsToInputConverter#de#ThisIsGiven#GG#CFG#0#-", studentAnswer};
@@ -193,7 +193,7 @@ public class ArgumentsParserTest {
             arguments.setType(Type.CFG);
             arguments.setSolution("ThisIsGiven");
             arguments.setNumberOfWords(0);
-            arguments.setTestwords(GraFlapBlackBoxTest.emptyTestwords);
+            arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
 
             ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
             String[] generatedInput = {argumentsToInputConverter.getBKP(), ""};
