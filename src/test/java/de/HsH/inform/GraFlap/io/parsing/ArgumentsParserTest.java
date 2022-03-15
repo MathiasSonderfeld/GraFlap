@@ -66,28 +66,28 @@ public class ArgumentsParserTest {
 
     @Test
     void parseInputWordsExceptionNull(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.ERROR, 0, null));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.ERROR, Type.ERROR,0, null));
     }
 
     @Test
     void parseInputWordsEmpty(){
-        Assertions.assertDoesNotThrow( () -> argumentsParser.parseInputWords(Mode.AR, 1, "-"));
+        Assertions.assertDoesNotThrow( () -> argumentsParser.parseInputWords(Mode.AR, Type.NON,1, "-"));
     }
 
     @Test
     void parseInputWordsSuccessEmpty(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.AR, 0, "-"));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.AR, Type.NON,0, "-"));
         Assertions.assertFalse(argumentsParser.isFilterWarning());
     }
 
     @Test
     void parseInputWordsOneWord(){
-        Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.DER,1, "OneTwo"));
+        Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.DER, Type.NON,1, "OneTwo"));
     }
 
     @Test
     void parseInputWordsExceptionMisMatch(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.AR, 3, "One!Two"));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.AR, Type.NON,3, "One!Two"));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ArgumentsParserTest {
         toCompare.addToFailingWords("three");
         toCompare.addToFailingWords("four");
 
-        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.AR, 4, "One%Two!three%four"));
+        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.AR, Type.NON,4, "One%Two!three%four"));
         Assertions.assertFalse(argumentsParser.isFilterWarning());
         Assertions.assertEquals(toCompare, result);
     }
@@ -111,14 +111,14 @@ public class ArgumentsParserTest {
             toCompare.addToCorrectWords("buffer");
             toCompare.addToFailingWords("buffer");
         }
-        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.AR,20, buildToooLongWords(expectedWords,(int) (expectedWords*0.75))));
+        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.AR, Type.NON,20, buildToooLongWords(expectedWords,(int) (expectedWords*0.75))));
         Assertions.assertTrue(argumentsParser.isFilterWarning());
         Assertions.assertEquals(toCompare, result);
     }
 
     @Test
     void parseInputWordsTooFewWords(){
-        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.AR,24, buildToooLongWords(1,11)));
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.AR, Type.NON,24, buildToooLongWords(1,11)));
     }
 
 

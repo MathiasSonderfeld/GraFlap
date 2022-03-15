@@ -21,6 +21,14 @@ public class Testwords {
         wordpairs = new HashMap<>();
     }
 
+    public void addToTestWordsList(String word){
+        correctWords.add(word);
+    }
+
+    public void addAllToTestWordsList( Collection<String> collection){
+        this.correctWords.addAll(collection);
+    }
+
     public void addToCorrectWords(String word){
         correctWords.add(word);
     }
@@ -46,6 +54,9 @@ public class Testwords {
     }
 
 
+    public ArrayList<String> getTestWordsList() {
+        return correctWords;
+    }
 
     public ArrayList<String> getCorrectWords() {
         return correctWords;
@@ -63,6 +74,10 @@ public class Testwords {
         return singleWord;
     }
 
+    public String[] getTestWordsListArray(){
+        return correctWords.toArray(new String[correctWords.size()]);
+    }
+
     public String[] getCorrectWordsArray(){
         return correctWords.toArray(new String[correctWords.size()]);
     }
@@ -71,16 +86,6 @@ public class Testwords {
         return failingWords.toArray(new String[failingWords.size()]);
     }
 
-    public String getWordPairsString(){
-        StringBuilder sb = new StringBuilder();
-        String[] froms = wordpairs.keySet().toArray(new String[wordpairs.keySet().size()]);
-
-        for(int fromIndex = 0; fromIndex < froms.length-1; fromIndex++){
-            sb.append(froms[fromIndex]).append(";").append(wordpairs.get(froms[fromIndex])).append("%");
-        }
-        sb.append(froms[froms.length-1]).append(";").append(wordpairs.get(froms[froms.length-1]));
-        return sb.toString();
-    }
 
     @Override
     public boolean equals( Object o ) {

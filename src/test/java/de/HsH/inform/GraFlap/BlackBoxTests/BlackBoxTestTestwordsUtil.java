@@ -2,6 +2,7 @@ package de.HsH.inform.GraFlap.BlackBoxTests;
 
 import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.entity.ValuePair;
+import org.junit.jupiter.api.Test;
 
 public class BlackBoxTestTestwordsUtil{
     public static final Testwords emptyTestwords = new Testwords();
@@ -46,6 +47,15 @@ public class BlackBoxTestTestwordsUtil{
     public static Testwords getSingleWordTestwords(String in){
         Testwords testwords = new Testwords();
         testwords.setSingleWord(in);
+        return testwords;
+    }
+
+    public static Testwords getTestWordsList(String in){
+        Testwords testwords = new Testwords();
+        String[] testWordsArray = in.split("%");
+        for(String word : testWordsArray){
+            testwords.addToTestWordsList(word);
+        }
         return testwords;
     }
 }
