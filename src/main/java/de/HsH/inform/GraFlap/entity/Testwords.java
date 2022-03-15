@@ -25,10 +25,6 @@ public class Testwords {
         correctWords.add(word);
     }
 
-    public void addAllToTestWordsList( Collection<String> collection){
-        this.correctWords.addAll(collection);
-    }
-
     public void addToCorrectWords(String word){
         correctWords.add(word);
     }
@@ -72,10 +68,6 @@ public class Testwords {
 
     public String getSingleWord(){
         return singleWord;
-    }
-
-    public String[] getTestWordsListArray(){
-        return correctWords.toArray(new String[correctWords.size()]);
     }
 
     public String[] getCorrectWordsArray(){
