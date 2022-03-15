@@ -2,6 +2,7 @@ package de.HsH.inform.GraFlap.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -14,13 +15,13 @@ public class Testwords {
     private ArrayList<String> correctWords;
     private ArrayList<String> failingWords;
 
-    private ArrayList<ValuePair<String, String>> wordpairs;
+    private HashMap<String, String> wordpairs;
     private String singleWord;
 
     public Testwords(){
         correctWords = new ArrayList<>();
         failingWords = new ArrayList<>();
-        wordpairs = new ArrayList<>();
+        wordpairs = new HashMap<>();
     }
 
     public void addToCorrectWords(String word){
@@ -39,8 +40,8 @@ public class Testwords {
         this.failingWords.addAll(collection);
     }
 
-    public void addToWordPairs(ValuePair<String, String> pair){
-        this.wordpairs.add(pair);
+    public void addToWordPairs(String from, String to){
+        this.wordpairs.put(from, to);
     }
 
     public void setSingleWord(String word){
@@ -57,7 +58,7 @@ public class Testwords {
         return failingWords;
     }
 
-    public ArrayList<ValuePair<String, String>> getWordpairs(){
+    public HashMap<String, String> getWordpairs(){
         return wordpairs;
     }
 
@@ -71,10 +72,6 @@ public class Testwords {
 
     public String[] getFailingWordsArray(){
         return failingWords.toArray(new String[failingWords.size()]);
-    }
-
-    public ValuePair<String, String>[] getWordPairsArray(){
-        return wordpairs.toArray(new ValuePair[wordpairs.size()]);
     }
 
     @Override

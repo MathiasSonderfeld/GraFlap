@@ -32,7 +32,7 @@ public class BlackBoxTestTestwordsUtil{
         String[] pairArray;
         for(int pair = 0; pair < wordPairsArray.length; pair++){
             pairArray = wordPairsArray[pair].split(";");
-            testwords.addToWordPairs(new ValuePair<>(pairArray[0], pairArray[1]));
+            testwords.addToWordPairs(pairArray[0], pairArray[1]);
         }
         return testwords;
     }
