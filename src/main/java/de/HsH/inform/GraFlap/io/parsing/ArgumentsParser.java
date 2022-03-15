@@ -50,7 +50,7 @@ public abstract class ArgumentsParser {
         checkCorrectModeAndType(mode, type);
         arguments.setMode(mode);
         arguments.setType(type);
-        arguments.setTestwords(parseInputWords(mode, type, numberOfWords, taskArguments[6]));
+        arguments.setTestwords(parseInputWords(mode, numberOfWords, taskArguments[6]));
         return arguments;
     }
 
@@ -76,10 +76,9 @@ public abstract class ArgumentsParser {
      * method to check if test words are provided and if the number of provided words in the word string match the specified number of input words
      * @throws GraFlapException if the number of words does not match the number of words in the word string
      */
-    protected Testwords parseInputWords(Mode mode, Type type, int numberOfWords, String wordString ) throws GraFlapException {
+    protected Testwords parseInputWords(Mode mode, int numberOfWords, String wordString ) throws GraFlapException {
         if(wordString == null) throw new GraFlapException("WordString must not be null");
         if(mode == Mode.ERROR) return null;
-        if(type == Type.ERROR) return null;
         Testwords testwords = new Testwords();
         if(wordString.equals("-")) return testwords;
 
@@ -92,29 +91,27 @@ public abstract class ArgumentsParser {
             }
         }
 
-        //Word Pairs or single List
-        else if(mode == Mode.MP || mode == Mode.MMW){
-            //single list
-            if(type == Type.MEALY || type == Type.MOORE){
-                String[] testWordsArray = wordString.split("%");
-                for(String word : testWordsArray){
-                    if(word.length() < wordLengthLimit){
-                        testwords.addToTestWordsList(word);
-                        this.filteredWordsAmount++;
-                    }
+        //word pairs
+        else if(mode == Mode.MP){
+            String[] wordPairsArray = wordString.split("%");
+            String[] pairArray;
+            this.inputWordsAmount = wordPairsArray.length;
+            for(int pair = 0; pair < wordPairsArray.length; pair++){
+                pairArray = wordPairsArray[pair].split(";");
+                if(pairArray[0].length() < wordLengthLimit || pairArray[1].length() < wordLengthLimit){
+                    filteredWordsAmount++;
+                    testwords.addToWordPairs(pairArray[0], pairArray[1]);
                 }
             }
-            //word pairs
-            else{
-                String[] wordPairsArray = wordString.split("%");
-                String[] pairArray;
-                this.inputWordsAmount = wordPairsArray.length;
-                for(int pair = 0; pair < wordPairsArray.length; pair++){
-                    pairArray = wordPairsArray[pair].split(";");
-                    if(pairArray[0].length() < wordLengthLimit || pairArray[1].length() < wordLengthLimit){
-                        filteredWordsAmount++;
-                        testwords.addToWordPairs(pairArray[0], pairArray[1]);
-                    }
+        }
+
+        //single list
+        else if(mode == Mode.MMW){
+            String[] testWordsArray = wordString.split("%");
+            for(String word : testWordsArray){
+                if(word.length() < wordLengthLimit){
+                    testwords.addToTestWordsList(word);
+                    this.filteredWordsAmount++;
                 }
             }
         }

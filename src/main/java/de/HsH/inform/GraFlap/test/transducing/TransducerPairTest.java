@@ -3,7 +3,6 @@ package de.HsH.inform.GraFlap.test.transducing;
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
-import de.HsH.inform.GraFlap.JflapWrapper.words.MachineInputOutputParser;
 import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
@@ -25,5 +24,4 @@ public class TransducerPairTest extends TransducerTest {
     public int determineResult(Submission<Automaton> studentInput, Testwords testwords) throws GraFlapException {
         return testInput(studentInput.getSubmissionObject(), testwords.getWordpairs());
     }
-
 }
