@@ -14,6 +14,7 @@ public class Testwords {
 
     private HashMap<String, String> wordpairs;
     private String singleWord;
+    private boolean empty = true;
 
     public Testwords(){
         correctWords = new ArrayList<>();
@@ -22,30 +23,37 @@ public class Testwords {
     }
 
     public void addToTestWordsList(String word){
+        empty = false;
         correctWords.add(word);
     }
 
     public void addToCorrectWords(String word){
+        empty = false;
         correctWords.add(word);
     }
 
     public void addAllToCorrectWords( Collection<String> collection){
+        empty = false;
         this.correctWords.addAll(collection);
     }
 
     public void addToFailingWords(String word){
+        empty = false;
         failingWords.add(word);
     }
 
     public void addAllToFailingWords(Collection<String> collection){
+        empty = false;
         this.failingWords.addAll(collection);
     }
 
     public void addToWordPairs(String from, String to){
+        empty = false;
         this.wordpairs.put(from, to);
     }
 
     public void setSingleWord(String word){
+        empty = false;
         this.singleWord = word;
     }
 
@@ -78,6 +86,9 @@ public class Testwords {
         return failingWords.toArray(new String[failingWords.size()]);
     }
 
+    public boolean isEmpty(){
+        return empty;
+    }
 
     @Override
     public boolean equals( Object o ) {

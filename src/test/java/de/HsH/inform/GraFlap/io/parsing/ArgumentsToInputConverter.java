@@ -36,7 +36,11 @@ public class ArgumentsToInputConverter {
 
         StringBuilder testwordsString = new StringBuilder();
         Testwords testwords = arguments.getTestwords();
-        if(arguments.getMode() == Mode.DER || arguments.getMode() == Mode.CYK){
+
+        if(testwords.isEmpty())
+            testwordsString.append("-");
+
+        else if(arguments.getMode() == Mode.DER || arguments.getMode() == Mode.CYK){
             testwordsString.append(testwords.getSingleWord());
         }
         else if(arguments.getMode() == Mode.MP){
