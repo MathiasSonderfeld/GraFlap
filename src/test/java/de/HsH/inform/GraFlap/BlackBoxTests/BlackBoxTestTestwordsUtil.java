@@ -37,7 +37,7 @@ public class BlackBoxTestTestwordsUtil{
         return testwords;
     }
 
-    public static Testwords getSinglleWordTestwords(String in){
+    public static Testwords getSingleWordTestwords(String in){
         Testwords testwords = new Testwords();
         testwords.setSingleWord(in);
         return testwords;

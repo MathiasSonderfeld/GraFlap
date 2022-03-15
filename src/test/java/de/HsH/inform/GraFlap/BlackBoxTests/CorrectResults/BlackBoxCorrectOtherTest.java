@@ -48,7 +48,7 @@ public class BlackBoxCorrectOtherTest{
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setWordString("aaabbb");
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSinglleWordTestwords("aaabbb"));
+        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSingleWordTestwords("aaabbb"));
         arguments.setNumberOfWords(1);
         arguments.setStudentAnswer("{X->a};{X->a};{X->a};{Y->b};{Y->b};{Y->b}%{};{};{S->XY};{};{}%{};{};{Z->SY};{}%{};{S->XZ};{}%{};{Z->SY}%{S->XZ}");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
@@ -73,7 +73,7 @@ public class BlackBoxCorrectOtherTest{
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setWordString("aaabbb");
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSinglleWordTestwords("aaabbb"));
+        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSingleWordTestwords("aaabbb"));
         arguments.setNumberOfWords(1);
         arguments.setStudentAnswer("{X};{X};{X};{Y};{Y};{Y}%{};{};{S};{};{}%{};{};{Z};{}%{};{S};{}%{};{Z}%{S}");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
@@ -98,7 +98,7 @@ public class BlackBoxCorrectOtherTest{
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setWordString("aaabbb");
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSinglleWordTestwords("aaabbb"));
+        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSingleWordTestwords("aaabbb"));
         arguments.setNumberOfWords(1);
         arguments.setStudentAnswer("S=>aSb=>aaSbb=>aaabbb");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));

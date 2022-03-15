@@ -261,16 +261,16 @@ public class Grader {
             case CYK:
                 Submission<Grammar> solution = ConvertSubmission.openGrammar(
                                                GrammarBuilder.buildGrammar(arguments.getSolution()));
-                submission = CYKInputParser.openCYKInput(arguments.getStudentAnswer(), arguments.getWordString(),
+                submission = CYKInputParser.openCYKInput(arguments.getStudentAnswer(), arguments.getTestwords().getSingleWord(),
                                                          solution.getSubmissionObject());
-                percentageFailed = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getWordString(),
+                percentageFailed = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getTestwords().getSingleWord(),
                                              solution.getSubmissionObject()).returnScore();
                 break;
             case DER:
                 submission = DerivationParser.openDerivation(arguments.getStudentAnswer());
                 solution = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getSolution()));
                 percentageFailed = new DerivationScoringTest((String[]) submission.getSubmissionObject(),
-                                                    solution.getSubmissionObject(), arguments.getWordString())
+                                                    solution.getSubmissionObject(), arguments.getTestwords().getSingleWord())
                                                     .returnScore();
                 break;
             case SVGA:

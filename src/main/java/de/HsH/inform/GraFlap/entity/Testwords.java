@@ -44,7 +44,7 @@ public class Testwords {
     }
 
     public void setSingleWord(String word){
-        this.singleWord = singleWord;
+        this.singleWord = word;
     }
 
 
