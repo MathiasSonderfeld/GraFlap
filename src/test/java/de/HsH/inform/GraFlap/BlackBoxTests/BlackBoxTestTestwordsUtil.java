@@ -30,9 +30,15 @@ public class BlackBoxTestTestwordsUtil{
         Testwords testwords = new Testwords();
         String[] wordPairsArray = in.split("%");
         String[] pairArray;
+        String from, to;
         for(int pair = 0; pair < wordPairsArray.length; pair++){
             pairArray = wordPairsArray[pair].split(";");
-            testwords.addToWordPairs(pairArray[0], pairArray[1]);
+            from = pairArray[0];
+            if(pairArray.length > 1)
+                to = pairArray[1];
+            else
+                to = "";
+            testwords.addToWordPairs(from, to);
         }
         return testwords;
     }

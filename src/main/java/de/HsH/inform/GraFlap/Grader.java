@@ -250,7 +250,7 @@ public class Grader {
             case MP:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                 submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
-                percentageFailed = new TransducerPairTest().determineResult(submission, arguments.getWordString());
+                percentageFailed = new TransducerPairTest().determineResult(submission, arguments.getTestwords().getWordPairsString());
                 break;
             case MMW:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());

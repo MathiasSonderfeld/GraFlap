@@ -1,9 +1,6 @@
 package de.HsH.inform.GraFlap.entity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Datastructure to store the given words for grading
@@ -72,6 +69,17 @@ public class Testwords {
 
     public String[] getFailingWordsArray(){
         return failingWords.toArray(new String[failingWords.size()]);
+    }
+
+    public String getWordPairsString(){
+        StringBuilder sb = new StringBuilder();
+        String[] froms = wordpairs.keySet().toArray(new String[wordpairs.keySet().size()]);
+
+        for(int fromIndex = 0; fromIndex < froms.length-1; fromIndex++){
+            sb.append(froms[fromIndex]).append(";").append(wordpairs.get(froms[fromIndex])).append("%");
+        }
+        sb.append(froms[froms.length-1]).append(";").append(wordpairs.get(froms[froms.length-1]));
+        return sb.toString();
     }
 
     @Override
