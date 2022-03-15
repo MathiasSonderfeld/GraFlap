@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.BlackBoxTests.FailingResults;
 
+import de.HsH.inform.GraFlap.BlackBoxTests.BlackBoxTestTestwordsUtil;
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.Arguments;
@@ -23,6 +24,7 @@ public class BlackBoxFailingOtherTest{
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setWordString("aaabbb");
+        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSinglleWordTestwords("aaabbb"));
         arguments.setNumberOfWords(1);
         arguments.setStudentAnswer("{F->a};{F->a};{X->a};{Y->b};{Y->b};{F->b}%{};{};{S->XY};{};{}%{};{};{Z->SY};{}%{};{S->XZ};{}%{};{Z->SY}%{S->XZ}");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
@@ -47,6 +49,7 @@ public class BlackBoxFailingOtherTest{
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setWordString("aaabbb");
+        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSinglleWordTestwords("aaabbb"));
         arguments.setNumberOfWords(1);
         arguments.setStudentAnswer("S=>YZ=>yZ=>aaabbb");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
@@ -71,6 +74,7 @@ public class BlackBoxFailingOtherTest{
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setWordString("aaabbb");
+        arguments.setTestwords(BlackBoxTestTestwordsUtil.getSinglleWordTestwords("aaabbb"));
         arguments.setNumberOfWords(1);
         arguments.setStudentAnswer("S=>aSb=>aaSbb=>aaaSbbb=>aaaabbbb");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
