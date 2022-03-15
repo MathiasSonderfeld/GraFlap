@@ -28,27 +28,26 @@ public class TransducerWordTest extends TransducerTest {
     /**
      * method to open the input and extract the test words from the provided word string
      * @param studentInput the submission of the student
-     * @param testwords the testword pairs
+     * @param testwords the testwords
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     @Override
     public int determineResult(Submission<Automaton> studentInput, Testwords testwords) throws GraFlapException {
-        String[] words = testwords.getTestWordsListArray();
-        return testInput(studentInput.getSubmissionObject(), produceOutput(words));
+        return testInput(studentInput.getSubmissionObject(), produceOutput(testwords));
     }
 
     /**
      * method to produce testable output for the submission based on the test words and the given solution automaton
-     * @param words the provided test words
+     * @param testwords the testwords
      * @return the mapping of input word to output word for every provided test word
      * @throws GraFlapException throws a {@link GraFlapException} is an input word is not accepted
      */
-    private HashMap<String, String> produceOutput(String[] words) throws GraFlapException {
+    private HashMap<String, String> produceOutput(Testwords testwords) throws GraFlapException {
         HashMap<String, String> pairs = new HashMap<>();
         AutomatonSimulator simulator = new AutomatonSimulator(solution);
 
-        for (String word: words) {
+        for (String word: testwords.getTestWordsList()) {
             if (simulator.acceptInput(word)) {
                 String output = simulator.testAndGetResult(word);
                 if (solution.isTuringMachine()) {
