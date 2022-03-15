@@ -14,9 +14,13 @@ public class Testwords {
     private ArrayList<String> correctWords;
     private ArrayList<String> failingWords;
 
-    public Testwords(int correctWordsSize, int failingWordsSize){
-        correctWords = new ArrayList<>(correctWordsSize);
-        failingWords = new ArrayList<>(failingWordsSize);
+    private ArrayList<ValuePair<String, String>> wordpairs;
+    private String singleWord;
+
+    public Testwords(){
+        correctWords = new ArrayList<>();
+        failingWords = new ArrayList<>();
+        wordpairs = new ArrayList<>();
     }
 
     public void addToCorrectWords(String word){
@@ -35,6 +39,16 @@ public class Testwords {
         this.failingWords.addAll(collection);
     }
 
+    public void addToWordPairs(ValuePair<String, String> pair){
+        this.wordpairs.add(pair);
+    }
+
+    public void setSingleWord(String word){
+        this.singleWord = singleWord;
+    }
+
+
+
     public ArrayList<String> getCorrectWords() {
         return correctWords;
     }
@@ -43,12 +57,24 @@ public class Testwords {
         return failingWords;
     }
 
+    public ArrayList<ValuePair<String, String>> getWordpairs(){
+        return wordpairs;
+    }
+
+    public String getSingleWord(){
+        return singleWord;
+    }
+
     public String[] getCorrectWordsArray(){
         return correctWords.toArray(new String[correctWords.size()]);
     }
 
     public String[] getFailingWordsArray(){
         return failingWords.toArray(new String[failingWords.size()]);
+    }
+
+    public ValuePair<String, String>[] getWordPairsArray(){
+        return wordpairs.toArray(new ValuePair[wordpairs.size()]);
     }
 
     @Override

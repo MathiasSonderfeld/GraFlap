@@ -3,7 +3,7 @@ package de.HsH.inform.GraFlap.BlackBoxTests;
 import de.HsH.inform.GraFlap.entity.Testwords;
 
 public class BlackBoxTestTestwordsUtil{
-    public static final Testwords emptyTestwords = new Testwords(0, 0);
+    public static final Testwords emptyTestwords = new Testwords();
 
     public static Testwords getTestWords(String in){
         String[] wordsSplitByCategory = in.split("!");
@@ -15,7 +15,7 @@ public class BlackBoxTestTestwordsUtil{
         else
             failingWordsArray = new String[]{""};
 
-        Testwords testwords = new Testwords(correctWordsArray.length, failingWordsArray.length);
+        Testwords testwords = new Testwords();
         for(String word : correctWordsArray){
             testwords.addToCorrectWords(word);
         }

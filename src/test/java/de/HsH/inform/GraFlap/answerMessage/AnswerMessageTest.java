@@ -23,7 +23,7 @@ public class AnswerMessageTest {
         arguments.setMode(mode);
         arguments.setType(type);
         arguments.setUserLanguage(locale);
-        arguments.setTestwords(new Testwords(0,0));
+        arguments.setTestwords(new Testwords());
         arguments.setNumberOfWords(123);
         return arguments;
     }

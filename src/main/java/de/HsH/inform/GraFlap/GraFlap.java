@@ -99,8 +99,8 @@ public class GraFlap {
             answerMessage = processSubmission(arguments);
 
             if(parser.isFilterWarning()){
-                answerMessage.addWarning(String.format("Nach der Filterung sind nur noch %d von %d korrekten und %d von %d falschen Worten übrig", parser.getFilteredCorrectWordsAmount(),
-                        parser.getCorrectWordsAmount(), parser.getFilteredFailingWordsAmount(), parser.getFailingWordsAmount()));
+                answerMessage.addWarning(String.format("Nach der Filterung sind nur noch %d von %d Worten übrig", parser.getFilteredWordsAmount(),
+                        parser.getInputWordsAmount()));
             }
         }
         catch(IOException | IllegalArgumentException e){
