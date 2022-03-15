@@ -261,7 +261,7 @@ public class Grader {
             case CYK:
                 Submission<Grammar> solution = ConvertSubmission.openGrammar(
                                                GrammarBuilder.buildGrammar(arguments.getSolution()));
-                submission = CYKInputParser.openCYKInput(arguments.getStudentAnswer(), arguments.getTestwords().getSingleWord(),
+                submission = CYKInputParser.openCYKInput(arguments.getStudentAnswer(), arguments.getTestwords(),
                                                          solution.getSubmissionObject());
                 percentageFailed = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getTestwords().getSingleWord(),
                                              solution.getSubmissionObject()).returnScore();

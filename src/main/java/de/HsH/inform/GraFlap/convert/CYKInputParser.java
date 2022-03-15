@@ -5,6 +5,7 @@ import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
 import de.HsH.inform.GraFlap.entity.CYKTable;
 import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.HashSet;
@@ -16,9 +17,9 @@ import java.util.HashSet;
  */
 public class CYKInputParser {
 
-    public static Submission<CYKTable> openCYKInput(String submissionString, String word, Grammar grammar)
+    public static Submission<CYKTable> openCYKInput(String submissionString, Testwords testwords, Grammar grammar)
             throws GraFlapException {
-        CYKTable table = parseSubmission(submissionString, grammar, word);
+        CYKTable table = parseSubmission(submissionString, grammar, testwords.getSingleWord());
         return new Submission<>(submissionString, table, SubmissionType.CYKINPUT);
     }
 
