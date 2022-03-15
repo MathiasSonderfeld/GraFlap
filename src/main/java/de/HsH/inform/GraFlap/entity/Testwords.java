@@ -4,16 +4,13 @@ import java.util.*;
 
 /**
  * Datastructure to store the given words for grading
- * @author Benjamin Held (07-04-2016)
  * @author Mathias Sonderfeld (07-2021)
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Testwords {
     private ArrayList<String> correctWords;
     private ArrayList<String> failingWords;
-
     private HashMap<String, String> wordpairs;
-    private String singleWord;
     private boolean empty = true;
 
     public Testwords(){
@@ -54,9 +51,8 @@ public class Testwords {
 
     public void setSingleWord(String word){
         empty = false;
-        this.singleWord = word;
+        addToCorrectWords(word);
     }
-
 
     public ArrayList<String> getTestWordsList() {
         return correctWords;
@@ -75,7 +71,7 @@ public class Testwords {
     }
 
     public String getSingleWord(){
-        return singleWord;
+        return correctWords.get(0);
     }
 
     public String[] getCorrectWordsArray(){
