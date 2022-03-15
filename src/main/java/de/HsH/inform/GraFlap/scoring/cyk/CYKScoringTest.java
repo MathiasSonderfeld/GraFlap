@@ -3,6 +3,7 @@ package de.HsH.inform.GraFlap.scoring.cyk;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.parse.CYKParser;
 import de.HsH.inform.GraFlap.entity.CYKTable;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
 
@@ -19,13 +20,13 @@ public class CYKScoringTest extends ScoringTest<CYKTable> {
     /**
      * constructor which takes a generic object
      * @param object the object that should be used
-     * @param word the input word
+     * @param testwords the testwords object containing a single testword
      * @param solutionGrammar the provided solution grammar
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
-    public CYKScoringTest(CYKTable object, String word, Grammar solutionGrammar) throws GraFlapException {
+    public CYKScoringTest(CYKTable object, Testwords testwords, Grammar solutionGrammar) throws GraFlapException {
         super(object);
-        this.word = word;
+        this.word = testwords.getSingleWord();
         this.solutionGrammar = solutionGrammar;
         testing();
         this.resultScore = calculateResultScore();

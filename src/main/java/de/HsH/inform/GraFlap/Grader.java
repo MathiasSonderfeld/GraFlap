@@ -263,7 +263,7 @@ public class Grader {
                                                GrammarBuilder.buildGrammar(arguments.getSolution()));
                 submission = CYKInputParser.openCYKInput(arguments.getStudentAnswer(), arguments.getTestwords(),
                                                          solution.getSubmissionObject());
-                percentageFailed = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getTestwords().getSingleWord(),
+                percentageFailed = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getTestwords(),
                                              solution.getSubmissionObject()).returnScore();
                 break;
             case DER:
