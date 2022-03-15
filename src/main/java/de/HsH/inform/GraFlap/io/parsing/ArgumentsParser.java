@@ -29,7 +29,6 @@ public abstract class ArgumentsParser {
         arguments.setSolution(taskArguments[2]);
         int numberOfWords = parseAndCheckNumberOfWords(taskArguments[5]);
         arguments.setNumberOfWords(numberOfWords);
-        arguments.setWordString(taskArguments[6]);
 
         Mode mode;
         try{
