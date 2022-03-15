@@ -119,7 +119,7 @@ public class GraFlap {
      * method to generate the result based on the input arguments
      * @param arguments the {@link Arguments} object that holds the submission information
      */
-    protected static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException{
+    public static AnswerMessage processSubmission(Arguments arguments) throws GraFlapException{
         Result result = Grader.generateResultWithTimeout(arguments,timeOutSeconds);
         boolean isSVGA = arguments.getMode() == Mode.SVGA;
         SvgBuilder svgBuilder = SvgFactory.determineBuilder(arguments, result.getSubmission().getOperationType(), isSVGA);
