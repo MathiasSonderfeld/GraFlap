@@ -256,7 +256,7 @@ public class Grader {
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                 submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
                 percentageFailed = new TransducerWordTest(arguments.getSolution()).determineResult(submission,
-                                                                                         arguments.getWordString());
+                                                                                         arguments.getTestwords());
                 break;
             case CYK:
                 Submission<Grammar> solution = ConvertSubmission.openGrammar(

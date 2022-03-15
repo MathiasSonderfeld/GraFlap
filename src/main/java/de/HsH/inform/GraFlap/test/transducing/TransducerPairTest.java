@@ -21,12 +21,9 @@ public class TransducerPairTest extends TransducerTest {
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
+    @Override
     public int determineResult(Submission<Automaton> studentInput, Testwords testwords) throws GraFlapException {
         return testInput(studentInput.getSubmissionObject(), testwords.getWordpairs());
     }
 
-    @Override
-    public int determineResult(Submission<Automaton> studentInput, String wordString) throws GraFlapException{
-        return 0;
-    }
 }
