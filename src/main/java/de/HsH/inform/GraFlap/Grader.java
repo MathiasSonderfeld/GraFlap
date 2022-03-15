@@ -270,7 +270,7 @@ public class Grader {
                 submission = DerivationParser.openDerivation(arguments.getStudentAnswer());
                 solution = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getSolution()));
                 percentageFailed = new DerivationScoringTest((String[]) submission.getSubmissionObject(),
-                                                    solution.getSubmissionObject(), arguments.getTestwords().getSingleWord())
+                                                    solution.getSubmissionObject(), arguments.getTestwords())
                                                     .returnScore();
                 break;
             case SVGA:
