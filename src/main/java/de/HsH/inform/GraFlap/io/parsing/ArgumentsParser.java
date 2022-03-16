@@ -16,7 +16,7 @@ public abstract class ArgumentsParser {
     private static final double abortThreshhold = 0.1;
 
     private int inputWordsAmount = 0;
-    private int filteredWordsAmount = 0;
+    private int filterApprovedWordsAmount = 0;
     private boolean filterWarning = false;
 
     public Arguments parse(String[] args) throws GraFlapException{
@@ -85,7 +85,7 @@ public abstract class ArgumentsParser {
         if(mode == Mode.DER || mode == Mode.CYK){
             this.inputWordsAmount = 1;
             if(wordString.length() < wordLengthLimit){
-                this.filteredWordsAmount++;
+                this.filterApprovedWordsAmount++;
                 testwords.setSingleWord(wordString);
             }
         }
@@ -98,7 +98,7 @@ public abstract class ArgumentsParser {
             for(int pair = 0; pair < wordPairsArray.length; pair++){
                 pairArray = wordPairsArray[pair].split(";");
                 if(pairArray[0].length() < wordLengthLimit || pairArray[1].length() < wordLengthLimit){
-                    filteredWordsAmount++;
+                    filterApprovedWordsAmount++;
                     testwords.addToWordPairs(pairArray[0], pairArray[1]);
                 }
             }
@@ -110,7 +110,7 @@ public abstract class ArgumentsParser {
             for(String word : testWordsArray){
                 if(word.length() < wordLengthLimit){
                     testwords.addToTestWordsList(word);
-                    this.filteredWordsAmount++;
+                    this.filterApprovedWordsAmount++;
                 }
             }
         }
@@ -128,18 +128,18 @@ public abstract class ArgumentsParser {
             for(String word : correctWordsArray){
                 if(word.length() < wordLengthLimit){
                     testwords.addToCorrectWords(word);
-                    this.filteredWordsAmount++;
+                    this.filterApprovedWordsAmount++;
                 }
             }
             for(String word : failingWordsArray){
                 if(word.length() < wordLengthLimit){
                     testwords.addToFailingWords(word);
-                    this.filteredWordsAmount++;
+                    this.filterApprovedWordsAmount++;
                 }
             }
         }
         if(this.inputWordsAmount != numberOfWords) throw new GraFlapException("NumberOfWords and WordString Mismatch");
-        double filteredPercentage = this.filteredWordsAmount / ((double) this.inputWordsAmount);
+        double filteredPercentage = this.filterApprovedWordsAmount / ((double) this.inputWordsAmount);
         if(filteredPercentage < warningThreshhold) this.filterWarning = true;
         if(filteredPercentage < abortThreshhold) throw new GraFlapException("more than " + Math.round((1-abortThreshhold)*100) + "% of the words were filtered because they were too long. Grading aborted.");
         return testwords;
@@ -240,7 +240,7 @@ public abstract class ArgumentsParser {
         return inputWordsAmount;
     }
 
-    public int getFilteredWordsAmount(){
-        return filteredWordsAmount;
+    public int getFilterApprovedWordsAmount(){
+        return filterApprovedWordsAmount;
     }
 }

@@ -99,7 +99,7 @@ public class GraFlap {
             answerMessage = processSubmission(arguments);
 
             if(parser.isFilterWarning()){
-                answerMessage.addWarning(String.format("Nach der Filterung sind nur noch %d von %d Worten übrig", parser.getFilteredWordsAmount(),
+                answerMessage.addWarning(String.format("Nach der Filterung sind nur noch %d von %d Worten übrig", parser.getFilterApprovedWordsAmount(),
                         parser.getInputWordsAmount()));
             }
         }
