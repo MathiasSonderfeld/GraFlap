@@ -10,7 +10,7 @@ import org.junit.jupiter.api.*;
 import java.util.*;
 
 
-public class BlackBoxFuzzyInputTest{
+public class BlackBoxEmptyInputTest{
 
     @TestFactory
     Collection<DynamicTest> testEmptyInputs(){
