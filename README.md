@@ -5,7 +5,7 @@ GraFlap has 2 operation modes, legacy and proforma. I recommend to use the profo
 ## Build
 To build project into an executable `jar` easily use Maven:
 ```
-mvn package
+mvn verify
 ```
 This will build all classes in `target/` directory, then build a graflap-1.0.jar thats not executable and finally a graflap-1.0-jar-with-dependencies.jar, that is executable.
 
