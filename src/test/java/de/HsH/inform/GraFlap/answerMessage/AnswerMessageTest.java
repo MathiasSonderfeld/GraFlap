@@ -18,7 +18,7 @@ public class AnswerMessageTest {
     static Arguments createArgumentsObject(Mode mode, Type type, Locale locale){
         Arguments arguments = new Arguments();
         arguments.setStudentAnswer("StudentAnswer");
-        arguments.setSolution("Solution");
+        arguments.setReference("Solution");
         arguments.setTaskTitle("TaskTitle");
         arguments.setMode(mode);
         arguments.setType(type);

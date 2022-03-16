@@ -26,7 +26,7 @@ public abstract class ArgumentsParser {
 
         arguments.setTaskTitle(taskArguments[0]);
         arguments.setUserLanguage(Locale.forLanguageTag((taskArguments[1])));
-        arguments.setSolution(taskArguments[2]);
+        arguments.setReference(taskArguments[2]);
         int numberOfWords = parseAndCheckNumberOfWords(taskArguments[5]);
         arguments.setNumberOfWords(numberOfWords);
 

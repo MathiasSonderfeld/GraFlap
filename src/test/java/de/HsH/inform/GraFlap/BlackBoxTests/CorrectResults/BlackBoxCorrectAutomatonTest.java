@@ -21,7 +21,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("x*(x*wx*wx*)*");
+        arguments.setReference("x*(x*wx*wx*)*");
         arguments.setMode(mode);
         arguments.setType(Type.DFA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.getListTestWords("xxxxxxx%xxxxxxxxxxxwxwxxwxwxxwxwxxwxwxxwxwxxwxw%xxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxx" +
@@ -46,7 +46,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("(00|11)*10(00|01|10|11)*");
+        arguments.setReference("(00|11)*10(00|01|10|11)*");
         arguments.setMode(mode);
         arguments.setType(Type.FA);
         Testwords testwords = BlackBoxTestTestwordsUtil.getListTestWords("0010%111100000010%1100111111110011001100001110001100%0000110011001111001110101010010111%1100000000001100000011111110111010" +
@@ -73,7 +73,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S -> A, A -> x B|y C, B -> x A|y D,C -> x D|y F, D -> x C|y G, F -> x G|y H, G -> x F|y J, H -> x J| y H | E, J -> x H|y J");
+        arguments.setReference("S -> A, A -> x B|y C, B -> x A|y D,C -> x D|y F, D -> x C|y G, F -> x G|y H, G -> x F|y J, H -> x J| y H | E, J -> x H|y J");
         arguments.setMode(mode);
         arguments.setType(Type.FA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.getListTestWords("yyy%yyyy%xxyyy%xyxyy%xyyxy%xyyyx%yxxyy%yxyxy%yxyyx%yyxxy%yyxyx%yyyxx%yyyyy%xxyyyy%xyxyyy%xyyxyy%xyyyxy%xyyyyx%yxxyyy%yxyxyy%yxyyxy%yxyyyx!%y%xx%yx%yyx%xyy%yxx%xxy%xyx%xxyy%yxxy%yxxx%xyxx%yyxy%xyxy%xxxx%xyyy%xxxy%yyxx%xyxxx%xyxyx%yyyxy%xyyxx%yxxxy%xxxyy%xxyyx%yxxxx%xxxyx%yyxxx%xyxxy%xyyyy%xxyxy%xxyxx"));
@@ -97,7 +97,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->eSf|ef");
+        arguments.setReference("S->eSf|ef");
         arguments.setMode(mode);
         arguments.setType(Type.PDA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.getListTestWords("ef%eeff%eeefff%eeeeffff%eeeeefffff%eeeeeeffffff%eeeeeeefffffff%eeeeeeeeffffffff%eeeeeeeeefffffffff%eeeeeeeeeeffffffffff%eeeeeeeeeeefffffffffff%eeeeeeeeeeeeffffffffffff%eeeeeeeeeeeeefffffffffffff%eeeeeeeeeeeeeeffffffffffffff%eeeeeeeeeeeeeeefffffffffffffff%eeeeeeeeeeeeeeeeffffffffffffffff%eeeeeeeeeeeeeeeeefffffffffffffffff%eeeeeeeeeeeeeeeeeeffffffffffffffffff%eeeeeeeeeeeeeeeeeeefffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeffffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeefffffffffffffffffffff%eeeeeeeeeeeeeeeeeeeeeeffffffffffffffffffffff!%f%e%ee%efe%eff%eee%fef%fee%ffe%ffee%eeef%fefe%ffef%efee%feef%feff%efef%efffe%efeee%eefee%ffeee%eefff%efefe%effef%fefff%efeff%feffe%ffffe%fefee%eefef%ffeef%eeeff%eeefe%eeeee%feeff%feeffe%eefeff%fefefe%fefeef%effeef%efefef"));
@@ -121,7 +121,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("(g|h)*|(hi)*");
+        arguments.setReference("(g|h)*|(hi)*");
         arguments.setMode(mode);
         arguments.setType(Type.FA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -145,7 +145,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("1*(1*01*01*)*");
+        arguments.setReference("1*(1*01*01*)*");
         arguments.setMode(mode);
         arguments.setType(Type.NON);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -169,7 +169,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("1*(1*01*01*)*");
+        arguments.setReference("1*(1*01*01*)*");
         arguments.setMode(mode);
         arguments.setType(Type.FA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -193,7 +193,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->aSb|ab");
+        arguments.setReference("S->aSb|ab");
         arguments.setMode(mode);
         arguments.setType(Type.NON);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -217,7 +217,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->aSb|ab");
+        arguments.setReference("S->aSb|ab");
         arguments.setMode(mode);
         arguments.setType(Type.PDA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -241,7 +241,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S -> r ss | r S s s");
+        arguments.setReference("S -> r ss | r S s s");
         arguments.setMode(mode);
         arguments.setType(Type.DTM);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.getListTestWords("rss%rrssss%rrrssssss%rrrrssssssss%rrrrrssssssssss%rrrrrrssssssssssss%rrrrrrrssssssssssssss%rrrrrrrrssssssssssssssss%rrrrrrrrrssssssssssssssssss%rrrrrrrrrrssssssssssssssssssss%rrrrrrrrrrrssssssssssssssssssssss%rrrrrrrrrrrrssssssssssssssssssssssss%rrrrrrrrrrrrrssssssssssssssssssssssssss%rrrrrrrrrrrrrrssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssssssss!%s%rr%sr%rs%rsr%sss%srr%rrr%srs%ssr%sssr%rrrr%srrr%rsrs%ssrs%rssr%ssrr%rsrr%rrss%ssss%rsrss%sssrr%srsrs%rrrsr%rrrrr%srsrr%rrrss%rsrrs%sssss%rssrr%rsssr%rssss%srssr%srrss%rsrsr%rrsrs%rrsss%srrrs%rrsrr%ssrss%srrrr"));
@@ -265,7 +265,7 @@ public class BlackBoxCorrectAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S -> r ss | r S s s");
+        arguments.setReference("S -> r ss | r S s s");
         arguments.setMode(mode);
         arguments.setType(Type.DTM);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.getListTestWords("rss%rrssss%rrrssssss%rrrrssssssss%rrrrrssssssssss%rrrrrrssssssssssss%rrrrrrrssssssssssssss%rrrrrrrrssssssssssssssss%rrrrrrrrrssssssssssssssssss%rrrrrrrrrrssssssssssssssssssss%rrrrrrrrrrrssssssssssssssssssssss%rrrrrrrrrrrrssssssssssssssssssssssss%rrrrrrrrrrrrrssssssssssssssssssssssssss%rrrrrrrrrrrrrrssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssssss%rrrrrrrrrrrrrrrrrrrrrrssssssssssssssssssssssssssssssssssssssssssss!%s%rr%sr%rs%rsr%sss%srr%rrr%srs%ssr%sssr%rrrr%srrr%rsrs%ssrs%rssr%ssrr%rsrr%rrss%ssss%rsrss%sssrr%srsrs%rrrsr%rrrrr%srsrr%rrrss%rsrrs%sssss%rssrr%rsssr%rssss%srssr%srrss%rsrsr%rrsrs%rrsss%srrrs%rrsrr%ssrss%srrrr"));

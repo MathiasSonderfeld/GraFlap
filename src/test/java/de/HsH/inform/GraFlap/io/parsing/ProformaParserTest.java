@@ -23,7 +23,7 @@ public class ProformaParserTest {
         arguments.setUserLanguage(Locale.GERMAN);
         arguments.setMode(Mode.AGP);
         arguments.setType(Type.DFA);
-        arguments.setSolution("ThisIsGiven");
+        arguments.setReference("ThisIsGiven");
         arguments.setNumberOfWords(0);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
         arguments.setStudentAnswer(studentAnswer);
@@ -53,7 +53,7 @@ public class ProformaParserTest {
             arguments.setUserLanguage(Locale.GERMAN);
             arguments.setMode(Mode.GG);
             arguments.setType(Type.CFG);
-            arguments.setSolution("ThisIsGiven");
+            arguments.setReference("ThisIsGiven");
             arguments.setNumberOfWords(0);
             arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
             arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
@@ -71,7 +71,7 @@ public class ProformaParserTest {
             arguments.setUserLanguage(Locale.GERMAN);
             arguments.setMode(Mode.AGP);
             arguments.setType(Type.DFA);
-            arguments.setSolution("ThisIsGiven");
+            arguments.setReference("ThisIsGiven");
             arguments.setNumberOfWords(0);
             arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
             arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
@@ -93,7 +93,7 @@ public class ProformaParserTest {
             arguments.setUserLanguage(null);
             arguments.setMode(null);
             arguments.setType(null);
-            arguments.setSolution(null);
+            arguments.setReference(null);
             arguments.setNumberOfWords(0);
             arguments.setTestwords(null);
             arguments.setStudentAnswer(null);

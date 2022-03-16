@@ -87,7 +87,7 @@ public class Grader {
                 throw new GraFlapException("Error in given ProFormA task. Please check mode variable.");
             case AA:
                 setResultsused = true;
-                AutomatonComparisonTest automatonComparisonTest = new AutomatonComparisonTest(arguments.getSolution(), arguments.getStudentAnswer());
+                AutomatonComparisonTest automatonComparisonTest = new AutomatonComparisonTest(arguments.getReference(), arguments.getStudentAnswer());
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                 percentageFailed = automatonComparisonTest.getTotalErrors();
                 submissionType = arguments.getType();
@@ -102,10 +102,10 @@ public class Grader {
             case ARP:
             case ART:
             case ARTP:
-                if (!arguments.getSolution().contains("->")) {
+                if (!arguments.getReference().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                     AutomatonRegexTest myTest = new AutomatonRegexTest();
-                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
+                    percentageFailed = myTest.openInput(arguments.getReference(), submission,
                                                                 arguments.getNumberOfWords());
                     extraText = myTest.getWordFeedback();
                 } else {
@@ -116,10 +116,10 @@ public class Grader {
             case AGP:
             case AGT:
             case AGTP:
-                if (arguments.getSolution().contains("->")) {
+                if (arguments.getReference().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                     AutomatonTest myTest = new AutomatonTest();
-                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
+                    percentageFailed = myTest.openInput(arguments.getReference(), submission,
                                                            arguments.getNumberOfWords());
                     extraText = myTest.getWordFeedback();
                 } else {
@@ -129,11 +129,11 @@ public class Grader {
                 break;
             case GG:
             case GGT:
-                if (arguments.getStudentAnswer().contains("->") && arguments.getSolution().contains("->")) {
+                if (arguments.getStudentAnswer().contains("->") && arguments.getReference().contains("->")) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                    buildGrammar(arguments.getStudentAnswer()));
                     GrammarTest myTest = new GrammarTest();
-                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
+                    percentageFailed = myTest.openInput(arguments.getReference(), submission,
                                                          arguments.getNumberOfWords());
                     extraText = myTest.getWordFeedback();
                 } else {
@@ -144,10 +144,10 @@ public class Grader {
             case ARWP:
             case ARTW:
             case ARTWP:
-                if (!arguments.getSolution().contains("->")) {
+                if (!arguments.getReference().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                     AutomatonTest myTest = new AutomatonTest();
-                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
+                    percentageFailed = myTest.openInput(arguments.getReference(), submission,
                                                            arguments.getTestwords());
                     extraText = myTest.getWordFeedback();
                 }else {
@@ -158,10 +158,10 @@ public class Grader {
             case AGWP:
             case AGTW:
             case AGTWP:
-                if (arguments.getSolution().contains("->")) {
+                if (arguments.getReference().contains("->")) {
                     submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                     AutomatonTest myTest = new AutomatonTest();
-                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
+                    percentageFailed = myTest.openInput(arguments.getReference(), submission,
                                                            arguments.getTestwords());
                     extraText = myTest.getWordFeedback();
                 } else {
@@ -170,11 +170,11 @@ public class Grader {
                 break;
             case GGW:
             case GGTW:
-                if (arguments.getStudentAnswer().contains("->") && arguments.getSolution().contains("->")) {
+                if (arguments.getStudentAnswer().contains("->") && arguments.getReference().contains("->")) {
                     submission = ConvertSubmission.openGrammar(GrammarBuilder.
                                                                buildGrammar(arguments.getStudentAnswer()));
                     GrammarTest myTest = new GrammarTest();
-                    percentageFailed = myTest.openInput(arguments.getSolution(), submission,
+                    percentageFailed = myTest.openInput(arguments.getReference(), submission,
                                                          arguments.getTestwords());
                     extraText = myTest.getWordFeedback();
                 }else {
@@ -184,11 +184,11 @@ public class Grader {
             case EAT:
             case EGT:
                 submission = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getStudentAnswer()));
-                percentageFailed = new AlphabetTest(submission).checkAlphabet(arguments.getSolution());
+                percentageFailed = new AlphabetTest(submission).checkAlphabet(arguments.getReference());
                 break;
             case WW:
                 submission = ConvertSubmission.openWords(arguments.getStudentAnswer(), arguments.getNumberOfWords());
-                percentageFailed = WordTest.checkWords(arguments.getSolution(), (String[]) submission.getSubmissionObject());
+                percentageFailed = WordTest.checkWords(arguments.getReference(), (String[]) submission.getSubmissionObject());
                 //extraText = WordTest.getWordFeedback();
                 break;
             case GR:
@@ -198,7 +198,7 @@ public class Grader {
                                                    buildGrammar(arguments.getStudentAnswer()));
                     submissionType = GrammarTypeTest.checkForGrammarType(submission);
                     if ((submissionType == Type.RL || submissionType == Type.CFG)) {
-                        percentageFailed = new GrammarRegexTest().openInput(arguments.getSolution(), submission,
+                        percentageFailed = new GrammarRegexTest().openInput(arguments.getReference(), submission,
                                                                   arguments.getNumberOfWords());
                     } else {
                         throw new GraFlapException("Error. Please check grammar type.");
@@ -215,7 +215,7 @@ public class Grader {
                     submissionType = GrammarTypeTest.checkForGrammarType(submission);
                     if ((submissionType == Type.RL || submissionType == Type.CFG)) {
                         GrammarTest myTest = new GrammarTest();
-                        percentageFailed = myTest.openInput(arguments.getSolution(), submission,
+                        percentageFailed = myTest.openInput(arguments.getReference(), submission,
                                                              arguments.getTestwords());
                         extraText = myTest.getWordFeedback();
                     } else {
@@ -229,7 +229,7 @@ public class Grader {
                 if (!arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openRegex(RegexBuilder.checkAndClean(arguments.getStudentAnswer()));
                     RegexTest myTest = new RegexTest();
-                    percentageFailed = myTest.getResult(arguments.getSolution(), submission,
+                    percentageFailed = myTest.getResult(arguments.getReference(), submission,
                                 arguments.getNumberOfWords());
                     extraText = myTest.getWordFeedback();
                 } else {
@@ -240,7 +240,7 @@ public class Grader {
                 if (!arguments.getStudentAnswer().contains("->") ) {
                     submission = ConvertSubmission.openRegex(RegexBuilder.checkAndClean(arguments.getStudentAnswer()));
                     RegexTest myTest = new RegexTest();
-                    percentageFailed = myTest.getResult(arguments.getSolution(), submission,
+                    percentageFailed = myTest.getResult(arguments.getReference(), submission,
                                 arguments.getTestwords());
                     extraText = myTest.getWordFeedback();
                 } else {
@@ -255,12 +255,12 @@ public class Grader {
             case MMW:
                 submission = ConvertSubmission.openAutomaton(arguments.getStudentAnswer());
                 submissionType = AutomatonTypeTest.checkForAutomatonType(submission);
-                percentageFailed = new TransducerWordTest(arguments.getSolution()).determineResult(submission,
+                percentageFailed = new TransducerWordTest(arguments.getReference()).determineResult(submission,
                                                                                          arguments.getTestwords());
                 break;
             case CYK:
                 Submission<Grammar> solution = ConvertSubmission.openGrammar(
-                                               GrammarBuilder.buildGrammar(arguments.getSolution()));
+                                               GrammarBuilder.buildGrammar(arguments.getReference()));
                 submission = CYKInputParser.openCYKInput(arguments.getStudentAnswer(), arguments.getTestwords(),
                                                          solution.getSubmissionObject());
                 percentageFailed = new CYKScoringTest((CYKTable) submission.getSubmissionObject(), arguments.getTestwords(),
@@ -268,7 +268,7 @@ public class Grader {
                 break;
             case DER:
                 submission = DerivationParser.openDerivation(arguments.getStudentAnswer());
-                solution = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getSolution()));
+                solution = ConvertSubmission.openGrammar(GrammarBuilder.buildGrammar(arguments.getReference()));
                 percentageFailed = new DerivationScoringTest((String[]) submission.getSubmissionObject(),
                                                     solution.getSubmissionObject(), arguments.getTestwords())
                                                     .returnScore();

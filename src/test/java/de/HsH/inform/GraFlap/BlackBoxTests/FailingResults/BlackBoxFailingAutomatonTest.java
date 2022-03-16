@@ -20,7 +20,7 @@ public class BlackBoxFailingAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("1*(1*01*01*)*");
+        arguments.setReference("1*(1*01*01*)*");
         arguments.setMode(mode);
         arguments.setType(Type.NON);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -44,7 +44,7 @@ public class BlackBoxFailingAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("1*(1*01*01*)*");
+        arguments.setReference("1*(1*01*01*)*");
         arguments.setMode(mode);
         arguments.setType(Type.FA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -68,7 +68,7 @@ public class BlackBoxFailingAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->aSb|ab");
+        arguments.setReference("S->aSb|ab");
         arguments.setMode(mode);
         arguments.setType(Type.NON);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -92,7 +92,7 @@ public class BlackBoxFailingAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->aSb|ab");
+        arguments.setReference("S->aSb|ab");
         arguments.setMode(mode);
         arguments.setType(Type.PDA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);

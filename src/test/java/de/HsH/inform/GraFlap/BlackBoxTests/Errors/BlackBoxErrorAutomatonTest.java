@@ -21,7 +21,7 @@ public class BlackBoxErrorAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("x*(x*wx*wx*)*");
+        arguments.setReference("x*(x*wx*wx*)*");
         arguments.setMode(mode);
         arguments.setType(Type.DFA);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.getListTestWords("xxxxxxx%xxxxxxxxxxxwxwxxwxwxxwxwxxwxwxxwxwxxwxw%xxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxxxwxxx" +
@@ -31,6 +31,7 @@ public class BlackBoxErrorAutomatonTest{
         GraFlapException e = Assertions.assertThrows(GraFlapException.class, () -> GraFlap.processSubmission(arguments));
         Assertions.assertEquals("Test terminated: A transition has no from state!.", e.getMessage().trim());
     }
+
     @Test
     void testAutomatonForBinaryNumbersBrokenJFF() {
         String title = "Automat fuer den Vergleich von Dualzahlen";
@@ -39,7 +40,7 @@ public class BlackBoxErrorAutomatonTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("(00|11)*10(00|01|10|11)*");
+        arguments.setReference("(00|11)*10(00|01|10|11)*");
         arguments.setMode(mode);
         arguments.setType(Type.FA);
         Testwords testwords = BlackBoxTestTestwordsUtil.getListTestWords("0010%111100000010%1100111111110011001100001110001100%0000110011001111001110101010010111%1100000000001100000011111110111010" +

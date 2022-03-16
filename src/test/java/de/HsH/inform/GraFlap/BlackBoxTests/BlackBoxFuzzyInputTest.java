@@ -19,7 +19,7 @@ public class BlackBoxFuzzyInputTest{
             Arguments arguments = new Arguments();
             arguments.setTaskTitle("EmptyInput Test");
             arguments.setUserLanguage(Locale.GERMAN);
-            arguments.setSolution("");
+            arguments.setReference("");
             arguments.setMode(mode);
             arguments.setType(Type.NON);
             arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);

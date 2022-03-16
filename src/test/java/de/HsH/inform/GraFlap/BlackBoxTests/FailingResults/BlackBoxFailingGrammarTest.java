@@ -20,7 +20,7 @@ public class BlackBoxFailingGrammarTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->aSa|a|bSb");
+        arguments.setReference("S->aSa|a|bSb");
         arguments.setMode(mode);
         arguments.setType(Type.NON);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -44,7 +44,7 @@ public class BlackBoxFailingGrammarTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->aSa|a|bSb");
+        arguments.setReference("S->aSa|a|bSb");
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -69,7 +69,7 @@ public class BlackBoxFailingGrammarTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("S->aSa|a|bSb");
+        arguments.setReference("S->aSa|a|bSb");
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
@@ -93,7 +93,7 @@ public class BlackBoxFailingGrammarTest{
         Arguments arguments = new Arguments();
         arguments.setTaskTitle(title);
         arguments.setUserLanguage(Locale.GERMAN);
-        arguments.setSolution("a*|(b|c)*a*((c+b*)*a*)*");
+        arguments.setReference("a*|(b|c)*a*((c+b*)*a*)*");
         arguments.setMode(mode);
         arguments.setType(Type.RL);
         arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);

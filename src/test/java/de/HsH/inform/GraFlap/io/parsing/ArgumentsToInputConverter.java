@@ -6,7 +6,6 @@ import de.HsH.inform.GraFlap.entity.Testwords;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Helper class to compare Arguments Objects as it doenst have equals Method implemented yet
@@ -20,7 +19,7 @@ public class ArgumentsToInputConverter {
         graflapArguments = new StringBuilder();
         graflapArguments.append(arguments.getTaskTitle()).append("#")
                 .append(arguments.getUserLanguage()).append("#")
-                .append(arguments.getSolution()).append("#");
+                .append(arguments.getReference()).append("#");
 
         if(arguments.getMode() != null)
             graflapArguments.append(arguments.getMode().toString()).append("#");
