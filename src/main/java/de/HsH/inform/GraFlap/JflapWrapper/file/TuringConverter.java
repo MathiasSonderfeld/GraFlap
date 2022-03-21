@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.JflapWrapper.file;
 
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import model.automata.*;
 import model.automata.acceptors.FinalStateSet;
@@ -7,15 +8,13 @@ import model.automata.turing.*;
 import model.symbols.Symbol;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 
 import java.util.List;
 
 /**
  * helper class to transform a single tape turing machine coded in jff block format into a jflap 8 automaton
  * @author Benjamin Held (05-02-2016)
- * @since 06-14-2016
- * @version 0.1.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class TuringConverter {
     private final StateSet states;
@@ -34,6 +33,9 @@ public class TuringConverter {
         String errorMessage = "Error: Transformation of the jff turing machine to jflap automaton failed.";
         Document document = DOMFactory.buildDocument(submission, errorMessage);
         generateStates(document.getRootElement().getChild("automaton").getChildren("block"));
+        if (states.isEmpty()){
+            generateStates(document.getRootElement().getChild("automaton").getChildren("state"));
+        }
         generateTransitions(document.getRootElement().getChild("automaton").getChildren("transition"));
         checkFormalComponents();
     }
@@ -129,6 +131,6 @@ public class TuringConverter {
             }
         }
 
-        throw new GraFlapException("Error: Could not find state to given id.");
+        throw new GraFlapException("Error: Could not find state to given id " + idString);
     }
 }

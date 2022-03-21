@@ -1,12 +1,14 @@
 package de.HsH.inform.GraFlap.test.transducing;
 
 
+import de.HsH.inform.GraFlap.GraFlap;
+import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.JflapWrapper.exception.AutomatonMismatchException;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.transducing.FiniteTransducerScoringTest;
 import de.HsH.inform.GraFlap.scoring.transducing.TuringMachineScoringTest;
-import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
-import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
-import de.HsH.inform.GraFlap.JflapWrapper.exception.AutomatonMismatchException;
 
 import java.util.HashMap;
 
@@ -14,8 +16,7 @@ import java.util.HashMap;
  * abstract class to serve as a parent class for testing mechanisms of transducing components like turing machines
  * and mealy or moore machines
  * @author Benjamin Held (06-19-2016)
- * @since 07-11-2016
- * @version 0.1.2
+ * @version {@value GraFlap#version}
  */
 abstract class TransducerTest{
 
@@ -24,11 +25,11 @@ abstract class TransducerTest{
     /**
      * abstract method to open the input and extract the test words from the provided word string
      * @param studentInput the submission of the student
-     * @param wordString a string with concatenated test words
+     * @param testwords the testword pairs
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    public abstract int determineResult(Submission<Automaton> studentInput, String wordString) throws GraFlapException;
+    public abstract int determineResult(Submission<Automaton> studentInput, Testwords testwords) throws GraFlapException;
 
     /**
      * method to test words with a given submission

@@ -1,18 +1,18 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-
-import java.util.HashMap;
 
 /**
  * child class of {@link GrammarTest} to separate the testing process with words from the testing process with
  * a regular expression
  * @author Benjamin Held (04-18-2016)
- * @since 06-16-2016
- * @version 0.2.2
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public class GrammarRegexTest extends GrammarTest {
 
@@ -26,10 +26,8 @@ public class GrammarRegexTest extends GrammarTest {
      */
     @Override
     public int openInput( String solution, Submission<Grammar> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
-        HashMap<String, String[]> words = new HashMap<>();
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
-        words.put("rightWords", generateWords.generateRightWordForRegex(solution));
-        words.put("wrongWords", generateWords.generateWrongWordsForRegex(solution));
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        Testwords testwords = generateWords.generateTestWords(solution);
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 }

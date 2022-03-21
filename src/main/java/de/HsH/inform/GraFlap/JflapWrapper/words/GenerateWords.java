@@ -2,29 +2,28 @@ package de.HsH.inform.GraFlap.JflapWrapper.words;
 
 import de.HsH.inform.GraFlap.GrammarBuilder;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
-import de.HsH.inform.GraFlap.JflapWrapper.simulation.WordBuilder;
-import de.HsH.inform.GraFlap.convert.ConvertSubmission;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.parse.BruteParser;
-import nl.flotsam.xeger.Xeger;
 import de.HsH.inform.GraFlap.JflapWrapper.parse.Parser;
 import de.HsH.inform.GraFlap.JflapWrapper.parse.RestrictedBruteParser;
+import de.HsH.inform.GraFlap.JflapWrapper.simulation.WordBuilder;
+import de.HsH.inform.GraFlap.convert.ConvertSubmission;
+import de.HsH.inform.GraFlap.entity.Testwords;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
+import nl.flotsam.xeger.Xeger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Helper class to generate words for a given grammar or regular expression
  * @author Ufuk Tosun (11-29-2012)
  * @author Benjamin Held (04-12-2016)
- * @since 06-19-2016
- * @version 0.4.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class GenerateWords {
     /**
@@ -38,7 +37,7 @@ public class GenerateWords {
     /**
      * a set holding all generated words
      */
-    private final ConcurrentSkipListSet<String> generatedWords;
+    private final HashSet<String> generatedWords;
 
     /**
      * Constructor
@@ -46,12 +45,21 @@ public class GenerateWords {
      */
     public GenerateWords(int numberOfTestWords) {
         this.numberOfTestWords = numberOfTestWords;
-        generatedWords = new ConcurrentSkipListSet<>();
+        generatedWords = new HashSet<>();
     }
+
+
+    public Testwords generateTestWords(String regex) throws GraFlapException {
+        Testwords testwords = new Testwords();
+        testwords.addAllToCorrectWords(Arrays.asList(generateRightWordForRegex(regex)));
+        testwords.addAllToFailingWords(Arrays.asList(generateWrongWordsForRegex(regex)));
+        return testwords;
+    }
+
 
     /**
      * method to generate random wrong words based on a regular expression
-     * @param regex the regular expression coded in a string from LON-CAPA
+     * @param regex the regular expression coded in a string from task
      * @return an array containing not accepted words
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
@@ -116,66 +124,50 @@ public class GenerateWords {
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy or when
      * a problem occurs within the CYK Parser
      */
-    public String[] generateWordsForGrammar(String grammarString) throws GraFlapException {
+    public Testwords generateTestWordsForGrammar(String grammarString) throws GraFlapException {
         String jffGrammar = GrammarBuilder.buildGrammar(grammarString);
         Submission<Grammar> submission = ConvertSubmission.openGrammar(jffGrammar);
         Grammar grammar = submission.getSubmissionObject();
         Parser parser = determineParser(grammar);
-        String[] rightWords = WordBuilder.buildWords(numberOfTestWords, submission.getSubmissionObject());
-        String[] wrongWords = new String[numberOfTestWords * WRONG_WORD_RATIO_FACTOR];
+        Testwords testwords = new Testwords();
+        testwords.addAllToCorrectWords(Arrays.asList(WordBuilder.buildWords(numberOfTestWords, submission.getSubmissionObject())));
+        ArrayList<String> wrongWords = testwords.getFailingWords();
         int wrongWordCount = 0;
 
         if (!parser.solve("")) {
-            wrongWords[0] = "";
+            wrongWords.add("");
             wrongWordCount++;
         }
 
         while (wrongWordCount < numberOfTestWords * WRONG_WORD_RATIO_FACTOR) {
             String word = generateRandomWord(grammar.getAlphabet(), 20);
-            if (!parser.solve(word) && !doesContain(word, wrongWords)) {
-                wrongWords[wrongWordCount] = word;
+            if (!parser.solve(word) && !wrongWords.contains(word)) {
+                wrongWords.add(word);
                 wrongWordCount++;
             }
         }
-        return Stream.concat(Arrays.stream(rightWords), Arrays.stream(wrongWords)).toArray(String[]::new);
-    }
-
-    /**
-     * mwthod to check if a produced word already is in the given word array
-     * @param givenWord the newly produced word
-     * @param words the array with the generated words
-     * @return true: if the word already exists in the array, false if not
-     */
-    private boolean doesContain(String givenWord, String[] words) {
-        for (String word: words) {
-            if (givenWord.equals(word)) {
-                return true;
-            }
-        }
-        return false;
+        return testwords;
     }
 
     /**
      * checks the correctness of the wrong words
      * @param grammarString a string with the coded grammar
-     * @param longWord a string containing test words
+     * @param testwords the test words
      * @return an array containing the wrong words
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
-    public String[] checkWrongGrammarWords(String grammarString, String longWord) throws GraFlapException {
+    public Testwords checkWrongGrammarWords( String grammarString, Testwords testwords) throws GraFlapException {
         String jffGrammar = GrammarBuilder.buildGrammar(grammarString);
         Grammar grammar = ConvertSubmission.openGrammar(jffGrammar).getSubmissionObject();
 
-        String[] wrongWords = WordSeparator.getWrongTestingWords(longWord);
-
-        ArrayList<String> listOfWords = new ArrayList<>();
+        ArrayList<String> listOfWords = testwords.getFailingWords();
         Parser parser = determineParser(grammar);
-        for (String wrongWord : wrongWords) {
-            if (!parser.solve(wrongWord)) {
-                listOfWords.add(wrongWord);
+        for (String wrongWord : testwords.getFailingWordsArray()) {
+            if (parser.solve(wrongWord)) {
+                listOfWords.remove(wrongWord);
             }
         }
-        return listOfWords.toArray(new String[0]);
+        return testwords;
     }
 
     /**
@@ -230,7 +222,7 @@ public class GenerateWords {
             for (int j = 0; j <= rand.nextInt(maxWordLength) ; j++) {
                 word = word + alphabet[rand.nextInt(alphabet.length)];
             }
-        } while(!generatedWords.add(word));
+        } while(generatedWords.contains(word));
         generatedWords.add(word);
         return word;
     }

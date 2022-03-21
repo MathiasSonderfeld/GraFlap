@@ -1,11 +1,10 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.entity.OperationMode;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 
 import java.awt.geom.Point2D;
 import java.util.LinkedList;
@@ -14,13 +13,12 @@ import java.util.List;
 /**
  * Child class of the {@link SvgAutomatonBuilder} that creates a result svg for a jflap automaton
  * @author Benjamin Held (04-24-2016)
- * @since 07-07-2016
- * @version 0.3.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 class SvgJflapBuilder extends SvgAutomatonBuilder {
 
-    SvgJflapBuilder( Arguments arguments, OperationMode operationMode ) throws GraFlapException {
-        super(operationMode);
+    SvgJflapBuilder( Arguments arguments, boolean isSVGA ) throws GraFlapException {
+        super(isSVGA);
         buildSvgElement(arguments.getStudentAnswer());
     }
 
@@ -45,7 +43,8 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
 
             StringBuilder sb = new StringBuilder();
             sb.append("digraph automaton{ ");
-            sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1; size=\"15,30\"; ratio= compress;");
+         //   sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1; size=\"15,30\"; ratio= compress;");
+            sb.append("rankdir = LR; nodesep = 0.3; ranksep = 1.2; maxiter= 1;  ratio= compress;");
 
             StringBuilder stateBuilder = new StringBuilder();
             for (Element state : states) {
@@ -65,7 +64,7 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
                     label.append(transition.getChildText("read0"));
                 }
                 if (label.toString().isEmpty()) {
-                    label.append("E");
+                    label.append(emptyWord);
                 }
 
                 if (automatonType.equals("pda")) {
@@ -76,14 +75,14 @@ class SvgJflapBuilder extends SvgAutomatonBuilder {
                 } else if (automatonType.equals("turing")) {
                     String write = transition.getChildText("write0");
                     if (write.isEmpty()) {
-                        write = "E";
+                        write = blank;
                     }
                     String move = transition.getChildText("move0");
                     label.append(" : ").append(write).append(", ").append(move);
                 }
 
                 sb.append(from).append(" -> ").append(to).append(" [ label = \"").append(label).append("\"");
-                if (from.equals(to) && operationMode != OperationMode.SVGA) {
+                if (from.equals(to) && !isSVGA) {
                     sb.append(" tailport=ne headport=nw");
                 }
                 sb.append(" ];");

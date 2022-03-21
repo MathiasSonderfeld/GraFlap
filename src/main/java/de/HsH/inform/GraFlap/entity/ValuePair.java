@@ -4,7 +4,7 @@ package de.HsH.inform.GraFlap.entity;
  * Helper entity to create a key-value object.
  * @author Benjamin Held (04-24-2016)
  * @since 04-24-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class ValuePair<K,V> {
     private final K key;

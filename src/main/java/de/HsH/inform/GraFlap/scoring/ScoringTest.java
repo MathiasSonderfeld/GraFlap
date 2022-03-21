@@ -6,8 +6,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  *  Abstract class to generate the result as an index how many of the generated test word are tested correctly
  *  @author Ufuk Tosun (07-26-2012)
  *  @author Benjamin Held (04-09-2016)
- *  @since 09-17-2016
- *  @version 0.4.4
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public abstract class ScoringTest<T> {
 

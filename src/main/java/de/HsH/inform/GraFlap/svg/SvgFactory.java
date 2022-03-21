@@ -1,21 +1,19 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.entity.OperationType;
-import de.HsH.inform.GraFlap.entity.OperationMode;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
  * Static factory class to return the correct svg builder based on the input
  * @author Benjamin Held (04-24-2016)
- * @since 08-03-2016
- * @version 0.2.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class SvgFactory {
 
-    public static SvgBuilder determineBuilder( Arguments arguments, OperationType OperationType, OperationMode operationMode )
+    public static SvgBuilder determineBuilder( Arguments arguments, SubmissionType SubmissionType, boolean isSVGA )
             throws GraFlapException {
-        switch (OperationType) {
+        switch (SubmissionType) {
             case ALPHABET:
                 return new SvgGrammarBuilder(arguments);
             case CYKINPUT:
@@ -24,12 +22,14 @@ public class SvgFactory {
                 return new SvgGrammarBuilder(arguments);
             case GRAMMAR:
                 return new SvgGrammarBuilder(arguments);
+            case REGEX:
+                return new SvgGrammarBuilder(arguments);
             case JFFSTRUCTURE:
-                return new SvgJffBuilder(arguments, operationMode);
+                return new SvgJffBuilder(arguments, isSVGA);
             case JFFTURING:
-                return new SvgJffBuilder(arguments, operationMode);
+                return new SvgJffBuilder(arguments, isSVGA);
             case JFLAPSTRUCTURE:
-                return new SvgJflapBuilder(arguments, operationMode);
+                return new SvgJflapBuilder(arguments, isSVGA);
             case WORDS:
                 return new SvgGrammarBuilder(arguments);
             case UNDEFINED:

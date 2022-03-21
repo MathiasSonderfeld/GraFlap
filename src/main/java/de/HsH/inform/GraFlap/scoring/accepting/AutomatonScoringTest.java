@@ -2,26 +2,25 @@ package de.HsH.inform.GraFlap.scoring.accepting;
 
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.simulation.AutomatonSimulator;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
  *  child class to generate the resulting score for test words and a given automaton
  *  @author Benjamin Held (05-30-2016)
- *  @since 06-25-2016
- *  @version 0.2.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
+        private String emptyWord = "&#949;";
 
     /**
      * constructor
      * @param object the automaton that should be used to test the words
-     * @param rightWords a list of words that should be accepted
-     * @param wrongWords a list of words that should be rejected
+     * @param testwords a list of words for testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
-    public AutomatonScoringTest(Automaton object, String[] rightWords, String[] wrongWords)
-            throws GraFlapException {
-        super(object, rightWords, wrongWords);
+    public AutomatonScoringTest( Automaton object, Testwords testwords) throws GraFlapException {
+        super(object, testwords);
     }
 
     /**
@@ -30,45 +29,38 @@ public class AutomatonScoringTest extends AcceptingScoringTest<Automaton> {
      */
     @Override
     protected void testing() throws GraFlapException {
-        testRightWords(rightWords);
-        testWrongWords(wrongWords);
-    }
-
-    /**
-     * method to test the correct words against the automaton
-     * @param testWords the array with the correct test words
-     * @throws GraFlapException throws a {@link GraFlapException} if the number of words is not zero
-     */
-    private void testRightWords(String[] testWords) throws GraFlapException {
-        int numberOfWords = testWords.length;
-        for (String input : testWords) {
-            boolean result = new AutomatonSimulator(object).acceptInput(input);
-            if (result) {
-                countWordTypes.put(true, countWordTypes.get(true) - 1);
+        AutomatonSimulator automatonSimulator = new AutomatonSimulator(object);
+        String negative = "";
+        String positive = "";
+        int i=0;
+        for (String input : testwords.getCorrectWords()) {
+            if (automatonSimulator.acceptInput(input)) {
+                correctWordsCount--;
+            }else{
+                i++;
+                if (i>1) { negative += ", ";}
+                if (input.equals("")){
+                    negative += emptyWord;
+                }
+                negative +=  input;
             }
-            numberOfWords--;
         }
-        if (numberOfWords != 0) {
-            throw new GraFlapException("Error in Logic: numberOfWords is " + numberOfWords + " and not zero.");
-        }
-    }
+        if (i>0) { WordFeedback += "<p>The Words " + negative + " should have been accepted.</p>" + System.lineSeparator(); }
 
-    /**
-     * method to test the wrong words against the automaton
-     * @param testWords the array with the wrong test words
-     * @throws GraFlapException throws a {@link GraFlapException} if the number of words is not zero
-     */
-    private void testWrongWords(String[] testWords) throws GraFlapException {
-        int numberOfWords = testWords.length;
-        for (String input : testWords) {
-            boolean result = new AutomatonSimulator(object).acceptInput(input);
-            if (!result) {
-                countWordTypes.put(false, countWordTypes.get(false) - 1);
+        i=0;
+        for (String input : testwords.getFailingWords()) {
+            if (!automatonSimulator.acceptInput(input)) {
+                wrongWordsCount--;
+            }else{
+                i++;
+                if (i>1) {positive += ", ";}
+                if (input.equals("")){
+                    positive += emptyWord;
+                }
+                positive +=  input;
             }
-            numberOfWords--;
         }
-        if (numberOfWords != 0) {
-            throw new GraFlapException("Error in Logic: numberOfWords is " + numberOfWords + " and not zero.");
-        }
+        if (i>0) { WordFeedback +=  "<p>The Words " + positive + " must not be accepted.</p>"+ System.lineSeparator();}
+
     }
 }

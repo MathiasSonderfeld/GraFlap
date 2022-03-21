@@ -1,15 +1,14 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.Arguments;
-import org.jdom2.Document;
 import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
+import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import org.jdom2.Document;
 
 /**
  * Child class of the {@link SvgBuilder} that creates result output for cyk exercises
  * @author Benjamin Held (07-13-2016)
- * @since 07-25-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class SvgCYKBuilder extends SvgBuilder {
 

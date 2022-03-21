@@ -1,14 +1,13 @@
 package de.HsH.inform.GraFlap.convert;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.OperationType;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
  * Helper class with static method to read and convert the given submission string for derivation input
  * @author Benjamin Held (07-27-2016)
- * @since 08-02-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class DerivationParser {
 
@@ -18,6 +17,6 @@ public class DerivationParser {
             throw new GraFlapException("Error [DerivationParser]: derivation is empty.");
         }
 
-        return new Submission<>(submissionString, input, OperationType.DERIVATION);
+        return new Submission<>(submissionString, input, SubmissionType.DERIVATION);
     }
 }

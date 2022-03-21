@@ -1,7 +1,5 @@
 package de.HsH.inform.GraFlap.JflapWrapper.words;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-
 import java.util.HashMap;
 
 /**
@@ -9,8 +7,7 @@ import java.util.HashMap;
  * @author Ufuk Tosun (2012)
  * @author Frauke Sprengel (2015)
  * @author Benjamin Held (04-15-2016)
- * @since 06-25-2016
- * @version 0.3.5
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class WordSeparator {
     /**
@@ -40,33 +37,5 @@ public class WordSeparator {
         words.put("rightWords", rightWords);
         words.put("wrongWords", wrongWords);
         return words;
-    }
-
-    /**
-     * splits a string coded with correct and false test words and returns the right words
-     * @param longStringToSplit the string that contains the test word as r1%r2%...%rn!w1%w2%...%wn
-     * @return the array with the words of the requested type
-     * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
-     */
-    public static String[] getCorrectTestingWords(String longStringToSplit) throws GraFlapException {
-        try {
-            return longStringToSplit.split("!")[0].split("%");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new GraFlapException("String split does not work.");
-        }
-    }
-
-    /**
-     * splits a string coded with correct and false test words and returns the wrong words
-     * @param longStringToSplit the string that contains the test word as r1%r2%...%rn!w1%w2%...%wn
-     * @return the array with the words of the requested type
-     * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
-     */
-    public static String[] getWrongTestingWords(String longStringToSplit) throws GraFlapException {
-        try {
-            return longStringToSplit.split("!")[1].split("%");
-        }  catch (ArrayIndexOutOfBoundsException e) {
-            throw new GraFlapException("String split does not work.");
-        }
     }
 }

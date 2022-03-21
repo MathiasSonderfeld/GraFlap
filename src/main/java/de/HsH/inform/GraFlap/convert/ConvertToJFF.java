@@ -1,11 +1,5 @@
 package de.HsH.inform.GraFlap.convert;
 
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeSet;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -13,12 +7,17 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeSet;
+
 /**
  * helper class to convert an xml formatted string to a convert-formatted string
  * @author Ufuk Tosun (2012)
  * @author Benjamin Held (04-12-2016)
- * @since 05-05-2016
- * @version 0.2.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class ConvertToJFF {
     /**

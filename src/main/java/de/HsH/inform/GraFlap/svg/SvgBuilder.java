@@ -1,6 +1,5 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.entity.OperationMode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Element;
 
@@ -8,8 +7,7 @@ import org.jdom2.Element;
  * abstract class to generate an svg image for the submitted solution
  * @author Frauke Sprengel (08-14-2015)
  * @author Benjamin Held (04-09-2016)
- * @since 07-06-2016
- * @version 0.4.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public abstract class SvgBuilder {
     /**
@@ -23,23 +21,26 @@ public abstract class SvgBuilder {
     /**
      * the function mode, determined by the submission
      */
-    OperationMode operationMode;
+    boolean isSVGA;
     /**
      * string pointing to the required directory
      */
     static String filepath;
+    private static String appendix = "";
 
     public SvgBuilder() {
-        operationMode = OperationMode.DEFAULT;
-        filepath = "C:\\Program Files\\Graphviz\\bin\\fdp.exe";
+        if(System.getProperty("os.name").contains("Windows")){
+            appendix = ".exe";
+        }
+        isSVGA = false;
+        filepath = "fdp" + appendix;
     }
 
-    public SvgBuilder( OperationMode operationMode ) {
-        this.operationMode = operationMode;
-        if (operationMode == OperationMode.SVGA) {
-            filepath = "C:\\Program Files\\Graphviz\\bin\\dot.exe";
-        } else {
-            filepath = "C:\\Program Files\\Graphviz\\bin\\fdp.exe";
+    public SvgBuilder( boolean isSVGA ) {
+        this();
+        this.isSVGA = isSVGA;
+        if (isSVGA) {
+            filepath = "dot" + appendix;
         }
     }
 

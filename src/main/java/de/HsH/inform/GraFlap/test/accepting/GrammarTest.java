@@ -1,34 +1,33 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
-import de.HsH.inform.GraFlap.JflapWrapper.words.WordSeparator;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.accepting.GrammarScoringTest;
-
-import java.util.HashMap;
 
 /**
  *  child class of test to open and test a given grammar or regex
  *  @author Ufuk Tosun (11-29-2012)
  *  @author Benjamin Held (04-06-2016)
- *  @since 06-23-2016
- *  @version 0.6.3
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public class GrammarTest extends AcceptingTest<Grammar> {
 
     /**
      * method to test the given words an generate the appropriate score
      * @param obj the object transformation of the submission that should be used for testing
-     * @param rightWords generated words that should be accepted
-     * @param wrongWords generated words that should be rejected
+     * @param testwords generated words for testing
      * @return the result score of the testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     @Override
-    int testInput(Grammar obj, String[] rightWords, String[] wrongWords) throws GraFlapException {
-        GrammarScoringTest scoringTest = new GrammarScoringTest(obj, rightWords, wrongWords);
+    int testInput(Grammar obj, Testwords testwords) throws GraFlapException {
+        GrammarScoringTest scoringTest = new GrammarScoringTest(obj, testwords);
+        wordFeedback = scoringTest.getWordFeedback();
         return scoringTest.returnScore();
     }
 
@@ -37,14 +36,13 @@ public class GrammarTest extends AcceptingTest<Grammar> {
      * from the provided word string
      * @param solution the reference solution coded in a string
      * @param studentInput the submission of the student
-     * @param wordString a string with concatenated test words
+     * @param testwords the test words
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a GraFlapException that occurs further within the calling hierarchy
      */
     @Override
-    public int openInput( String solution, Submission<Grammar> studentInput, String wordString) throws GraFlapException {
-        HashMap<String, String[]> words = generateTestWordsFromString(solution, wordString);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+    public int openInput( String solution, Submission<Grammar> studentInput, Testwords testwords ) throws GraFlapException {
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 
     /**
@@ -59,9 +57,7 @@ public class GrammarTest extends AcceptingTest<Grammar> {
     @Override
     public int openInput(String solution, Submission<Grammar> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
-        HashMap<String, String[]> words = WordSeparator.splitAcceptedAndNotAcceptedWords(
-                                                        generateWords.generateWordsForGrammar(solution),
-                                                        numberOfWordsToBeGenerated);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        Testwords testwords = generateWords.generateTestWordsForGrammar(solution);
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 }

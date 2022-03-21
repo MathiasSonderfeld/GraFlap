@@ -8,8 +8,7 @@ import model.symbols.symbolizer.Symbolizers;
 /**
  * wrapper class for JFLAP isolation to serve as a hierarchy for the used Parser
  * @author Benjamin Held (04-20-2016)
- * @since 09-24-2016
- * @version 0.4.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Parser<T extends model.algorithms.testinput.parse.Parser> {
     /**
@@ -37,12 +36,18 @@ public class Parser<T extends model.algorithms.testinput.parse.Parser> {
      */
     public boolean solve(String word) throws GraFlapException {
         try {
-            if (word.equals("λ")) {
+            if (word.equals("λ") || word.equals("E") || word.equals("ε") ) {
                 word = "";
             }
             return this.parser.quickParse(Symbolizers.symbolize(word, this.useGrammar));
         } catch (ParserException ex) {
-            throw new GraFlapException("Error [Parser] while parsing: " + ex.getMessage());
+            if (ex.getMessage().equals("The string must not contain non-terminal symbols.")){
+                // abfangen The string must not contain non-terminal symbols. ist bei uns Unsinn
+                return false;
+            }else {
+                throw new GraFlapException("Error [Parser] while parsing: " + ex.getMessage());
+
+            }
         }
     }
 

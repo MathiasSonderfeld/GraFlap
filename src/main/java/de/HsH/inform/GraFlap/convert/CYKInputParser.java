@@ -1,26 +1,26 @@
 package de.HsH.inform.GraFlap.convert;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.CYKTable;
-import de.HsH.inform.GraFlap.entity.OperationType;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
+import de.HsH.inform.GraFlap.entity.CYKTable;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.entity.Testwords;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.HashSet;
 
 /**
  * Helper class with static method to read and convert the given submission string for cyk input
  * @author Benjamin Held (07-12-2016)
- * @since 09-07-2016
- * @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class CYKInputParser {
 
-    public static Submission<CYKTable> openCYKInput(String submissionString, String word, Grammar grammar)
+    public static Submission<CYKTable> openCYKInput(String submissionString, Testwords testwords, Grammar grammar)
             throws GraFlapException {
-        CYKTable table = parseSubmission(submissionString, grammar, word);
-        return new Submission<>(submissionString, table, OperationType.CYKINPUT);
+        CYKTable table = parseSubmission(submissionString, grammar, testwords.getSingleWord());
+        return new Submission<>(submissionString, table, SubmissionType.CYKINPUT);
     }
 
     private static CYKTable parseSubmission(String submissionString, Grammar grammar, String word)

@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.JflapWrapper.automaton;
 
+import de.HsH.inform.GraFlap.entity.Type;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import file.xml.graph.AutomatonEditorData;
 
@@ -7,8 +8,7 @@ import file.xml.graph.AutomatonEditorData;
  * wrapper class for JFLAP isolation
  *
  * @author Benjamin Held (04-20-2016)
- * @version 0.1.4
- * @since 07-04-2016
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Automaton {
     model.automata.Automaton automaton;
@@ -31,23 +31,23 @@ public class Automaton {
         return this.automaton;
     }
 
-    public String testType() {
+    public Type testType() {
         if(isFiniteAutomation()) {
-            return "fa";
+            return Type.FA;
         }
         else if(isPushDownAutomaton()) {
-            return "pda";
+            return Type.PDA;
         }
         else if(isTuringMachine()) {
-            return "tm";
+            return Type.TM;
         }
         else if(isMealyMachine()) {
-            return "mealy";
+            return Type.MEALY;
         }
         else if(isMooreMachine()) {
-            return "moore";
+            return Type.MOORE;
         }
-        return "error";
+        return Type.ERROR;
     }
 
     public boolean isFiniteAutomation() {

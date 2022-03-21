@@ -1,14 +1,13 @@
 package de.HsH.inform.GraFlap.JflapWrapper.simulation;
 
-import model.algorithms.testinput.simulate.*;
-import model.symbols.symbolizer.Symbolizers;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import model.algorithms.testinput.simulate.AutoSimulator;
+import model.symbols.symbolizer.Symbolizers;
 
 /**
  * wrapper class for JFLAP isolation to represent an automaton simulator
  * @author Benjamin Held (04-20-2016)
- * @since 06-26-2016
- * @version 0.1.4
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class AutomatonSimulator {
     /**

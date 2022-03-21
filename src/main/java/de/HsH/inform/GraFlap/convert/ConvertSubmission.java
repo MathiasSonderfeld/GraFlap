@@ -1,33 +1,36 @@
 package de.HsH.inform.GraFlap.convert;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.OperationType;
-import de.HsH.inform.GraFlap.entity.ValuePair;
-import org.xml.sax.SAXException;
-import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
+import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
 import de.HsH.inform.GraFlap.JflapWrapper.file.Transducer;
-import org.w3c.dom.Document;
-import org.w3c.dom.*;
-import org.w3c.dom.Element;
 import de.HsH.inform.GraFlap.JflapWrapper.file.TuringConverter;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
+import de.HsH.inform.GraFlap.entity.ValuePair;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.util.EmptyErrorHandler;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
- *  helper class with static method to read and convert the given submission string
- *  @author Frauke Sprengel (08-15-2015)
- *  @author Benjamin Held (04-09-2016)
- *  @since 04-14-2016
- *  @version 0.3.3
+ * helper class with static method to read and convert the given submission string
+ * @author Frauke Sprengel (08-15-2015, 12-06-2021)
+ * @author Benjamin Held (04-09-2016)
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
+
 public class ConvertSubmission {
 
     /**
@@ -37,8 +40,8 @@ public class ConvertSubmission {
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
     public static Submission<Automaton> openAutomaton(String submissionString) throws GraFlapException {
-        ValuePair<Object, OperationType> input = openString(submissionString);
-        if (input.getValue() == OperationType.JFFTURING) {
+        ValuePair<Object, SubmissionType> input = openString(submissionString);
+        if (input.getValue() == SubmissionType.JFFTURING) {
             return new Submission<>(submissionString, new Automaton(((Automaton) input.getKey()).getJFLAPAutomaton()), input.getValue());
         }
         return new Submission<>(submissionString, new Automaton(input.getKey()), input.getValue());
@@ -51,8 +54,18 @@ public class ConvertSubmission {
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
      */
     public static Submission<Grammar> openGrammar(String submissionString) throws GraFlapException {
-        ValuePair<Object, OperationType> input = openString(submissionString);
-        return new Submission<>(submissionString, new Grammar(input.getKey()), OperationType.GRAMMAR);
+        ValuePair<Object, SubmissionType> input = openString(submissionString);
+        return new Submission<>(submissionString, new Grammar(input.getKey()), SubmissionType.GRAMMAR);
+    }
+
+    /**
+     * method to generate a grammar from the given string input
+     * @param submissionString the submission string
+     * @return the {@link Submission} object with the grammar that is produced from the submission string
+     * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the calling hierarchy
+     */
+    public static Submission<String> openRegex(String submissionString) throws GraFlapException {
+        return new Submission<>(submissionString, submissionString, SubmissionType.REGEX);
     }
 
     /**
@@ -69,7 +82,7 @@ public class ConvertSubmission {
         if (words.length < numberOfWords) {
             throw new GraFlapException("Error - not enough words.");
         } else {
-            return new Submission<>(submissionString, words, OperationType.WORDS);
+            return new Submission<>(submissionString, words, SubmissionType.WORDS);
         }
     }
 
@@ -80,21 +93,22 @@ public class ConvertSubmission {
      * @return a key value pair containing the created object and an indicator which jflap format was submitted
      * @throws GraFlapException when there is a formal error within the automaton
      */
-    private static ValuePair<Object, OperationType> openString( String submissionString) throws GraFlapException {
+    private static ValuePair<Object, SubmissionType> openString( String submissionString) throws GraFlapException {
         try {
             InputStream stream = new ByteArrayInputStream(submissionString.getBytes(StandardCharsets.UTF_8));
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
+            builder.setErrorHandler(EmptyErrorHandler.instance);
             Document doc = builder.parse(stream);
             Transducer transducer = new Transducer();
             Object obj = transducer.parseDocument(doc);
-            if (transducer.getInputType() == OperationType.JFFSTRUCTURE) {
+            if (transducer.getInputType() == SubmissionType.JFFSTRUCTURE) {
                 checkJFFComponents(doc);
             }
             return new ValuePair<>(obj, transducer.getInputType());
         } catch (JffTuringException ex) {
             Automaton turing = new TuringConverter(submissionString).getAutomaton();
-            return new ValuePair<>(turing, OperationType.JFFTURING);
+            return new ValuePair<>(turing, SubmissionType.JFFTURING);
         } catch(GraFlapException ex) {
             throw new GraFlapException("ERROR - Cannot open JFF" + ex.getMessage());
         } catch (SAXException | ParserConfigurationException | IOException e) {
@@ -126,12 +140,21 @@ public class ConvertSubmission {
             }
             if (processesMoreThanOneCharacter(elem.getElementsByTagName("read"))) {
                 hasFormalError = true;
-                errorString.append("\nPlease use only one character reading from the stack. ");
+                errorString.append("\nPlease use only one character reading from the input. ");
             }
             if (processesMoreThanOneCharacter(elem.getElementsByTagName("pop"))) {
                 hasFormalError = true;
                 errorString.append("\nPlease use only one character reading from the stack. ");
             }
+            if (processesMoreThanOneCharacter(elem.getElementsByTagName("write"))) {
+                hasFormalError = true;
+                errorString.append("\nPlease use only one character writing on the band. ");
+            }
+            if (empty(elem.getElementsByTagName("pop"))) {
+                hasFormalError = true;
+                errorString.append("\nReading the empty word from the stack is forbidden in our definition. ");
+            }
+
         }
         if (hasFormalError) {
             throw new GraFlapException(errorString.toString());
@@ -147,6 +170,21 @@ public class ConvertSubmission {
         for (int i = 0; i < nodeList.getLength(); i++){
             Node r = nodeList.item(i);
             if (r.getTextContent().length() > 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * static method to check if only empty content has been processed
+     * @param nodeList the element list specified by the given tag
+     * @return true, if content is empty, false if not
+     */
+    private static boolean empty(NodeList nodeList) {
+        for (int i = 0; i < nodeList.getLength(); i++){
+            Node r = nodeList.item(i);
+            if (r.getTextContent().length() < 1){
                 return true;
             }
         }

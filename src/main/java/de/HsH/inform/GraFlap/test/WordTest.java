@@ -1,13 +1,14 @@
 package de.HsH.inform.GraFlap.test;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.GrammarBuilder;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.BruteParser;
 import de.HsH.inform.GraFlap.JflapWrapper.parse.Parser;
+import de.HsH.inform.GraFlap.JflapWrapper.parse.RestrictedBruteParser;
 import de.HsH.inform.GraFlap.convert.ConvertSubmission;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.typetest.GrammarTypeTest;
-import de.HsH.inform.GraFlap.JflapWrapper.parse.BruteParser;
-import de.HsH.inform.GraFlap.JflapWrapper.parse.RestrictedBruteParser;
 
 import java.util.regex.Pattern;
 
@@ -16,10 +17,13 @@ import java.util.regex.Pattern;
  * a given grammar
  * @author Frauke Sprengel (08-17-2015)
  * @author Benjamin Held (04-10-2016)
- * @since 05-30-2016
- * @version 0.3.4
+ * @version {@value GraFlap#version}
  */
 public class WordTest {
+
+    private static String positiveFeedback ="";
+    private static String negativeFeedback ="";
+    private static String emptyWord = "&#949;";
 
     /**
      * method to test given test words against a grammar or regex
@@ -53,6 +57,9 @@ public class WordTest {
      */
     public static int checkWordsWithGrammar( Grammar grammar, String[] words) throws GraFlapException {
         int result = 0;
+        int pos = 0;
+        positiveFeedback = "";
+        negativeFeedback = "";
         Parser parser;
         if (GrammarTypeTest.isContextFreeGrammar(grammar)) {
             parser = new RestrictedBruteParser(grammar);
@@ -62,6 +69,18 @@ public class WordTest {
         for (String word : words) {
             if (!parser.solve(word)) {
                 result++;
+                if (result>1) { negativeFeedback += ", "; }
+                if (word.equals("")){
+                        negativeFeedback += emptyWord;
+                     }
+                negativeFeedback += word ;
+            }else{
+                pos++;
+                if (pos>1) { positiveFeedback += ", "; }
+                if (word.equals("")){
+                        positiveFeedback += emptyWord;
+                     }
+                positiveFeedback += word ;
             }
         }
 
@@ -82,9 +101,12 @@ public class WordTest {
      * @param words the test words
      * @return the number of correctly tested words
      */
-    private static int checkWordsWithRegex(String regex, String[] words) {
+    public static int checkWordsWithRegex(String regex, String[] words) {
         int result = 0;
-        int numberOfRightWords = 0;
+        int pos = 0;
+        positiveFeedback = "";
+        negativeFeedback = "";
+         int numberOfRightWords = 0;
         Pattern p = Pattern.compile(regex);
         for (String word : words) {
             if ((p.matcher(word).matches())) {
@@ -96,9 +118,20 @@ public class WordTest {
                     result++;
                 } else {
                     numberOfRightWords++;
-                }
+                 pos++;
+                if (pos>1) { positiveFeedback += ", "; }
+                if (word.equals("")){
+                        positiveFeedback += emptyWord;
+                     }
+                positiveFeedback += word ;
+               }
             } else {
                 result++;
+                if (result>1) { negativeFeedback += ", "; }
+                if (word.equals("")){
+                        negativeFeedback += emptyWord;
+                     }
+                negativeFeedback += word ;
             }
         }
 
@@ -115,5 +148,13 @@ public class WordTest {
     private static int checkWordsWithGrammar(String grammarString, String[] words) throws GraFlapException {
         String jffGrammar = GrammarBuilder.buildGrammar(grammarString);
         return checkWordsWithGrammar(ConvertSubmission.openGrammar(jffGrammar).getSubmissionObject(), words);
+    }
+
+    public static String getPositiveFeedback() {
+        return positiveFeedback;
+    }
+
+    public static String getNegativeFeedback() {
+        return negativeFeedback;
     }
 }

@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -9,8 +9,7 @@ import org.jdom2.output.XMLOutputter;
 /**
  * Child class of the {@link SvgBuilder} that creates a result svg for a grammar
  * @author Benjamin Held (04-24-2016)
- * @since 05-01-2016
- * @version 0.1.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 class SvgGrammarBuilder extends SvgBuilder {
 

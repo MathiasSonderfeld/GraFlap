@@ -1,20 +1,21 @@
 package de.HsH.inform.GraFlap.JflapWrapper.file;
 
+import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
+import de.HsH.inform.GraFlap.entity.SubmissionType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
-import file.xml.*;
-import de.HsH.inform.GraFlap.entity.OperationType;
+import file.xml.JFFTransducerFactory;
+import file.xml.StructureTransducer;
+import file.xml.XMLHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import de.HsH.inform.GraFlap.JflapWrapper.exception.JffTuringException;
 
 /**
  * wrapper class for JFLAP isolation to represent a Transducer
  * @author Benjamin Held (04-20-2016)
- * @since 09-22-2016
- * @version 0.2.6
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Transducer {
-    private OperationType operationType = OperationType.UNDEFINED;
+    private SubmissionType submissionType = SubmissionType.UNDEFINED;
 
     /**
      * wrapper method retrieve the given object from the jflap transducer
@@ -28,10 +29,10 @@ public class Transducer {
             StructureTransducer transducer;
             Element root = document.getDocumentElement();
             if(!root.hasAttribute("type")) {
-                operationType = OperationType.JFFSTRUCTURE;
+                submissionType = SubmissionType.JFFSTRUCTURE;
                 transducer = getJFFStructureTransducer(root);
             } else {
-                operationType = OperationType.JFLAPSTRUCTURE;
+                submissionType = SubmissionType.JFLAPSTRUCTURE;
                 transducer = getStructureTransducer(root);
             }
 
@@ -43,8 +44,8 @@ public class Transducer {
         }
     }
 
-    public OperationType getInputType() {
-        return operationType;
+    public SubmissionType getInputType() {
+        return submissionType;
     }
 
     /**

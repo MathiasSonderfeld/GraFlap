@@ -1,8 +1,8 @@
 package de.HsH.inform.GraFlap.derivation;
 
-import de.HsH.inform.GraFlap.entity.ValuePair;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
+import de.HsH.inform.GraFlap.entity.ValuePair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
 /**
  * logic class to evaluate the submission of a derivation exercise
  * @author Benjamin Held (08-17-2016)
- * @since 09-04-2016
- * @version 0.1.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class DerivationChecker {
     private final Grammar grammar;

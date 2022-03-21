@@ -1,5 +1,6 @@
 package de.HsH.inform.GraFlap.test;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
@@ -8,8 +9,7 @@ import de.HsH.inform.GraFlap.exception.GraFlapException;
  * class to test alphabet of a given input string
  * @author Frauke Sprengel (08-17-2015)
  * @author Benjamin Held (04-10-2016)
- * @since 04-26-2016
- * @version 0.3.0
+ * @version {@value GraFlap#version}
  */
 public class AlphabetTest {
     /**

@@ -1,34 +1,33 @@
 package de.HsH.inform.GraFlap.test.accepting;
 
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.words.GenerateWords;
-import de.HsH.inform.GraFlap.JflapWrapper.words.WordSeparator;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.accepting.AutomatonScoringTest;
-
-import java.util.HashMap;
 
 /**
  *  child class of test to open and test a given automaton or regex
  *  @author Ufuk Tosun (11-13-2012)
  *  @author Benjamin Held (04-10-2016)
- *  @since 06-23-2016
- *  @version 0.6.3
+ * @author Mathias Sonderfeld (07-2021)
+ * @version {@value GraFlap#version}
  */
 public class AutomatonTest extends AcceptingTest<Automaton> {
 
     /**
      * method to test the given words an generate the appropriate score
      * @param obj the object transformation of the submission that should be used for testing
-     * @param rightWords generated words that should be accepted
-     * @param wrongWords generated words that should be rejected
+     * @param testwords generated words for testing
      * @return the result score of the testing
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     @Override
-    int testInput(Automaton obj, String[] rightWords, String[] wrongWords) throws GraFlapException {
-        AutomatonScoringTest scoringTest = new AutomatonScoringTest(obj, rightWords, wrongWords);
+    int testInput(Automaton obj, Testwords testwords) throws GraFlapException {
+        AutomatonScoringTest scoringTest = new AutomatonScoringTest(obj, testwords);
+        wordFeedback = scoringTest.getWordFeedback();
         return scoringTest.returnScore();
     }
 
@@ -37,14 +36,14 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
      * from the provided word string
      * @param solution the reference solution coded in a string
      * @param studentInput the submission of the student
-     * @param wordString a string with concatenated test words
+     * @param testwords the test words
      * @return rounded percentage value how many word were tested successfully ranging form [0,100]
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further within the calling hierarchy
      */
     @Override
-    public int openInput( String solution, Submission<Automaton> studentInput, String wordString) throws GraFlapException {
-        HashMap<String, String[]> words = generateTestWordsFromString(solution, wordString);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+    public int openInput( String solution, Submission<Automaton> studentInput, Testwords testwords ) throws GraFlapException {
+        testwords = generateTestWordsFromString(solution, testwords);
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 
     /**
@@ -59,10 +58,13 @@ public class AutomatonTest extends AcceptingTest<Automaton> {
     @Override
     public int openInput(String solution, Submission<Automaton> studentInput, int numberOfWordsToBeGenerated) throws GraFlapException {
         GenerateWords generateWords = new GenerateWords(numberOfWordsToBeGenerated);
-        HashMap<String, String[]> words = WordSeparator.splitAcceptedAndNotAcceptedWords(
-                                                        generateWords.generateWordsForGrammar(solution),
-                                                        numberOfWordsToBeGenerated);
-        return testInput(studentInput.getSubmissionObject(), words.get("rightWords"), words.get("wrongWords"));
+        Testwords testwords;
+        if(solution.contains("->"))
+            testwords = generateWords.generateTestWordsForGrammar(solution);
+        else
+            testwords = generateWords.generateTestWords(solution);
+
+        return testInput(studentInput.getSubmissionObject(), testwords);
     }
 
     public static String getType() {

@@ -6,8 +6,7 @@ import model.automata.determinism.DeterminismCheckerFactory;
 /**
  * wrapper class for JFLAP isolation to check for determinism
  * @author Benjamin Held (04-20-2016)
- * @since 04-23-2016
- * @version 0.1.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class DeterminismChecker {
 

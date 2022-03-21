@@ -1,17 +1,16 @@
 package de.HsH.inform.GraFlap.scoring.transducing;
 
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.Automaton;
-import de.HsH.inform.GraFlap.exception.GraFlapException;
-import de.HsH.inform.GraFlap.entity.ValuePair;
 import de.HsH.inform.GraFlap.JflapWrapper.automaton.TuringMachine;
+import de.HsH.inform.GraFlap.entity.ValuePair;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.HashMap;
 
 /**
  * child class to generate the resulting score for test words and a given turing machine
  * @author Benjamin Held (06-23-2016)
- * @since 06-28-2016
- * @version 0.1.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class TuringMachineScoringTest extends TransducerScoringTest<TuringMachine> {
 

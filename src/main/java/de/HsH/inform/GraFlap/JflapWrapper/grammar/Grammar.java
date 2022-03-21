@@ -5,8 +5,7 @@ import model.grammar.typetest.GrammarType;
 /**
  * wrapper class for JFLAP isolation to represent a Grammar
  * @author Benjamin Held (04-20-2016)
- * @since 08-17-2016
- * @version 0.3.1
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Grammar {
     /**

@@ -1,16 +1,17 @@
 package de.HsH.inform.GraFlap.typetest;
 
-import de.HsH.inform.GraFlap.exception.GraFlapException;
+import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.JflapWrapper.entity.Submission;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
+import de.HsH.inform.GraFlap.entity.Type;
+import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**
  * Action for testing grammar to see what type of grammar it is.
  * @author Kyung Min (Jason) Lee edited by Ufuk Tosun
  * @author Frauke Sprengel (07/2015; additions and refactoring)
  * @author Benjamin Held (04-10-2016)
- * @since 05-09-2016
- * @version 0.2.8
+ * @version {@value GraFlap#version}
  */
 public class GrammarTypeTest {
 
@@ -20,14 +21,14 @@ public class GrammarTypeTest {
      * @return the grammar type (rl = rightlinear|cfg = contextfree but not rightlinear|ncfg = not contextfree)
      * @throws GraFlapException throws a {@link GraFlapException} if there is a problem with the submission
      */
-    public static String checkForGrammarType(Submission<Grammar> grammarSubmission) throws GraFlapException {
+    public static Type checkForGrammarType(Submission<Grammar> grammarSubmission) throws GraFlapException {
 
         if (isRightlinearGrammar(grammarSubmission.getSubmissionObject())) {
-            return "rl";
+            return Type.RL;
         } else if (isContextFreeGrammar(grammarSubmission.getSubmissionObject())){
-            return  "cfg";
+            return  Type.CFG;
         }
-        return "ncfg";
+        return Type.NCFG;
     }
 
     /**

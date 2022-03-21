@@ -5,3 +5,11 @@ target/
 
 *.xml
 !pom.xml
+
+schema
+
+kilian/
+
+GraFlap.ipr
+
+GraFlap.iws

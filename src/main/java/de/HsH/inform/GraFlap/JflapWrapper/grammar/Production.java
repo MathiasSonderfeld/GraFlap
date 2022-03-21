@@ -7,8 +7,7 @@ import model.symbols.symbolizer.Symbolizers;
 /**
  * wrapper class for JFLAP isolation to represent a production
  * @author Benjamin Held (04-20-2016)
- * @since 09-06-2016
- * @version 0.3.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class Production {
     /**

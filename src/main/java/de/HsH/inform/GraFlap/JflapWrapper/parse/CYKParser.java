@@ -1,11 +1,11 @@
 package de.HsH.inform.GraFlap.JflapWrapper.parse;
 
+import de.HsH.inform.GraFlap.JflapWrapper.exception.NonCNFGrammarException;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Production;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import model.algorithms.AlgorithmException;
 import model.symbols.Symbol;
-import de.HsH.inform.GraFlap.JflapWrapper.exception.NonCNFGrammarException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,8 +13,7 @@ import java.util.Set;
 /**
  * wrapper class for JFLAP isolation to represent the CYK parser
  * @author Benjamin Held (04-20-2016)
- * @since 09-20-2016
- * @version 0.3.2
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 public class CYKParser extends Parser<model.algorithms.testinput.parse.cyk.CYKParser> {
 

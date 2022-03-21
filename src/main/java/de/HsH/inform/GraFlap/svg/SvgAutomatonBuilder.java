@@ -1,19 +1,20 @@
 package de.HsH.inform.GraFlap.svg;
 
-import de.HsH.inform.GraFlap.entity.OperationMode;
+import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import org.jdom2.Document;
 import org.jdom2.Element;
-import de.HsH.inform.GraFlap.JflapWrapper.file.DOMFactory;
 
 import java.awt.geom.Point2D;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 /**
  * Child class of the {@link SvgBuilder} that creates a result svg for a jflap automaton
  * @author Benjamin Held (04-30-2016)
- * @since 07-06-2016
- * @version 0.2.0
+ * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
 abstract class SvgAutomatonBuilder extends SvgBuilder {
     /**
@@ -24,9 +25,20 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
      * scaling factor of the coordinates
      */
     final double SCALING = 50.0;
+    protected String emptyWord = "&#949;";
+    protected String bottom = "&perp;";
+    protected String blank = "#";
 
-    SvgAutomatonBuilder( OperationMode operationMode ) {
-        super(operationMode);
+    /**
+     * zu ersetzen
+     * E = "&#949;";  // epsilon
+     * Z = "&perp;";
+     * einfügen
+     *  <style> svg { max-width: 100%; max-height: 100%; } </style>
+     */
+
+    SvgAutomatonBuilder( boolean isSVGA ) {
+        super(isSVGA);
     }
 
     @Override
@@ -50,13 +62,15 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
     String buildPDATransitionText(Element element) {
         String pop = element.getChildText("pop");
         if (pop.isEmpty()) {
-            pop = "E";
+            pop = emptyWord;
         }
         String push = element.getChildText("push");
         if (push.isEmpty()) {
-            push = "E";
+            push = emptyWord;
         }
-        return " , " + pop + " ; " + push;
+        String transText = " , " + pop + " ; " + push;
+        transText = transText.replaceAll("Z",bottom);
+        return transText;
     }
 
     /**
@@ -85,22 +99,35 @@ abstract class SvgAutomatonBuilder extends SvgBuilder {
             graphVizResult = new BufferedReader(new InputStreamReader(graphViz.getInputStream()));
             graphVizInput = new PrintWriter(graphViz.getOutputStream());
 
+            /*
+             * GraphWiz expects more than one Input on Windows so I had to adapt this code accordingly.
+             * Graflap needs to send a SIGTERM after the task has been completed. Sending a SIGTERM is done via graphwiz.destroy().
+             * But Graflap has to wait for Graphwiz to do its job before sending SIGTERM.
+             * To achieve that I marked the beginning of the Graphwiz output and wait for the answer to appear.
+             * Then I reset the buffer to the mark at the beginning and then send SIGTERM. That way the buffer is at the beginning of the answer,
+             * Graphwiz has completed the task and SIGTERM is sent correctly.
+             */
             graphVizInput.println(gvString);
             graphVizInput.flush();
             graphVizInput.close();
-
-            graphViz.waitFor();
 
             String line;
             if ((line = graphVizResult.readLine()) != null) {
                 svgString +=line;
             }
+            // omit the DOCTYPE ...
             graphVizResult.readLine();
             graphVizResult.readLine();
             while ((line = graphVizResult.readLine()) != null) {
-                svgString += line;
+                // omit the background polygon
+                if (!line.contains("white")) {
+                    svgString += line;
+                }
             }
+            graphViz.destroy();
+            graphViz.waitFor();
         } catch ( IOException | InterruptedException e) {
+            e.printStackTrace();
             throw new GraFlapException("ERROR - Problems with showing the automaton in Graphviz. " + e.getMessage());
         } finally {
             if (graphViz != null) {
