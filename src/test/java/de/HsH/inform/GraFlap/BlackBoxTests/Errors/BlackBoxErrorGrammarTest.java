@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.BlackBoxTests.Errors;
 
-import de.HsH.inform.GraFlap.BlackBoxTests.BlackBoxTestTestwordsUtil;
+import de.HsH.inform.GraFlap.TestwordsUtil;
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Mode;
@@ -23,7 +23,7 @@ public class BlackBoxErrorGrammarTest{
         arguments.setReference("a*|(b|c)*a*((c+b*)*a*)*");
         arguments.setMode(mode);
         arguments.setType(Type.RL);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setNumberOfWords(50);
         arguments.setStudentAnswer("S -> a A | b S | c S | E , a A -> a A | c S | E");
         GraFlapException e = Assertions.assertThrows(GraFlapException.class, () -> GraFlap.processSubmission(arguments));
@@ -41,7 +41,7 @@ public class BlackBoxErrorGrammarTest{
         arguments.setReference("a*|(b|c)*a*((c+b*)*a*)*");
         arguments.setMode(mode);
         arguments.setType(Type.RL);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setNumberOfWords(50);
         arguments.setStudentAnswer("S -> a A | b S | c S | E , a -> a A | c S | E");
         GraFlapException e = Assertions.assertThrows(GraFlapException.class, () -> GraFlap.processSubmission(arguments));
@@ -59,7 +59,7 @@ public class BlackBoxErrorGrammarTest{
         arguments.setReference("a*|(b|c)*a*((c+b*)*a*)*");
         arguments.setMode(mode);
         arguments.setType(Type.RL);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setNumberOfWords(50);
         arguments.setStudentAnswer("S -> a A | b S | c S | E , S -> a 9 A | c & S | E");
         GraFlapException e = Assertions.assertThrows(GraFlapException.class, () -> GraFlap.processSubmission(arguments));

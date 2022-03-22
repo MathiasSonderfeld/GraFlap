@@ -1,6 +1,7 @@
 package de.HsH.inform.GraFlap.BlackBoxTests;
 
 import de.HsH.inform.GraFlap.GraFlap;
+import de.HsH.inform.GraFlap.TestwordsUtil;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Mode;
 import de.HsH.inform.GraFlap.entity.Type;
@@ -22,7 +23,7 @@ public class BlackBoxEmptyInputTest{
             arguments.setReference("");
             arguments.setMode(mode);
             arguments.setType(Type.NON);
-            arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+            arguments.setTestwords(TestwordsUtil.emptyTestwords);
             arguments.setNumberOfWords(50);
             arguments.setStudentAnswer("");
             tests.add(DynamicTest.dynamicTest("EmptyInput Test - " + mode.name(), () -> {

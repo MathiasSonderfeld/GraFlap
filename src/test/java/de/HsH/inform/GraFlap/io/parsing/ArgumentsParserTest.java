@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
-import de.HsH.inform.GraFlap.BlackBoxTests.BlackBoxTestTestwordsUtil;
+import de.HsH.inform.GraFlap.TestwordsUtil;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Mode;
 import de.HsH.inform.GraFlap.entity.Type;
@@ -103,6 +103,32 @@ public class ArgumentsParserTest {
         Assertions.assertEquals(toCompare, result);
     }
 
+
+    @Test
+    void parseInputWordsSuccessMP(){
+        Testwords toCompare = new Testwords();
+        toCompare.addToWordPairs("One", "Two");
+        toCompare.addToWordPairs("three", "four");
+
+        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.MP,2, "One;Two%three;four"));
+        Assertions.assertFalse(argumentsParser.isFilterWarning());
+        Assertions.assertEquals(toCompare, result);
+    }
+
+
+    @Test
+    void parseInputWordsSuccessMMW(){
+        Testwords toCompare = new Testwords();
+        toCompare.addToTestWordsList("One");
+        toCompare.addToTestWordsList("Two");
+        toCompare.addToTestWordsList("three");
+        toCompare.addToTestWordsList("four");
+
+        Testwords result = Assertions.assertDoesNotThrow(() -> argumentsParser.parseInputWords(Mode.MMW,4, "One%Two%three%four"));
+        Assertions.assertFalse(argumentsParser.isFilterWarning());
+        Assertions.assertEquals(toCompare, result);
+    }
+
     @Test
     void parseInputWordsWarning(){
         int expectedWords = 6;
@@ -121,6 +147,10 @@ public class ArgumentsParserTest {
         Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.AR,24, buildToooLongWords(1,11)));
     }
 
+    @Test
+    void parseInputWordsFail(){
+        Assertions.assertThrows(GraFlapException.class, () -> argumentsParser.parseInputWords(Mode.MP,4, "One%Two%three%four"));
+    }
 
     @Test
     void checkCorrectModeAndTypeAutomaton(){
@@ -173,7 +203,7 @@ public class ArgumentsParserTest {
         arguments.setType(Type.CFG);
         arguments.setReference("ThisIsGiven");
         arguments.setNumberOfWords(0);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setStudentAnswer(studentAnswer);
         ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
         String[] loncapaInput = {"LoncapaArgsToInputConverter#de#ThisIsGiven#GG#CFG#0#-", studentAnswer};
@@ -193,7 +223,7 @@ public class ArgumentsParserTest {
             arguments.setType(Type.CFG);
             arguments.setReference("ThisIsGiven");
             arguments.setNumberOfWords(0);
-            arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+            arguments.setTestwords(TestwordsUtil.emptyTestwords);
 
             ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
             String[] generatedInput = {argumentsToInputConverter.getBKP(), ""};

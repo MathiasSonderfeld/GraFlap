@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
-import de.HsH.inform.GraFlap.BlackBoxTests.BlackBoxTestTestwordsUtil;
+import de.HsH.inform.GraFlap.TestwordsUtil;
 import de.HsH.inform.GraFlap.entity.Arguments;
 import de.HsH.inform.GraFlap.entity.Mode;
 import de.HsH.inform.GraFlap.entity.Type;
@@ -25,7 +25,7 @@ public class ProformaParserTest {
         arguments.setType(Type.DFA);
         arguments.setReference("ThisIsGiven");
         arguments.setNumberOfWords(0);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setStudentAnswer(studentAnswer);
         arguments.setTransitions("Transitions");
         arguments.setInitials("Initials");
@@ -55,7 +55,7 @@ public class ProformaParserTest {
             arguments.setType(Type.CFG);
             arguments.setReference("ThisIsGiven");
             arguments.setNumberOfWords(0);
-            arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+            arguments.setTestwords(TestwordsUtil.emptyTestwords);
             arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
             ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
             String[] generatedInput = argumentsToInputConverter.getProformaInput();
@@ -64,22 +64,23 @@ public class ProformaParserTest {
         }
 
         @Test
-        void testSetsSuccess() throws GraFlapException {
+        void testSetsSuccess(){
             Arguments arguments = new Arguments();
             arguments.setTestId("graflap");
             arguments.setTaskTitle("ProformaParserTest OK");
             arguments.setUserLanguage(Locale.GERMAN);
-            arguments.setMode(Mode.AGP);
-            arguments.setType(Type.DFA);
+            arguments.setMode(Mode.AGTP);
+            arguments.setType(Type.DPDA);
             arguments.setReference("ThisIsGiven");
             arguments.setNumberOfWords(0);
-            arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+            arguments.setTestwords(TestwordsUtil.emptyTestwords);
             arguments.setStudentAnswer("ThisShouldBeTheStudentAnswer");
             arguments.setTransitions("Transitions");
             arguments.setInitials("Initials");
             arguments.setFinals("Finals");
             arguments.setStates("States");
             arguments.setAlphabet("Alphabet");
+            arguments.setAlphabet("Stackalphabet");
             ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
             String[] generatedInput = argumentsToInputConverter.getProformaInputWithSets();
             Arguments parsed = Assertions.assertDoesNotThrow(() -> proformaParser.parse(generatedInput));
@@ -99,6 +100,11 @@ public class ProformaParserTest {
             arguments.setStudentAnswer(null);
             ArgumentsToInputConverter argumentsToInputConverter = new ArgumentsToInputConverter(arguments);
             Assertions.assertThrows(GraFlapException.class, () -> proformaParser.parse(argumentsToInputConverter.getProformaInput()));
+        }
+
+        @Test
+        void testNullArray(){
+            Assertions.assertThrows(GraFlapException.class, () -> proformaParser.parse(null));
         }
     }
 }

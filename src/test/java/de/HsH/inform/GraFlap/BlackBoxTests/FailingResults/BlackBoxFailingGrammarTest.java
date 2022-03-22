@@ -1,6 +1,6 @@
 package de.HsH.inform.GraFlap.BlackBoxTests.FailingResults;
 
-import de.HsH.inform.GraFlap.BlackBoxTests.BlackBoxTestTestwordsUtil;
+import de.HsH.inform.GraFlap.TestwordsUtil;
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.Arguments;
@@ -23,7 +23,7 @@ public class BlackBoxFailingGrammarTest{
         arguments.setReference("S->aSa|a|bSb");
         arguments.setMode(mode);
         arguments.setType(Type.NON);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setNumberOfWords(50);
         arguments.setStudentAnswer("S->aSa|abSb");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
@@ -47,7 +47,7 @@ public class BlackBoxFailingGrammarTest{
         arguments.setReference("S->aSa|a|bSb");
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setNumberOfWords(50);
         arguments.setStudentAnswer("S->aS");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
@@ -72,7 +72,7 @@ public class BlackBoxFailingGrammarTest{
         arguments.setReference("S->aSa|a|bSb");
         arguments.setMode(mode);
         arguments.setType(Type.CFG);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setNumberOfWords(50);
         arguments.setStudentAnswer("S->aSa|abSb");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));
@@ -96,7 +96,7 @@ public class BlackBoxFailingGrammarTest{
         arguments.setReference("a*|(b|c)*a*((c+b*)*a*)*");
         arguments.setMode(mode);
         arguments.setType(Type.RL);
-        arguments.setTestwords(BlackBoxTestTestwordsUtil.emptyTestwords);
+        arguments.setTestwords(TestwordsUtil.emptyTestwords);
         arguments.setNumberOfWords(50);
         arguments.setStudentAnswer("S -> a A | b S | c S | E , S -> a 9 A | c S | E");
         AnswerMessage answerMessage = Assertions.assertDoesNotThrow(() -> GraFlap.processSubmission(arguments));

@@ -45,7 +45,7 @@ public class XmlAutomatonParserTest {
 
     @Test
     void testSuccessPDA() {
-        XmlAutomatonParser xmlAutomatonParser = Assertions.assertDoesNotThrow(() -> new XmlAutomatonParser("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>"));
+        XmlAutomatonParser xmlAutomatonParser = Assertions.assertDoesNotThrow(() -> new XmlAutomatonParser("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><!--Created with JFLAP 6.4.--><structure><type>pda</type><automaton><!--The list of states.--><state id=\"0\" name=\"q0\"><x>34.0</x><y>122.0</y><initial/></state><state id=\"1\" name=\"q1\"><x>177.0</x><y>117.0</y></state><state id=\"2\" name=\"q2\"><x>317.0</x><y>112.0</y></state><state id=\"3\" name=\"q3\"><x>465.0</x><y>108.0</y><final/></state><!--The list of transitions.--><transition><from>2</from><to>2</to><read>f</read><pop/><push/></transition><transition><from>1</from><to>2</to><read>f</read><pop>e</pop><push/></transition><transition><from>0</from><to>1</to><read>e</read><pop>Z</pop><push>e Z</push></transition><transition><from>1</from><to>1</to><read>e</read><pop>e</pop><push>ee</push></transition><transition><from>2</from><to>3</to><read/><pop>Z</pop><push/></transition></automaton></structure>"));
         State q0 = new State("q0", true, false);
         State q1 = new State("q1");
         State q2 = new State("q2");
@@ -53,7 +53,7 @@ public class XmlAutomatonParserTest {
         Transition t1 = new Transition(q0, q1, "e", "Z", "eZ");
         Transition t2 = new Transition(q1, q1, "e", "e", "ee");
         Transition t3 = new Transition(q1, q2, "f", "e", "E");
-        Transition t4 = new Transition(q2, q2, "f", "e", "E");
+        Transition t4 = new Transition(q2, q2, "f", "E", "E");
         Transition t5 = new Transition(q2, q3, "E", "Z", "E");
         TreeSet<State> states = new TreeSet<>(StateNameComparator.getInstance());
         states.add(q0); states.add(q1);  states.add(q2);  states.add(q3);

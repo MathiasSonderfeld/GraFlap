@@ -87,15 +87,15 @@ public class Testwords {
     }
 
     @Override
-    public boolean equals( Object o ) {
-        if(this == o) { return true; }
-        if(!( o instanceof Testwords )) { return false; }
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (!(o instanceof Testwords)) return false;
         Testwords testwords = (Testwords) o;
-        return Objects.equals(correctWords, testwords.correctWords) && Objects.equals(failingWords, testwords.failingWords);
+        return isEmpty() == testwords.isEmpty() && getCorrectWords().equals(testwords.getCorrectWords()) && getFailingWords().equals(testwords.getFailingWords()) && getWordpairs().equals(testwords.getWordpairs());
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(correctWords, failingWords);
+    public int hashCode(){
+        return Objects.hash(getCorrectWords(), getFailingWords(), getWordpairs(), isEmpty());
     }
 }

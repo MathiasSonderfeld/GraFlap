@@ -97,6 +97,7 @@ public abstract class ArgumentsParser {
             this.inputWordsAmount = wordPairsArray.length;
             for(int pair = 0; pair < wordPairsArray.length; pair++){
                 pairArray = wordPairsArray[pair].split(";");
+                if(pairArray.length < 2) throw new GraFlapException("Illegal Testwords Format");
                 if(pairArray[0].length() < wordLengthLimit || pairArray[1].length() < wordLengthLimit){
                     filterApprovedWordsAmount++;
                     testwords.addToWordPairs(pairArray[0], pairArray[1]);
@@ -107,6 +108,7 @@ public abstract class ArgumentsParser {
         //single list
         else if(mode == Mode.MMW){
             String[] testWordsArray = wordString.split("%");
+            this.inputWordsAmount = testWordsArray.length;
             for(String word : testWordsArray){
                 if(word.length() < wordLengthLimit){
                     testwords.addToTestWordsList(word);
@@ -118,6 +120,7 @@ public abstract class ArgumentsParser {
         //Word Lists
         else{
             String[] wordsSplitByCategory = wordString.split("!");
+            if(wordsSplitByCategory.length < 2) throw new GraFlapException("Illegal Testwords Format");
             String[] correctWordsArray = wordsSplitByCategory[0].split("%");
             String[] failingWordsArray = wordsSplitByCategory[1].split("%");
 

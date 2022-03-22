@@ -1,10 +1,8 @@
-package de.HsH.inform.GraFlap.BlackBoxTests;
+package de.HsH.inform.GraFlap;
 
 import de.HsH.inform.GraFlap.entity.Testwords;
-import de.HsH.inform.GraFlap.entity.ValuePair;
-import org.junit.jupiter.api.Test;
 
-public class BlackBoxTestTestwordsUtil{
+public class TestwordsUtil{
     public static final Testwords emptyTestwords = new Testwords();
 
     public static Testwords getListTestWords(String in){
