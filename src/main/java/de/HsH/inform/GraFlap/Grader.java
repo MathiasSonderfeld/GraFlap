@@ -293,7 +293,7 @@ public class Grader {
             }
         }
 
-        if(arguments.getMode().isParameterized()){
+        if(arguments.getMode().hasParts()){
             setResultsused = true;
             SetsTest setsTest = new SetsTest();
             setsTest.setJflapXml(arguments.getStudentAnswer());

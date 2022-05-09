@@ -25,7 +25,6 @@ public class SetsTest {
 
     private Pattern cleanUpMultiSet = Pattern.compile("\\{(((\\(|\\[)([a-zA-Z0-9 ,]+)(\\)|\\])|(\\(\\([a-zA-Z0-9 ,]+\\),\\([a-zA-Z0-9 ,]+\\)\\))),?\\s?)*\\}");
     private Pattern cleanUpAtomarSet = Pattern.compile("\\{[a-zA-Z0-9 ,]*\\}");
-
     private Pattern getAtomarSetsFromMultiSet = Pattern.compile("((\\(|\\[)([a-zA-Z0-9,]+)(\\)|\\])|(\\(\\([a-zA-Z0-9,]+\\),\\([a-zA-Z0-9,]+\\)\\)))");
     private Pattern getAtomarElementsFromSet = Pattern.compile("[a-zA-Z0-9]+");
 

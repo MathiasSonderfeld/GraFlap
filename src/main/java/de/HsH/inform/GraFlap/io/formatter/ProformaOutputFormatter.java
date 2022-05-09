@@ -68,7 +68,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
         buildMainTestResponse(testsResponse, answerMessage, answerMessage.getSvgImage());
 
-        if(answerMessage.getMode().isParameterized() || answerMessage.getMode() == Mode.AA){
+        if(answerMessage.getMode().hasParts() || answerMessage.getMode() == Mode.AA){
             buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
             buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
             buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());

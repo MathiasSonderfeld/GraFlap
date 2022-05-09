@@ -76,7 +76,7 @@ public enum Mode{ //TODO Refactor to mode, also do with type
         }
     }
 
-    public boolean isParameterized(){
+    public boolean hasParts(){
         switch(this){
             case ARP:
             case ARTP:

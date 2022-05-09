@@ -91,7 +91,7 @@ public class ProformaParser extends ArgumentsParser{
             arguments.setStudentAnswer(studentAnswer);
 
             //check if sets need to be extracted
-            if(arguments.getMode().isParameterized()){
+            if(arguments.getMode().hasParts()){
                 arguments.setStates(getFileContent(submissionFiles, "states"));
                 arguments.setInitials(getFileContent(submissionFiles, "initials"));
                 arguments.setFinals(getFileContent(submissionFiles, "finals"));
