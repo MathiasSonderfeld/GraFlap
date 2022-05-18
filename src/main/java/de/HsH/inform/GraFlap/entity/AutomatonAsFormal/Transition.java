@@ -2,12 +2,11 @@ package de.HsH.inform.GraFlap.entity.AutomatonAsFormal;
 
 /**
  * Entity Class to store a transition of an formally written automaton
- * implements comparable to be useable by TreeMap and TreeSet
  *
  * @author Mathias Sonderfeld (07-2021)
  * @version {@value de.HsH.inform.GraFlap.GraFlap#version}
  */
-public class Transition implements Comparable{
+public class Transition{
     private State from;
     private State to;
     private String read;
@@ -58,33 +57,6 @@ public class Transition implements Comparable{
     @Override
     public int hashCode(){
         return this.getFrom().hashCode() * this.getTo().hashCode() * this.getRead().hashCode();
-    }
-
-    /**
-     * Sorts by From, then To, then read, then pop, then push
-     * @param o the Object to compare to
-     * @return 0 if not sortable, -1, 0 or 1 else
-     */
-    @Override
-    public int compareTo(Object o){
-        int ret = 0;
-        if(o instanceof Transition){
-            Transition other = (Transition) o;
-            ret = this.getFrom().compareTo(other.getFrom());
-            if(ret==0){
-                ret = this.getTo().compareTo(other.getTo());
-            }
-            if(ret==0){
-                ret = this.getRead().compareTo(other.getRead());
-            }
-            if(ret==0){
-                ret = this.getPop().compareTo(other.getPop());
-            }
-            if(ret==0){
-                ret = this.getPush().compareTo(other.getPush());
-            }
-        }
-        return ret;
     }
 
     /**

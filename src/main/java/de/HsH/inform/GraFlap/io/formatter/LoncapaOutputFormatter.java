@@ -2,7 +2,7 @@ package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.MetaData;
-import de.HsH.inform.GraFlap.entity.TaskMode;
+import de.HsH.inform.GraFlap.entity.Mode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -27,7 +27,7 @@ public class LoncapaOutputFormatter implements OutputFormatter {
      * @return String containing the whole xml document
      */
     public String format( AnswerMessage answerMessage, MetaData metaData ) {
-        if (answerMessage.getTaskMode() == TaskMode.SVGA) {
+        if (answerMessage.getMode() == Mode.SVGA) {
             return answerMessage.getSvgImage();
         }
         try {

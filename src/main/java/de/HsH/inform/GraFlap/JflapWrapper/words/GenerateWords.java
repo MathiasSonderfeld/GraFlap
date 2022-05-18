@@ -50,7 +50,7 @@ public class GenerateWords {
 
 
     public Testwords generateTestWords(String regex) throws GraFlapException {
-        Testwords testwords = new Testwords(this.numberOfTestWords, this.numberOfTestWords * this.WRONG_WORD_RATIO_FACTOR);
+        Testwords testwords = new Testwords();
         testwords.addAllToCorrectWords(Arrays.asList(generateRightWordForRegex(regex)));
         testwords.addAllToFailingWords(Arrays.asList(generateWrongWordsForRegex(regex)));
         return testwords;
@@ -129,7 +129,7 @@ public class GenerateWords {
         Submission<Grammar> submission = ConvertSubmission.openGrammar(jffGrammar);
         Grammar grammar = submission.getSubmissionObject();
         Parser parser = determineParser(grammar);
-        Testwords testwords = new Testwords(numberOfTestWords, numberOfTestWords * WRONG_WORD_RATIO_FACTOR);
+        Testwords testwords = new Testwords();
         testwords.addAllToCorrectWords(Arrays.asList(WordBuilder.buildWords(numberOfTestWords, submission.getSubmissionObject())));
         ArrayList<String> wrongWords = testwords.getFailingWords();
         int wrongWordCount = 0;

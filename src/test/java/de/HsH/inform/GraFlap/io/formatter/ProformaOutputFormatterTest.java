@@ -2,8 +2,8 @@ package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.MetaData;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
+import de.HsH.inform.GraFlap.entity.Mode;
+import de.HsH.inform.GraFlap.entity.Type;
 import org.junit.jupiter.api.*;
 
 import static org.mockito.Mockito.mock;
@@ -32,7 +32,7 @@ public class ProformaOutputFormatterTest {
         String taskTitle = "Test Success";
         String svgImageContent = "thisIsATest";
         String svgTitle = "SVGTitle";
-        TaskMode taskMode = TaskMode.GG;
+        Mode mode = Mode.GG;
         String feedback = "mocked test successfull";
         double score = 1.0;
         String gradingtime = "Grading took 2 ms";
@@ -42,7 +42,7 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getTaskTitle()).thenReturn(taskTitle);
         when(messageMock.getSvgImage()).thenReturn("<" + svgImageContent +"/>");
         when(messageMock.getSvgTitle()).thenReturn(svgTitle);
-        when(messageMock.getTaskMode()).thenReturn(taskMode);
+        when(messageMock.getMode()).thenReturn(mode);
         when(messageMock.getFeedback()).thenReturn(feedback);
         when(messageMock.getWarnings()).thenReturn("");
         when(messageMock.getScore()).thenReturn(score);
@@ -58,7 +58,7 @@ public class ProformaOutputFormatterTest {
         String taskTitle = "Test Success";
         String svgImageContent = "thisIsATest";
         String svgTitle = "SVGTitle";
-        TaskMode taskMode = TaskMode.GG;
+        Mode mode = Mode.GG;
         String feedback = "mocked test successfull";
         String warning = "this is a warning";
         String extra = "";
@@ -70,7 +70,7 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getTaskTitle()).thenReturn(taskTitle);
         when(messageMock.getSvgImage()).thenReturn("<" + svgImageContent +"/>");
         when(messageMock.getSvgTitle()).thenReturn(svgTitle);
-        when(messageMock.getTaskMode()).thenReturn(taskMode);
+        when(messageMock.getMode()).thenReturn(mode);
         when(messageMock.getFeedback()).thenReturn(feedback);
         when(messageMock.getWarnings()).thenReturn(warning);
         when(messageMock.getScore()).thenReturn(score);
@@ -87,8 +87,8 @@ public class ProformaOutputFormatterTest {
         String taskTitle = "Test Success with Sets";
         String svgImageContent = "thisIsATest";
         String svgTitle = "SVGTitle";
-        TaskMode taskMode = TaskMode.ARP;
-        TaskType taskType = TaskType.PDA;
+        Mode mode = Mode.ARP;
+        Type type = Type.PDA;
         String feedback = "mocked test successfull";
         boolean passed = true;
         double score = 1.0;
@@ -104,8 +104,8 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getTaskTitle()).thenReturn(taskTitle);
         when(messageMock.getSvgImage()).thenReturn("<" + svgImageContent +"/>");
         when(messageMock.getSvgTitle()).thenReturn(svgTitle);
-        when(messageMock.getTaskMode()).thenReturn(taskMode);
-        when(messageMock.getTaskType()).thenReturn(taskType);
+        when(messageMock.getMode()).thenReturn(mode);
+        when(messageMock.getTaskType()).thenReturn(type);
         when(messageMock.getFeedback()).thenReturn(feedback);
         when(messageMock.getFeedbackTitle()).thenReturn(feedbacktitle);
         when(messageMock.getScore()).thenReturn(score);
@@ -149,7 +149,7 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getTaskTitle()).thenReturn("Test for LoncapaBuilder.getXML Result Fail");
         when(messageMock.getSvgImage()).thenReturn("<thisIsATest/>");
         when(messageMock.getSvgTitle()).thenReturn("SVGTitle");
-        when(messageMock.getTaskMode()).thenReturn(TaskMode.GG);
+        when(messageMock.getMode()).thenReturn(Mode.GG);
         when(messageMock.getFeedback()).thenReturn("mocked test successfull");
         when(messageMock.getWarnings()).thenReturn("");
         when(messageMock.hasPassed()).thenReturn(false);
@@ -170,7 +170,7 @@ public class ProformaOutputFormatterTest {
         String extra = "";
         AnswerMessage messageMock = mock(AnswerMessage.class);
         when(messageMock.getSvgImage()).thenReturn("<svgimagecontent/>");
-        when(messageMock.getTaskMode()).thenReturn(TaskMode.SVGA);
+        when(messageMock.getMode()).thenReturn(Mode.SVGA);
         when(messageMock.getTeachersExtra()).thenReturn(extra);
 
         String xml = "<svgimagecontent/>";
@@ -187,7 +187,7 @@ public class ProformaOutputFormatterTest {
         when(messageMock.getTaskTitle()).thenReturn(null);
         when(messageMock.getSvgImage()).thenReturn(null);
         when(messageMock.getSvgTitle()).thenReturn(null);
-        when(messageMock.getTaskMode()).thenReturn(null);
+        when(messageMock.getMode()).thenReturn(null);
         when(messageMock.getFeedback()).thenReturn(null);
         when(messageMock.hasPassed()).thenReturn(false);
         Assertions.assertThrows(NullPointerException.class, () -> proformaFormatter.format(messageMock, ProformaOutputFormatterTest.metaData));

@@ -1,6 +1,11 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
+import de.HsH.inform.GraFlap.entity.Mode;
+import de.HsH.inform.GraFlap.entity.Testwords;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Helper class to compare Arguments Objects as it doenst have equals Method implemented yet
@@ -14,11 +19,63 @@ public class ArgumentsToInputConverter {
         graflapArguments = new StringBuilder();
         graflapArguments.append(arguments.getTaskTitle()).append("#")
                 .append(arguments.getUserLanguage()).append("#")
-                .append(arguments.getSolution()).append("#")
-                .append(arguments.getTaskMode().toString()).append("#")
-                .append(arguments.getTaskType().toString()).append("#")
-                .append(arguments.getNumberOfWords()).append("#")
-                .append(arguments.getWordString());
+                .append(arguments.getReference()).append("#");
+
+        if(arguments.getMode() != null)
+            graflapArguments.append(arguments.getMode().toString()).append("#");
+        else
+            graflapArguments.append("null").append("#");
+
+        if(arguments.getType() != null)
+            graflapArguments.append(arguments.getType().toString()).append("#");
+        else
+            graflapArguments.append("null").append("#");
+
+        graflapArguments.append(arguments.getNumberOfWords()).append("#");
+
+        StringBuilder testwordsString = new StringBuilder();
+        Testwords testwords = arguments.getTestwords();
+        if(testwords == null || testwords.isEmpty())
+            testwordsString.append("-");
+
+        else if(arguments.getMode() == Mode.DER || arguments.getMode() == Mode.CYK){
+            testwordsString.append(testwords.getSingleWord());
+        }
+        else if(arguments.getMode() == Mode.MP){
+            HashMap<String, String> wordpairs = testwords.getWordpairs();
+            String[] froms = wordpairs.keySet().toArray(new String[wordpairs.keySet().size()]);
+
+            for(int fromIndex = 0; fromIndex < froms.length-1; fromIndex++){
+                testwordsString.append(froms[fromIndex]).append(";").append(wordpairs.get(froms[fromIndex])).append("%");
+            }
+            testwordsString.append(froms[froms.length-1]).append(";").append(wordpairs.get(froms[froms.length-1]));
+        }
+        else if(arguments.getMode() == Mode.MMW){
+            List<String> wordList = testwords.getTestWordsList();
+            for(int wordIndex = 0; wordIndex < wordList.size()-1; wordIndex++){
+                testwordsString.append(wordList.get(wordIndex)).append("%");
+            }
+            testwordsString.append(wordList.get(wordList.size()-1));
+        }
+        else {
+            List<String> wordList = testwords.getCorrectWords();
+            for(int wordIndex = 0; wordIndex < wordList.size()-1; wordIndex++){
+                testwordsString.append(wordList.get(wordIndex)).append("%");
+            }
+            testwordsString.append(wordList.get(wordList.size()-1)).append("!");
+
+            wordList = testwords.getFailingWords();
+            for(int wordIndex = 0; wordIndex < wordList.size()-1; wordIndex++){
+                testwordsString.append(wordList.get(wordIndex)).append("%");
+            }
+            testwordsString.append(wordList.get(wordList.size()-1));
+
+        }
+        graflapArguments.append(testwordsString);
+    }
+
+    public String getBKP(){
+        return graflapArguments.toString();
     }
 
     public String[] getLoncapaInput(){
@@ -27,7 +84,9 @@ public class ArgumentsToInputConverter {
     }
 
     private StringBuilder getMainProforma(){
-        String filename = ProformaParser.getFileNameFromTaskMode(arguments.getTaskMode());
+        if(arguments.getMode() == null)
+            arguments.setMode(Mode.ERROR);
+        String filename = ProformaParser.getFileNameFromMode(arguments.getMode());
         StringBuilder sb = new StringBuilder();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><proforma:submission xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:proforma=\"urn:proforma:v2.1\" id=\"SubmissionUUID\"><proforma:task uuid=\"0123\" parent-uuid=\"0\" lang=\"de\">")
                 .append(arguments.getTaskTitle()).append("<proforma:description>Blocked</proforma:description><proforma:proglang version=\"1.0\">Blocked</proforma:proglang><proforma:files><proforma:file id=\"graflap-arguments\" ")

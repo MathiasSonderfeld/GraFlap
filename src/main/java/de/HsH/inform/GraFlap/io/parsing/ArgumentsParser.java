@@ -1,9 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
-import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
-import de.HsH.inform.GraFlap.entity.Testwords;
+import de.HsH.inform.GraFlap.entity.*;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 import java.util.Locale;
@@ -18,10 +15,8 @@ public abstract class ArgumentsParser {
     private static final double warningThreshhold = 0.8;
     private static final double abortThreshhold = 0.1;
 
-    private int correctWordsAmount = 0;
-    private int filteredCorrectWordsAmount = 0;
-    private int failingWordsAmount = 0;
-    private int filteredFailingWordsAmount = 0;
+    private int inputWordsAmount = 0;
+    private int filterApprovedWordsAmount = 0;
     private boolean filterWarning = false;
 
     public Arguments parse(String[] args) throws GraFlapException{
@@ -30,37 +25,32 @@ public abstract class ArgumentsParser {
         if(taskArguments.length < 7) throw new GraFlapException("less than 7 graflap-arguments, cant parse task");
 
         arguments.setTaskTitle(taskArguments[0]);
-        arguments.setUserLanguage(getLocale(taskArguments[1]));
-        arguments.setSolution(taskArguments[2]);
+        arguments.setUserLanguage(Locale.forLanguageTag((taskArguments[1])));
+        arguments.setReference(taskArguments[2]);
         int numberOfWords = parseAndCheckNumberOfWords(taskArguments[5]);
         arguments.setNumberOfWords(numberOfWords);
-        arguments.setTestwords(parseInputWords(numberOfWords, taskArguments[6]));
-        arguments.setWordString(taskArguments[6]);
 
-        TaskMode taskMode;
+        Mode mode;
         try{
-            taskMode = TaskMode.valueOf(taskArguments[3].toUpperCase());
+            mode = Mode.valueOf(taskArguments[3].toUpperCase());
         }
         catch(Exception e){
-            taskMode = TaskMode.ERROR;
+            mode = Mode.ERROR;
         }
 
-        TaskType taskType;
+        Type type;
         try{
-            taskType = TaskType.valueOf(taskArguments[4].toUpperCase());
+            type = Type.valueOf(taskArguments[4].toUpperCase());
         }
         catch(Exception e){
-            taskType = TaskType.ERROR;
+            type = Type.ERROR;
         }
 
-        checkCorrectModeAndType(taskMode, taskType);
-        arguments.setTaskMode(taskMode);
-        arguments.setTaskType(taskType);
+        checkCorrectModeAndType(mode, type);
+        arguments.setMode(mode);
+        arguments.setType(type);
+        arguments.setTestwords(parseInputWords(mode, numberOfWords, taskArguments[6]));
         return arguments;
-    }
-
-    protected Locale getLocale( String in){
-        return Locale.forLanguageTag(in);
     }
 
     /**
@@ -85,41 +75,76 @@ public abstract class ArgumentsParser {
      * method to check if test words are provided and if the number of provided words in the word string match the specified number of input words
      * @throws GraFlapException if the number of words does not match the number of words in the word string
      */
-    protected Testwords parseInputWords( int numberOfWords, String wordString ) throws GraFlapException {
+    protected Testwords parseInputWords(Mode mode, int numberOfWords, String wordString ) throws GraFlapException {
         if(wordString == null) throw new GraFlapException("WordString must not be null");
-        if(wordString.equals("-")){
-            return new Testwords(0,0);
-        }
-        String[] wordsSplitByCategory = wordString.split("!");
-        String[] correctWordsArray = wordsSplitByCategory[0].split("%");
-        String[] failingWordsArray;
-        if(wordsSplitByCategory.length == 2){
-            failingWordsArray = wordsSplitByCategory[1].split("%");
-        }
-        else{
-            failingWordsArray = new String[0];
-        }
-        this.correctWordsAmount = correctWordsArray.length;
-        this.failingWordsAmount = failingWordsArray.length;
-        if(this.correctWordsAmount + this.failingWordsAmount != numberOfWords) throw new GraFlapException("NumberOfWords and WordString Mismatch");
+        if(mode == Mode.ERROR) return null;
+        Testwords testwords = new Testwords();
+        if(wordString.equals("-")) return testwords;
 
-        Testwords testwords = new Testwords(this.correctWordsAmount, this.failingWordsAmount);
-        for(String word : correctWordsArray){
-            if(word.length() < wordLengthLimit){
-                testwords.addToCorrectWords(word);
-                this.filteredCorrectWordsAmount++;
+        // Single Word
+        if(mode == Mode.DER || mode == Mode.CYK){
+            this.inputWordsAmount = 1;
+            if(wordString.length() < wordLengthLimit){
+                this.filterApprovedWordsAmount++;
+                testwords.setSingleWord(wordString);
             }
         }
-        for(String word : failingWordsArray){
-            if(word.length() < wordLengthLimit){
-                testwords.addToFailingWords(word);
-                this.filteredFailingWordsAmount++;
+
+        //word pairs
+        else if(mode == Mode.MP){
+            String[] wordPairsArray = wordString.split("%");
+            String[] pairArray;
+            this.inputWordsAmount = wordPairsArray.length;
+            for(int pair = 0; pair < wordPairsArray.length; pair++){
+                pairArray = wordPairsArray[pair].split(";");
+                if(pairArray.length < 2) throw new GraFlapException("Illegal Testwords Format");
+                if(pairArray[0].length() < wordLengthLimit || pairArray[1].length() < wordLengthLimit){
+                    filterApprovedWordsAmount++;
+                    testwords.addToWordPairs(pairArray[0], pairArray[1]);
+                }
             }
         }
-        double filteredPercentage = (this.filteredCorrectWordsAmount + this.filteredFailingWordsAmount) / ((double) (this.correctWordsAmount + this.failingWordsAmount));
+
+        //single list
+        else if(mode == Mode.MMW){
+            String[] testWordsArray = wordString.split("%");
+            this.inputWordsAmount = testWordsArray.length;
+            for(String word : testWordsArray){
+                if(word.length() < wordLengthLimit){
+                    testwords.addToTestWordsList(word);
+                    this.filterApprovedWordsAmount++;
+                }
+            }
+        }
+
+        //Word Lists
+        else{
+            String[] wordsSplitByCategory = wordString.split("!");
+            if(wordsSplitByCategory.length < 2) throw new GraFlapException("Illegal Testwords Format");
+            String[] correctWordsArray = wordsSplitByCategory[0].split("%");
+            String[] failingWordsArray = wordsSplitByCategory[1].split("%");
+
+            int correctWordsAmount = correctWordsArray.length;
+            int failingWordsAmount = failingWordsArray.length;
+            this.inputWordsAmount = correctWordsAmount + failingWordsAmount;
+
+            for(String word : correctWordsArray){
+                if(word.length() < wordLengthLimit){
+                    testwords.addToCorrectWords(word);
+                    this.filterApprovedWordsAmount++;
+                }
+            }
+            for(String word : failingWordsArray){
+                if(word.length() < wordLengthLimit){
+                    testwords.addToFailingWords(word);
+                    this.filterApprovedWordsAmount++;
+                }
+            }
+        }
+        if(this.inputWordsAmount != numberOfWords) throw new GraFlapException("NumberOfWords and WordString Mismatch");
+        double filteredPercentage = this.filterApprovedWordsAmount / ((double) this.inputWordsAmount);
         if(filteredPercentage < warningThreshhold) this.filterWarning = true;
-        if(filteredPercentage < abortThreshhold) throw new GraFlapException("more than "+ Math.round((1-abortThreshhold)*100) +"% of the words were filtered because they were too long. Grading " +
-                "aborted.");
+        if(filteredPercentage < abortThreshhold) throw new GraFlapException("more than " + Math.round((1-abortThreshhold)*100) + "% of the words were filtered because they were too long. Grading aborted.");
         return testwords;
     }
 
@@ -129,22 +154,30 @@ public abstract class ArgumentsParser {
      * @param type the type to verify
      * @throws GraFlapException if mismatch is found
      */
-    protected void checkCorrectModeAndType( TaskMode mode, TaskType type ) throws GraFlapException {
+    protected void checkCorrectModeAndType(Mode mode, Type type ) throws GraFlapException {
         if(mode == null) { throw new GraFlapException("Mode-Setting is wrong"); }
-
-        if(type == null) { throw new GraFlapException("AgType-Setting is wrong"); }
+        if(type == null) { throw new GraFlapException("Type-Setting is wrong"); }
 
         switch(mode){
             //Automaton Modes
+            case AA:
             case AR:
-            case AG:
             case ART:
+            case AG:
             case AGT:
-            case EAT:
             case ARW:
             case AGW:
             case ARTW:
             case AGTW:
+            case EAT:
+            case ARP:
+            case ARTP:
+            case AGP:
+            case AGTP:
+            case ARWP:
+            case AGWP:
+            case ARTWP:
+            case AGTWP:
                 switch(type){
                     //Automaton Types
                     case FA:
@@ -206,19 +239,11 @@ public abstract class ArgumentsParser {
         return filterWarning;
     }
 
-    public int getCorrectWordsAmount() {
-        return correctWordsAmount;
+    public int getInputWordsAmount(){
+        return inputWordsAmount;
     }
 
-    public int getFilteredCorrectWordsAmount() {
-        return filteredCorrectWordsAmount;
-    }
-
-    public int getFailingWordsAmount() {
-        return failingWordsAmount;
-    }
-
-    public int getFilteredFailingWordsAmount() {
-        return filteredFailingWordsAmount;
+    public int getFilterApprovedWordsAmount(){
+        return filterApprovedWordsAmount;
     }
 }

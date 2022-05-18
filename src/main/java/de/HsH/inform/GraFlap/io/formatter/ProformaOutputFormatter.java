@@ -3,7 +3,7 @@ package de.HsH.inform.GraFlap.io.formatter;
 import de.HsH.inform.GraFlap.GraFlap;
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
 import de.HsH.inform.GraFlap.entity.MetaData;
-import de.HsH.inform.GraFlap.entity.TaskMode;
+import de.HsH.inform.GraFlap.entity.Mode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -34,7 +34,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
      * @return xml as String
      */
     public String format(AnswerMessage answerMessage, MetaData metaData){
-        if (answerMessage.getTaskMode() == TaskMode.SVGA) {
+        if (answerMessage.getMode() == Mode.SVGA) {
             return answerMessage.getSvgImage();
         }
         this.metaData = metaData;
@@ -68,7 +68,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
         Element testsResponse = createElement(seperateTestFeedback, "tests-response");
         buildMainTestResponse(testsResponse, answerMessage, answerMessage.getSvgImage());
 
-        if(answerMessage.getTaskMode().isParameterized() || answerMessage.getTaskMode() == TaskMode.AA){
+        if(answerMessage.getMode().hasParts() || answerMessage.getMode() == Mode.AA){
             buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "states", answerMessage.getStatesScore(), answerMessage.getStatesTeacherFeedback(), answerMessage.getStatesStudentFeedback());
             buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "initials", answerMessage.getInitialsScore(), answerMessage.getInitialsTeacherFeedback(), answerMessage.getInitialsStudentFeedback());
             buildSetsTestResponse(testsResponse, answerMessage.getFeedbackTitle(), "finals", answerMessage.getFinalsScore(), answerMessage.getFinalsTeacherFeedback(), answerMessage.getFinalsStudentFeedback());
@@ -92,7 +92,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
      * builds Test Response Segment for general feedback
      */
     private void buildMainTestResponse(Element testsResponse, AnswerMessage answerMessage, String svgAsString){
-        Element feedbackList = buildPartTestResponse(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), !answerMessage.isError()?"1.0":"0.0");
+        Element feedbackList = buildTestResponsePart(testsResponse, metaData.getTestID(), "" + answerMessage.getScore(), !answerMessage.isError()?"1.0":"0.0");
         //addFeedback(feedbackList, false, "Musterloesung", "plaintext", "", true); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, false, "Time", "html", answerMessage.getTime(), false); //answerMessage.getMusterloesung()
         addFeedback(feedbackList, true, answerMessage.getSvgTitle(), "html", svgAsString, true);
@@ -113,7 +113,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
      * builds Test Response Segment for a Set Task Feedback
      */
     private void buildSetsTestResponse(Element testsResponse, String feedbackTitle, String testTitle, double score ,String teacherFeedbackText, String studentFeedbackText){
-        Element feedbackList = buildPartTestResponse(testsResponse, testTitle, "" + score, "1.0");
+        Element feedbackList = buildTestResponsePart(testsResponse, testTitle, "" + score, "1.0");
         addFeedback(feedbackList, false, feedbackTitle, "html", teacherFeedbackText, false);
         addFeedback(feedbackList,true, feedbackTitle, "html", studentFeedbackText, false);
         System.out.println("");
@@ -122,7 +122,7 @@ public class ProformaOutputFormatter implements OutputFormatter {
     /**
      * bundled to remove Redundancy
      */
-    private Element buildPartTestResponse(Element testsResponse, String id, String scoreValue, String validityValue){
+    private Element buildTestResponsePart(Element testsResponse, String id, String scoreValue, String validityValue){
         Element testResponse = createElement(testsResponse, "test-response", "id", id);
         Element testResult = createElement(testResponse, "test-result");
         Element result = createElement(testResult, "result");

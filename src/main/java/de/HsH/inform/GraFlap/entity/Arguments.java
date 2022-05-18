@@ -13,13 +13,12 @@ public class Arguments {
     private String testId = "";
     private String taskTitle = "";
     private Locale userLanguage = Locale.ROOT;
-    private String solution = "";
+    private String reference = "";
     private Testwords testwords;
-    private String wordString = "-";
     private int numberOfWords = -1;
     private String studentAnswer = "";
-    private TaskMode taskMode = TaskMode.ERROR;
-    private TaskType taskType = TaskType.ERROR;
+    private Mode mode = Mode.ERROR;
+    private Type type = Type.ERROR;
 
     private String states = "";
     private String initials = "";
@@ -36,12 +35,12 @@ public class Arguments {
         this.testId = testId;
     }
 
-    public TaskType getTaskType() {
-        return taskType;
+    public Type getType() {
+        return type;
     }
 
-    public void setTaskType( TaskType taskType ) {
-        this.taskType = taskType;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public String getTaskTitle() {
@@ -60,12 +59,12 @@ public class Arguments {
         this.userLanguage = userLanguage;
     }
 
-    public String getSolution() {
-        return solution;
+    public String getReference() {
+        return reference;
     }
 
-    public void setSolution( String solution ) {
-        this.solution = solution;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public void setTestwords(Testwords testwords){
@@ -74,14 +73,6 @@ public class Arguments {
 
     public Testwords getTestwords() {
         return testwords;
-    }
-
-    public void setWordString( String wordString ) {
-        this.wordString = wordString;
-    }
-
-    public String getWordString() {
-        return wordString;
     }
 
     public int getNumberOfWords() {
@@ -100,12 +91,12 @@ public class Arguments {
         this.studentAnswer = studentAnswer;
     }
 
-    public TaskMode getTaskMode() {
-        return taskMode;
+    public Mode getMode() {
+        return mode;
     }
 
-    public void setTaskMode( TaskMode taskMode ) {
-        this.taskMode = taskMode;
+    public void setMode(Mode mode) {
+        this.mode = mode;
     }
 
     public String getStates() {
@@ -161,11 +152,11 @@ public class Arguments {
         if (this == o) return true;
         if (!(o instanceof Arguments)) return false;
         Arguments arguments = (Arguments) o;
-        return getNumberOfWords() == arguments.getNumberOfWords() && Objects.equals(getTestId(), arguments.getTestId()) && Objects.equals(getTaskTitle(), arguments.getTaskTitle()) && Objects.equals(getUserLanguage(), arguments.getUserLanguage()) && Objects.equals(getSolution(), arguments.getSolution()) && Objects.equals(getTestwords(), arguments.getTestwords()) && Objects.equals(getWordString(), arguments.getWordString()) && Objects.equals(getStudentAnswer(), arguments.getStudentAnswer()) && getTaskMode() == arguments.getTaskMode() && getTaskType() == arguments.getTaskType() && Objects.equals(getStates(), arguments.getStates()) && Objects.equals(getInitials(), arguments.getInitials()) && Objects.equals(getFinals(), arguments.getFinals()) && Objects.equals(getAlphabet(), arguments.getAlphabet()) && Objects.equals(getStackalphabet(), arguments.getStackalphabet()) && Objects.equals(getTransitions(), arguments.getTransitions());
+        return getNumberOfWords() == arguments.getNumberOfWords() && Objects.equals(getTestId(), arguments.getTestId()) && Objects.equals(getTaskTitle(), arguments.getTaskTitle()) && Objects.equals(getUserLanguage(), arguments.getUserLanguage()) && Objects.equals(getReference(), arguments.getReference()) && Objects.equals(getTestwords(), arguments.getTestwords()) && Objects.equals(getStudentAnswer(), arguments.getStudentAnswer()) && getMode() == arguments.getMode() && getType() == arguments.getType() && Objects.equals(getStates(), arguments.getStates()) && Objects.equals(getInitials(), arguments.getInitials()) && Objects.equals(getFinals(), arguments.getFinals()) && Objects.equals(getAlphabet(), arguments.getAlphabet()) && Objects.equals(getStackalphabet(), arguments.getStackalphabet()) && Objects.equals(getTransitions(), arguments.getTransitions());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTestId(), getTaskTitle(), getUserLanguage(), getSolution(), getTestwords(), getWordString(), getNumberOfWords(), getStudentAnswer(), getTaskMode(), getTaskType(), getStates(), getInitials(), getFinals(), getAlphabet(), getStackalphabet(), getTransitions());
+        return Objects.hash(getTestId(), getTaskTitle(), getUserLanguage(), getReference(), getTestwords(), getNumberOfWords(), getStudentAnswer(), getMode(), getType(), getStates(), getInitials(), getFinals(), getAlphabet(), getStackalphabet(), getTransitions());
     }
 }

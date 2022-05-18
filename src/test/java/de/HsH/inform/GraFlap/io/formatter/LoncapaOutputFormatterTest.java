@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.io.formatter;
 
 import de.HsH.inform.GraFlap.answerMessage.AnswerMessage;
-import de.HsH.inform.GraFlap.entity.TaskMode;
+import de.HsH.inform.GraFlap.entity.Mode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ public class LoncapaOutputFormatterTest {
         when(message.getTaskTitle()).thenReturn("Test for LoncapaBuilder.getXML Result Success");
         when(message.getSvgImage()).thenReturn("<thisIsATest />");
         when(message.getSvgTitle()).thenReturn("SVGTitle");
-        when(message.getTaskMode()).thenReturn(TaskMode.GG);
+        when(message.getMode()).thenReturn(Mode.GG);
         when(message.getFeedback()).thenReturn("mocked test successfull");
         when(message.hasPassed()).thenReturn(true);
         String xml = "<loncapagrade><awarddetail>EXACT_ANS</awarddetail><message><taskresult grade=\"passed\"><tasktitle>Test for LoncapaBuilder.getXML Result Success</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
@@ -43,7 +43,7 @@ public class LoncapaOutputFormatterTest {
         when(message.getTaskTitle()).thenReturn("Test for LoncapaBuilder.getXML Result Fail");
         when(message.getSvgImage()).thenReturn("<thisIsATest />");
         when(message.getSvgTitle()).thenReturn("SVGTitle");
-        when(message.getTaskMode()).thenReturn(TaskMode.GG);
+        when(message.getMode()).thenReturn(Mode.GG);
         when(message.getFeedback()).thenReturn("mocked test successfull");
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle>Test for LoncapaBuilder.getXML Result Fail</tasktitle><titlesvg>SVGTitle</titlesvg><imagesvg><![CDATA[<thisIsATest />]]></imagesvg><resulttext>mocked test successfull</resulttext></taskresult></message></loncapagrade>";
@@ -58,7 +58,7 @@ public class LoncapaOutputFormatterTest {
     void testGetXMLResultSVG(){
         AnswerMessage message = mock(AnswerMessage.class);
         when(message.getSvgImage()).thenReturn("<thisIsATest />");
-        when(message.getTaskMode()).thenReturn(TaskMode.SVGA);
+        when(message.getMode()).thenReturn(Mode.SVGA);
         String xml = "<thisIsATest />";
 
         Assertions.assertEquals(Filter.filter(xml), Filter.filter(loncapaFormatter.format(message, null)));
@@ -73,7 +73,7 @@ public class LoncapaOutputFormatterTest {
         when(message.getTaskTitle()).thenReturn(null);
         when(message.getSvgImage()).thenReturn(null);
         when(message.getSvgTitle()).thenReturn(null);
-        when(message.getTaskMode()).thenReturn(null);
+        when(message.getMode()).thenReturn(null);
         when(message.getFeedback()).thenReturn(null);
         when(message.hasPassed()).thenReturn(false);
         String xml = "<loncapagrade><awarddetail>INCORRECT</awarddetail><message><taskresult grade=\"failed\"><tasktitle /><titlesvg /><resulttext /></taskresult></message></loncapagrade>";

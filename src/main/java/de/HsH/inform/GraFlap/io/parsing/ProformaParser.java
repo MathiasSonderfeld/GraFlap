@@ -1,7 +1,7 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.TaskMode;
+import de.HsH.inform.GraFlap.entity.Mode;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.SilentHandler;
 import org.w3c.dom.Document;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static de.HsH.inform.GraFlap.io.XmlStreamConstants.*;
 
@@ -86,19 +85,19 @@ public class ProformaParser extends ArgumentsParser{
                                                           .flatMap(toChildElements)
                                                           .filter(byName("files")).flatMap(toChildElements)
                                                           .collect(Collectors.toList());
-            String studentAnswerFileName = getFileNameFromTaskMode(arguments.getTaskMode());
-            if(studentAnswerFileName.equals("internal")) throw new GraFlapException("Illegal Taskmode");
+            String studentAnswerFileName = getFileNameFromMode(arguments.getMode());
+            if(studentAnswerFileName.equals("internal")) throw new GraFlapException("Illegal Mode in Task");
             String studentAnswer = getFileContent(submissionFiles, studentAnswerFileName);
             arguments.setStudentAnswer(studentAnswer);
 
             //check if sets need to be extracted
-            if(arguments.getTaskMode().isParameterized()){
+            if(arguments.getMode().hasParts()){
                 arguments.setStates(getFileContent(submissionFiles, "states"));
                 arguments.setInitials(getFileContent(submissionFiles, "initials"));
                 arguments.setFinals(getFileContent(submissionFiles, "finals"));
                 arguments.setAlphabet(getFileContent(submissionFiles, "alphabet"));
                 arguments.setTransitions(getFileContent(submissionFiles, "transitions"));
-                if(arguments.getTaskMode().isTyped() && (arguments.getTaskType().isPushDownAutomaton() || arguments.getTaskType().isTuring())){
+                if(arguments.getMode().isTyped() && (arguments.getType().isPushDownAutomaton() || arguments.getType().isTuring())){
                     arguments.setStackalphabet(getFileContent(submissionFiles, "stackalphabet"));
                 }
             }
@@ -124,21 +123,21 @@ public class ProformaParser extends ArgumentsParser{
     }
 
     /**
-     * Maps TaskMode to expected filename in ProFormA Submission
-     * @param taskMode the TaskMode of the Submission
+     * Maps Mode to expected filename in ProFormA Submission
+     * @param mode the Mode of the Submission
      * @return the filename where the student answer should be
      */
-    public static String getFileNameFromTaskMode(TaskMode taskMode){
-        if(taskMode.isGrammar()){
+    public static String getFileNameFromMode(Mode mode){
+        if(mode.isGrammar()){
             return "grammar";
         }
-        else if(taskMode.isAutomaton()){
+        else if(mode.isAutomaton()){
             return "(jff|jflap)";
         }
         else{
-            switch (taskMode){
+            switch (mode){
                 case MP:
-                case MMW: return "(jff|jflap)";
+                case MMW: return "(jff|jflap)"; //regex match for jff or jflap files
                 case WW: return "examplewords";
                 case CYK: return "cyk";
                 case DER: return "derivation";

@@ -1,7 +1,9 @@
 package de.HsH.inform.GraFlap.test;
 
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.State;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.StateNameComparator;
 import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.Transition;
+import de.HsH.inform.GraFlap.entity.AutomatonAsFormal.TransitionComparator;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.io.SilentHandler;
 import org.w3c.dom.Document;
@@ -30,12 +32,12 @@ import static de.HsH.inform.GraFlap.io.XmlStreamConstants.toElement;
  */
 public class XmlAutomatonParser {
     private String xml;
-    private TreeSet<State> xmlStates = new TreeSet<>();
-    private TreeSet<State> xmlInitialStates = new TreeSet<>();
-    private TreeSet<State> xmlFinalStates = new TreeSet<>();
+    private TreeSet<State> xmlStates = new TreeSet<>(StateNameComparator.getInstance());
+    private TreeSet<State> xmlInitialStates = new TreeSet<>(StateNameComparator.getInstance());
+    private TreeSet<State> xmlFinalStates = new TreeSet<>(StateNameComparator.getInstance());
     private TreeSet<String> xmlAlphabet = new TreeSet<>();
     private TreeSet<String> xmlStackAlphabet = new TreeSet<>();
-    private TreeSet<Transition> xmlTransitions = new TreeSet<>();
+    private TreeSet<Transition> xmlTransitions = new TreeSet<>(TransitionComparator.getInstance());
 
     public XmlAutomatonParser(String xml) throws GraFlapException{
         this.xml = xml;

@@ -1,8 +1,6 @@
 package de.HsH.inform.GraFlap.io.parsing;
 
 import de.HsH.inform.GraFlap.entity.Arguments;
-import de.HsH.inform.GraFlap.entity.TaskMode;
-import de.HsH.inform.GraFlap.entity.TaskType;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 
 /**

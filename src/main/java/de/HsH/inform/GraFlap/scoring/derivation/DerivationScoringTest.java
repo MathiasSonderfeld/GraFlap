@@ -2,6 +2,7 @@ package de.HsH.inform.GraFlap.scoring.derivation;
 
 import de.HsH.inform.GraFlap.JflapWrapper.grammar.Grammar;
 import de.HsH.inform.GraFlap.derivation.DerivationChecker;
+import de.HsH.inform.GraFlap.entity.Testwords;
 import de.HsH.inform.GraFlap.exception.GraFlapException;
 import de.HsH.inform.GraFlap.scoring.ScoringTest;
 
@@ -19,12 +20,12 @@ public class DerivationScoringTest extends ScoringTest<String[]> {
      * constructor which takes a generic object
      * @param object the object that should be used
      * @param solutionGrammar the provided solution grammar
-     * @param word the provided test word
+     * @param testwords Testwords-Object containing a single word
      * @throws GraFlapException throws a {@link GraFlapException} that occurs further in the hierarchy
      */
-    public DerivationScoringTest(String[] object, Grammar solutionGrammar, String word) throws GraFlapException {
+    public DerivationScoringTest(String[] object, Grammar solutionGrammar, Testwords testwords) throws GraFlapException {
         super(object);
-        this.word = word;
+        this.word = testwords.getSingleWord();
         this.solutionGrammar = solutionGrammar;
         testing();
         this.resultScore = calculateResultScore();
