@@ -1,13 +1,13 @@
-#GraFlap: ProformA 2.1 speaking Grading-Engine for JFLAP files and other theoretical computer science tasks
+# GraFlap: ProformA 2.1 speaking Grading-Engine for JFLAP files and other theoretical computer science tasks
 
 GraFlap has 2 operation modes, legacy and proforma. I recommend to use the proforma mode as the legacy mode does not have the full feature set.
 
-##Branches
+## Branches
 There are two branches for GraFLAP, master and MavenLibs. The difference is only in the library version used. In the master branch the old library versions get used, that have been used in production prior to my work. In MavenLibs newer version from the Maven Central Repository are used.
 The tests can not secure that all functionality is worked as expected with the newer versions and the changelogs are not completely available. So I offer a safer version.
 I recommend to MavenLibs branch for future development.
 
-##Build
+## Build
 To build project into an executable `jar` easily use Maven:
 ```
 mvn verify
@@ -19,7 +19,7 @@ This should be fixed now, so please report to me if thats still neccessary.
 If youre on MacOS, you might have to skip the tests. I dont know why they fail as I dont have access to a Mac currently.
 Linux and Windows get verified to work.
 
-###Dependencies
+### Dependencies
 GraFlap uses a local repository for the most libraries as these are not available on the main repo in that version anymore.
 These are provided in the repository in the lib folder so no further action is necessary.
 
@@ -31,12 +31,12 @@ The Windows Installer asks, if you want to, select yes.
 For Linux the installer should do that without prompt.
 You can verify this if you can execute "fdp" and get an empty prompt as the tool expects further parameters.
 
-##Usage
-###Legacy
+## Usage
+### Legacy
 to call GraFlap in legacy mode call the program with 2 arguments.
 First the task declaration according to the standard explained further below followed by the content of the JFLAP file or answer you want graded.
 
-###ProformA
+### ProformA
 There are 2 options to run GraFlap in ProformA mode. Either you provide a file or add the xml document as command line argument.
 To grade a file input, use the parameter -f followed by the path to the file so e.g.: java -jar graflap.jar -f submission.xml
 to grade a command line argument, use the parameter -s followed by the xml document so e.g.: java -jar graflap. jar -s <xml ....
@@ -49,7 +49,7 @@ In that embedded file the task declaration has to be provided.
 In the submission more than one embedded file can be processed depending on task declaration.
 At least one needs to be provided identified by its ID. The ID has to match one of the following values depending on the task declaration.
 
-###task declaration
+### task declaration
 You need to provide these infos:
 - a title, can be any string
 - a language short tag according to the ISO 639-1 Code. All languages are accepted but currently only english (default) and german output are supported.
