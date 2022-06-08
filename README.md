@@ -63,11 +63,8 @@ All these have to be put behind each other in this order with a '#' as delimiter
 The result looks like this: title#langTag#reference#mode#type#number#testwords
 
 ### test words format
-The test words need to be split into words that are supposed to be correct and words that are supposed to fail.
-These groups are chained with a '!' as delimiter, first the correct words, then the failing words.
-The words within that group also need to be put behind each other with a '%' as delimiter.
-So the result looks like this:
-correctword1%correctword2!falseword1%falseword2
-
-
-
+The test words need to be formatted depending on your task mode.
+For cyk and der modes you just pass a single word.
+For MMW mode you just enter a single list of words split by "%".
+For MP mode a list of word pairs is expected. The pairs are seperated by "%" while the single words within a pair a divided by ";".
+For any other mode you need two lists of words, a correct and a failing list. The lists get seperated by a "!", while the single words within the list get seperated by "%".
